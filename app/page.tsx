@@ -1,38 +1,26 @@
-import {
-    ArrowDownIcon,
-    BuildingInfoIcon,
-    BuildingLockIcon, Calendar2Icon,
-    CalendarIcon, InstagramIcon, LinkedInIcon, LocationIcon,
-    MagicEditIcon, MailIcon,
-    PhoneIcon, PlayCircleIcon,
-    QuoteIcon, SendIcon
-} from "@/Components/global/Icons";
-import {Button} from "@/Components/Ui/button";
+import {HeroSection} from "@/Components/page/Home/HeroSection";
+import {TrustedBy} from "@/Components/page/Home/TrustedBy";
+import {AboutStability} from "@/Components/page/Home/AboutStability";
+import {WhyChooseUs} from "@/Components/page/Home/WhyChooseUs";
+import {ManagedServices} from "@/Components/page/Home/ManagedServices";
+import {ClientFeedback} from "@/Components/page/Home/ClientFeedback";
+import {FAQSection} from "@/Components/page/Home/FAQSection";
+import {BlogSection} from "@/Components/page/Home/BlogSection";
+import {ContactCTA} from "@/Components/page/Home/ContactCTA";
+import {LeadMagnet} from "@/Components/page/Home/LeadMagnet";
 export default function Home() {
     return (
-        <div className="w-full h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
-            <div className={'flex gap-4'}>
-                <PhoneIcon className={'w-6 h-6 text-amber-500'}/>
-                <CalendarIcon className={'w-6 h-6 text-amber-500'} />
-                <BuildingInfoIcon className={'w-6 h-6 text-amber-500'}/>
-                <MagicEditIcon className={'w-6 h-6 text-amber-500'}/>
-                <BuildingLockIcon className={'w-6 h-6 text-amber-500'}/>
-                <QuoteIcon className={'w-6 h-6 text-amber-500'}/>
-                <Calendar2Icon className={'w-6 h-6 text-amber-500'}/>
-                <ArrowDownIcon className={'w-6 h-6 text-amber-500'}/>
-                <MailIcon className={'w-6 h-6 text-amber-500'}/>
-                <LocationIcon className={'w-6 h-6 text-amber-500'}/>
-                <SendIcon className={'w-6 h-6 text-amber-500'}/>
-                <InstagramIcon className={'w-6 h-6 text-amber-500'}/>
-                <LinkedInIcon className={'w-6 h-6 text-amber-500'}/>
-                <PlayCircleIcon className={'w-6 h-6 text-amber-500'}/>
-            </div>
-
-            <div>
-                <Button>ثبت نام</Button>
-                <Button variant="outline">ورود</Button>
-                <Button variant="link">فراموشی رمز عبور</Button>
-            </div>
+        <div className="">
+            <HeroSection/>
+            <TrustedBy/>
+            <WhyChooseUs/>
+            <AboutStability />
+            <ManagedServices />
+            <ClientFeedback/>
+            <FAQSection/>
+            <BlogSection/>
+            <ContactCTA/>
+            <LeadMagnet/>
         </div>
     );
 }

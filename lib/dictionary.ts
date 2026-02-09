@@ -4,15 +4,15 @@ export const dictionary = {
             header: {
                 navbar:[
                     {
-                        name:"home",
+                        name:"Inspection Services",
                         href:"/"
                     },
                     {
-                        name:"Our Services",
+                        name:" Services",
                         href:"#"
                     },
                     {
-                        name:"Why us?",
+                        name:"Service Area",
                         href:"#"
                     },
                     {
@@ -20,18 +20,19 @@ export const dictionary = {
                         href:"#"
                     },
                     {
-                        name:"Testimonial",
+                        name:"Portfolio",
                         href:"#"
                     },
                     {
-                        name:"Portfolio",
+                        name:"Blog",
                         href:"#"
                     },
                     {
                         name:"Contact us",
                         href:"#"
                     },
-                ]
+                ],
+                btn:"BOOK CONSULTATION"
             }
         },
         common: {
