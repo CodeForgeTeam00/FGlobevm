@@ -1,70 +1,38 @@
-import SectionLayout from '../Components/layout/SectionLayout';
-import HeroSection from '../Components/page/Home/HeroSection';
-import ServicesSection from '../Components/page/Home/ServicesSection';
-import AboutSection from '../Components/page/Home/AboutSection';
-import TestimonialSection from '../Components/page/Home/TestimonialSection';
-import PortfolioSection from '../Components/page/Home/PortfolioSection';
-import ContactSection from '../Components/page/Home/ContactSection';
-import FooterSection from '../Components/page/Home/FooterSection';
-import WhyUsSection from '../Components/page/Home/WhyUsSection';
+import {
+    ArrowDownIcon,
+    BuildingInfoIcon,
+    BuildingLockIcon, Calendar2Icon,
+    CalendarIcon, InstagramIcon, LinkedInIcon, LocationIcon,
+    MagicEditIcon, MailIcon,
+    PhoneIcon, PlayCircleIcon,
+    QuoteIcon, SendIcon
+} from "@/Components/global/Icons";
+import {Button} from "@/Components/Ui/button";
 export default function Home() {
     return (
         <div className="w-full h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
-
-            {/* 01: Hero */}
-            <div className="w-full h-screen snap-start">
-                <SectionLayout pageIndex="01" activeNav="Home" nextSectionText="Our Services">
-                    <HeroSection />
-                </SectionLayout>
+            <div className={'flex gap-4'}>
+                <PhoneIcon className={'w-6 h-6 text-amber-500'}/>
+                <CalendarIcon className={'w-6 h-6 text-amber-500'} />
+                <BuildingInfoIcon className={'w-6 h-6 text-amber-500'}/>
+                <MagicEditIcon className={'w-6 h-6 text-amber-500'}/>
+                <BuildingLockIcon className={'w-6 h-6 text-amber-500'}/>
+                <QuoteIcon className={'w-6 h-6 text-amber-500'}/>
+                <Calendar2Icon className={'w-6 h-6 text-amber-500'}/>
+                <ArrowDownIcon className={'w-6 h-6 text-amber-500'}/>
+                <MailIcon className={'w-6 h-6 text-amber-500'}/>
+                <LocationIcon className={'w-6 h-6 text-amber-500'}/>
+                <SendIcon className={'w-6 h-6 text-amber-500'}/>
+                <InstagramIcon className={'w-6 h-6 text-amber-500'}/>
+                <LinkedInIcon className={'w-6 h-6 text-amber-500'}/>
+                <PlayCircleIcon className={'w-6 h-6 text-amber-500'}/>
             </div>
 
-            {/* 02: Services */}
-            <div className="w-full h-screen snap-start">
-                <SectionLayout pageIndex="02" activeNav="Our Services" nextSectionText="Why Us?">
-                    <ServicesSection />
-                </SectionLayout>
+            <div>
+                <Button>ثبت نام</Button>
+                <Button variant="outline">ورود</Button>
+                <Button variant="link">فراموشی رمز عبور</Button>
             </div>
-            <div className="w-full h-screen snap-start">
-                <SectionLayout pageIndex="03" activeNav="Why us?" nextSectionText="About Us">
-                    <WhyUsSection />
-                </SectionLayout>
-            </div>
-            {/* 03: About Us */}
-            <div className="w-full h-screen snap-start">
-                <SectionLayout pageIndex="03" activeNav="About us" nextSectionText="Testimonial">
-                    <AboutSection />
-                </SectionLayout>
-            </div>
-
-            {/* 04: Testimonial */}
-            <div className="w-full h-screen snap-start">
-                <SectionLayout pageIndex="04" activeNav="Testimonial" nextSectionText="Portfolio">
-                    <TestimonialSection />
-                </SectionLayout>
-            </div>
-
-            {/* 05: Portfolio */}
-            <div className="w-full h-screen snap-start">
-                <SectionLayout pageIndex="05" activeNav="Portfolio" nextSectionText="Contact us">
-                    <PortfolioSection />
-                </SectionLayout>
-            </div>
-
-            {/* 06: Contact Us */}
-            <div className="w-full h-screen snap-start">
-                <SectionLayout pageIndex="06" activeNav="Contact us" nextSectionText="Footer">
-                    <ContactSection />
-                </SectionLayout>
-            </div>
-
-            {/* 07: Footer */}
-            <div className="w-full h-screen snap-start">
-                {/* Footer might need a slightly different layout wrapper or just content, but reusing SectionLayout maintains the sidebar look */}
-                <SectionLayout pageIndex="07" activeNav="Contact us" nextSectionText="Back to Top">
-                    <FooterSection />
-                </SectionLayout>
-            </div>
-
         </div>
     );
 }
