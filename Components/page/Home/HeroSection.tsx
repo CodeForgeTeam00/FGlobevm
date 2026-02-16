@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Phone, Home, BarChart3 } from 'lucide-react';
+import { Calendar, Phone, Home } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
     return (

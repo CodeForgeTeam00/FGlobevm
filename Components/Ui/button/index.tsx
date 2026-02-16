@@ -11,7 +11,8 @@ const buttonVariants = cva(
     {
         variants: {
             variant: {
-
+                primary:
+                    "!bg-primary-6 text-secondary-foreground hover:bg-secondary/80",
                 default:
                     "h-14 px-4 gap-2 rounded-2xl border border-primary bg-primary text-primary-foreground hover:bg-primary/90",
 
@@ -27,7 +28,7 @@ const buttonVariants = cva(
             size: {
                 default: "",
                 sm: "h-9 rounded-md px-3",
-                lg: "h-11 rounded-md px-4",
+                lg: "h-14 rounded-2xl px-4",
                 icon: "h-10 w-10",
             },
         },
