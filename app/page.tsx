@@ -13,15 +13,15 @@ import {LeadMagnet} from "@/Components/page/Home/LeadMagnet";
 export default function Home() {
     return (
         <div className="relative min-h-[100vh]">
-            {/*<Image className={'absolute hidden lg:inline top-[160px]'} src={mask} alt={'layout'}/>*/}
-            {/*<div className={'max-w-[1540px]  mx-auto '}>*/}
-            {/*    <HeroSection/>*/}
-            {/*    <TrustedBy/>*/}
-            {/*    <WhyChooseUs/>*/}
-            {/*    <AboutStability />*/}
-            {/*</div>*/}
+            <Image className={'absolute hidden lg:inline top-[160px]'} src={mask} alt={'layout'}/>
+            <div className={'max-w-[1540px]  mx-auto '}>
+                <HeroSection/>
+                <TrustedBy/>
+                <WhyChooseUs/>
+            </div>
 
 
+            <AboutStability />
 
             {/*<ManagedServices />*/}
             {/*<ClientFeedback/>*/}

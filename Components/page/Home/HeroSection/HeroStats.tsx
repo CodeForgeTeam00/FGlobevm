@@ -6,16 +6,16 @@ import pik from "@/public/assets/image/pik.png"
 export const HeroStats: React.FC = () => {
     return (
         <div className="hero__stats
-                        lg:max-w-[776px]
+                        lg:max-w-[582px]  2xl:!max-w-[776px]
                         w-full
                         items-center
-                        flex
+                        flex flex-col sm:flex-row
                         gap-6
                         relative
                         ">
-            <div className="hero__stats-left flex flex-col gap-6 w-full lg:max-w-[352px]">
+            <div className="hero__stats-left flex flex-col flex-1 gap-6 w-full lg:max-w-[264px] 2xl:!max-w-[352px]">
                 <div className="hero__card bg-neutral-10 rounded-3xl relative lg:mt-20 p-8 pt-14">
-                    <div className="hero__card-icon w-10 h-10 lg:w-16 lg:h-16 bg-black rounded-full absolute top-[-32px] flex items-center justify-center">
+                    <div className="hero__card-icon w-10 h-10 md:w-16 md:h-16 bg-black rounded-full absolute top-[-20px]  md:top-[-32px] flex items-center justify-center">
                         <HomeIcon className="h-5 w-5 lg:w-8 lg:h-8" />
                     </div>
                     <div className="hero__card-content mb-6">
@@ -29,7 +29,7 @@ export const HeroStats: React.FC = () => {
                             <span>+ 23 Performance</span>
                         </div>
                         <div className="w-full h-[6px] bg-[#f1f5f9] rounded-full">
-                            <div className="bg-[#4f46e5] h-full w-[65%] rounded-full shadow-[0_0_12px_rgba(79,70,229,0.3)]"></div>
+                            <div className="bg-[#42468C] h-full w-[65%]  rounded-full shadow-[0_0_12px_rgba(79,70,229,0.3)]"></div>
                         </div>
                     </div>
                 </div>
@@ -43,12 +43,12 @@ export const HeroStats: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="hero__media flex lg:flex-col gap-6">
-                <div className="hero__placeholder relative max-w-[400] w-full">
-                    <Image src={pik} className="rounded-xl" alt="heroSection" />
+            <div className="hero__media flex flex-row-reverse sm:flex-col flex-1 gap-6">
+                <div className="hero__placeholder relative max-w-[600] lg:max-w-[400px] w-full">
+                    <Image src={pik} className="rounded-xl w-full" alt="heroSection" />
                 </div>
-                <div className="hero__image max-w-[400] w-full overflow-hidden">
-                    <Image src={heroSectionV} className="rounded-xl" alt="heroSection" />
+                <div className="hero__image max-w-[600] lg:max-w-[400] w-full overflow-hidden">
+                    <Image src={heroSectionV} className="rounded-xl w-full" alt="heroSection" />
                 </div>
             </div>
         </div>

@@ -10,9 +10,9 @@ const LOGOS = [
 
 export const TrustedBy = () => {
     return (
-        <div className="w-full py-6 relative">
+        <div className="w-full py-6 mb-6  lg:py-12 relative lg:mb-18">
             <div className=" ">
-                <p className="text-sky-500 font-bold text-sm mb-8">Trusted by:</p>
+                <p className="text-primary-6  lg:text-xl font-bold leading-9 text-sm mb-8">Trusted by:</p>
                 <div className="flex flex-nowrap items-center overflow-auto justify-between gap-8 opacity-40">
                     {LOGOS.map((logo, index) => (
                         <div key={index} className="flex items-center gap-2 grayscale hover:grayscale-0 transition-all cursor-default group">

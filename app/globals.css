@@ -56,7 +56,11 @@
     --color-neutral-800: #172B4D;
     --color-neutral-900: #091E42;
     --color-neutral-black: #00091A;
-
+    --text-title-6: 22.78px;
+    --text-caption: 12.64px;
+    --text-footnote: 11.24px;
+    --text-small: 14.22px;
+    --text-title-medium: 20.25px;
     --breakpoint-2xl:1440px ;
 }
 
