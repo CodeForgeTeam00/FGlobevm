@@ -5,7 +5,7 @@ import {CalendarIcon, HomeIcon, PhoneIcon} from "@/Components/global/Icons";
 import Image from "next/image";
 
 import heroSectionV from "@/public/assets/image/heroSectionV.jpg";
-export const HeroSection: React.FC = () => {
+export const S: React.FC = () => {
     return (
         <section className="relative w-full px-4 flex items-center  overflow-hidden">
             <div className=" grid grid-cols-1 pt-4 lg:grid-cols-12 gap-8 lg:gap-16 items-start">

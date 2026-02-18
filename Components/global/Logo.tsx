@@ -1,20 +1,20 @@
 type LogoProps = {
     iconOnly?: boolean;
-    size?: number;
+    className: string;
 };
 
-export default function Logo({iconOnly = false, size = 56}: LogoProps) {
-    const iconScale = size / 56;
-    const textScale = size / 56;
+export default function Logo({iconOnly = false, className}: LogoProps) {
+
 
     return (
-        <div className="logo flex items-center gap-3">
+        <div className={`logo flex items-center gap-3 ${className}`}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width={56 * iconScale}
-                height={56 * iconScale}
+                width="1em"
+                height="1em"
                 viewBox="0 0 56 56"
                 fill="none"
+                className="shrink-0"
             >
                 <g clip-path="url(#clip0_13175_865)">
                     <path
@@ -30,12 +30,12 @@ export default function Logo({iconOnly = false, size = 56}: LogoProps) {
             {!iconOnly && (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width={179 * textScale}
-                    height={25 * textScale}
+                    width="3.2em"
+                    height="0.45em"
                     viewBox="0 0 179 25"
                     fill="none"
+                    className="shrink-0"
                 >
-
                     <path
                         d="M22.7006 12.8889V20.2755C21.48 21.7291 19.9587 22.8955 18.2436 23.6924C16.5285 24.4894 14.6612 24.8978 12.773 24.8887C5.71921 24.8887 0 19.3177 0 12.4444C0 5.57339 5.71921 0.000110059 12.773 0.000110059C16.0714 -0.0135366 19.251 1.24235 21.6638 3.51189C21.7074 3.55262 21.7425 3.6018 21.7669 3.65651C21.7913 3.71122 21.8046 3.77034 21.8058 3.83032C21.8071 3.89031 21.7964 3.94995 21.7744 4.00567C21.7523 4.06139 21.7194 4.11206 21.6775 4.15466L19.0509 6.80511C18.9704 6.88669 18.8616 6.93336 18.7475 6.93519C18.6334 6.93702 18.5232 6.89387 18.4401 6.81491C16.9069 5.35882 14.8785 4.55175 12.773 4.56007C8.30463 4.56007 4.67975 8.09114 4.67975 12.4444C4.67975 16.7999 8.30463 20.3288 12.773 20.3288C13.8526 20.3334 14.9226 20.1233 15.9217 19.7103C16.9208 19.2974 17.8295 18.6897 18.5957 17.9222V12.8889C18.5957 12.771 18.6421 12.658 18.7247 12.5746C18.8073 12.4913 18.9193 12.4444 19.0361 12.4444H22.2602C22.318 12.4444 22.3753 12.4559 22.4287 12.4783C22.4822 12.5006 22.5307 12.5333 22.5716 12.5746C22.6125 12.6159 22.645 12.6649 22.6671 12.7188C22.6893 12.7727 22.7006 12.8305 22.7006 12.8889Z"
                         fill="black"/>

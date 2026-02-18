@@ -5,30 +5,41 @@ interface SectionIntroProps {
     title: string;
     highlight?: string;
     description?: string;
+    lgCenter?: boolean;
 }
 
 const SectionIntro: React.FC<SectionIntroProps> = ({
                                                        badge,
                                                        title,
+                                                       lgCenter,
                                                        highlight,
                                                        description,
                                                    }) => {
     return (
-        <div>
+        <div className={`flex flex-col items-center ${!lgCenter ? "lg:items-start" : "lg:max-w-[900px] mx-auto"}`}>
             {badge && (
                 <div
-                    className="inline-block px-4 py-2 rounded-full border border-sky-400 text-sky-500 text-[11px] font-extrabold tracking-[0.2em] uppercase mb-10 bg-white/50 backdrop-blur-sm">
+                    className=" px-3 py-1 mb-3  rounded-[30px] text-primary-6 border-[1.5px]  leading-5 text-footnote   ">
                     {badge}
                 </div>
             )}
-
-            <h1 className="font-serif-heading text-[32px] lg:text-[40px] font-black text-[#111827] leading-[1.05] mb-8">
+            <h3 className={`
+                            font-h1
+                             text-center 
+                             lg:text-[40px] 
+                             font-black 
+                           text-neutral-black 
+                             leading-10 
+                             mb-2
+                              ${!lgCenter ? "lg:text-start" : ""} `    }>
                 {title}{" "}
-                {highlight && <span className="text-[#38bdf8]">{highlight}</span>}
-            </h1>
-
+                {highlight && <span className="text-primary-6">{highlight}</span>}
+            </h3>
             {description && (
-                <p className="text-[#64748b] text-[17px] leading-relaxed max-w-lg font-medium opacity-90">
+                <p className={`
+                             text-neutral-100 
+                              text-center 
+                              leading-8 ${!lgCenter ? "lg:text-start" : ""} `}>
                     {description}
                 </p>
             )}
