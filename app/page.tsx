@@ -10,25 +10,35 @@ import {FAQSection} from "@/Components/page/Home/FAQSection";
 import {BlogSection} from "@/Components/page/Home/BlogSection";
 import {ContactCTA} from "@/Components/page/Home/ContactCTA";
 import {LeadMagnet} from "@/Components/page/Home/LeadMagnet";
+import Container from "@/Components/global/Sections/Container";
 export default function Home() {
     return (
-        <div className="relative min-h-[100vh]">
-            <Image className={'absolute hidden lg:inline top-[160px]'} src={mask} alt={'layout'}/>
-            <div className={'max-w-[1540px]  mx-auto '}>
+        <div className="relative">
+            <Image className={'absolute hidden lg:inline top-[160]'} src={mask} alt={'layout'}/>
+            <Container bemClass={'hero__section'}>
                 <HeroSection/>
+            </Container>
+            <Container bemClass={'trusted-by__section'}>
                 <TrustedBy/>
+            </Container>
+            <Container fullWidth  bemClass={'why-chooseUs__section'}>
                 <WhyChooseUs/>
-            </div>
+            </Container>
+            <Container bemClass={'about-stability__section'}>
+                <AboutStability />
+            </Container>
+            <Container fullWidth bg={'lightGray'} bemClass={'managed-services__section'}>
+                <ManagedServices />
+            </Container>
+            <Container  bemClass={'managed-services__section'}>
+                <ClientFeedback/>
+            </Container>
+            <Container fullWidth bg={'primary'}>
+                <FAQSection/>
+            </Container>
 
-
-            <AboutStability />
-
-            {/*<ManagedServices />*/}
-            {/*<ClientFeedback/>*/}
-            {/*<FAQSection/>*/}
-            {/*<BlogSection/>*/}
-            {/*<ContactCTA/>*/}
-            {/*<LeadMagnet/>*/}
+            <BlogSection/>
+            <ContactCTA/>
         </div>
     );
 }

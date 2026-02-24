@@ -1,14 +1,17 @@
 @import "tailwindcss";
 
 /* ================= THEME ================= */
+.gradient-circle-light-gray {
+    background: linear-gradient(135deg, rgba(25, 154, 213, 0.00) 0%, rgba(25, 154, 213, 0.05) 50%, rgba(25, 154, 213, 0.10) 100%);
+}
+.gradient-primary{
+    background: linear-gradient(90deg, #1485B9 0%, #0B5E83 100%);
+}
 
 @theme {
-
     /* ========= FONTS ========= */
     --font-sans: "DM Sans", sans-serif;
     --font-heading: "PP Hatton", sans-serif;
-
-
     /* ================= PRIMARY ================= */
     --color-primary-1: #E3E6E9;
     --color-primary-2: #ADB5BF;
@@ -61,7 +64,8 @@
     --text-footnote: 11.24px;
     --text-small: 14.22px;
     --text-title-medium: 20.25px;
-    --breakpoint-2xl:1440px ;
+    --breakpoint-2xl: 1440px;
+    --breakpoint-4xl: 1920px;
 }
 
 
@@ -70,22 +74,68 @@
 @layer utilities {
 
     /* HEADINGS */
-    .font-h1 { @apply font-heading text-4xl font-bold leading-relaxed; }
-    .font-h2 { @apply font-heading text-4xl font-medium leading-relaxed; }
-    .font-h3 { @apply font-heading text-3xl font-medium leading-relaxed; }
-    .font-h4 { @apply font-heading text-3xl font-bold leading-loose; }
-    .font-h5 { @apply font-heading text-2xl font-medium leading-10; }
-    .font-h6 { @apply font-heading text-2xl font-bold leading-10; }
-    .font-h7 { @apply font-heading text-xl font-medium leading-9; }
+    .font-h1 {
+        @apply font-heading text-4xl font-bold leading-relaxed;
+    }
+
+    .font-h2 {
+        @apply font-heading text-4xl font-medium leading-relaxed;
+    }
+
+    .font-h3 {
+        @apply font-heading text-3xl font-medium leading-relaxed;
+    }
+
+    .font-h4 {
+        @apply font-heading text-3xl font-bold leading-loose;
+    }
+
+    .font-h5 {
+        @apply font-heading text-2xl font-medium leading-10;
+    }
+
+    .font-h6 {
+        @apply font-heading text-2xl font-bold leading-10;
+    }
+
+    .font-h7 {
+        @apply font-heading text-xl font-medium leading-9;
+    }
 
     /* BODY */
-    .font-title { @apply font-sans text-xl font-bold leading-9; }
-    .font-subtitle { @apply font-sans text-lg font-medium leading-8; }
-    .font-body { @apply font-sans text-base font-medium leading-8; }
-    .font-body-light { @apply font-sans text-base font-extralight leading-8; }
+    .font-title {
+        @apply font-sans text-xl font-bold leading-9;
+    }
 
-    .font-small { @apply font-sans text-sm font-medium leading-7; }
-    .font-caption { @apply font-sans text-xs font-medium leading-5; }
-    .font-footnote { @apply font-sans text-xs font-medium leading-5; }
+    .font-subtitle {
+        @apply font-sans text-lg font-medium leading-8;
+    }
 
+    .font-body {
+        @apply font-sans text-base font-medium leading-8;
+    }
+
+    .font-body-light {
+        @apply font-sans text-base font-extralight leading-8;
+    }
+
+    .font-small {
+        @apply font-sans text-sm font-medium leading-7;
+    }
+
+    .font-caption {
+        @apply font-sans text-xs font-medium leading-5;
+    }
+
+    .font-footnote {
+        @apply font-sans text-xs font-medium leading-5;
+    }
+
+}
+.testimonial-slider .swiper-pagination-bullet {
+    @apply !w-2 !h-2 !bg-white/20 !opacity-100 transition-all duration-300;
+}
+
+.testimonial-slider .swiper-pagination-bullet-active {
+    @apply !bg-white scale-125;
 }

@@ -28,7 +28,7 @@ const SectionIntro: React.FC<SectionIntroProps> = ({
                              font-heading text-2xl font-bold leading-10
                              text-center 
                              lg:text-[40px] 
-                           text-neutral-black 
+                              text-neutral-black 
                              mb-2
                               ${!lgCenter ? "lg:text-start" : ""} `    }>
                 {title}{" "}
