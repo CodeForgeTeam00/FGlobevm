@@ -13,7 +13,6 @@ export const PhoneIcon = ({ className }: { className?: string }) => (
         />
     </svg>
 )
-
 export const CalendarIcon = ({ className }: { className?: string }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -237,4 +236,30 @@ export const PlayCircleIcon = ({ className }: { className?: string }) => (
         />
     </svg>
 );
+export const MenuIcon = ({className}:{className:string})=>(
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="none"
+        className={className}
+    >
+        <path d="M2.5 10H17.5M2.5 5H17.5M2.5 15H17.5" stroke="black" strokeWidth="2"strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+)
+export  const SearchIcon = ({className}:{className:string})=>(
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none"
 
+    className={className}>
+        <path d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z" stroke="black" strokeWidth="2"strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+)
+export const HomeIcon = ({ className }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 20 20" fill="none">
+        <path d="M16.7 5.68336L11.9 2.32503C10.5917 1.40836 8.58333 1.45836 7.32499 2.43336L3.14999 5.6917C2.31666 6.3417 1.65833 7.67503 1.65833 8.72503V14.475C1.65833 16.6 3.38333 18.3334 5.50833 18.3334H14.4917C16.6167 18.3334 18.3417 16.6084 18.3417 14.4834V8.83336C18.3417 7.70836 17.6167 6.32503 16.7 5.68336ZM10.625 15C10.625 15.3417 10.3417 15.625 9.99999 15.625C9.65833 15.625 9.37499 15.3417 9.37499 15V12.5C9.37499 12.1584 9.65833 11.875 9.99999 11.875C10.3417 11.875 10.625 12.1584 10.625 12.5V15Z" fill="#199AD5"/>
+    </svg>
+);
+export const ArrowRightIcon = ({ className }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 16 16" fill="none">
+        <path d="M5.93994 13.28L10.2866 8.9333C10.7999 8.41997 10.7999 7.57997 10.2866 7.06664L5.93994 2.71997" stroke="#199AD5" strokeWidth="1.5" strokeMiterlimit="10"strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+);

@@ -1,69 +1,101 @@
-
 import React from 'react';
-import { Wand2 } from 'lucide-react';
-
+import SectionIntro from "@/Components/global/SectionIntro";
+import {MagicEditIcon} from "@/Components/global/Icons";
+import Container from "@/Components/global/Sections/Container";
+import FeatureLineCard from "@/Components/global/Cards/AccentLineCard";
+import Image from "next/image";
+import dots from "@/public/assets/image/Dots.svg";
 const FEATURES = [
     {
         title: 'SEO',
-        description: 'Bringing visuals to life through developing highly functional web solutions.',
+        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
     },
     {
         title: 'SEO',
-        description: 'Bringing visuals to life through developing highly functional web solutions.',
+        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
     },
     {
         title: 'SEO',
-        description: 'Bringing visuals to life through developing highly functional web solutions.',
+        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
     },
     {
         title: 'SEO',
-        description: 'Bringing visuals to life through developing highly functional web solutions.',
+        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
     },
 ];
 
 export const WhyChooseUs: React.FC = () => {
     return (
-        <section className="relative py-24 px-6 overflow-hidden">
-            {/* Decorative Dot Grid Background */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-64 h-64 opacity-10 pointer-events-none"
-                 style={{ backgroundImage: 'radial-gradient(#0ea5e9 1.5px, transparent 0)', backgroundSize: '24px 24px' }}>
+        <section className="relative overflow-hidden py-6 px-6 lg:py-[96]">
+            <div className="absolute hidden lg:block inset-0 pointer-events-none">
+                <div
+                    className="
+                        absolute
+                        w-[85vw] aspect-square
+                        max-w-[1632]
+                        -top-[25vw] -left-[45vw]
+                        4xl:top-[-500] 4xl:left-[-900]
+                        rounded-full
+                        gradient-circle-light-gray
+                       "
+                />
+
+                <div
+                    className="
+                        absolute
+                        w-[85vw] aspect-square
+                        max-w-[1632]
+                        -top-[25vw] -left-[43vw]
+                         4xl:top-[-500] 4xl:left-[-830]
+                        rounded-full
+                        border border-neutral-30
+                    "
+                />
+                <div
+                    className="
+                        absolute
+                        w-[85vw] aspect-square
+                        max-w-[1632]
+                        -bottom-[72vw] -right-[37vw] 4xl:bottom-[-1365] 4xl:right-[-765]
+                        rotate-[-45deg]
+                        rounded-full
+                        gradient-circle-light-gray
+                    "
+                />
+                <div
+                    className="
+                        absolute
+                        w-[85vw] aspect-square
+                        max-w-[1632]
+                        -bottom-[69vw] -right-[36vw] 4xl:bottom-[-1274] 4xl:right-[-700]
+                        rounded-full
+                        border border-neutral-30
+                    "
+                />
+                <Image src={dots} alt="dots"  className={'absolute right-[90] top-[155]'}/>
             </div>
+            <Container>
+                <div className="relative text-center  flex flex-col gap-6 lg:gap-10">
 
-            <div className="max-w-7xl mx-auto text-center relative z-10">
-                <div className="inline-block px-4 py-1.5 rounded-full border border-sky-400 text-sky-500 text-[10px] font-bold tracking-widest uppercase mb-8">
-                    WHY GLOBEVM
+                    <SectionIntro
+                        lgCenter
+                        badge="Why GlobeVM"
+                        title="Why Businesses Choose"
+                        highlight="GlobeVM"
+                        description="We don’t just fix problems after they happen. Our team monitors, secures, and maintains your environment around the clock to prevent costly disruptions. You get predictable performance, clear communication, and IT that actually supports your business goals."
+                    />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-6">
+                        {FEATURES.map((feature, index) => (
+                            <FeatureLineCard
+                                key={index}
+                                icon={<MagicEditIcon className="w-8 h-8 text-primary-6" />}
+                                title={feature.title}
+                                description={feature.description}
+                            />
+                        ))}
+                    </div>
                 </div>
-
-                <h2 className="font-serif-heading text-4xl md:text-5xl font-black text-slate-900 mb-8">
-                    Why Businesses Choose <span className="text-sky-500">GlobeVM</span>
-                </h2>
-
-                <p className="text-slate-400 max-w-4xl mx-auto text-sm md:text-base leading-relaxed mb-16 font-medium">
-                    We don't just fix problems after they happen. Our team monitors, secures, and maintains your environment around the clock to prevent costly disruptions. You get predictable performance, clear communication, and IT that actually supports your business goals.
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {FEATURES.map((feature, index) => (
-                        <div
-                            key={index}
-                            className="group relative bg-white p-10 rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.03)] border border-slate-50 text-left transition-all hover:translate-y-[-8px] hover:shadow-xl hover:shadow-sky-500/5"
-                        >
-                            <div className="mb-8">
-                                <Wand2 className="w-10 h-10 text-sky-500" strokeWidth={1.5} />
-                            </div>
-                            <h3 className="font-serif-heading text-xl font-bold text-slate-900 mb-4">
-                                {feature.title}
-                            </h3>
-                            <p className="text-slate-400 text-sm leading-relaxed font-medium">
-                                {feature.description}
-                            </p>
-
-                            {/* Bottom blue line indicator as per image */}
-                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[85%] h-1 bg-sky-500 rounded-t-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-                        </div>
-                    ))}
-                </div>
-            </div>
+            </Container>
         </section>
     );
 };
