@@ -10,7 +10,7 @@ import {FAQSection} from "@/Components/page/Home/FAQSection";
 import {BlogSection} from "@/Components/page/Home/BlogSection";
 import {ContactCTA} from "@/Components/page/Home/ContactCTA";
 import Container from "@/Components/global/Sections/Container";
-
+//
 import { getHomePage } from "@/services/wp-pages";
 import { getAllServices } from "@/services/wp-services";
 
@@ -29,7 +29,7 @@ export default async function Home() {
             <Container bemClass={'hero__section'}>
                 <div>
                     اینم دیتا api
-                    sskssjk
+                    {acf}
                 </div>
                 <HeroSection/>
             </Container>
