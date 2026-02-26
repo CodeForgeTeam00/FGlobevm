@@ -9,9 +9,19 @@ import {ClientFeedback} from "@/Components/page/Home/ClientFeedback";
 import {FAQSection} from "@/Components/page/Home/FAQSection";
 import {BlogSection} from "@/Components/page/Home/BlogSection";
 import {ContactCTA} from "@/Components/page/Home/ContactCTA";
-import {LeadMagnet} from "@/Components/page/Home/LeadMagnet";
 import Container from "@/Components/global/Sections/Container";
-export default function Home() {
+
+import { getHomePage } from "@/services/wp-pages";
+import { getAllServices } from "@/services/wp-services";
+
+
+export default async function Home() {
+    const [pageData, servicesData,] = await Promise.all([
+        getHomePage(),
+        getAllServices(),
+    ]);
+    const acf = pageData?.acf;
+    console.log(acf)
     return (
         <div className="relative">
             <Image className={'absolute hidden lg:inline top-[160]'} src={mask} alt={'layout'}/>
@@ -36,7 +46,6 @@ export default function Home() {
             <Container fullWidth bg={'primary'}>
                 <FAQSection/>
             </Container>
-
             <BlogSection/>
             <ContactCTA/>
         </div>
