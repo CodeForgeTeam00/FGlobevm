@@ -10,12 +10,10 @@ import {FAQSection} from "@/Components/page/Home/FAQSection";
 import {BlogSection} from "@/Components/page/Home/BlogSection";
 import {ContactCTA} from "@/Components/page/Home/ContactCTA";
 import Container from "@/Components/global/Sections/Container";
-
 import { getHomePage } from "@/services/wp-pages";
 import { getAllServices } from "@/services/wp-services";
 import ServicesList from "@/Components/global/test";
-
-
+export const dynamic = 'force-dynamic'
 export default async function Home() {
     const [pageData, servicesData,] = await Promise.all([
         getHomePage(),

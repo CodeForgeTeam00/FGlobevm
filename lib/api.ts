@@ -3,12 +3,9 @@ export async function fetchWP<T>(endpoint: string, tags: string[]): Promise<T> {
 
     // Example: fetchWP('/wp/v2/services?_fields=id,slug,title,acf&_embed', ['services'])
     const res = await fetch(`${baseUrl}${endpoint}`, {
-        next: {
-            tags: tags,       // Tag this request for On-Demand ISR
-            revalidate: 3600  // Fallback Time-based ISR (e.g., revalidate every hour)
-        }
+        cache: 'no-store' // 🚨 disable all caching
     });
-
+    console.log("Fetching from WordPress:", Date.now());
     if (!res.ok) {
         throw new Error(`Failed to fetch API: ${res.statusText}`);
     }
