@@ -42,11 +42,11 @@ export interface WPPost {
 export interface WPService {
     id: number;
     slug: string;
-    title: { rendered: string };
+    title: {
+        rendered: string;
+    };
     acf: {
-        service_icon?: ACFImage;
-        service_description?: string;
-        // Add other custom ACF fields for services here
+        description: string;
     };
 }
 

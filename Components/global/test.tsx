@@ -1,32 +1,9 @@
-// components/ServicesList.tsx
 import React from 'react';
-
-interface Service {
-    id: number;
-    slug: string;
-    title: {
-        rendered: string;
-    };
-    acf: {
-        description: string;
-    };
-}
-
-async function getServices(): Promise<Service[]> {
-    const res = await fetch(
-        'https://wordpress-1592566-6232100.cloudwaysapps.com/wp-json/wp/v2/services?_fields=id,slug,title,acf&_embed',
-        { next: { revalidate: 60 } } // Revalidate every minute
-    );
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch services content');
-    }
-
-    return res.json();
-}
+import { getAllServices } from '@/services/wp-services';
+import { WPService } from '@/types/wordperess';
 
 export default async function ServicesList() {
-    const services = await getServices();
+    const services: WPService[] = await getAllServices();
 
     return (
         <section className="py-12 bg-gray-50">
@@ -46,7 +23,7 @@ export default async function ServicesList() {
                             </h3>
 
                             <p className="text-gray-600 leading-relaxed">
-                                {service.acf.description ||
+                                {service.acf?.description ||
                                     `Explore our professional ${service.title.rendered} solutions tailored to your business needs.`}
                             </p>
 
