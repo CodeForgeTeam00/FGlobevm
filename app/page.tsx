@@ -29,6 +29,7 @@ export default async function Home() {
             <Container bemClass={'hero__section'}>
                 <div>
                     اینم دیتا api
+                    sskssjk
                 </div>
                 <HeroSection/>
             </Container>
