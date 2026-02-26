@@ -10,9 +10,10 @@ import {FAQSection} from "@/Components/page/Home/FAQSection";
 import {BlogSection} from "@/Components/page/Home/BlogSection";
 import {ContactCTA} from "@/Components/page/Home/ContactCTA";
 import Container from "@/Components/global/Sections/Container";
-//
+
 import { getHomePage } from "@/services/wp-pages";
 import { getAllServices } from "@/services/wp-services";
+import ServicesList from "@/Components/global/test";
 
 
 export default async function Home() {
@@ -21,16 +22,11 @@ export default async function Home() {
         getAllServices(),
     ]);
     const acf = pageData?.acf;
-    console.log(acf)
     return (
         <div className="relative">
-
             <Image className={'absolute hidden lg:inline top-[160]'} src={mask} alt={'layout'}/>
             <Container bemClass={'hero__section'}>
-                <div>
-                    اینم دیتا api
-                    {acf}
-                </div>
+                <ServicesList/>
                 <HeroSection/>
             </Container>
             <Container bemClass={'trusted-by__section'}>
