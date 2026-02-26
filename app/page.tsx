@@ -24,8 +24,12 @@ export default async function Home() {
     console.log(acf)
     return (
         <div className="relative">
+
             <Image className={'absolute hidden lg:inline top-[160]'} src={mask} alt={'layout'}/>
             <Container bemClass={'hero__section'}>
+                <div>
+                    اینم دیتا api
+                </div>
                 <HeroSection/>
             </Container>
             <Container bemClass={'trusted-by__section'}>
