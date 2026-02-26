@@ -5,7 +5,7 @@ export async function fetchWP<T>(endpoint: string, tags: string[]): Promise<T> {
     const res = await fetch(`${baseUrl}${endpoint}`, {
         next: {
             tags: tags,       // Tag this request for On-Demand ISR
-            revalidate: 3600  // Fallback Time-based ISR (e.g., revalidate every hour)
+            revalidate: 10  // Fallback Time-based ISR (e.g., revalidate every hour)
         }
     });
 
