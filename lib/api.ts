@@ -1,13 +1,22 @@
-export async function fetchWP<T>(endpoint: string, tags: string[]): Promise<T> {
+export async function fetchWP<T>(
+    endpoint: string,
+    tags: string[]
+): Promise<T> {
     const baseUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
+    if (!baseUrl) {
+        throw new Error("Missing NEXT_PUBLIC_WORDPRESS_API_URL");
+    }
+
     const res = await fetch(`${baseUrl}${endpoint}`, {
-        cache: 'no-store' // 🚨 disable all caching
+        next: { tags }
     });
-    console.log("Fetching from WordPress:", Date.now());
+
+    console.log("✅ FETCH RUN:", endpoint, "| Time:", Date.now());
+
     if (!res.ok) {
         throw new Error(`Failed to fetch API: ${res.statusText}`);
     }
 
-    return res.json() as Promise<T>;
+    return res.json();
 }

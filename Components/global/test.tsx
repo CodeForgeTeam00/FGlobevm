@@ -1,10 +1,11 @@
-import React from 'react';
-import { getAllServices } from '@/services/wp-services';
-import { WPService } from '@/types/wordperess';
+import React from "react";
+import { WPService } from "@/types/wordperess";
 
-export default async function ServicesList() {
-    const services: WPService[] = await getAllServices();
+interface ServicesListProps {
+    services: WPService[];
+}
 
+export default function ServicesList({ services }: ServicesListProps) {
     return (
         <section className="py-12 bg-gray-50">
             <div className="max-w-6xl mx-auto px-4">
@@ -28,7 +29,7 @@ export default async function ServicesList() {
                             </p>
 
                             <button className="mt-4 text-sm font-medium text-gray-900 underline hover:text-blue-500 transition-colors">
-                                Learn more about {service.slug.replace('-', ' ')}
+                                Learn more about {service.slug.replace("-", " ")}
                             </button>
                         </div>
                     ))}
