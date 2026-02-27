@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ message: 'Missing tag param' }, { status: 400 });
     }
 
-    // ✅ FIX: Next.js 16 REQUIRES the second argument ('max')
     revalidateTag(tag, 'max');
 
     return NextResponse.json({ revalidated: true, now: Date.now(), tag });
