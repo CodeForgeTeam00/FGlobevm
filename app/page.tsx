@@ -14,7 +14,6 @@ import { getHomePage } from "@/services/wp-pages";
 import { getAllServices } from "@/services/wp-services";
 import ServicesList from "@/Components/global/test";
 
-export const revalidate = 60;
 
 export default async function Home() {
     const [pageData, servicesData] = await Promise.all([
@@ -31,7 +30,6 @@ export default async function Home() {
                 src={mask}
                 alt="layout"
             />
-
             <Container bemClass={"hero__section"}>
                 <ServicesList services={servicesData} />
                 <HeroSection />
@@ -40,7 +38,6 @@ export default async function Home() {
             <Container bemClass={"trusted-by__section"}>
                 <TrustedBy />
             </Container>
-
             <Container fullWidth bemClass={"why-chooseUs__section"}>
                 <WhyChooseUs />
             </Container>
@@ -60,7 +57,6 @@ export default async function Home() {
             <Container fullWidth bg={"primary"}>
                 <FAQSection />
             </Container>
-
             <BlogSection />
             <ContactCTA />
         </div>
