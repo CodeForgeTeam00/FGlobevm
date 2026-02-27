@@ -1,15 +1,18 @@
 export async function fetchWP<T>(endpoint: string, tags: string[]): Promise<T> {
     const baseUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
-    // Example: fetchWP('/wp/v2/services?_fields=id,slug,title,acf&_embed', ['services'])
     const res = await fetch(`${baseUrl}${endpoint}`, {
-        cache: 'no-store' // 🚨 disable all caching
+        // ✅ FIX: Attach the tags for On-Demand ISR.
+        // This caches the data until revalidateTag() is called with one of these tags.
+        next: { tags: tags }
     });
-    console.log("Fetching from WordPress:", Date.now());
+
+    // You will only see this log when the cache is empty or freshly revalidated!
+    console.log("Fetching from WordPress:", Date.now(), "| Tags:", tags);
+
     if (!res.ok) {
         throw new Error(`Failed to fetch API: ${res.statusText}`);
     }
 
-    // The REST API conversion happens here, returning your defined Array or Object
     return res.json() as Promise<T>;
 }

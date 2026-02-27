@@ -13,7 +13,6 @@ import Container from "@/Components/global/Sections/Container";
 import { getHomePage } from "@/services/wp-pages";
 import { getAllServices } from "@/services/wp-services";
 import ServicesList from "@/Components/global/test";
-export const dynamic = 'force-dynamic'
 export default async function Home() {
     const [pageData, servicesData,] = await Promise.all([
         getHomePage(),
