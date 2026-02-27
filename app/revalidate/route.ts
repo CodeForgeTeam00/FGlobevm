@@ -1,4 +1,3 @@
-
 import { revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -14,14 +13,8 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ message: 'Missing tag param' }, { status: 400 });
     }
 
-    // ✅ FIX: revalidateTag takes exactly ONE parameter. Removed 'max'.
-    revalidateTag(tag);
+    // ✅ FIX: Next.js 16 REQUIRES the second argument ('max')
+    revalidateTag(tag, 'max');
 
     return NextResponse.json({ revalidated: true, now: Date.now(), tag });
-}
-
-// Optional but highly recommended: Allow GET requests so you can easily
-// test the webhook URL directly in your browser.
-export async function GET(request: NextRequest) {
-    return POST(request);
 }
