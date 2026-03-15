@@ -22,7 +22,7 @@ export default async function Home() {
         getAllServices(),
     ]);
 
-    const acf = pageData?.acf;
+
 
     return (
         <div className="relative">
