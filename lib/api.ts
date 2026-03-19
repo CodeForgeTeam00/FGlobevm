@@ -1,6 +1,5 @@
 export async function fetchWP<T>(
     endpoint: string,
-    tags: string[]
 ): Promise<T> {
     const baseUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
@@ -9,7 +8,7 @@ export async function fetchWP<T>(
     }
 
     const res = await fetch(`${baseUrl}${endpoint}`, {
-        next: { tags:tags }
+
     });
 
     console.log("✅ FETCH RUN:", endpoint, "| Time:", Date.now());
