@@ -1,3 +1,4 @@
+    'use server'
     import { fetchWP } from '@/lib/api';
     import { WPService} from '@/types/wordperess';
 
