@@ -5,6 +5,5 @@ export async function getGlobalOptions() {
     // This uses the special ACF Options endpoint
     return fetchWP<WPOptions>(
         '/acf/v3/options/options',
-        ['options']
     );
 }
