@@ -13,6 +13,7 @@ import Container from "@/Components/global/Sections/Container";
 import { getHomePage } from "@/services/wp-pages";
 import { getAllServices } from "@/services/wp-services";
 import ServicesList from "@/Components/global/test";
+import RevalidateButton from "@/Components/global/Test2";
 
 
 
@@ -30,6 +31,7 @@ export default async function Home() {
                 alt="layout"
             />
             <Container bemClass={"hero__section"}>
+                <RevalidateButton/>
                 <ServicesList services={servicesData} />
                 <HeroSection />
             </Container>

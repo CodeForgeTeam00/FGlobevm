@@ -9,7 +9,6 @@ export default function RevalidateButton() {
     const handleClick = async () => {
         setLoading(true);
         setMessage("");
-
         try {
             const res = await fetch("/api/revalidate?tag=services", {
                 method: "POST",
