@@ -14,7 +14,7 @@ import { getHomePage } from "@/services/wp-pages";
 import { getAllServices } from "@/services/wp-services";
 import ServicesList from "@/Components/global/test";
 
-export const revalidate = 60;
+
 
 export default async function Home() {
     const [pageData, servicesData] = await Promise.all([
