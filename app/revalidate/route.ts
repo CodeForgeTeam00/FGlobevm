@@ -1,19 +1,16 @@
-import {revalidatePath} from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 
-export async function POST(request: NextRequest) {
-    const secret = request.nextUrl.searchParams.get('secret');
-    const tag = request.nextUrl.searchParams.get('tag');
+export async function POST(req: NextRequest) {
+    const body = await req.json();
 
-    if (secret !== process.env.WORDPRESS_REVALIDATION_SECRET) {
-        return NextResponse.json({ message: 'Invalid secret' }, { status: 401 });
+    // می‌تونی یه secret token برای امنیت اضافه کنی
+    if (body.secret !== process.env.WP_REVALIDATE_SECRET) {
+        return NextResponse.json({ message: 'Invalid token' }, { status: 401 });
     }
 
-    if (!tag) {
-        return NextResponse.json({ message: 'Missing tag param' }, { status: 400 });
-    }
+    // مسیر صفحه اصلی که میخوای ریوالید بشه
+    revalidatePath('/');
 
-    // revalidatePath(tag);
-
-        return NextResponse.json({ revalidated: true, now: Date.now(), tag });
+    return NextResponse.json({ revalidated: true });
 }
