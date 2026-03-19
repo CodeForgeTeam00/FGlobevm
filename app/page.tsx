@@ -13,6 +13,8 @@ import Container from "@/Components/global/Sections/Container";
 import { getHomePage } from "@/services/wp-pages";
 import { getAllServices } from "@/services/wp-services";
 import ServicesList from "@/Components/global/test";
+import RevalidateButton from "@/Components/global/Test2";
+
 
 
 export default async function Home() {
@@ -20,9 +22,6 @@ export default async function Home() {
         getHomePage(),
         getAllServices(),
     ]);
-
-
-
     return (
         <div className="relative">
             <Image
@@ -31,34 +30,35 @@ export default async function Home() {
                 alt="layout"
             />
             <Container bemClass={"hero__section"}>
+                <RevalidateButton />
                 <ServicesList services={servicesData} />
                 <HeroSection />
             </Container>
-
-            <Container bemClass={"trusted-by__section"}>
-                <TrustedBy />
-            </Container>
-            <Container fullWidth bemClass={"why-chooseUs__section"}>
-                <WhyChooseUs />
-            </Container>
-
-            <Container bemClass={"about-stability__section"}>
-                <AboutStability />
-            </Container>
-
-            <Container fullWidth bg={"lightGray"} bemClass={"managed-services__section"}>
-                <ManagedServices />
-            </Container>
-
-            <Container bemClass={"managed-services__section"}>
-                <ClientFeedback />
-            </Container>
-
-            <Container fullWidth bg={"primary"}>
-                <FAQSection />
-            </Container>
-            <BlogSection />
-            <ContactCTA />
         </div>
     );
 }
+
+// <Container bemClass={"trusted-by__section"}>
+//     <TrustedBy />
+// </Container>
+// <Container fullWidth bemClass={"why-chooseUs__section"}>
+//     <WhyChooseUs />
+// </Container>
+//
+// <Container bemClass={"about-stability__section"}>
+//     <AboutStability />
+// </Container>
+//
+// <Container fullWidth bg={"lightGray"} bemClass={"managed-services__section"}>
+//     <ManagedServices />
+// </Container>
+//
+// <Container bemClass={"managed-services__section"}>
+//     <ClientFeedback />
+// </Container>
+//
+// <Container fullWidth bg={"primary"}>
+//     <FAQSection />
+// </Container>
+// <BlogSection />
+// <ContactCTA />

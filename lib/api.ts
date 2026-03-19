@@ -7,12 +7,10 @@ export async function fetchWP<T>(
     if (!baseUrl) {
         throw new Error("Missing NEXT_PUBLIC_WORDPRESS_API_URL");
     }
-
+    console.log("🔥 FETCH CALLED:", endpoint, Date.now());
     const res = await fetch(`${baseUrl}${endpoint}`, {
         next: { tags}
     });
-
-    console.log("✅ FETCH RUN:", tags, "| Time:", Date.now());
 
     if (!res.ok) {
         throw new Error(`Failed to fetch API: ${res.statusText}`);
