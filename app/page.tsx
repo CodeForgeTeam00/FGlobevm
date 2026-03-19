@@ -13,7 +13,7 @@ import Container from "@/Components/global/Sections/Container";
 import { getHomePage } from "@/services/wp-pages";
 import { getAllServices } from "@/services/wp-services";
 import ServicesList from "@/Components/global/test";
-import RevalidateButton from "@/Components/global/Test2";
+
 
 
 
@@ -30,7 +30,6 @@ export default async function Home() {
                 alt="layout"
             />
             <Container bemClass={"hero__section"}>
-                <RevalidateButton />
                 <ServicesList services={servicesData} />
                 <HeroSection />
             </Container>
@@ -38,6 +37,30 @@ export default async function Home() {
     );
 }
 
+// <Container bemClass={"trusted-by__section"}>
+//     <TrustedBy />
+// </Container>
+// <Container fullWidth bemClass={"why-chooseUs__section"}>
+//     <WhyChooseUs />
+// </Container>
+//
+// <Container bemClass={"about-stability__section"}>
+//     <AboutStability />
+// </Container>
+//
+// <Container fullWidth bg={"lightGray"} bemClass={"managed-services__section"}>
+//     <ManagedServices />
+// </Container>
+//
+// <Container bemClass={"managed-services__section"}>
+//     <ClientFeedback />
+// </Container>
+//
+// <Container fullWidth bg={"primary"}>
+//     <FAQSection />
+// </Container>
+// <BlogSection />
+// <ContactCTA />
 // <Container bemClass={"trusted-by__section"}>
 //     <TrustedBy />
 // </Container>
