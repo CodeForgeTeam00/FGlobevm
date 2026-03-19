@@ -9,7 +9,7 @@ export async function fetchWP<T>(
     }
 
     const res = await fetch(`${baseUrl}${endpoint}`, {
-        next: { tags:tags , revalidate:false }
+        next: { tags:tags }
     });
 
     console.log("✅ FETCH RUN:", endpoint, "| Time:", Date.now());

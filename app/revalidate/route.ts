@@ -1,4 +1,4 @@
-import {revalidatePath} from 'next/cache';
+import {revalidateTag} from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ message: 'Missing tag param' }, { status: 400 });
     }
 
-    revalidatePath(tag);
+    revalidateTag(tag);
 
         return NextResponse.json({ revalidated: true, now: Date.now(), tag });
 }
