@@ -35,55 +35,55 @@ export default async function Home() {
                 <ServicesList services={servicesData} />
                 <HeroSection />
             </Container>
+            <Container bemClass={"trusted-by__section"}>
+                <TrustedBy />
+            </Container>
+            <Container fullWidth bemClass={"why-chooseUs__section"}>
+                <WhyChooseUs />
+            </Container>
+
+            <Container bemClass={"about-stability__section"}>
+                <AboutStability />
+            </Container>
+
+            <Container fullWidth bg={"lightGray"} bemClass={"managed-services__section"}>
+                <ManagedServices />
+            </Container>
+
+            <Container bemClass={"managed-services__section"}>
+                <ClientFeedback />
+            </Container>
+
+            <Container fullWidth bg={"primary"}>
+                <FAQSection />
+            </Container>
+            <BlogSection />
+            <ContactCTA />
+            <Container bemClass={"trusted-by__section"}>
+                <TrustedBy />
+            </Container>
+            <Container fullWidth bemClass={"why-chooseUs__section"}>
+                <WhyChooseUs />
+            </Container>
+
+            <Container bemClass={"about-stability__section"}>
+                <AboutStability />
+            </Container>
+
+            <Container fullWidth bg={"lightGray"} bemClass={"managed-services__section"}>
+                <ManagedServices />
+            </Container>
+
+            <Container bemClass={"managed-services__section"}>
+                <ClientFeedback />
+            </Container>
+
+            <Container fullWidth bg={"primary"}>
+                <FAQSection />
+            </Container>
+            <BlogSection />
+            <ContactCTA />
         </div>
     );
 }
 
-// <Container bemClass={"trusted-by__section"}>
-//     <TrustedBy />
-// </Container>
-// <Container fullWidth bemClass={"why-chooseUs__section"}>
-//     <WhyChooseUs />
-// </Container>
-//
-// <Container bemClass={"about-stability__section"}>
-//     <AboutStability />
-// </Container>
-//
-// <Container fullWidth bg={"lightGray"} bemClass={"managed-services__section"}>
-//     <ManagedServices />
-// </Container>
-//
-// <Container bemClass={"managed-services__section"}>
-//     <ClientFeedback />
-// </Container>
-//
-// <Container fullWidth bg={"primary"}>
-//     <FAQSection />
-// </Container>
-// <BlogSection />
-// <ContactCTA />
-// <Container bemClass={"trusted-by__section"}>
-//     <TrustedBy />
-// </Container>
-// <Container fullWidth bemClass={"why-chooseUs__section"}>
-//     <WhyChooseUs />
-// </Container>
-//
-// <Container bemClass={"about-stability__section"}>
-//     <AboutStability />
-// </Container>
-//
-// <Container fullWidth bg={"lightGray"} bemClass={"managed-services__section"}>
-//     <ManagedServices />
-// </Container>
-//
-// <Container bemClass={"managed-services__section"}>
-//     <ClientFeedback />
-// </Container>
-//
-// <Container fullWidth bg={"primary"}>
-//     <FAQSection />
-// </Container>
-// <BlogSection />
-// <ContactCTA />
