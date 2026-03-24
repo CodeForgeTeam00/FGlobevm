@@ -41,7 +41,7 @@ export default function MySlider({ comments }: { comments: CommentItem[] }) {
                 }}
                 className="pb-10"
             >
-                {comments.map((item, index) => (
+                {comments?.map((item, index) => (
                     <SwiperSlide key={index}>
                         <div className="flex flex-col mb-20">
                             <h3 className={'mb-3 text-neutral-0 text-xl font-semibold'}>
