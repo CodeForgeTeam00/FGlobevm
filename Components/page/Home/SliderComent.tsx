@@ -17,9 +17,8 @@ interface CommentItem {
 interface MySliderProps {
     comments?: CommentItem[];
 }
-
 export default function MySlider({ comments = [] }: MySliderProps) {
-    // حذف آیتم‌های خالی
+
     const validComments = comments.filter(
         (item) => item.description || item.the_author
     );
