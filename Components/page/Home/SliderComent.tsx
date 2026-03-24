@@ -4,7 +4,14 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
 import { StarRating } from "@/Components/Ui/star-rating";
-export default function MySlider() {
+interface CommentItem {
+    description: string;
+    the_author: string;
+    author_job: string;
+    the_star: string;
+}
+
+export default function MySlider({ comments }: { comments: CommentItem[] }) {
     return (
         <div className="w-full mt-4 h-full testimonial-slider">
             <Swiper
@@ -34,22 +41,30 @@ export default function MySlider() {
                 }}
                 className="pb-10"
             >
-                {[1, 2, 3, 4].map((item) => (
-                    <SwiperSlide key={item}>
+                {comments.map((item, index) => (
+                    <SwiperSlide key={index}>
                         <div className="flex flex-col mb-20">
-                            <h3 className={'mb-3 text-neutral-0 text-xl font-semibold'}>Refined Experiences</h3>
+                            <h3 className={'mb-3 text-neutral-0 text-xl font-semibold'}>
+                                Client Feedback
+                            </h3>
+
                             <p className={'text-neutral-0/80 leading-relaxed'}>
-                                The material feels premium and the craftsmanship is evident in every detail.
-                                I love how each piece maintains its shape and quality even after repeated wear.
+                                {item.description || "No description"}
                             </p>
+
                             <div className={'w-full border-b border-dashed my-4 border-white/15'}/>
+
                             <div className={'flex justify-between items-center'}>
                                 <div>
-                                    <p className={'text-neutral-0 font-medium'}>Behnam Jafari</p>
-                                    <p className={'text-caption text-neutral-0/60'}>Job Title</p>
+                                    <p className={'text-neutral-0 font-medium'}>
+                                        {item.the_author || "Anonymous"}
+                                    </p>
+                                    <p className={'text-caption text-neutral-0/60'}>
+                                        {item.author_job || "-"}
+                                    </p>
                                 </div>
                                 <StarRating
-                                    rating={4}
+                                    rating={Number(item.the_star) || 0}
                                     readonly={true}
                                     size={16}
                                 />

@@ -10,17 +10,11 @@ import { FAQSection } from "@/Components/page/Home/FAQSection";
 import { BlogSection } from "@/Components/page/Home/BlogSection";
 import { ContactCTA } from "@/Components/page/Home/ContactCTA";
 import Container from "@/Components/global/Sections/Container";
-import { getHomePage } from "@/services/wp-pages";
 import { getAllServices } from "@/services/wp-services";
-import ServicesList from "@/Components/global/test";
-import RevalidateButton from "@/Components/global/Test2";
-
-
-
-
+import {getGlobalOptions} from "@/services/wp-home";
 export default async function Home() {
     const [pageData, servicesData] = await Promise.all([
-        getHomePage(),
+        getGlobalOptions(),
         getAllServices(),
     ]);
     return (
@@ -31,9 +25,7 @@ export default async function Home() {
                 alt="layout"
             />
             <Container bemClass={"hero__section"}>
-                <RevalidateButton/>
-                <ServicesList services={servicesData} />
-                <HeroSection />
+                <HeroSection  data={pageData.acf.hero_section_images}  />
             </Container>
             <Container bemClass={"trusted-by__section"}>
                 <TrustedBy />
@@ -41,45 +33,17 @@ export default async function Home() {
             <Container fullWidth bemClass={"why-chooseUs__section"}>
                 <WhyChooseUs />
             </Container>
-
             <Container bemClass={"about-stability__section"}>
-                <AboutStability />
+                <AboutStability  background={pageData.acf.background_image} />
             </Container>
-
             <Container fullWidth bg={"lightGray"} bemClass={"managed-services__section"}>
-                <ManagedServices />
+                <ManagedServices services={servicesData}/>
             </Container>
-
             <Container bemClass={"managed-services__section"}>
-                <ClientFeedback />
+                <ClientFeedback image={pageData.acf.slider_section_image} comments={pageData.acf.comment_field} />
             </Container>
-
             <Container fullWidth bg={"primary"}>
-                <FAQSection />
-            </Container>
-            <BlogSection />
-            <ContactCTA />
-            <Container bemClass={"trusted-by__section"}>
-                <TrustedBy />
-            </Container>
-            <Container fullWidth bemClass={"why-chooseUs__section"}>
-                <WhyChooseUs />
-            </Container>
-
-            <Container bemClass={"about-stability__section"}>
-                <AboutStability />
-            </Container>
-
-            <Container fullWidth bg={"lightGray"} bemClass={"managed-services__section"}>
-                <ManagedServices />
-            </Container>
-
-            <Container bemClass={"managed-services__section"}>
-                <ClientFeedback />
-            </Container>
-
-            <Container fullWidth bg={"primary"}>
-                <FAQSection />
+                <FAQSection faq={pageData.acf.faq}/>
             </Container>
             <BlogSection />
             <ContactCTA />

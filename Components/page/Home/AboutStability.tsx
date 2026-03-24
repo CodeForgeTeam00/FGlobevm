@@ -1,11 +1,13 @@
 
 import React from 'react';
 import SectionIntro from "@/Components/global/SectionIntro";
-import AboutImage from "@/public/assets/image/aboutImage.jpg";
-import Image from "next/image";
 import TableInfo from "@/Components/page/Home/WayChooseUsSection/TabeInfo";
 
-export const AboutStability= () => {
+
+interface AboutStabilityProps {
+    background: string ;
+}
+export const AboutStability= ({background}:AboutStabilityProps) => {
     const myData = [
         [
             { title: "99.9%", subtitle: "Uptime Guarantee" },
@@ -30,11 +32,12 @@ export const AboutStability= () => {
                     </div>
                     <div className="relative">
                         <div className="  ">
-                            <Image
-                                src={AboutImage}
-                                alt="Modern Office Building"
-                                className="w-full  "
-                            />
+                            {/*<Image*/}
+                            {/*    src={AboutImage}*/}
+                            {/*    alt="Modern Office Building"*/}
+                            {/*    className="w-full  "*/}
+                            {/*/>*/}
+                            <img src={background} alt=""  className="w-full" />
                             <div className={'lg:hidden'}>
                                 <TableInfo  data={myData} />
                             </div>

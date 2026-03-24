@@ -1,27 +1,14 @@
 
 import React from 'react';
-import { ChevronRight, Server } from 'lucide-react';
 import SectionIntro from "@/Components/global/SectionIntro";
 import Container from "@/Components/global/Sections/Container";
 import ServicesCard from "@/Components/global/Cards/ServicesCard";
+import { WPService } from "@/types/wordperess";
 
-const SERVICES = [
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-    { title: 'Service Title', href:"#" , description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '},
-
-];
-
-export const ManagedServices: React.FC = () => {
+interface ServicesListProps {
+    services: WPService[];
+}
+export const ManagedServices= ({ services }: ServicesListProps) => {
     return (
         <div className="py-24 px-6  bg-[#fcfdfe]">
             <Container>
@@ -36,8 +23,8 @@ export const ManagedServices: React.FC = () => {
                     monitoring, fast response, and long-term stability."
                     />
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {SERVICES.map((service, index) => (
-                            <ServicesCard key={index} data={service}/>
+                        {services.map((service) => (
+                            <ServicesCard key={service.id} service={service}/>
                         ))}
                     </div>
                 </div>

@@ -4,8 +4,20 @@ import Image from "next/image";
 import {QuoteIcon} from "@/Components/global/Icons";
 import MySlider from "@/Components/page/Home/SliderComent";
 import {AvatarGroupExample} from "@/Components/page/Home/AvatarGroup";
+interface CommentItem {
+    description: string;
+    the_author: string;
+    author_job: string;
+    the_star: string;
+}
 
-export const ClientFeedback: React.FC = () => {
+interface ClientFeedbackProps {
+    comments: CommentItem[];
+    image:string
+}
+
+
+export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments , image }) => {
     return (
         <div className="relative py-24 px-6 flex flex-col gap-10 overflow-hidden">
             <SectionIntro
@@ -34,7 +46,7 @@ export const ClientFeedback: React.FC = () => {
                                         stroke="#C1C7D0"/>
                                 </svg>
                             </div>
-                            <MySlider/>
+                            <MySlider comments={comments}/>
                         </div>
                     </div>
                     <div className={'p-10 border border-neutral-30 rounded-3xl items-center bg-neutral-10 flex gap-5'}>
@@ -45,13 +57,14 @@ export const ClientFeedback: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <Image
-                    src="/assets/image/shatter.png"
-                    alt="shatter"
-                    width={600}
-                    height={400}
-                    className="w-full h-auto rounded-3xl"
-                />
+                {/*<Image*/}
+                {/*    src="/assets/image/shatter.png"*/}
+                {/*    alt="shatter"*/}
+                {/*    width={600}*/}
+                {/*    height={400}*/}
+                {/*    className="w-full h-auto rounded-3xl"*/}
+                {/*/>*/}
+                <img src={image} alt=""/>
             </div>
         </div>
     );

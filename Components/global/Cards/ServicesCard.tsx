@@ -1,18 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import {ArrowRightIcon, BuildingLockIcon} from "@/Components/global/Icons";
-
-interface dataType {
-    href: string;
-    title: string;
-    description: string;
-}
+import { WPService } from "@/types/wordperess"
 
 interface ServicesCardProps {
-    data: dataType;
+    service: WPService;
 };
 
-const ServicesCard: React.FC<ServicesCardProps> = ({data,}) => {
+const ServicesCard: React.FC<ServicesCardProps> = ({service,}) => {
     return (
         <div className='group'>
             <div
@@ -24,19 +19,19 @@ const ServicesCard: React.FC<ServicesCardProps> = ({data,}) => {
                 </div>
                 <div>
                     <h3 className="font-bold text-lg lg:text-xl">
-                        {data.title}
+                        {service.title.rendered}
                     </h3>
-                    <p className="text-start text-small lg:text-base leading-[28px] text-neutral-100">
-                        {data.description}
+                    <p className="text-start text-small min-h-16 lg:text-base leading-[28px] text-neutral-100">
+                        {service.acf?.description}
                     </p>
                 </div>
                 <div>
-                    <Link href={data.href} className='flex items-center gap-1'>
+                    <button className="flex items-center gap-1">
+                        <ArrowRightIcon className='w-4 h-4'/>
                         <span className='text-primary-6'>
                             Show More
                          </span>
-                        <ArrowRightIcon className='w-4 h-4'/>
-                    </Link>
+                    </button>
                 </div>
             </div>
         </div>
