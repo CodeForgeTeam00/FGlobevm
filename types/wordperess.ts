@@ -1,25 +1,9 @@
-// Shared ACF Types
-export interface ACFImage {
-    url: string;
-    alt: string;
-    sizes: {
-        thumbnail: string;
-        medium: string;
-        large: string;
-        'medium_large'?: string;
-    };
-}
 
-export interface ACFLink {
-    title: string;
-    url: string;
-    target: string;
-}
 export interface heroSectionImages {
     hero_primary_image: string;
     hero_secondary_image: string;
 }
-// Global Options (Header/Footer)
+
 export interface WPOptions {
     acf: {
 
@@ -44,7 +28,7 @@ export interface WPOptions {
     };
 }
 
-// Posts (Blog)
+
 export interface WPPost {
     id: number;
     date: string;
@@ -55,7 +39,6 @@ export interface WPPost {
     };
 }
 
-// Custom Post Type: Services
 export interface WPService {
     id: number;
     slug: string;
@@ -67,15 +50,10 @@ export interface WPService {
     };
 }
 
-// Pages (Home, etc.)
+
 export interface WPPage {
     id: number;
     slug: string;
     title: { rendered: string };
     acf: any; // You can make this more specific for the Home Page later
-}
-export interface HomeACF {
-
-
-
 }

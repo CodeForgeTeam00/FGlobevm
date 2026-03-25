@@ -18,7 +18,7 @@ export default async function Home() {
         getAllServices(),
     ]);
     return (
-        <div className="relative">
+        <div className="relative ">
             <Image
                 className="absolute hidden lg:inline top-[160]"
                 src={mask}
