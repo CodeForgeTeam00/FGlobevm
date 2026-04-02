@@ -1,71 +1,77 @@
-import { HeroSection } from "@/Components/page/Home/HeroSection/HeroSection";
-import { TrustedBy } from "@/Components/page/Home/TrustedBy";
-import Image from "next/image";
-import mask from "@/public/assets/image/heroSectionLayout.svg";
-import { AboutStability } from "@/Components/page/Home/AboutStability";
-import { WhyChooseUs } from "@/Components/page/Home/WhyChooseUs";
-import { ManagedServices } from "@/Components/page/Home/ManagedServices";
-import { ClientFeedback } from "@/Components/page/Home/ClientFeedback";
-import { FAQSection } from "@/Components/page/Home/FAQSection";
-import { BlogSection } from "@/Components/page/Home/BlogSection";
-import { ContactCTA } from "@/Components/page/Home/ContactCTA";
+
+// pages/index.tsx
+import React from "react";
 import Container from "@/Components/global/Sections/Container";
-import { getAllServices } from "@/services/wp-services";
+import { BlogMainSection } from "@/Components/page/BlogPage/BlogMainSection";
+import { BlogGrid } from "@/Components/page/BlogPage/BlogGrid";
+import { BlogEditorChoiceSection } from "@/Components/page/BlogPage/BlogEditorChoiceSection";
+import { BlogCategoriesSection } from "@/Components/page/BlogPage/BlogCategoriesSection";
+import { BlogColSection } from "@/Components/page/BlogPage/BlogColSection";
+import SocialBanner from "@/Components/global/SocialBanner";
+import {InstagramIcon} from "@/Components/global/Icons";
+
+import { getBlogs } from "@/services/wp-blog";
+import { mapBlogApiToUI } from "@/mappers/blog-mapper"; // <-- اصلاح شد
+import { BlogApiItem } from "@/types/blog";
 import {getGlobalOptions} from "@/services/wp-home";
-import {CalendarIcon} from "@/Components/global/Icons";
-import BlogCard from "@/Components/global/Cards/BlogCard";
- const blogCardMock = [
-    {
+import {getAllServices} from "@/services/wp-services";
+import {getBlogSeoBox} from "@/services/wp-blog-seo";
+import {WpContent} from "@/Components/global/SeoBox";
+import {getBlogEditorChoice} from "@/services/wp-blog-editor-choice";
+import {getBlogCategoryPopular} from "@/services/wp-blog-category-popular";
 
-        title: "10 Tips for Effective Remote Work",
-        categoryName: "Productivity",
-        categoryUrl: "/category/productivity",
-        author: "Jane Doe",
-        date: "March 24, 2026",
-        imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200",
-        className: "max-w-sm rounded-lg shadow-lg overflow-hidden"
-    },
-    {
-        title: "Understanding React Hooks",
-        categoryName: "Web Development",
-        categoryUrl: "/category/web-development",
-        author: "John Smith",
-        date: "March 20, 2026",
-        imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200",
-        className: "max-w-sm rounded-lg shadow-lg overflow-hidden"
-    },
-     {
-         title: "Understanding React Hooks",
-         categoryName: "Web Development",
-         categoryUrl: "/category/web-development",
-         author: "John Smith",
-         date: "March 20, 2026",
-         imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200",
-         className: "max-w-sm rounded-lg shadow-lg overflow-hidden"
-     },
-     {
-         title: "Understanding React Hooks",
-         categoryName: "Web Development",
-         categoryUrl: "/category/web-development",
-         author: "John Smith",
-         date: "March 20, 2026",
-         imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200",
-         className: "max-w-sm rounded-lg shadow-lg overflow-hidden"
-     }
+const categoryMockData = [
+    { title: "Technology", articleCount: 120, imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" },
+    { title: "Design", articleCount: 64, imageUrl: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=80" },
+    { title: "Marketing", articleCount: 97, imageUrl: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=800&q=80" },
+    { title: "Design", articleCount: 64, imageUrl: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=80" },
+    { title: "Marketing", articleCount: 97, imageUrl: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=800&q=80" },
+    { title: "Marketing", articleCount: 97, imageUrl: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=800&q=80" },
 ];
-export default async function Home() {
 
+const socialData = [
+    { name: "Instagram", icon: InstagramIcon },
+    { name: "Twitter", icon:  InstagramIcon},
+    { name: "LinkedIn", icon:InstagramIcon },
+    { name: "YouTube", icon: InstagramIcon },
+];
+
+export default async function Blog() {
+
+    const [blogSeoBox , Blog , sag ,BlogEditorChoice ,BlogCategoryPopular ] = await Promise.all([
+        getBlogSeoBox(),
+        getBlogs({per_page: 5 }),
+        getBlogs({per_page: 3 }),
+        getBlogEditorChoice(),
+        getBlogCategoryPopular()
+    ]);
+    const { grid , featured } = mapBlogApiToUI(Blog.posts);
     return (
-        <div className="relative ">
-            <Container bemClass={"hero__section"}>
-                <div className="flex gap-4 flex-col lg:flex-row  p-4">
-                    {blogCardMock.map((item, index) => (
-                        <BlogCard key={index} {...item} />
-                    ))}
-                </div>
-            </Container>
+        <Container>
 
-        </div>
+            <div className="flex flex-col lg:gap-14">
+                <div className="flex flex-col lg:gap-20">
+                    <BlogMainSection data={featured} />
+                    <BlogGrid data={grid} />
+                </div>
+                <BlogEditorChoiceSection data={BlogEditorChoice} />
+                <BlogCategoriesSection data={BlogCategoryPopular} />
+                <div className="grid lg:grid-cols-2 px-4 lg:px-0 gap-10">
+                    <BlogColSection data={sag.posts} />
+                    <BlogColSection data={sag.posts} />
+                </div>
+                <SocialBanner
+                    title="Globe VM in Socials"
+                    subtitle="Business owners trust"
+                    socials={socialData}
+                />
+                <div>
+                    <WpContent content={blogSeoBox} />
+                </div>
+            </div>
+        </Container>
     );
 }
 
+// const blogs: BlogApiItem[] = await getBlogs();
+// const { featured, grid } = mapBlogApiToUI(blogs);

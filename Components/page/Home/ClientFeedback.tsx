@@ -64,7 +64,7 @@ export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments , image
                 {/*    height={400}*/}
                 {/*    className="w-full h-auto rounded-3xl"*/}
                 {/*/>*/}
-                <img src={image} alt=""/>
+                <img className="w-full h-auto rounded-3xl" src={image.url} alt=""/>
             </div>
         </div>
     );

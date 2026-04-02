@@ -5,7 +5,7 @@ import TableInfo from "@/Components/page/Home/WayChooseUsSection/TabeInfo";
 
 
 interface AboutStabilityProps {
-    background: string ;
+    background: {} ;
 }
 export const AboutStability= ({background}:AboutStabilityProps) => {
     const myData = [
@@ -37,7 +37,7 @@ export const AboutStability= ({background}:AboutStabilityProps) => {
                             {/*    alt="Modern Office Building"*/}
                             {/*    className="w-full  "*/}
                             {/*/>*/}
-                            <img src={background} alt=""  className="w-full" />
+                            <img src={background.url} alt=""  className="w-full" />
                             <div className={'lg:hidden'}>
                                 <TableInfo  data={myData} />
                             </div>

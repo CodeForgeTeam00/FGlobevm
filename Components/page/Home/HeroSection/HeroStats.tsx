@@ -9,7 +9,7 @@ interface HeroStatsProps {
 }
 export const HeroStats: React.FC<HeroStatsProps> = ({ data }) => {
     const { hero_primary_image, hero_secondary_image } = data;
-    console.log(data , 'test2');
+
     return (
         <div className="hero__stats
                         lg:max-w-[582px]  2xl:!max-w-[776px]
@@ -61,7 +61,7 @@ export const HeroStats: React.FC<HeroStatsProps> = ({ data }) => {
                     {/*    className="rounded-xl w-full"*/}
                     {/*    alt="hero secondary"*/}
                     {/*/>*/}
-                    <img src={hero_secondary_image} alt=""/>
+                    <img src={hero_primary_image.url} alt=""/>
                 </div>
                 <div className="hero__image w-full overflow-hidden">
                     {/*<Image*/}
@@ -71,7 +71,7 @@ export const HeroStats: React.FC<HeroStatsProps> = ({ data }) => {
                     {/*    className="rounded-xl w-full"*/}
                     {/*    alt="hero primary"*/}
                     {/*/>*/}
-                    <img src={hero_primary_image} alt=""/>
+                    <img className={'rounded-xl'} src={hero_secondary_image.url} alt=""/>
                 </div>
             </div>
         </div>
