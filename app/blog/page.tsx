@@ -20,14 +20,6 @@ import {WpContent} from "@/Components/global/SeoBox";
 import {getBlogEditorChoice} from "@/services/wp-blog-editor-choice";
 import {getBlogCategoryPopular} from "@/services/wp-blog-category-popular";
 
-const categoryMockData = [
-    { title: "Technology", articleCount: 120, imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" },
-    { title: "Design", articleCount: 64, imageUrl: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=80" },
-    { title: "Marketing", articleCount: 97, imageUrl: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=800&q=80" },
-    { title: "Design", articleCount: 64, imageUrl: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=80" },
-    { title: "Marketing", articleCount: 97, imageUrl: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=800&q=80" },
-    { title: "Marketing", articleCount: 97, imageUrl: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=800&q=80" },
-];
 
 const socialData = [
     { name: "Instagram", icon: InstagramIcon },
@@ -46,6 +38,7 @@ export default async function Blog() {
         getBlogCategoryPopular()
     ]);
     const { grid , featured } = mapBlogApiToUI(Blog.posts);
+    console.log(grid)
     return (
         <Container>
 
