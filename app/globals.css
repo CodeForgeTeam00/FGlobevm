@@ -4,7 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ================= THEME ================= */
 .gradient-circle-light-gray {
     background: linear-gradient(135deg, rgba(25, 154, 213, 0.00) 0%, rgba(25, 154, 213, 0.05) 50%, rgba(25, 154, 213, 0.10) 100%);
 }

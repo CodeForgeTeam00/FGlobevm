@@ -1,4 +1,5 @@
-import Link from "next/link";
+"use client";
+
 import {
     Pagination,
     PaginationContent,
@@ -7,6 +8,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useRouter, usePathname } from "next/navigation";
 
 type Props = {
     currentPage: number;
@@ -15,20 +17,26 @@ type Props = {
     hasPrev: boolean;
 };
 
-export default function CustomPagination({
-                                             currentPage,
-                                             totalPages,
-                                             hasNext,
-                                             hasPrev,
-                                         }: Props) {
+export default function CustomPagination({ currentPage, totalPages, hasNext, hasPrev }: Props) {
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const goToPage = (page: number) => {
+        const url = `${pathname}?per_page=${page}`;
+        console.log("🚀 Navigate to:", url);
+
+        router.push(url); // بدون رفرش
+    };
+
     return (
         <Pagination className="mt-8">
             <PaginationContent>
-
                 {/* Previous */}
                 {hasPrev && (
                     <PaginationItem>
-                        <PaginationPrevious href={`?page=${currentPage - 1}`} />
+                        <PaginationPrevious
+                            onClick={() => goToPage(currentPage - 1)}
+                        />
                     </PaginationItem>
                 )}
 
@@ -39,8 +47,8 @@ export default function CustomPagination({
                     return (
                         <PaginationItem key={page}>
                             <PaginationLink
-                                href={`?page=${page}`}
                                 isActive={page === currentPage}
+                                onClick={() => goToPage(page)}
                             >
                                 {page}
                             </PaginationLink>
@@ -51,10 +59,11 @@ export default function CustomPagination({
                 {/* Next */}
                 {hasNext && (
                     <PaginationItem>
-                        <PaginationNext href={`?page=${currentPage + 1}`} />
+                        <PaginationNext
+                            onClick={() => goToPage(currentPage + 1)}
+                        />
                     </PaginationItem>
                 )}
-
             </PaginationContent>
         </Pagination>
     );
