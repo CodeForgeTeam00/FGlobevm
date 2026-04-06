@@ -19,13 +19,13 @@ const FAQItem: React.FC<FAQItemProps> = ({
                                          }) => {
     return (
         <div
-            className={`bg-white rounded-3xl overflow-hidden transition-all duration-500 border ${
+            className={`bg-white  rounded-3xl  overflow-hidden transition-all duration-500 border ${
                 isOpen ? "border-sky-300 shadow-lg" : "border-transparent shadow-sm"
             }`}
         >
             <button
                 onClick={onClick}
-                className="w-full text-left p-6 md:p-8 flex items-center justify-between gap-4 group"
+                className="w-full text-left p-6 md:p-8 flex cursor-pointer items-center justify-between gap-4 group"
             >
                 <span
                     className={`text-[15px] md:text-lg font-bold transition-colors ${
@@ -55,7 +55,7 @@ const FAQItem: React.FC<FAQItemProps> = ({
                     isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
                 }`}
             >
-                <div className="px-6 md:px-8 pb-8 pt-0 text-neutral-100 text-[14px] md:text-[15px] leading-relaxed font-medium">
+                <div className="px-6 md:px-8 pb-8 pt-0  text-neutral-100 text-[14px] md:text-[15px] leading-relaxed font-medium">
                     {answer}
                 </div>
             </div>
@@ -88,7 +88,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ faq }) => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col px-4 lg:px-0 gap-5">
                     {faq.map((item, index) => (
                         <FAQItem
                             key={index}

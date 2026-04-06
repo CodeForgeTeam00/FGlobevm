@@ -21,7 +21,7 @@ export const HeroContent: React.FC = () => {
 
                 <Button variant="outline" size="sm">
                     <PhoneIcon className="w-5 h-5" />
-                    <p className="font-small">Get A Free Penetration Test</p>
+                    <p className="font-small">Get A Free Penetration </p>
                 </Button>
             </div>
         </div>

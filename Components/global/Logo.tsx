@@ -2,10 +2,7 @@ type LogoProps = {
     iconOnly?: boolean;
     className: string;
 };
-
 export default function Logo({iconOnly = false, className}: LogoProps) {
-
-
     return (
         <div className={`logo flex items-center gap-3 ${className}`}>
             <svg

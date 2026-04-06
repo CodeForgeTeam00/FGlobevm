@@ -63,9 +63,9 @@ export const BlogSection: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent"></div>
 
                     <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full">
-            <span className="inline-block px-3 py-1 rounded-md bg-sky-500 text-white text-[10px] font-bold uppercase mb-4">
-              {BLOG_POSTS[0].category}
-            </span>
+                        <span className="inline-block px-3 py-1 rounded-md bg-sky-500 text-white text-[10px] font-bold uppercase mb-4">
+                            {BLOG_POSTS[0].category}
+                        </span>
                         <h3 className="text-white text-2xl md:text-3xl font-bold mb-6 max-w-xl leading-snug">
                             {BLOG_POSTS[0].title}
                         </h3>
@@ -76,7 +76,6 @@ export const BlogSection: React.FC = () => {
                         </div>
                     </div>
                 </div>
-
                 {/* Sidebar Posts */}
                 <div className="flex flex-col gap-6">
                     {BLOG_POSTS.slice(1).map((post) => (
@@ -91,9 +90,9 @@ export const BlogSection: React.FC = () => {
                             />
                             <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition-colors"></div>
                             <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                <span className="text-[9px] font-bold text-white/50 uppercase mb-2">
-                  {post.category}
-                </span>
+                                <span className="text-[9px] font-bold text-white/50 uppercase mb-2">
+                                    {post.category}
+                                </span>
                                 <h4 className="text-white text-sm font-bold mb-3 line-clamp-2 leading-tight">
                                     {post.title}
                                 </h4>
