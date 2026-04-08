@@ -4,7 +4,7 @@ import { Phone } from 'lucide-react';
 
 export const ContactCTA: React.FC = () => {
     return (
-        <section className="px-6 py-12 max-w-7xl mx-auto">
+        <section className="">
             <div className="bg-[#f8fafc] rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 border border-slate-100 shadow-sm">
                 <div>
                     <h2 className="font-serif-heading text-3xl md:text-4xl font-black text-slate-900 mb-3 text-center md:text-left">
