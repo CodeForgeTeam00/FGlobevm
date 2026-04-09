@@ -32,7 +32,7 @@ export const dictionary = {
                         href:"#"
                     },
                 ],
-                btn:"BOOK CONSULTATION"
+                btn: "Call (310) 750-4939"
             }
         },
         common: {

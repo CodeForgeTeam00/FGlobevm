@@ -23,7 +23,7 @@ export default function Header() {
                     </nav>
                 </div>
                 <div className='header__left-side'>
-                    <Button variant="primary" size="lg">
+                    <Button variant={'primary'} size="lg">
                         <div className='flex gap-2 items-center text-white'>
                             <PhoneIcon className="2xl:w-6 w-5 h-5 2xl:h-6"/>
                             <span className={'2xl:text-base text-sm'}>{dict.layout.header.btn}</span>

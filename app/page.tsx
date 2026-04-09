@@ -48,7 +48,9 @@ export default async function Home() {
                 <FAQSection faq={pageData.acf.faq}/>
             </Container>
             <BlogSection/>
-            <ContactCTA/>
+            <Container>
+                <ContactCTA/>
+            </Container>
         </div>
     );
 }

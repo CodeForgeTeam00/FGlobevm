@@ -1,5 +1,3 @@
-
-// pages/index.tsx
 import React from "react";
 import Container from "@/Components/global/Sections/Container";
 import { BlogMainSection } from "@/Components/page/BlogPage/BlogMainSection";
@@ -9,12 +7,8 @@ import { BlogCategoriesSection } from "@/Components/page/BlogPage/BlogCategories
 import { BlogColSection } from "@/Components/page/BlogPage/BlogColSection";
 import SocialBanner from "@/Components/global/SocialBanner";
 import {InstagramIcon} from "@/Components/global/Icons";
-
 import { getBlogs } from "@/services/wp-blog";
-import { mapBlogApiToUI } from "@/mappers/blog-mapper"; // <-- اصلاح شد
-import { BlogApiItem } from "@/types/blog";
-import {getGlobalOptions} from "@/services/wp-home";
-import {getAllServices} from "@/services/wp-services";
+import { mapBlogApiToUI } from "@/mappers/blog-mapper";
 import {getBlogSeoBox} from "@/services/wp-blog-seo";
 import {WpContent} from "@/Components/global/SeoBox";
 import {getBlogEditorChoice} from "@/services/wp-blog-editor-choice";
@@ -38,7 +32,6 @@ export default async function Blog() {
         getBlogCategoryPopular()
     ]);
     const { grid , featured } = mapBlogApiToUI(Blog.posts);
-    console.log(grid)
     return (
         <Container>
 
@@ -65,6 +58,3 @@ export default async function Blog() {
         </Container>
     );
 }
-
-// const blogs: BlogApiItem[] = await getBlogs();
-// const { featured, grid } = mapBlogApiToUI(blogs);
