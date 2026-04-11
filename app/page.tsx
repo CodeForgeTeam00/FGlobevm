@@ -12,13 +12,16 @@ import {ContactCTA} from "@/Components/page/Home/ContactCTA";
 import Container from "@/Components/global/Sections/Container";
 import {getAllServices} from "@/services/wp-services";
 import {getGlobalOptions} from "@/services/wp-home";
+import {getBlogId} from "@/services/wp-single";
 
 
 export default async function Home() {
-    const [pageData, servicesData] = await Promise.all([
+    const [pageData, servicesData , id] = await Promise.all([
         getGlobalOptions(),
         getAllServices(),
+        getBlogId('very-very-very-big-title-for-blog-article-17')
     ]);
+    console.log(id , 'id')
     return (
         <div className="relative ">
             <Image
