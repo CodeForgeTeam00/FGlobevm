@@ -1,31 +1,23 @@
-import { WPOptions } from '@/types/wordperess';
+import { GlobalOptions } from "@/types/wp-options";
 
-export function mapGlobalOptions(data?: WPOptions) {
-    if (!data) return {};
+export function mapGlobalOptions(data: GlobalOptions | null) {
+    if (!data) return null;
 
-    const acf = data.acf; // <--- حتماً اینجا acf رو جدا کنیم
+    const acf = data.acf;
 
     return {
         hero: {
-            primaryImage: acf?.hero_section_images?.hero_primary_image ?? null,
-            secondaryImage: acf?.hero_section_images?.hero_secondary_image ?? null,
-            backgroundImage: acf?.background_image ?? null,
+            primaryImage: acf.hero_section_images.hero_primary_image,
+            secondaryImage: acf.hero_section_images.hero_secondary_image,
         },
-
-        sliderImage: acf?.slider_section_image ?? null,
-
-        comments:
-            acf?.comment_field?.map((item) => ({
-                description: item.description ?? '',
-                author: item.the_author ?? '',
-                job: item.author_job ?? '',
-                stars: Number(item.the_star ?? 0),
-            })) ?? [],
-
-        faq:
-            acf?.faq?.map((item) => ({
-                question: item.question ?? '',
-                answer: item.answer ?? '',
-            })) ?? [],
+        backgroundImage: acf.background_image,
+        sliderImage: acf.slider_section_image,
+        comments: acf.comment_field.map((item) => ({
+            description: item.description,
+            author: item.the_author,
+            job: item.author_job,
+            stars: Number(item.the_star),
+        })),
+        faq: acf.faq,
     };
 }

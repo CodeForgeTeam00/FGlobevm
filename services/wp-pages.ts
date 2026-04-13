@@ -1,11 +1,11 @@
-import { fetchWP } from '@/lib/api';
-import { WPPage } from '@/types/wordperess';
+import { fetchWP } from "@/lib/api";
+import { GlobalOptions } from "@/types/wp-options";
 
 export async function getHomePage() {
-    // We filter for the 'home' slug or ID
-    const pages = await fetchWP<WPPage[]>(
-        '/wp/v2/pages?slug=home&acf_format=standard',
-        ['pages']
+    const pages = await fetchWP<GlobalOptions[]>(
+        "/wp/v2/pages?slug=home&acf_format=standard",
+        { strategy: { type: "isr", revalidate: 3600 }, tag: "home" }
     );
-    return pages[0]; // Return the first object in the array
+
+    return pages?.[0] ?? null;
 }

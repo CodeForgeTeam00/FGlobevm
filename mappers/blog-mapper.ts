@@ -1,21 +1,9 @@
-import { BlogApiItem, BlogMainItem, BlogGridItem } from "@/types/blog";
-export const mapBlogApiToUI = (blogs: BlogApiItem[]) => {
-    const last = blogs[0];
+import { BlogPost } from "@/types/wp-blog";
 
-    const featured: BlogMainItem = {
-        ...last,
-        description: last.description || ""
-    };
+export function mapBlogToFeaturedAndGrid(posts: BlogPost[]) {
+    if (!posts.length) return { featured: null, grid: [] };
 
-    const grid: BlogGridItem[] = blogs
-        .slice(0, blogs.length - 1)
-        .map((item) => ({
-            title: item.title,
-            categoryName: item.categoryName,
-            categoryUrl: item.categoryUrl,
-            date: item.date,
-            imageUrl: item.imageUrl
-        }));
+    const [featured, ...grid] = posts;
 
     return { featured, grid };
-};
+}

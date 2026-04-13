@@ -5,26 +5,11 @@ import Container from "@/Components/global/Sections/Container";
 import FeatureLineCard from "@/Components/global/Cards/AccentLineCard";
 import Image from "next/image";
 import dots from "@/public/assets/image/Dots.svg";
-const FEATURES = [
-    {
-        title: 'SEO',
-        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
-    },
-    {
-        title: 'SEO',
-        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
-    },
-    {
-        title: 'SEO',
-        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
-    },
-    {
-        title: 'SEO',
-        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
-    },
-];
-
+import {useDictionary} from "@/lib/useDictionary";
 export const WhyChooseUs: React.FC = () => {
+    const dict = useDictionary();
+    const content = dict.home.whyChooseUs.content;
+    const features = dict.home.whyChooseUs.features;
     return (
         <section className="relative overflow-hidden py-6 px-6 lg:py-[96]">
             <div className="absolute hidden lg:block inset-0 pointer-events-none">
@@ -79,13 +64,13 @@ export const WhyChooseUs: React.FC = () => {
 
                     <SectionIntro
                         lgCenter
-                        badge="Why GlobeVM"
-                        title="Why Businesses Choose"
-                        highlight="GlobeVM"
-                        description="We don’t just fix problems after they happen. Our team monitors, secures, and maintains your environment around the clock to prevent costly disruptions. You get predictable performance, clear communication, and IT that actually supports your business goals."
+                        badge={content.badge}
+                        title={content.title}
+                        highlight={content.highlight}
+                        description={content.des}
                     />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-6">
-                        {FEATURES.map((feature, index) => (
+                        {features.map((feature, index) => (
                             <FeatureLineCard
                                 key={index}
                                 icon={<MagicEditIcon className="w-8 h-8 text-primary-6" />}

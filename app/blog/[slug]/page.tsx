@@ -1,10 +1,11 @@
-import { getBlogId } from '@/services/wp-single';
+import { getBlogBySlug } from '@/services/wp-blog';
 import {Hero} from '@/Components/page/Single/Block/HeroBlock';
 import ContentRenderer from '@/Components/page/Single/ContentRenderer';
+
 export default async function BlogPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
 
-    const data = await getBlogId(slug);
+    const data = await getBlogBySlug(slug);
 
     return (
         <div className="min-h-screen bg-white">

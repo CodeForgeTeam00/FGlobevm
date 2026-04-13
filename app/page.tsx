@@ -1,60 +1,91 @@
-import {HeroSection} from "@/Components/page/Home/HeroSection/HeroSection";
-import {TrustedBy} from "@/Components/page/Home/TrustedBy";
 import Image from "next/image";
-import mask from "@/public/assets/image/heroSectionLayout.svg";
-import {AboutStability} from "@/Components/page/Home/AboutStability";
-import {WhyChooseUs} from "@/Components/page/Home/WhyChooseUs";
-import {ManagedServices} from "@/Components/page/Home/ManagedServices";
-import {ClientFeedback} from "@/Components/page/Home/ClientFeedback";
-import {FAQSection} from "@/Components/page/Home/FAQSection";
-import {BlogSection} from "@/Components/page/Home/BlogSection";
-import {ContactCTA} from "@/Components/page/Home/ContactCTA";
-import Container from "@/Components/global/Sections/Container";
-import {getAllServices} from "@/services/wp-services";
-import {getGlobalOptions} from "@/services/wp-home";
-import {getBlogId} from "@/services/wp-single";
 
+import { HeroSection } from "@/Components/page/Home/HeroSection/HeroSection";
+import { TrustedBy } from "@/Components/page/Home/TrustedBy";
+import { AboutStability } from "@/Components/page/Home/AboutStability";
+import { WhyChooseUs } from "@/Components/page/Home/WhyChooseUs";
+import { ManagedServices } from "@/Components/page/Home/ManagedServices";
+import { ClientFeedback } from "@/Components/page/Home/ClientFeedback";
+import { FAQSection } from "@/Components/page/Home/FAQSection";
+import { BlogSection } from "@/Components/page/Home/BlogSection";
+import { ContactCTA } from "@/Components/page/Home/ContactCTA";
+
+import Container from "@/Components/global/Sections/Container";
+import mask from "@/public/assets/image/heroSectionLayout.svg";
+
+import { getGlobalOptions } from "@/services/wp-options";
+import { getAllServices } from "@/services/wp-services";
+import { mapGlobalOptions } from "@/mappers/options.mapper";
+import {FAQAccordion} from "@/Components/global/FAQAccordion";
 
 export default async function Home() {
-    const [pageData, servicesData , id] = await Promise.all([
+    const [options, services] = await Promise.all([
         getGlobalOptions(),
         getAllServices(),
-        getBlogId('very-very-very-big-title-for-blog-article-17')
     ]);
-    console.log(id , 'id')
+
+    const data = mapGlobalOptions(options);
+
+    if (!data) {
+        return <div className="p-10">Failed to load page data.</div>;
+    }
+
     return (
-        <div className="relative ">
+        <div className="relative">
             <Image
-                className="absolute hidden lg:inline top-[160]"
+                className="absolute hidden lg:inline top-[160px]"
                 src={mask}
                 alt="layout"
             />
-            <Container bemClass={"hero__section"}>
-                <HeroSection data={pageData.acf.hero_section_images}/>
+
+            <Container bemClass="hero__section">
+                <HeroSection
+                    data={{
+                        primaryImageUrl: data.hero.primaryImage.url,
+                        secondaryImageUrl: data.hero.secondaryImage.url,
+                        primaryAlt: data.hero.primaryImage.alt,
+                        secondaryAlt: data.hero.secondaryImage.alt,
+                    }}
+                />
             </Container>
-            <Container bemClass={"trusted-by__section"}>
-                <TrustedBy/>
+
+            <Container bemClass="trusted-by__section">
+                <TrustedBy />
             </Container>
-            <Container fullWidth bemClass={"why-chooseUs__section"}>
-                <WhyChooseUs/>
+
+            <Container fullWidth bemClass="why-chooseUs__section">
+                <WhyChooseUs />
             </Container>
-            <Container bemClass={"about-stability__section"}>
-                <AboutStability background={pageData.acf.background_image}/>
+
+            <Container bemClass="about-stability__section">
+                <AboutStability background={data.backgroundImage} />
             </Container>
-            <Container fullWidth bg={"lightGray"} bemClass={"managed-services__section"}>
-                <ManagedServices services={servicesData}/>
+
+            <Container fullWidth bg="lightGray" bemClass="managed-services__section">
+                <ManagedServices services={services ?? []} />
             </Container>
-            <Container bemClass={"managed-services__section"}>
-                <ClientFeedback image={pageData.acf.slider_section_image} comments={pageData.acf.comment_field}/>
+
+            <Container bemClass="client-feedback__section">
+                <ClientFeedback
+                    comments={data.comments.map((c) => ({
+                        description: c.description,
+                        the_author: c.author,
+                        author_job: c.job,
+                        the_star: String(c.stars),
+                    }))}
+                    image={data.sliderImage.url}
+                />
             </Container>
-            <Container fullWidth bg={"primary"}>
-                <FAQSection faq={pageData.acf.faq}/>
+
+            <Container >
+                <FAQAccordion items={data.faq} variant="dark" />
             </Container>
-            <BlogSection/>
+
+            <BlogSection />
+
             <Container>
-                <ContactCTA/>
+                <ContactCTA />
             </Container>
         </div>
     );
 }
-

@@ -19,7 +19,7 @@ const SectionIntro: React.FC<SectionIntroProps> = ({
         <div className={`flex flex-col items-center ${!lgCenter ? "lg:items-start" : "lg:max-w-[900] mx-auto"}`}>
             {badge && (
                 <div
-                    className=" px-3 py-1 mb-3  rounded-[30px] text-primary-6 border-[1.5px]  leading-5 font-caption   ">
+                    className=" px-3 py-1 mb-3  rounded-[30px] border-primary-6 text-primary-6 border-[1.5px]  leading-5 font-caption   ">
                     {badge}
                 </div>
             )}
