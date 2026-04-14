@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
                 protocol: "https",
                 hostname: "wordpress-1592566-6232100.cloudwaysapps.com",
             },
+            {
+                protocol: "https",
+                hostname: "picsum.photos",
+            },
         ],
     },
 };

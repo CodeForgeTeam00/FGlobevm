@@ -73,7 +73,7 @@ export default async function Home() {
                         author_job: c.job,
                         the_star: String(c.stars),
                     }))}
-                    image={data.sliderImage.url}
+                    image={data.sliderImage}
                 />
             </Container>
 

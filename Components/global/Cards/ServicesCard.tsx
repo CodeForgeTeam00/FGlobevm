@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import {ArrowRightIcon, BuildingLockIcon} from "@/Components/global/Icons";
-import { WPService } from "@/types/wordperess"
+import { WPService } from "@/types/wp-services";
 
 interface ServicesCardProps {
     service: WPService;

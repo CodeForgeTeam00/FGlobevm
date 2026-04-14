@@ -5,29 +5,31 @@ import { BlogGrid } from "@/Components/page/BlogPage/BlogGrid";
 import { BlogEditorChoiceSection } from "@/Components/page/BlogPage/BlogEditorChoiceSection";
 import { BlogCategoriesSection } from "@/Components/page/BlogPage/BlogCategoriesSection";
 import { BlogColSection } from "@/Components/page/BlogPage/BlogColSection";
-import SocialBanner from "@/Components/global/SocialBanner";
-import { InstagramIcon } from "@/Components/global/Icons";
 import { WpContent } from "@/Components/global/SeoBox";
 
 import { getBlogs, getBlogEditorChoice, getBlogCategories } from "@/services/wp-blog";
 import { getSeoBox } from "@/services/shared";
-import { mapBlogToFeaturedAndGrid } from "@/mappers/blog-mapper";
+import { mapBlogsResponse, mapBlogToFeaturedAndGrid, mapPost } from "@/mappers/blog-mapper";
 
-const socialData = [
-    { name: "Instagram", icon: InstagramIcon },
-    { name: "Twitter", icon: InstagramIcon },
-    { name: "LinkedIn", icon: InstagramIcon },
-    { name: "YouTube", icon: InstagramIcon },
-];
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Blog",
+    description: "Latest insights on IT infrastructure, cybersecurity, and cloud solutions from GlobeVM.",
+};
 
 export default async function Blog() {
-    const [blogSeoBox, blog, sidebar, editorChoice, categories] = await Promise.all([
+    const [blogSeoBox, rawBlog, rawSidebar, rawEditorChoice, categories] = await Promise.all([
         getSeoBox(211),
         getBlogs({ per_page: 5 }),
         getBlogs({ per_page: 3 }),
         getBlogEditorChoice(),
         getBlogCategories(),
     ]);
+
+    const blog = mapBlogsResponse(rawBlog);
+    const sidebar = mapBlogsResponse(rawSidebar);
+    const editorChoice = rawEditorChoice ? mapPost(rawEditorChoice) : null;
 
     const { featured, grid } = mapBlogToFeaturedAndGrid(blog?.posts ?? []);
 
@@ -39,19 +41,16 @@ export default async function Blog() {
                     <BlogGrid data={grid} />
                 </div>
                 <BlogEditorChoiceSection data={editorChoice} />
-                <BlogCategoriesSection data={categories} />
+                <BlogCategoriesSection data={categories ?? []} />
                 <div className="grid lg:grid-cols-2 px-4 lg:px-0 gap-10">
                     <BlogColSection data={sidebar?.posts ?? []} />
                     <BlogColSection data={sidebar?.posts ?? []} />
                 </div>
-                <SocialBanner
-                    title="Globe VM in Socials"
-                    subtitle="Business owners trust"
-                    socials={socialData}
-                />
-                <div>
-                    <WpContent content={blogSeoBox} />
-                </div>
+                {blogSeoBox && (
+                    <div>
+                        <WpContent content={blogSeoBox} />
+                    </div>
+                )}
             </div>
         </Container>
     );

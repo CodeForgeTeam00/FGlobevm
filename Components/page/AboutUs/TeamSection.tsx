@@ -1,31 +1,5 @@
 import Image from "next/image";
-
-const TEAM_MEMBERS = [
-    {
-        name: "Behnam Jafari",
-        role: "Design System Engineer",
-        image: "https://picsum.photos/seed/behnam/600/800",
-        themeColor: "blue" as const,
-    },
-    {
-        name: "Sara Arjun",
-        role: "Design System Engineer",
-        image: "https://picsum.photos/seed/sara/600/800",
-        themeColor: "green" as const,
-    },
-    {
-        name: "Donya Reafaeel",
-        role: "Design System Engineer",
-        image: "https://picsum.photos/seed/donya/600/800",
-        themeColor: "red" as const,
-    },
-    {
-        name: "Abbass Fuad",
-        role: "Design System Engineer",
-        image: "https://picsum.photos/seed/abbass/600/800",
-        themeColor: "orange" as const,
-    },
-];
+import { TeamMember } from "@/types/wp-about";
 
 const THEMES = {
     blue: {
@@ -50,14 +24,17 @@ const THEMES = {
     },
 };
 
+const THEME_ORDER: (keyof typeof THEMES)[] = ["blue", "green", "red", "orange"];
+
 interface TeamCardProps {
     name: string;
     role: string;
     image: string;
+    imageAlt: string;
     themeColor: keyof typeof THEMES;
 }
 
-function TeamCard({ name, role, image, themeColor }: TeamCardProps) {
+function TeamCard({ name, role, image, imageAlt, themeColor }: TeamCardProps) {
     const theme = THEMES[themeColor];
 
     return (
@@ -67,7 +44,7 @@ function TeamCard({ name, role, image, themeColor }: TeamCardProps) {
             <div className="relative h-[380px] rounded-[1.5rem] overflow-hidden group bg-gray-900">
                 <Image
                     src={image}
-                    alt={`${name}, ${role} at GlobeVM`}
+                    alt={imageAlt || `${name}, ${role} at GlobeVM`}
                     fill
                     className="object-cover object-center mix-blend-luminosity opacity-80 group-hover:scale-105 transition-transform duration-700"
                 />
@@ -88,7 +65,11 @@ function TeamCard({ name, role, image, themeColor }: TeamCardProps) {
     );
 }
 
-export default function TeamSection() {
+interface TeamSectionProps {
+    members: TeamMember[];
+}
+
+export default function TeamSection({ members }: TeamSectionProps) {
     return (
         <section aria-label="Our Team" className="py-24 relative overflow-hidden">
             <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col items-center">
@@ -110,13 +91,14 @@ export default function TeamSection() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                {TEAM_MEMBERS.map((member) => (
+                {members.map((member, index) => (
                     <TeamCard
-                        key={member.name}
-                        name={member.name}
-                        role={member.role}
-                        image={member.image}
-                        themeColor={member.themeColor}
+                        key={member.team_member_name}
+                        name={member.team_member_name}
+                        role={member.team_members_job}
+                        image={member.team_member_image.url}
+                        imageAlt={member.team_member_image.alt}
+                        themeColor={THEME_ORDER[index % THEME_ORDER.length]}
                     />
                 ))}
             </div>

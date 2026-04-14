@@ -2,36 +2,38 @@ import HeroSection from "@/Components/page/AboutUs/heroSection";
 import StorySection from "@/Components/page/AboutUs/StorySection";
 import Container from "@/Components/global/Sections/Container";
 import ValuesSection from "@/Components/page/AboutUs/ValuesSection";
-import SocialBanner from "@/Components/global/SocialBanner";
-import React from "react";
-import {InstagramIcon} from "@/Components/global/Icons";
 import TeamSection from "@/Components/page/AboutUs/TeamSection";
-import FAQSection from "@/Components/page/AboutUs/QBox";
+import { FAQAccordion } from "@/Components/global/FAQAccordion";
+import { WpContent } from "@/Components/global/SeoBox";
+import { getAboutPage } from "@/services/wp-pages";
+import type { Metadata } from "next";
 
-const socialData = [
-    { name: "Instagram", icon: InstagramIcon },
-    { name: "Twitter", icon:  InstagramIcon},
-    { name: "LinkedIn", icon:InstagramIcon },
-    { name: "YouTube", icon: InstagramIcon },
-];
+export const metadata: Metadata = {
+    title: "About Us",
+    description: "Learn about GlobeVM Digital Services, our team, and our mission to provide managed IT and cybersecurity solutions.",
+};
 
 export default async function AboutUsPage() {
-    return (
-        <div className="relative ">
-            <HeroSection/>
-            <Container>
-                <StorySection/>
-                <TeamSection/>
-                <SocialBanner
-                    title="Globe VM in Socials"
-                    subtitle="Business owners trust"
-                    socials={socialData}
-                />
-                <ValuesSection/>
+    const data = await getAboutPage();
 
+    return (
+        <div className="relative">
+            <HeroSection featuredImage={data?.featured_image} />
+            <Container>
+                <StorySection midSectionImage={data?.mid_section_image} />
+                {data?.team_section && (
+                    <TeamSection members={data.team_section} />
+                )}
+                <ValuesSection />
             </Container>
-            <FAQSection/>
+            {data?.faq_section && (
+                <section className="py-24">
+                    <FAQAccordion items={data.faq_section} variant="light" />
+                </section>
+            )}
+            {data?.about_globevm && (
+                <WpContent content={data.about_globevm} />
+            )}
         </div>
     );
 }
-

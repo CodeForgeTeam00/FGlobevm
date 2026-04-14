@@ -7,14 +7,18 @@ interface Props {
     searchParams: Promise<{ page?: string }>;
 }
 
+import { mapBlogsResponse } from "@/mappers/blog-mapper";
+
 export default async function CategoryPage({ searchParams }: Props) {
     const { page } = await searchParams;
     const currentPage = Number(page) || 1;
 
-    const blog = await getBlogs({
+    const rawBlog = await getBlogs({
         page: currentPage,
         per_page: 12,
     });
+
+    const blog = mapBlogsResponse(rawBlog);
 
     return (
         <Container>

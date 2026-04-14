@@ -1,5 +1,6 @@
 import { fetchWP } from "@/lib/api";
-import { BlogsResponse, BlogCategory, BlogPost, BlogSinglePost } from "@/types/wp-blog";
+import { BlogCategory, BlogPost, BlogSinglePost } from "@/types/wp-blog";
+
 interface GetBlogsParams {
     page?: number;
     per_page?: number;
@@ -14,16 +15,14 @@ export async function getBlogs(params?: GetBlogsParams) {
 
     const queryString = query.toString();
 
-    return fetchWP<BlogsResponse>(
+    return fetchWP<any>(
         `/gvm/v1/posts${queryString ? `?${queryString}` : ""}`,
         { strategy: { type: "isr", revalidate: 1800 }, tag: "blog" }
     );
 }
 
-
-
 export async function getBlogBySlug(slug: string) {
-    return fetchWP<BlogSinglePost>(
+    return fetchWP<any>(
         `/gvm/v1/blog/${slug}`,
         { strategy: { type: "isr", revalidate: 1800 }, tag: "blog" }
     );
@@ -37,15 +36,8 @@ export async function getBlogCategories() {
 }
 
 export async function getBlogEditorChoice() {
-    return fetchWP<BlogPost>(
+    return fetchWP<any>(
         "/gvm/v1/pages/211/acf-data/editor_choice",
         { strategy: { type: "isr", revalidate: 3600 }, tag: "blog" }
-    );
-}
-
-export async function getBlogSeoBox() {
-    return fetchWP<{ title: string; description: string }>(
-        "/gvm/v1/pages/211/acf-data/about_globevm_content",
-        { strategy: { type: "isr", revalidate: 86400 }, tag: "blog-seo" }
     );
 }

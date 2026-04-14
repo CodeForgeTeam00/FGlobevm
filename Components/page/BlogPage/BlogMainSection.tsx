@@ -1,25 +1,27 @@
 import React from "react";
-import { FeaturedBlogContent } from "./MainSection/BlogContent";
-import {BlogMainItem} from "@/types/blog";
 import Image from "next/image";
+import { FeaturedBlogContent } from "./MainSection/BlogContent";
+import { BlogPost } from "@/types/wp-blog";
 
 type Props = {
-    data: BlogMainItem;
+    data: BlogPost | null;
 };
 
 export const BlogMainSection: React.FC<Props> = ({ data }) => {
+    if (!data) return null;
 
     return (
         <div className="featured-blog w-full">
-            <div className="featured-blog__wrapper flex flex-col-reverse lg:flex-row ">
+            <div className="featured-blog__wrapper flex flex-col-reverse lg:flex-row">
                 <FeaturedBlogContent data={data} />
                 <div className="featured-blog__image-wrapper flex-1 lg:max-w-[907px] lg:h-[510px] w-full lg:rounded-r-xl overflow-hidden">
-                    <img
+                    <Image
                         src={data.imageUrl}
-                        className="featured-blog__image w-full h-full object-cover"
-                        alt=""
+                        alt={data.title}
+                        width={907}
+                        height={510}
+                        className="w-full h-full object-cover"
                     />
-
                 </div>
             </div>
         </div>

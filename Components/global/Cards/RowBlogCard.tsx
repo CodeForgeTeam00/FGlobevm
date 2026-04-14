@@ -1,65 +1,53 @@
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { CalendarAddIcon } from "@/Components/global/Icons";
-import {BlogApiItem} from "@/types/blog";
+import { BlogPost } from "@/types/wp-blog";
 
-type BlogCardData = {
-    title: string;
-    categoryName: string;
-    categoryUrl: string;
-    author: string;
-    date: string;
-    imageUrl: string;
-};
 type BlogCardProps = {
-    data: BlogApiItem;
+    data: BlogPost;
 };
+
 const RowBlogCard: React.FC<BlogCardProps> = ({ data }) => {
     const {
         title,
         date,
         author,
         categoryName,
-        categoryUrl,
-        imageUrl
+        imageUrl,
+        slug,
     } = data;
 
     return (
-        <div className="blog-card flex lg:gap-4 gap-2  cursor-pointer">
-
-            <div className="blog-card__image-wrapper">
-                <img
+        <Link href={`/blog/${slug}`} className="blog-card flex lg:gap-4 gap-2 cursor-pointer group">
+            <div className="blog-card__image-wrapper overflow-hidden rounded-lg">
+                <Image
                     src={imageUrl}
                     alt={title}
-                    className="blog-card__image min-w-[127px] max-w-[127px]  lg:min-w-[272px] lg:max-w-[272px] aspect-[16/9] object-cover rounded-lg"
+                    width={272}
+                    height={153}
+                    className="min-w-[127px] max-w-[127px] lg:min-w-[272px] lg:max-w-[272px] aspect-[16/9] object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
                 />
             </div>
-            <div className="blog-card__content  lg:py-4 lg:px-2 flex w-full flex-col gap-1 lg:gap-2">
-                <div className="blog-card__category">
-                    <a
-                        className="blog-card__category-link text-caption text-primary-6"
-                        href={categoryUrl}
-                    >
-                        {categoryName}
-                    </a>
-                </div>
-                <div className="blog-card__title">
-                    <p className="blog-card__title-text lg:text-xl">{title}</p>
-                </div>
-                <div className="blog-card__meta flex gap-2 lg:gap-4">
-                    <div className="blog-card__author flex text-footnote lg:text-small gap-1">
+            <div className="lg:py-4 lg:px-2 flex w-full flex-col gap-1 lg:gap-2">
+                <span className="text-caption text-primary-6">
+                    {categoryName}
+                </span>
+                <p className="lg:text-xl">{title}</p>
+                <div className="flex gap-2 lg:gap-4">
+                    <div className="flex text-footnote lg:text-small gap-1">
                         <span className="text-neutral-100">By</span>
                         <span className="text-neutral-50">{author.name}</span>
                     </div>
-                    <div className="blog-card__date flex gap-1">
+                    <div className="flex gap-1">
                         <CalendarAddIcon className="w-4 text-neutral-50" />
                         <span className="text-footnote lg:text-small text-neutral-50">
                             {date}
                         </span>
                     </div>
-
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 

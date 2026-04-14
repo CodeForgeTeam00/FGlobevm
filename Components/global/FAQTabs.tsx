@@ -46,7 +46,7 @@ export function FAQTabs({ categories, variant = "light" }: FAQTabsProps) {
                     <button
                         key={tab.value}
                         onClick={() => setActive(tab.value)}
-                        className={`flex flex-col items-center justify-center p-5 rounded-2xl border transition-all ${
+                        className={`flex flex-col cursor-pointer items-center justify-center p-5 rounded-2xl border transition-all ${
                             active === tab.value
                                 ? "border-primary-6 shadow-[0_0_0_2px_rgba(25,154,213,0.25)] "
                                 : "border-gray-200 bg-white hover:border-gray-300"

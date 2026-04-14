@@ -1,9 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Calendar, Phone } from "lucide-react";
 import Container from "@/Components/global/Sections/Container";
 import { StatsBar } from "./StatsBar";
-import mainImage from "@/public/assets/image/65c3a073c1cbc6dbdbd40d7fe099a6ea5409fa24.jpg";
-export default function HeroSection() {
+
+interface HeroSectionProps {
+    featuredImage?: string;
+}
+
+export default function HeroSection({ featuredImage }: HeroSectionProps) {
     return (
         <section
             aria-label="About GlobeVM"
@@ -11,7 +16,7 @@ export default function HeroSection() {
         >
             <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-60 lg:opacity-100">
                 <Image
-                    src={mainImage}
+                    src={featuredImage || "/assets/image/about-hero.jpg"}
                     alt="GlobeVM IT security professional"
                     fill
                     className="object-cover object-center [mask-image:linear-gradient(to_right,transparent,black_30%)] lg:[mask-image:linear-gradient(to_right,transparent,black_20%)]"
@@ -38,13 +43,13 @@ export default function HeroSection() {
                         </p>
 
                         <div className="flex flex-wrap items-center gap-4">
-                            <a
+                            <Link
                                 href="/contact-us"
                                 className="bg-[#1da1f2] hover:bg-[#1a91da] text-white rounded-xl px-6 py-3.5 font-medium flex items-center gap-2.5 transition-colors shadow-lg shadow-[#1da1f2]/20"
                             >
                                 <Calendar size={18} />
                                 Book A Free Consultation
-                            </a>
+                            </Link>
                             <a
                                 href="tel:3107504939"
                                 className="bg-white hover:bg-gray-50 text-gray-900 rounded-xl px-6 py-3.5 font-medium flex items-center gap-2.5 transition-colors"

@@ -7,7 +7,7 @@ import {
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-} from "@/components/ui/pagination";
+}  from "@/Components/Ui/pagination";
 import { useRouter, usePathname } from "next/navigation";
 
 type Props = {
@@ -25,7 +25,7 @@ export default function CustomPagination({ currentPage, totalPages, hasNext, has
         const url = `${pathname}?per_page=${page}`;
         console.log("🚀 Navigate to:", url);
 
-        router.push(url); // بدون رفرش
+        router.push(url);
     };
 
     return (
