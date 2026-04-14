@@ -7,8 +7,8 @@ import {
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-}  from "@/Components/Ui/pagination";
-import { useRouter, usePathname } from "next/navigation";
+} from "@/Components/Ui/pagination";
+import { usePathname } from "next/navigation";
 
 type Props = {
     currentPage: number;
@@ -17,38 +17,32 @@ type Props = {
     hasPrev: boolean;
 };
 
-export default function CustomPagination({ currentPage, totalPages, hasNext, hasPrev }: Props) {
-    const router = useRouter();
+export default function CustomPagination({
+                                             currentPage,
+                                             totalPages,
+                                             hasNext,
+                                             hasPrev,
+                                         }: Props) {
     const pathname = usePathname();
 
-    const goToPage = (page: number) => {
-        const url = `${pathname}?per_page=${page}`;
-        console.log("🚀 Navigate to:", url);
-
-        router.push(url);
-    };
+    const getPageUrl = (page: number) => `${pathname}?page=${page}`;
 
     return (
         <Pagination className="mt-8">
             <PaginationContent>
-                {/* Previous */}
                 {hasPrev && (
                     <PaginationItem>
-                        <PaginationPrevious
-                            onClick={() => goToPage(currentPage - 1)}
-                        />
+                        <PaginationPrevious href={getPageUrl(currentPage - 1)} />
                     </PaginationItem>
                 )}
 
-                {/* Pages */}
                 {Array.from({ length: totalPages }).map((_, i) => {
                     const page = i + 1;
-
                     return (
                         <PaginationItem key={page}>
                             <PaginationLink
                                 isActive={page === currentPage}
-                                onClick={() => goToPage(page)}
+                                href={getPageUrl(page)}
                             >
                                 {page}
                             </PaginationLink>
@@ -56,12 +50,9 @@ export default function CustomPagination({ currentPage, totalPages, hasNext, has
                     );
                 })}
 
-                {/* Next */}
                 {hasNext && (
                     <PaginationItem>
-                        <PaginationNext
-                            onClick={() => goToPage(currentPage + 1)}
-                        />
+                        <PaginationNext href={getPageUrl(currentPage + 1)} />
                     </PaginationItem>
                 )}
             </PaginationContent>
