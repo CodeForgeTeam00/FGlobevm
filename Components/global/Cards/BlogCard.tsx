@@ -16,7 +16,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ data, hasAuthor }) => {
         author,
         categoryName,
         categoryUrl,
-        imageUrl,
+        image,
         slug,
     } = data;
 
@@ -24,8 +24,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ data, hasAuthor }) => {
         <Link href={`/blog/${slug}`} className="blog-card flex flex-col cursor-pointer group">
             <div className="blog-card__image-wrapper overflow-hidden rounded-lg">
                 <Image
-                    src={imageUrl}
-                    alt={title}
+                    src={image.url}
+                    alt={image.alt}
                     width={400}
                     height={225}
                     className="w-full h-full aspect-[16/9] object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"

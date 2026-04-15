@@ -1,9 +1,5 @@
 import { WPImage } from "./wp-common";
-export interface FAQCategory {
-    category_name: string;
-    category_icon: WPImage | null;
-    faqs: FAQItem[];
-}
+
 export interface HeroSectionImages {
     hero_primary_image: WPImage;
     hero_secondary_image: WPImage;
@@ -21,12 +17,16 @@ export interface FAQItem {
     answer: string;
 }
 
+export interface FAQCategory {
+    category_name: string;
+    category_icon: WPImage | null;
+    faqs: FAQItem[];
+}
+
 export interface GlobalOptions {
-    acf: {
-        hero_section_images: HeroSectionImages;
-        background_image: WPImage;
-        slider_section_image: WPImage;
-        comment_field: Testimonial[];
-        faq: FAQItem[];
-    };
+    hero_section_images: HeroSectionImages;
+    background_image: WPImage;
+    slider_section_image: WPImage;
+    comment_field: Testimonial[];
+    faq: FAQItem[];
 }

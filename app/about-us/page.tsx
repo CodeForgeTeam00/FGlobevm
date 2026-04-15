@@ -13,9 +13,10 @@ export const metadata: Metadata = {
     description: "Learn about GlobeVM Digital Services, our team, and our mission to provide managed IT and cybersecurity solutions.",
 };
 
+
 export default async function AboutUsPage() {
     const data = await getAboutPage();
-
+    console.log(data)
     return (
         <div className="relative">
             <HeroSection featuredImage={data?.featured_image} />

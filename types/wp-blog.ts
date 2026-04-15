@@ -1,8 +1,9 @@
 import { WPImage } from "./wp-common";
 
+
 export interface BlogAuthor {
     name: string;
-    avatar: string;
+    avatar: WPImage;
 }
 
 export interface BlogPost {
@@ -14,7 +15,7 @@ export interface BlogPost {
     categoryUrl: string;
     date: string;
     author: BlogAuthor;
-    imageUrl: string;
+    image: WPImage;
 }
 
 export interface BlogPagination {
@@ -47,12 +48,12 @@ export type BlogComponent =
     | { type: "core/paragraph"; html: string }
     | { type: "core/heading"; html: string }
     | { type: "core/list"; html: string }
-    | { type: "acf/selected-posts"; data: BlogPost[] }
-    | { type: "acf/single-related-post"; data: BlogPost[] }
+    | { type: "acf/selected-posts"; data: any[] }
+    | { type: "acf/single-related-post"; data: any[] }
     | { type: "acf/related-posts"; data: { id: string; title: string; slug: string }[] }
     | { type: "acf/custom-quote"; data: { text: string } }
     | { type: "acf/custom-image"; data: { url: string; alt: string } }
-    | { type: "acf/custom-video"; data: BlogVideoData }
+    | { type: "acf/custom-video"; data: any }
     | { type: "acf/custom-faq"; data: { question: string; answer: string }[] };
 
 export interface BlogVideoData {

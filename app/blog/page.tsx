@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default async function Blog() {
     const [blogSeoBox, rawBlog, rawSidebar, rawEditorChoice, categories] = await Promise.all([
-        getSeoBox(211),
+        getSeoBox(211 , 'seo_box'),
         getBlogs({ per_page: 5 }),
         getBlogs({ per_page: 3 }),
         getBlogEditorChoice(),

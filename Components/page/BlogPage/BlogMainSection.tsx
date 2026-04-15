@@ -16,8 +16,8 @@ export const BlogMainSection: React.FC<Props> = ({ data }) => {
                 <FeaturedBlogContent data={data} />
                 <div className="featured-blog__image-wrapper flex-1 lg:max-w-[907px] lg:h-[510px] w-full lg:rounded-r-xl overflow-hidden">
                     <Image
-                        src={data.imageUrl}
-                        alt={data.title}
+                        src={data.image?.url || ""}
+                        alt={data.image?.alt || data.title}
                         width={907}
                         height={510}
                         className="w-full h-full object-cover"

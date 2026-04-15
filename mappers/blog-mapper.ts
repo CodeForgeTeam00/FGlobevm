@@ -1,6 +1,6 @@
 import { BlogPost, BlogsResponse, BlogPagination } from "@/types/wp-blog";
 
-interface RawBlogPost {
+export  interface RawBlogPost {
     id?: number;
     slug?: string;
     title: string;
@@ -12,7 +12,7 @@ interface RawBlogPost {
     image_url: string;
 }
 
-interface RawBlogsResponse {
+export  interface RawBlogsResponse {
     posts: RawBlogPost[];
     pagination: {
         total_posts: number;
@@ -25,20 +25,26 @@ interface RawBlogsResponse {
     sort_by: { current_sort: string };
 }
 
-export  function mapPost(raw: RawBlogPost): BlogPost {
+export function mapPost(raw: any): BlogPost {
     return {
         id: raw.id,
         slug: raw.slug,
         title: raw.title,
         description: raw.description,
-        categoryName: raw.category_name,
-        categoryUrl: raw.category_url,
+        categoryName: raw.category_name ?? raw.categoryName,
+        categoryUrl: raw.category_url ?? raw.categoryUrl,
         date: raw.date,
-        author: raw.author,
-        imageUrl: raw.image_url,
+        author: {
+            name: raw.author?.name,
+            avatar: typeof raw.author?.avatar === "string"
+                ? { url: raw.author.avatar, alt: raw.author.name }
+                : raw.author?.avatar ?? { url: "", alt: "" },
+        },
+        image: typeof raw.image === "string"
+            ? { url: raw.image, alt: "" }
+            : raw.image ?? (raw.image_url ? { url: raw.image_url, alt: "" } : { url: "", alt: "" }),
     };
 }
-
 function mapPagination(raw: RawBlogsResponse["pagination"]): BlogPagination {
     return {
         totalPosts: raw.total_posts,

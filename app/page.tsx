@@ -6,25 +6,28 @@ import { AboutStability } from "@/Components/page/Home/AboutStability";
 import { WhyChooseUs } from "@/Components/page/Home/WhyChooseUs";
 import { ManagedServices } from "@/Components/page/Home/ManagedServices";
 import { ClientFeedback } from "@/Components/page/Home/ClientFeedback";
-import { FAQSection } from "@/Components/page/Home/FAQSection";
 import { BlogSection } from "@/Components/page/Home/BlogSection";
 import { ContactCTA } from "@/Components/page/Home/ContactCTA";
+import { FAQAccordion } from "@/Components/global/FAQAccordion";
 
 import Container from "@/Components/global/Sections/Container";
 import mask from "@/public/assets/image/heroSectionLayout.svg";
 
 import { getGlobalOptions } from "@/services/wp-options";
 import { getAllServices } from "@/services/wp-services";
+import { getBlogs } from "@/services/wp-blog";
 import { mapGlobalOptions } from "@/mappers/options.mapper";
-import {FAQAccordion} from "@/Components/global/FAQAccordion";
+import { mapBlogsResponse } from "@/mappers/blog-mapper";
 
 export default async function Home() {
-    const [options, services] = await Promise.all([
+    const [options, services, rawPosts] = await Promise.all([
         getGlobalOptions(),
         getAllServices(),
+        getBlogs({ per_page: 4 }),
     ]);
 
     const data = mapGlobalOptions(options);
+    const blogData = mapBlogsResponse(rawPosts);
 
     if (!data) {
         return <div className="p-10">Failed to load page data.</div>;
@@ -77,12 +80,12 @@ export default async function Home() {
                 />
             </Container>
 
-            <Container >
+            <Container>
                 <FAQAccordion items={data.faq} variant="dark" />
             </Container>
-
-            <BlogSection />
-
+            <Container>
+                <BlogSection posts={blogData?.posts ?? []} />
+            </Container>
             <Container>
                 <ContactCTA />
             </Container>
