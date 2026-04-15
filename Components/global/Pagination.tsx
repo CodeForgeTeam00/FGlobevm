@@ -24,9 +24,8 @@ export default function CustomPagination({
                                              hasPrev,
                                          }: Props) {
     const pathname = usePathname();
-
-    const getPageUrl = (page: number) => `${pathname}?page=${page}`;
-
+    const getPageUrl = (page: number) =>
+        page === 1 ? pathname : `${pathname}?page=${page}`;
     return (
         <Pagination className="mt-8">
             <PaginationContent>
