@@ -6,7 +6,7 @@ import { getBlogs } from "@/services/wp-blog";
 interface Props {
     searchParams: Promise<{ page?: string }>;
 }
-
+export const dynamic = "force-dynamic";
 import { mapBlogsResponse } from "@/mappers/blog-mapper";
 
 export default async function CategoryPage({ searchParams }: Props) {

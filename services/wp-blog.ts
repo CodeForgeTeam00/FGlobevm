@@ -14,13 +14,15 @@ export async function getBlogs(params?: GetBlogsParams) {
     if (params?.category_slug) query.append("category_slug", params.category_slug);
 
     const queryString = query.toString();
+    const endpoint = `/gvm/v1/posts${queryString ? `?${queryString}` : ""}`;
+
+    console.log("BLOG API CALL:", endpoint);
 
     return fetchWP<any>(
-        `/gvm/v1/posts${queryString ? `?${queryString}` : ""}`,
+        endpoint,
         { strategy: { type: "isr", revalidate: 1800 }, tag: "blog" }
     );
 }
-
 export async function getBlogBySlug(slug: string) {
     return fetchWP<any>(
         `/gvm/v1/blog/${slug}`,
