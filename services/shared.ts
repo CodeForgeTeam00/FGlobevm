@@ -1,7 +1,7 @@
 import { fetchWP } from "@/lib/api";
 import { FAQCategory } from "@/types/wp-options";
 
-export async function getSeoBox(pageId: number, fieldName: string = "about_globevm_content") {
+export async function getSeoBox(pageId: number, fieldName: string = "seo-box") {
     return fetchWP<string>(
         `/gvm/v1/pages/${pageId}/acf-data/${fieldName}`,
         { strategy: { type: "isr", revalidate: 86400 }, tag: `seo-${pageId}` }

@@ -43,3 +43,21 @@ export async function getBlogEditorChoice() {
         { strategy: { type: "isr", revalidate: 3600 }, tag: "blog" }
     );
 }
+export async function getSubCategories(parentSlug: string) {
+    const categories = await fetchWP<any[]>(
+        "/wp/v2/categories?per_page=100",
+        { strategy: { type: "isr", revalidate: 3600 }, tag: "categories" }
+    );
+
+    if (!categories) return [];
+
+    const parent = categories.find((c) => c.slug === parentSlug);
+    if (!parent) return [];
+
+    return categories
+        .filter((c) => c.parent === parent.id)
+        .map((c) => ({
+            name: c.name,
+            slug: c.slug,
+        }));
+}
