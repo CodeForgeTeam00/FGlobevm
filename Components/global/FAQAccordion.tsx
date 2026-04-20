@@ -45,7 +45,9 @@ export function FAQAccordion({ items, variant = "light" }: FAQAccordionProps) {
                             <div
                                 className={`flex-shrink-0 lg:w-10 w-6 h-6 lg:h-10 rounded-full flex items-center justify-center transition-all ${
                                     isOpen
-                                        ? "bg-white text-primary-6"
+                                        ? isLight
+                                            ? "bg-primary-6 text-white"
+                                            : "bg-white text-primary-6"
                                         : "bg-white text-neutral-black border border-neutral-30"
                                 }`}
                             >

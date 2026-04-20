@@ -30,3 +30,21 @@ export interface GlobalOptions {
     comment_field: Testimonial[];
     faq: FAQItem[];
 }
+export interface HeaderNavChild {
+    name: string;
+    slug: string;
+}
+
+export interface HeaderNavItem {
+    name: string;
+    slug: string;
+    children: HeaderNavChild[] | false;
+}
+
+export interface HeaderSettings {
+    btn_num: {
+        number: string;
+        url: string;
+    };
+    navigation: HeaderNavItem[];
+}

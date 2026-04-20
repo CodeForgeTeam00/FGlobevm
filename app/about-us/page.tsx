@@ -7,6 +7,7 @@ import { FAQAccordion } from "@/Components/global/FAQAccordion";
 import { WpContent } from "@/Components/global/SeoBox";
 import { getAboutPage } from "@/services/wp-pages";
 import type { Metadata } from "next";
+import PrimarySection from "@/Components/global/PrimarySection";
 
 export const metadata: Metadata = {
     title: "About Us",
@@ -28,9 +29,19 @@ export default async function AboutUsPage() {
                 <ValuesSection />
             </Container>
             {data?.faq_section && (
-                <section className="py-24">
-                    <FAQAccordion items={data.faq_section} variant="light" />
-                </section>
+                    <PrimarySection>
+                        <div>
+                            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-20 mb-10">
+                                <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
+                                    Frequently Asked<br />Questions
+                                </h2>
+                                <p className="text-white/80 text-sm lg:text-base leading-relaxed max-w-1/2">
+                                    Quick answers about our services, response times, security practices, and what working with GlobeVM looks like day to day. This section helps you understand what's included, how support works, and what to expect during onboarding.
+                                </p>
+                            </div>
+                        </div>
+                        <FAQAccordion items={data.faq_section} variant="light" />
+                    </PrimarySection>
             )}
             {data?.about_globevm && (
                 <WpContent content={data.about_globevm} />
@@ -38,3 +49,20 @@ export default async function AboutUsPage() {
         </div>
     );
 }
+
+// GET /gvm/v1/menus/header
+    [
+    {
+        "name": "Inspection Services",
+        "url": "/inspection-services",
+        "children": [
+            { "name": "Interactive Reports", "url": "/inspection-services/interactive-reports" },
+            { "name": "Team Dashboard", "url": "/inspection-services/team-dashboard" }
+        ]
+    },
+        {
+            "name": "Services",
+            "url": "/services",
+            "children": []
+        }
+    ]

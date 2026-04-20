@@ -41,9 +41,9 @@ export const dictionary = {
             heroSection:{
                 content:{
                     badge:"Proactive IT",
-                    title:"Proactive IT That Keeps Your Business ",
-                    highlight:"Secure",
-                    des:"We manage, secure, and optimize your infrastructure so your team can focus on growth instead of downtime. From virtual environments to network protection, we keep your systems stable, fast, and protected.",
+                    title:" IT Support & Cybersecurity Services in ",
+                    highlight:"Los Angeles ",
+                    des:"Stop settling for slow, reactive IT support. GlobeVM delivers proactive managed IT, secure cloud solutions, and enterprise-grade cybersecurity. We eliminate tech bottlenecks so you can focus entirely on scaling your business without the fear of downtime.",
                     primaryBtn:"Book A Free Consulation",
                     secondaryBtn:"Get A Free Penetration Test",
                 },
@@ -65,26 +65,26 @@ export const dictionary = {
             whyChooseUs:{
                 content:{
                     badge:"Why GlobeVM",
-                    title:"Why Businesses Choose ",
+                    title:"Why Businesses Choose    ",
                     highlight:"GlobeVM",
-                    des:"We don’t just fix problems after they happen. Our team monitors, secures, and maintains your environment around the clock to prevent costly disruptions. You get predictable performance, clear communication, and IT that actually supports your business goals.",
+                    des:"We don’t just fix problems after they happen; we prevent them. Our team monitors, secures, and maintains your environment around the clock to eliminate costly disruptions and keep your team productive.",
                 },
-                features:[
+                features: [
                     {
-                        title: 'SEO',
-                        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
+                        title: "24/7 Live Local Support",
+                        description: "Forget outsourced call centers. Get immediate emergency response from a live local expert in Los Angeles, day or night. Whether it's chat, email, or phone, we're always here.",
                     },
                     {
-                        title: 'SEO',
-                        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
+                        title: "Proactive Threat Prevention",
+                        description: "We stay ahead of hackers with enterprise-grade security. Our proactive monitoring detects and blocks vulnerabilities before they can impact your data or reputation.",
                     },
                     {
-                        title: 'SEO',
-                        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
+                        title: "Certified & Trusted Experts",
+                        description: "Partner with a team of certified specialists committed to excellence. We deliver high-level technical expertise and strategic IT consulting tailored to your specific business goals.",
                     },
                     {
-                        title: 'SEO',
-                        description: 'Bringing visuals to life through developing highly functional web solutions highly functional web solutions.',
+                        title: "Hassle-Free Compliance",
+                        description: "Navigating HIPAA, PCI DSS, or GDPR is complex. We manage your compliance requirements and risk management, so you can focus on your business without worrying about fines.",
                     },
                 ],
             }

@@ -5,6 +5,7 @@ interface GetBlogsParams {
     page?: number;
     per_page?: number;
     category_slug?: string;
+    search?: string;
 }
 
 export async function getBlogs(params?: GetBlogsParams) {
@@ -12,7 +13,7 @@ export async function getBlogs(params?: GetBlogsParams) {
     if (params?.page) query.append("page", String(params.page));
     if (params?.per_page) query.append("per_page", String(params.per_page));
     if (params?.category_slug) query.append("category_slug", params.category_slug);
-
+    if (params?.search) query.append("q", params.search);
     const queryString = query.toString();
     const endpoint = `/gvm/v1/posts${queryString ? `?${queryString}` : ""}`;
 

@@ -1,44 +1,29 @@
-export async function GET() {
+import { NextRequest } from "next/server";
+
+const WP_BASE = process.env.WORDPRESS_API_URL;
+
+export async function GET(request: NextRequest) {
+    const endpoint = request.nextUrl.searchParams.get("endpoint");
+
+    if (!endpoint) {
+        return Response.json({ error: "Missing endpoint param" }, { status: 400 });
+    }
+
     try {
-        const controller = new AbortController();
+        const url = `${WP_BASE}${endpoint}`;
+        console.log("WP PROXY:", url);
 
-        const timeout = setTimeout(() => {
-            controller.abort();
-        }, 30000);
-
-        const res = await fetch(
-            "https://wordpress-1592566-6232100.cloudwaysapps.com/wp-json/",
-            {
-                signal: controller.signal,
-                cache: "no-store",
-                headers: {
-                    "User-Agent": "Mozilla/5.0",
-                },
-            }
-        );
-
-        clearTimeout(timeout);
-
-        const text = await res.text();
-
-        return new Response(text, {
-            status: 200,
-            headers: {
-                "Content-Type": "application/json",
-            },
+        const res = await fetch(url, {
+            cache: "no-store",
+            headers: { "User-Agent": "Mozilla/5.0" },
         });
+
+        const data = await res.json();
+        return Response.json(data);
     } catch (e: any) {
-        return new Response(
-            JSON.stringify({
-                error: "WP unreachable from Node",
-                detail: e.message,
-            }),
-            {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
+        return Response.json(
+            { error: "WP unreachable", detail: e.message },
+            { status: 500 }
         );
     }
 }

@@ -1,7 +1,10 @@
+
+
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/Components/layout/Header";
+import HeaderSwitcher from "@/Components/layout/HeaderSwitcher";
 import { Footer } from "@/Components/layout/Footer";
+import { getHeaderSettings } from "@/services/wp-options";
 
 export const metadata: Metadata = {
     title: {
@@ -12,16 +15,18 @@ export const metadata: Metadata = {
         "GlobeVM Digital Services provides managed IT, cybersecurity, and cloud solutions for businesses in Los Angeles and beyond.",
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+export default async function RootLayout({
+                                             children,
+                                         }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const headerSettings = await getHeaderSettings();
+
     return (
         <html lang="en">
         <body className="antialiased max-w-[1920px] mx-auto">
         <div className="container max-w-[1540px] mx-auto">
-            <Header />
+            <HeaderSwitcher headerSettings={headerSettings} />
         </div>
         {children}
         <Footer />
