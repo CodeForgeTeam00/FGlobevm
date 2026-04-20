@@ -12,7 +12,7 @@ import { getSeoBox } from "@/services/shared";
 import { mapBlogsResponse, mapBlogToFeaturedAndGrid, mapPost } from "@/mappers/blog-mapper";
 
 import type { Metadata } from "next";
-export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
     title: "Blog",
     description: "Latest insights on IT infrastructure, cybersecurity, and cloud solutions from GlobeVM.",
