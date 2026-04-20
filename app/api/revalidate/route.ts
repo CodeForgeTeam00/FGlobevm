@@ -1,4 +1,5 @@
 import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
 
 async function handleRevalidate(request: NextRequest) {
@@ -15,6 +16,19 @@ async function handleRevalidate(request: NextRequest) {
     }
 
     revalidateTag(tag, "max");
+
+    if (tag === "blog") {
+        revalidatePath("/blog");
+        revalidatePath("/");
+    }
+    if (tag === "services") {
+        revalidatePath("/services");
+        revalidatePath("/");
+    }
+    if (tag === "options") {
+        revalidatePath("/");
+        revalidatePath("/faq");
+    }
 
     return Response.json({
         revalidated: true,
