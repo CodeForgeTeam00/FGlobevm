@@ -30,11 +30,21 @@ async function handleRevalidate(request: NextRequest) {
         revalidatePath("/faq");
     }
 
-    return Response.json({
-        revalidated: true,
-        tag,
-        now: Date.now(),
-    });
+    return new Response(
+        JSON.stringify({
+            revalidated: true,
+            tag,
+            now: Date.now(),
+        }),
+        {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "CDN-Cache-Control": "no-cache",
+                "Vercel-CDN-Cache-Control": "no-cache",
+            },
+        }
+    );
 }
 
 export async function GET(request: NextRequest) {
