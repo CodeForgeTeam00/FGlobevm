@@ -1,7 +1,7 @@
 import { revalidateTag } from "next/cache";
 import { NextRequest } from "next/server";
 
-export async function POST(request: NextRequest) {
+async function handleRevalidate(request: NextRequest) {
     const secret = request.nextUrl.searchParams.get("secret");
 
     if (secret !== process.env.REVALIDATE_SECRET) {
@@ -21,4 +21,12 @@ export async function POST(request: NextRequest) {
         tag,
         now: Date.now(),
     });
+}
+
+export async function GET(request: NextRequest) {
+    return handleRevalidate(request);
+}
+
+export async function POST(request: NextRequest) {
+    return handleRevalidate(request);
 }
