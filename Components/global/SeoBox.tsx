@@ -1,15 +1,11 @@
 import parse, { domToReact, HTMLReactParserOptions } from "html-react-parser";
-import DOMPurify from "isomorphic-dompurify";
 import Link from "next/link";
-import { Element } from "domhandler";
+
 type Props = {
     content: string;
 };
 
 export function WpContent({ content }: Props) {
-
-    const cleanHtml = DOMPurify.sanitize(content);
-
     const options: HTMLReactParserOptions = {
         replace: (domNode: any) => {
             if (domNode.name === "a") {
@@ -18,7 +14,7 @@ export function WpContent({ content }: Props) {
 
                 if (isInternal) {
                     return (
-                        <Link href={href} className="text-blue-600 ">
+                        <Link href={href} className="text-blue-600">
                             {domToReact(domNode.children, options)}
                         </Link>
                     );
@@ -29,7 +25,7 @@ export function WpContent({ content }: Props) {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 "
+                        className="text-blue-600"
                     >
                         {domToReact(domNode.children, options)}
                     </a>
@@ -60,5 +56,5 @@ export function WpContent({ content }: Props) {
         },
     };
 
-    return <div className="text-gray-800 leading-7">{parse(cleanHtml, options)}</div>;
+    return <div className="text-gray-800 leading-7">{parse(content, options)}</div>;
 }
