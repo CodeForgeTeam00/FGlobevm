@@ -28,9 +28,9 @@ export default function Header({ headerSettings }: Props) {
 
     return (
         <>
-            <header className="relative z-50 bg-white" onMouseLeave={() => setMegaOpen(false)}>
+            <header className="sticky top-0 z-50 border-b border-neutral-30  bg-white" onMouseLeave={() => setMegaOpen(false)}>
                  <Container>
-                     <div className="desktop-header hidden px-4 2xl:px-0 lg:flex py-8 w-full justify-between items-center">
+                     <div className="desktop-header hidden px-4 2xl:px-0 lg:flex py-5 w-full justify-between items-center">
                          <div className="header__right-side flex items-center 2xl:gap-10 gap-6">
                              <div className="Header__logo">
                                  <Logo className="2xl:text-[56px] text-[40px]" />

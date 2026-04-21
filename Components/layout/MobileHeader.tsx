@@ -42,7 +42,7 @@ export default function MobileHeader({ headerSettings }: Props) {
                         }}
                     />
 
-                    <div className="absolute left-0 top-0 h-full w-[300px] bg-white shadow-xl flex flex-col">
+                    <div className="absolute left-0 top-0 h-full w-full bg-white shadow-xl flex flex-col">
                         <div className="flex items-center justify-between p-4 border-b border-gray-100">
                             <Logo className="text-[32px]" iconOnly />
                             <button
