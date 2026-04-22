@@ -11,7 +11,11 @@ interface Props {
     label: string;
     description: string;
     image: { url: string; alt: string };
-    keyFeatures: ServicePageData["acf"]["key_features"];
+    keyFeatures: {
+        icon: { url: string; alt: string };
+        title: string;
+        description: string;
+    }[];
 }
 
 export default function ServicesHeroSection({ title, label, description, image, keyFeatures }: Props) {
