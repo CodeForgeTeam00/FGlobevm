@@ -24,14 +24,9 @@ export default function MobileHeader({ headerSettings }: Props) {
                     <MenuIcon className="w-5" />
                 </button>
                 <div className="Header__logo">
-                    <Logo className="text-[40px] hidden sm:flex" />
-                    <Logo className="text-[40px] flex sm:hidden" iconOnly={true} />
-                </div>
-                <div>
-                    <SearchIcon className="w-6" />
+                    <Logo className="text-[40px] flex " iconOnly={true} />
                 </div>
             </div>
-
             {menuOpen && (
                 <div className="fixed inset-0 z-50 lg:hidden">
                     <div

@@ -1,146 +1,96 @@
 "use client";
 
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Star } from 'lucide-react';
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Star } from "lucide-react";
+import Image from "next/image";
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import "swiper/css";
+import SectionIntro from "@/Components/global/SectionIntro";
 
 function cn(...classes: (string | false | undefined)[]) {
     return classes.filter(Boolean).join(" ");
 }
 
-const testimonials = [
-    {
-        id: 1,
-        name: 'Behnam Jafari',
-        role: 'CEO of Meta',
-        image: 'https://picsum.photos/seed/behnam1/100/100',
-        text: 'Enhance your outdoor living with patios...',
-        rating: 5,
-    },
-    {
-        id: 1,
-        name: 'Behnam Jafari',
-        role: 'CEO of Meta',
-        image: 'https://picsum.photos/seed/behnam1/100/100',
-        text: 'Enhance your outdoor living with patios...',
-        rating: 5,
-    },
-    {
-        id: 1,
-        name: 'Behnam Jafari',
-        role: 'CEO of Meta',
-        image: 'https://picsum.photos/seed/behnam1/100/100',
-        text: 'Enhance your outdoor living with patios...',
-        rating: 5,
-    },
-    {
-        id: 1,
-        name: 'Behnam Jafari',
-        role: 'CEO of Meta',
-        image: 'https://picsum.photos/seed/behnam1/100/100',
-        text: 'Enhance your outdoor living with patios...',
-        rating: 5,
-    },
-    {
-        id: 1,
-        name: 'Behnam Jafari',
-        role: 'CEO of Meta',
-        image: 'https://picsum.photos/seed/behnam1/100/100',
-        text: 'Enhance your outdoor living with patios...',
-        rating: 5,
-    },
-    {
-        id: 1,
-        name: 'Behnam Jafari',
-        role: 'CEO of Meta',
-        image: 'https://picsum.photos/seed/behnam1/100/100',
-        text: 'Enhance your outdoor living with patios...',
-        rating: 5,
-    },    {
-        id: 1,
-        name: 'Behnam Jafari',
-        role: 'CEO of Meta',
-        image: 'https://picsum.photos/seed/behnam1/100/100',
-        text: 'Enhance your outdoor living with patios...',
-        rating: 5,
-    },    {
-        id: 1,
-        name: 'Behnam Jafari',
-        role: 'CEO of Meta',
-        image: 'https://picsum.photos/seed/behnam1/100/100',
-        text: 'Enhance your outdoor living with patios...',
-        rating: 5,
-    },];
+interface Comment {
+    avatar: { url: string; alt: string } | null;
+    name: string;
+    job: string;
+    description: string;
+    star: string;
+}
 
-export default function Testimonials() {
+interface Props {
+    comments: Comment[];
+    title: string;
+    description: string;
+    label:string;
+}
+
+export default function Testimonials({ comments , label , title  , description }: Props) {
     return (
         <section className="py-24 bg-white overflow-hidden">
-            <div className="">
-
-                <div className="relative w-full ">
-                    <Swiper
-                        spaceBetween={24}
-                        slidesPerView={'auto'}
-                        centeredSlides={true}
-                        loop={true}
-                        watchSlidesProgress={true}
-                        className="!pb-16"
-                    >
-                        {testimonials.map((testimonial, index) => (
-                            <SwiperSlide
-                                key={index}
-                                className="!w-[520px]"
-                            >
-                                {({ isActive }) => (
-                                    <div
-                                        className={cn(
-                                            "bg-white w-full rounded-3xl p-8 border shadow-sm flex flex-col items-center text-center h-full transition-all duration-300",
-                                            isActive
-                                                ? "opacity-100 scale-100"
-                                                : "opacity-40 scale-90"
-                                        )}
-                                    >
-                                        <img
-                                            src={testimonial.image}
-                                            alt={testimonial.name}
+            <SectionIntro
+                badge={label}
+                title={title}
+                description={description}
+                lgCenter={true}
+            />
+            <div className="relative w-full mt-6 lg:mt-10">
+                <Swiper
+                    spaceBetween={24}
+                    slidesPerView="auto"
+                    centeredSlides={true}
+                    loop={true}
+                    watchSlidesProgress={true}
+                    autoplay={true}
+                    speed={400}
+                    className="!pb-16"
+                >
+                    {comments.map((comment, index) => (
+                        <SwiperSlide key={index} className="!w-[520px]">
+                            {({ isActive }) => (
+                                <div
+                                    className={cn(
+                                        "bg-white w-full rounded-3xl p-8 border shadow-sm flex flex-col items-center text-center h-full transition-all duration-300",
+                                        isActive
+                                            ? "opacity-100 scale-100"
+                                            : "opacity-40 scale-90"
+                                    )}
+                                >
+                                    {comment.avatar?.url && (
+                                        <Image
+                                            src={comment.avatar.url}
+                                            alt={comment.avatar.alt || comment.name}
+                                            width={80}
+                                            height={80}
                                             className="w-20 h-20 rounded-full mb-4"
+                                            unoptimized
                                         />
+                                    )}
 
-                                        <h3 className="text-xl font-bold">
-                                            {testimonial.name}
-                                        </h3>
+                                    <h3 className="text-xl font-bold">{comment.name}</h3>
+                                    <p className="text-sm text-gray-400 mb-6">{comment.job}</p>
+                                    <p className="text-gray-600 mb-8">{comment.description}</p>
 
-                                        <p className="text-sm text-gray-400 mb-6">
-                                            {testimonial.role}
-                                        </p>
-
-                                        <p className="text-gray-600 mb-8">
-                                            {testimonial.text}
-                                        </p>
-
-                                        <div className="flex gap-1">
-                                            {[...Array(5)].map((_, i) => (
-                                                <Star
-                                                    key={i}
-                                                    className={cn(
-                                                        "w-5 h-5",
-                                                        i < testimonial.rating
-                                                            ? "fill-yellow-400 text-yellow-400"
-                                                            : "text-gray-300"
-                                                    )}
-                                                />
-                                            ))}
-                                        </div>
+                                    <div className="flex gap-1">
+                                        {[...Array(5)].map((_, i) => (
+                                            <Star
+                                                key={i}
+                                                className={cn(
+                                                    "w-5 h-5",
+                                                    i < Number(comment.star)
+                                                        ? "fill-yellow-400 text-yellow-400"
+                                                        : "text-gray-300"
+                                                )}
+                                            />
+                                        ))}
                                     </div>
-                                )}
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </div>
+                                </div>
+                            )}
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
             </div>
         </section>
     );
