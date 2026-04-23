@@ -77,8 +77,8 @@ export default function Header({ headerSettings }: Props) {
                 </Container>
 
                 {hasAnyChildren && megaOpen && (
-                    <div className="hidden lg:block absolute left-0 right-0 top-full pb-4">
-                        <div className="max-w-[900px] xl:max-w-[1100px] mx-auto 2xl:px-0">
+                    <div className="hidden lg:block absolute left-0 right-0 top-full max-w-[900px] xl:max-w-[1100px] mx-auto 2xl:px-0 pb-4">
+                        <div className="">
                             <div className="bg-white rounded-3xl shadow-xl border border-gray-100 px-10 py-8">
                                 <div
                                     className="grid gap-8"
