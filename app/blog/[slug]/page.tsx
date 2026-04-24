@@ -4,6 +4,7 @@ import { Hero } from "@/Components/page/Single/Block/HeroBlock";
 import ContentRenderer from "@/Components/page/Single/ContentRenderer";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import CommentSection from "@/Components/page/Single/Block/CommentSection";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -34,6 +35,12 @@ export default async function BlogPage({ params }: Props) {
                 <Hero data={data} />
                 <div className="mt-16 max-w-4xl mx-auto">
                     <ContentRenderer components={raw.components ?? []} />
+                    {raw.comments_data && (
+                        <CommentSection
+                            data={raw.comments_data}
+                            postId={raw.id}
+                        />
+                    )}
                 </div>
             </main>
         </div>

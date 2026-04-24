@@ -11,7 +11,7 @@ const buttonVariants = cva(
         variant: {
           primary: "bg-primary-6 text-neutral-0 border-primary-6",
           outline: "bg-neutral-0 border-neutral-40",
-          ghost: "border-transparent bg-transparent hover:bg-neutral-10",
+          ghost: "border-transparent bg-transparent ",
         },
         size: {
           default: "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
