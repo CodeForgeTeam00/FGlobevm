@@ -3,7 +3,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import HeaderSwitcher from "@/Components/layout/HeaderSwitcher";
-import { Footer } from "@/Components/layout/Footer";
+import  Footer  from "@/Components/layout/Footer";
 import { getHeaderSettings } from "@/services/wp-options";
 
 export const metadata: Metadata = {

@@ -1,124 +1,151 @@
+import React from "react";
+import Link from "next/link";
+import Container from "@/Components/global/Sections/Container";
+import Logo from "@/Components/global/Logo";
+import {getSocialMedia, getFooterSettings} from "@/services/wp-options";
+import SocialItem from "@/Components/global/SocialItem";
+import {
+    InstagramIcon,
+    LinkedInIcon, LocationIcon,
+    XIcon,
+    YoutubeIcon,
+} from "@/Components/global/Icons";
+import {Phone, Mail} from "lucide-react";
 
-import React from 'react';
-import { Linkedin, Instagram, Send, Youtube, Phone, Mail, MapPin } from 'lucide-react';
+const ICON_MAP: Record<string, React.FC<{ className?: string }>> = {
+    instagram: InstagramIcon,
+    linkedin: LinkedInIcon,
+    facebook: InstagramIcon,
+    x: XIcon,
+    youtube: YoutubeIcon,
+};
 
-export const Footer: React.FC = () => {
+const ABOUT_LINKS = [
+    {name: "About The Brand", href: "/about-us"},
+    {name: "Contact Us", href: "/contact-us"},
+    {name: "FAQ", href: "/faq"},
+    {name: "Blog", href: "/blog"},
+];
+
+const OFFICES = [
+    {
+        name: "Woodland Hills",
+        address: "20501 Ventura Blvd # 114 Woodland Hills, CA 91364",
+    },
+    {
+        name: "Encino",
+        address: "16661 Ventura Blvd, #224B, Encino, CA 91436",
+    },
+    {
+        name: "Los Angeles",
+        address: "10680 W Pico Blvd, Suite #300B Los Angeles, CA 90064",
+    },
+];
+
+export default async function Footer() {
+    const [socialData, footerSettings] = await Promise.all([
+        getSocialMedia(),
+        getFooterSettings(),
+    ]);
+
+    const socials = socialData;
+    const footer = footerSettings;
+
+    const socialLinks = [
+        {name: "instagram", url: socials?.instagram},
+        {name: "linkedin", url: socials?.linkedin},
+        {name: "facebook", url: socials?.facebook},
+        {name: "x", url: socials?.x},
+        {name: "youtube", url: socials?.youtube},
+    ].filter((s) => s.url);
+
     return (
-        <footer className="pt-20 pb-12 px-6 bg-white border-t border-slate-50">
-            <div className="max-w-7xl mx-auto">
-                {/* Main Footer Content */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
-
-                    {/* Brand Info */}
-                    <div className="lg:col-span-5">
-                        <div className="flex items-center gap-2 mb-6">
-                            <div className="w-10 h-10 bg-sky-500 rounded-full flex items-center justify-center text-white overflow-hidden p-1.5 shadow-lg shadow-sky-200">
-                                <div className="w-full h-full border-2 border-white/50 rounded-full flex items-center justify-center font-bold text-[10px]">GVM</div>
-                            </div>
-                            <div className="font-bold text-xl tracking-tighter text-slate-800 uppercase">
-                                Globe <span className="text-sky-500">VM</span>
-                            </div>
-                        </div>
-                        <p className="text-slate-400 text-sm leading-relaxed max-w-md mb-8 font-medium">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet,
-                            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua.
+        <footer className="lg:pt-[120px] mt-[128px] pt-16 bg-neutral-10">
+            <Container>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[128px]">
+                    <div className="flex flex-col gap-6">
+                        <Logo className="text-[56px]"/>
+                        <p className="text-gray-500 text-sm leading-relaxed">
+                            {footer?.description ?? ""}
                         </p>
-                        <div className="flex gap-5">
-                            {[
-                                { icon: <Linkedin className="w-4 h-4" />, link: '#' },
-                                { icon: <Instagram className="w-4 h-4" />, link: '#' },
-                                { icon: <Send className="w-4 h-4" />, link: '#' },
-                                { icon: <Youtube className="w-4 h-4" />, link: '#' },
-                            ].map((social, i) => (
-                                <a key={i} href={social.link} className="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-100 text-sky-500 hover:bg-sky-500 hover:text-white transition-all">
-                                    {social.icon}
-                                </a>
-                            ))}
+                        <div className="flex gap-2">
+                            {socialLinks.map((social, index) => {
+                                const IconComponent = ICON_MAP[social.name];
+                                if (!IconComponent) return null;
+                                return (
+                                    <a
+                                        key={index}
+                                        href={social.url!}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <SocialItem>
+                                            <IconComponent className="h-6 w-6 text-primary-6"/>
+                                        </SocialItem>
+                                    </a>
+                                );
+                            })}
                         </div>
                     </div>
-
-                    {/* About Links */}
-                    <div className="lg:col-span-3">
-                        <h3 className="font-serif-heading text-xl font-black text-slate-900 mb-8">About</h3>
-                        <ul className="space-y-4">
-                            {['About The Brand', 'Contact Us', 'FAQ', 'Blog'].map((item) => (
-                                <li key={item}>
-                                    <a href="#" className="text-slate-400 hover:text-sky-500 text-sm font-medium transition-colors">
-                                        {item}
-                                    </a>
-                                </li>
+                    <div className={'grid grid-cols-2'}>
+                        <div className="flex flex-col gap-4">
+                            <h3 className="font-bold text-lg">About</h3>
+                            {ABOUT_LINKS.map((link) => (
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    className="text-gray-500 text-sm hover:text-primary-6 transition"
+                                >
+                                    {link.name}
+                                </Link>
                             ))}
-                        </ul>
-                    </div>
-
-                    {/* Contact Info */}
-                    <div className="lg:col-span-4">
-                        <h3 className="font-serif-heading text-xl font-black text-slate-900 mb-8">Contact US</h3>
-                        <ul className="space-y-5">
-                            <li>
-                                <a href="tel:3107504939" className="flex items-center gap-3 text-slate-400 hover:text-sky-500 transition-colors group">
-                                    <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-sky-50 transition-colors">
-                                        <Phone className="w-4 h-4 text-sky-500" />
-                                    </div>
-                                    <span className="text-sm font-medium">(310) 750-4939</span>
+                        </div>
+                        <div className="flex flex-col gap-4">
+                            <h3 className="font-bold text-lg">Contact US</h3>
+                            {footer?.contact_us?.btn_num && (
+                                <a
+                                    href={footer.contact_us.btn_num.url}
+                                    className="flex items-center gap-2 text-gray-500 text-sm hover:text-primary-6 transition"
+                                >
+                                    <Phone className="w-4 h-4"/>
+                                    {footer.contact_us.btn_num.number}
                                 </a>
-                            </li>
-                            <li>
-                                <a href="mailto:info@globevm.com" className="flex items-center gap-3 text-slate-400 hover:text-sky-500 transition-colors group">
-                                    <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-sky-50 transition-colors">
-                                        <Mail className="w-4 h-4 text-sky-500" />
-                                    </div>
-                                    <span className="text-sm font-medium">info@globevm.com</span>
+                            )}
+                            {footer?.contact_us?.contact_email && (
+                                <a
+                                    href={`mailto:${footer.contact_us.contact_email}`}
+                                    className="flex items-center gap-2 text-gray-500 text-sm hover:text-primary-6 transition"
+                                >
+                                    <Mail className="w-4 h-4"/>
+                                    {footer.contact_us.contact_email}
                                 </a>
-                            </li>
-                        </ul>
+                            )}
+                        </div>
                     </div>
                 </div>
-
-                {/* Office Locations */}
-                <div className="border-t border-slate-100 pt-16 mb-16">
-                    <h3 className="font-serif-heading text-xl font-black text-slate-900 mb-10">Our Offices:</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                        {[
-                            {
-                                city: 'Woodland Hills',
-                                address: '20501 Ventura Blvd # 114 Woodland Hills, CA 91364'
-                            },
-                            {
-                                city: 'Encino',
-                                address: '16661 Ventura Blvd, #224B, Encino, CA 91436'
-                            },
-                            {
-                                city: 'Los Angeles',
-                                address: '10680 W Pico Blvd, Suite #300B Los Angeles, CA 90064'
-                            }
-                        ].map((office, i) => (
-                            <div key={i} className="flex gap-4">
-                                <div className="mt-1 flex-shrink-0">
-                                    <div className="w-6 h-6 rounded-full bg-sky-100 flex items-center justify-center p-1.5 shadow-sm shadow-sky-200">
-                                        <div className="w-full h-full bg-sky-500 rounded-full"></div>
-                                    </div>
-                                </div>
+                <div className="mt-12 pt-8">
+                    <h3 className="font-bold text-lg mb-6">Our Offices:</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {OFFICES.map((office) => (
+                            <div key={office.name} className="flex items-start gap-3">
+                                <LocationIcon className={'w-10  text-primary-6'} />
                                 <div>
-                                    <h4 className="font-bold text-sky-500 text-sm mb-2">{office.city}</h4>
-                                    <p className="text-slate-800 text-sm leading-relaxed font-semibold">
-                                        {office.address}
-                                    </p>
+                                    <h4 className="text-primary-6 font-semibold text-sm">
+                                        {office.name}
+                                    </h4>
+                                    <p className="text-neutral-black text-sm">{office.address}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
-
-                {/* Copyright */}
-                <div className="text-center pt-8 border-t border-slate-50">
-                    <p className="text-slate-400 text-xs font-bold tracking-tight uppercase">
-                        © Copyright 2024, All Rights Reserved
-                    </p>
-                </div>
+            </Container>
+            <div className="mt-8 py-6 border-t border-gray-200 text-center">
+                <p className="text-gray-400 text-sm">
+                    © Copyright {new Date().getFullYear()}, All Rights Reserved For
+                    GlobeVM
+                </p>
             </div>
         </footer>
     );
-};
+}

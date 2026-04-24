@@ -30,6 +30,7 @@ export interface GlobalOptions {
     comment_field: Testimonial[];
     faq: FAQItem[];
 }
+
 export interface HeaderNavChild {
     name: string;
     slug: string;
@@ -47,4 +48,23 @@ export interface HeaderSettings {
         url: string;
     };
     navigation: HeaderNavItem[];
+}
+
+export interface SocialMedia {
+    youtube: string;
+    instagram: string;
+    facebook: string;
+    x: string;
+    linkedin: string;
+}
+
+export interface FooterSettings {
+    contact_us: {
+        contact_email: string;
+        btn_num: {
+            number: string;
+            url: string;
+        };
+    };
+    description: string;
 }
