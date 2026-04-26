@@ -6,6 +6,7 @@ interface GetBlogsParams {
     per_page?: number;
     category_slug?: string;
     search?: string;
+    sort?: string;
 }
 
 export async function getBlogs(params?: GetBlogsParams) {
@@ -14,16 +15,16 @@ export async function getBlogs(params?: GetBlogsParams) {
     if (params?.per_page) query.append("per_page", String(params.per_page));
     if (params?.category_slug) query.append("category_slug", params.category_slug);
     if (params?.search) query.append("q", params.search);
+    if (params?.sort) query.append("sort_by", params.sort);
     const queryString = query.toString();
     const endpoint = `/gvm/v1/posts${queryString ? `?${queryString}` : ""}`;
-
-    console.log("BLOG API CALL:", endpoint);
 
     return fetchWP<any>(
         endpoint,
         { strategy: { type: "isr", revalidate: 1800 }, tag: "blog" }
     );
 }
+
 export async function getBlogBySlug(slug: string) {
     return fetchWP<any>(
         `/gvm/v1/blog/${slug}`,
@@ -44,6 +45,7 @@ export async function getBlogEditorChoice() {
         { strategy: { type: "isr", revalidate: 3600 }, tag: "blog" }
     );
 }
+
 export async function getSubCategories(parentSlug: string) {
     const categories = await fetchWP<any[]>(
         "/wp/v2/categories?per_page=100",
@@ -52,13 +54,24 @@ export async function getSubCategories(parentSlug: string) {
 
     if (!categories) return [];
 
-    const parent = categories.find((c) => c.slug === parentSlug);
+    const parent = categories.find((c: any) => c.slug === parentSlug);
     if (!parent) return [];
 
     return categories
-        .filter((c) => c.parent === parent.id)
-        .map((c) => ({
+        .filter((c: any) => c.parent === parent.id)
+        .map((c: any) => ({
             name: c.name,
             slug: c.slug,
         }));
+}
+export async function getCategorySeoBox(slug: string) {
+    const categories = await fetchWP<any[]>(
+        "/wp/v2/categories?per_page=100",
+        { strategy: { type: "isr", revalidate: 3600 }, tag: "categories" }
+    );
+
+    if (!categories) return null;
+
+    const category = categories.find((c: any) => c.slug === slug);
+    return category?.acf?.seo_box || null;
 }

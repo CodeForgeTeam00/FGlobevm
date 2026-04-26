@@ -77,13 +77,16 @@ export default function CommentItem({
                     </p>
                     <div className="flex items-center gap-4 text-xs text-gray-400">
                         <span>{timeAgo(comment.date)}</span>
-                        <button
-                            onClick={() => onReply(comment.id)}
-                            className="flex items-center cursor-pointer gap-1 text-primary-6 hover:text-primary-6/80 transition"
-                        >
-                            <MessageSquare className="w-3 h-3" />
-                            Answer
-                        </button>
+                        {depth == 0 &&
+                            <button
+                                onClick={() => onReply(comment.id)}
+                                className="flex items-center cursor-pointer gap-1 text-primary-6 hover:text-primary-6/80 transition"
+                            >
+                                <MessageSquare className="w-3 h-3" />
+                                Answer
+                            </button>
+                        }
+
                     </div>
 
                     {isReplying && (
@@ -130,7 +133,7 @@ export default function CommentItem({
             </div>
 
             {hasReplies && showReplies && (
-                <div>
+                <div className={'border-b border-dashed border-neutral-30'}>
                     {comment.replies.map((reply) => (
                         <CommentItem
                             key={reply.id}

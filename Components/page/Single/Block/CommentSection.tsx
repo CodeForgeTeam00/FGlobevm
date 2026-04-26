@@ -158,7 +158,7 @@ export default function CommentSection({ data, postId }: Props) {
                         userName={userInfo?.name}
                     />
 
-                    <div className="divide-y divide-gray-100 mt-6">
+                    <div className=" mt-6">
                         {data.threads.map((thread) => (
                             <CommentItem
                                 key={thread.id}
