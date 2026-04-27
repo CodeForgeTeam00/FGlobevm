@@ -31,8 +31,8 @@ export default function Features({ offerings, description  , title, label}: Prop
                     <div key={index} className="border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow bg-white">
                         <div className="flex items-center gap-4 mb-4">
                             <Image
-                                src={item.icon.url}
-                                alt={item.icon.alt || item.title}
+                                src={item.icon?.url || ""}
+                                alt={item.icon?.alt || item.title}
                                 width={40}
                                 height={40}
                                 className="w-10 h-10"

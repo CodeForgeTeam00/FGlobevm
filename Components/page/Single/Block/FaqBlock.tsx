@@ -33,7 +33,7 @@ export function FaqBlock({ faqs }: { faqs: any[] }) {
             <h2 className="text-3xl font-bold font-serif mb-8 text-gray-900">Frequently Asked Questions</h2>
             <div className="flex flex-col gap-4">
                 {faqs.map((faq: any, index: number) => (
-                    <FaqItem key={index} question={faq.question} answer={faq.answer} isOpenDefault={index === 0} />
+                    <FaqItem key={index} question={faq.question} answer={faq.answer}  />
                 ))}
             </div>
         </div>

@@ -8,11 +8,9 @@ import TestimonialsSection from "@/Components/page/servicArea/TestimonialsSectio
 import QBox from "@/Components/page/servicArea/QBox";
 import { ContactCTA } from "@/Components/page/Home/ContactCTA";
 import type { Metadata } from "next";
-
 interface Props {
     params: Promise<{ slug: string }>;
 }
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const data = await getServiceAreaPage(slug);
@@ -22,7 +20,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         description: data.acf.hero_section.description,
     };
 }
-
 export default async function ServiceAreaPage({ params }: Props) {
     const { slug } = await params;
     const data = await getServiceAreaPage(slug);

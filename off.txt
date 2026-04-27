@@ -1,3 +1,0 @@
-  url:'/wp/v2/services?_fields=id,slug,title,acf&_embed&acf_format=standard',
-        ['services']
-

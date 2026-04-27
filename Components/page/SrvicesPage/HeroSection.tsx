@@ -47,25 +47,29 @@ export default function ServicesHeroSection({ title, label, description, image, 
                         </div>
                     </div>
                 </Container>
-                <Image
-                    src={image.url}
-                    alt={image.alt || title}
-                    width={808}
-                    height={840}
-                    className="relative object-cover  mt-8 lg:mt-0 w-full lg:max-w-[600px] xl:max-w-[808px] lg:h-[840px] lg:top-0"
-                />
+                { image.url &&
+                    <Image
+                        src={image.url || ""}
+                        alt={image.alt || title}
+                        width={808}
+                        height={840}
+                        className="relative object-cover  mt-8 lg:mt-0 w-full lg:max-w-[600px] xl:max-w-[808px] lg:h-[840px] lg:top-0"
+                    />
+                }
             </div>
             <div className="bg-neutral-10 w-full  py-18 lg:pe-[120px] lg:ps-[190px] lg:absolute lg:translate-y-[-100%] max-w-[1454px]">
                 <div className="grid md:grid-cols-3 p-6 lg:p-0 gap-20">
                     {keyFeatures.map((feature, index) => (
                         <div key={index} className="flex flex-col gap-6">
-                            <Image
-                                src={feature.icon.url}
-                                alt={feature.icon.alt || feature.title}
-                                width={64}
-                                height={64}
-                                className="w-16"
-                            />
+                            {feature.icon &&
+                                <Image
+                                    src={feature?.icon?.url}
+                                    alt={feature.icon?.alt || feature.title}
+                                    width={64}
+                                    height={64}
+                                    className="w-16"
+                                />
+                            }
                             <div>
                                 <h3 className="font-semibold mb-2">{feature.title}</h3>
                                 <p className="text-gray-500 text-sm">{feature.description}</p>
