@@ -29,3 +29,4 @@ export const ManagedServices = ({ services }: ServicesListProps) => {
         </div>
     );
 };
+

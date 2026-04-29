@@ -1,10 +1,8 @@
-import { fetchWP } from "./api";
-
 export async function getPreviewById(id: string) {
     const baseUrl = process.env.WORDPRESS_API_URL;
 
     const res = await fetch(
-        `${baseUrl}/gvm/v1/preview/${id}?secret=${process.env.REVALIDATE_SECRET}`,
+        `${baseUrl}/gvm/v1/preview/${id}?secret=${process.env.PREVIEW_SECRET}`,
         { cache: "no-store" }
     );
 
