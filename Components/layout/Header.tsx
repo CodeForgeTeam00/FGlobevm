@@ -68,12 +68,13 @@ export default function Header({ headerSettings }: Props) {
                                     <Button variant="primary" size="lg">
                                         <div className="flex gap-2 items-center text-white">
                                             <PhoneIcon className="2xl:w-6 w-5 h-5 2xl:h-6" />
-                                            <Text variant={'body'} as={'span'} textColor={'white'}>
+                                            <Text variant={'body-md'} as={'span'} textColor={'white'}>
                                                 Call {btn.number}
                                             </Text>
                                         </div>
                                     </Button>
                                 </a>
+
                             )}
                         </div>
                     </div>
