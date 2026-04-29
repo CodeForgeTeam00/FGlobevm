@@ -1,4 +1,5 @@
 import React from "react";
+import Text from "@/Components/global/text";
 
 type FeatureLineCardProps = {
     icon: React.ReactNode;

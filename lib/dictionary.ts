@@ -41,8 +41,7 @@ export const dictionary = {
             heroSection:{
                 content:{
                     badge:"Proactive IT",
-                    title:" IT Support & Cybersecurity Services in ",
-                    highlight:"Los Angeles ",
+                    title:" IT Support & Cybersecurity Services in Los Angeles ",
                     des:"Stop settling for slow, reactive IT support. GlobeVM delivers proactive managed IT, secure cloud solutions, and enterprise-grade cybersecurity. We eliminate tech bottlenecks so you can focus entirely on scaling your business without the fear of downtime.",
                     primaryBtn:"Book A Free Consulation",
                     secondaryBtn:"Get A Free Penetration Test",
@@ -65,8 +64,7 @@ export const dictionary = {
             whyChooseUs:{
                 content:{
                     badge:"Why GlobeVM",
-                    title:"Why Businesses Choose    ",
-                    highlight:"GlobeVM",
+                    title:"Why Businesses Choose   GlobeVM ",
                     des:"We don’t just fix problems after they happen; we prevent them. Our team monitors, secures, and maintains your environment around the clock to eliminate costly disruptions and keep your team productive.",
                 },
                 features: [

@@ -1,6 +1,7 @@
 import React from "react";
 import { HeroSectionProps } from "@/modules/home/types";
 import {HomeIcon} from "@/Components/global/Icons";
+import Text from "@/Components/global/text";
 
 interface HeroStatsProps {
     data: HeroSectionProps;
@@ -25,10 +26,10 @@ export const HeroStats: React.FC<HeroStatsProps> = ({ data }) => {
                     </div>
 
                     <div className="hero__card-content mb-6">
-                        <span className="text-caption text-neutral-100">25%</span>
-                        <h3 className="text-small lg:text-title-medium text-neutral-black leading-[2] mt-3 tracking-tight">
+                        <Text textColor={'light'} variant={'body-md'}>25%</Text>
+                        <Text textColor={'black'} variant={'body-lg'}>
                             Stay informed with the latest tips, trends, and best practices in IT, virtualization
-                        </h3>
+                        </Text>
                     </div>
 
                     <div className="hero__progress flex flex-col gap-2">
@@ -37,18 +38,26 @@ export const HeroStats: React.FC<HeroStatsProps> = ({ data }) => {
                         </div>
 
                         <div className="w-full h-[6px] bg-[#f1f5f9] rounded-full">
-                            <div className="bg-[#42468C] h-full w-[65%] rounded-full shadow-[0_0_12px_rgba(79,70,229,0.3)]"></div>
+                            <div className="bg-primary-6 h-full w-[65%] rounded-full shadow-[0_0_12px_rgba(79,70,229,0.3)]"></div>
                         </div>
                     </div>
                 </div>
 
                 <div className="hero__mini-card bg-neutral-black text-neutral-30 py-3 px-4 rounded-2xl gap-4 flex items-center">
-                    <div className="w-16 h-16 rounded-full text-neutral-0 bg-primary-6 flex items-center justify-center text-caption">
-                        99
+                    <div className="w-16 h-16 rounded-full bg-primary-6 flex items-center justify-center text-caption">
+                        <Text textColor={'white'} variant={'body-md'}>
+                            99
+                        </Text>
                     </div>
                     <div className="flex flex-col text-caption">
-                        <span className="text-neutral-0">Title</span>
-                        <span className="text-neutral-30">Description</span>
+                        <Text textColor={'white'} variant={'body-md'}>
+                            Title
+                        </Text>
+                        <Text textColor={'light'} variant={'body-md'}>
+                            Description
+                        </Text>
+                        <span className="text-neutral-0"></span>
+                        <span className="text-neutral-30"></span>
                     </div>
                 </div>
             </div>

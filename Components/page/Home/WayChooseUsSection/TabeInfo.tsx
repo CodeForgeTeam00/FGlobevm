@@ -1,4 +1,5 @@
 import React from "react";
+import Text from "@/Components/global/text";
 
 type TableCellData = {
     title: string;
@@ -12,8 +13,8 @@ type TableInfoProps = {
 const TableInfo = ({ data }: TableInfoProps) => {
     const TableCell = ({ title, subtitle }: TableCellData) => (
         <div className="py-2  text-center flex-1 gap-1 lg:gap-0 flex flex-col items-center  justify-center">
-            <div className="text-white  w-full font-bold  lg:text-3xl lg:font-medium leading-relaxed  ">{title}</div>
-            <div className="text-white/80  w-full  text-footnote lg:text-lg">{subtitle}</div>
+            <Text as={'p'} variant={'heading-md'} textColor={'white'}>{title}</Text>
+            <Text as={'p'} variant={'body-lg'} textColor={'white'}>{subtitle}</Text>
         </div>
     );
     const TableRow = ({ row }: { row: TableCellData[] }) => (

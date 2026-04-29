@@ -3,32 +3,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { Calendar } from "lucide-react";
 import { BlogPost } from "@/types/wp-blog";
-
+import SectionIntro from "@/Components/global/SectionIntro";
 interface BlogSectionProps {
     posts: BlogPost[];
 }
-
 export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
     if (!posts.length) return null;
-
     const [featured, ...sidebar] = posts;
-
     return (
         <section className="py-24 px-6">
             <div className="text-center mb-16">
-                <h2 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                    Insights & Updates
-                </h2>
-                <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
-                    Stay informed with the latest tips, trends, and best
-                    practices in IT, virtualization, and cybersecurity.
-                </p>
+                <SectionIntro
+                    lgCenter
+                    title={"Insights & Updates"}
+                    description={"    Stay informed with the latest tips, trends, and best practices in IT, virtualization, and cybersecurity."}
+                />
             </div>
-
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <Link
                     href={`/blog/${featured.slug}`}
-                    className="lg:col-span-2 relative rounded-[2.5rem] overflow-hidden group min-h-[500px]"
+                    className="lg:col-span-2 relative rounded-[2.5rem] overflow-hidden group min-h-[650px]"
                 >
                     <Image
                         src={featured.image?.url || ""}
@@ -53,7 +47,6 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
                         </div>
                     </div>
                 </Link>
-
                 <div className="flex flex-col gap-6">
                     {sidebar.slice(0, 3).map((post) => (
                         <Link

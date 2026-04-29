@@ -1,13 +1,17 @@
 import { getBlogBySlug } from "@/services/wp-blog";
+import { getPreviewById } from "@/lib/preview";
 import { mapPost } from "@/mappers/blog-mapper";
 import { Hero } from "@/Components/page/Single/Block/HeroBlock";
 import ContentRenderer from "@/Components/page/Single/ContentRenderer";
 import { notFound } from "next/navigation";
+import { draftMode } from "next/headers";
 import type { Metadata } from "next";
 import CommentSection from "@/Components/page/Single/Block/CommentSection";
+import PreviewBar from "@/Components/global/PreviewBar";
 
 interface Props {
     params: Promise<{ slug: string }>;
+    searchParams: Promise<{ preview?: string; id?: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -21,16 +25,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 }
 
-export default async function BlogPage({ params }: Props) {
+export default async function BlogPage({ params, searchParams }: Props) {
     const { slug } = await params;
-    const raw = await getBlogBySlug(slug);
+    const { preview, id } = await searchParams;
+    const { isEnabled } = await draftMode();
+
+    let raw;
+
+    if (isEnabled && preview === "true" && id) {
+        raw = await getPreviewById(id);
+    } else {
+        raw = await getBlogBySlug(slug);
+    }
 
     if (!raw) notFound();
 
     const data = mapPost(raw);
-    console.log(data)
+
     return (
         <div className="min-h-screen bg-white">
+            {isEnabled && <PreviewBar slug={slug} type="post" />}
             <main className="max-w-6xl mx-auto px-4 py-10">
                 <Hero data={data} />
                 <div className="mt-16 max-w-4xl mx-auto">

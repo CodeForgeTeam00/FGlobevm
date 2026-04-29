@@ -9,6 +9,7 @@ import { ChevronDown } from "lucide-react";
 import MobileHeader from "@/Components/layout/MobileHeader";
 import { HeaderSettings } from "@/types/wp-options";
 import Container from "@/Components/global/Sections/Container";
+import Text from "@/Components/global/text";
 
 interface Props {
     headerSettings: HeaderSettings | null;
@@ -31,7 +32,7 @@ export default function Header({ headerSettings }: Props) {
                 <Container>
                     <div className="desktop-header hidden px-4 2xl:px-0 lg:flex py-5 w-full justify-between items-center">
                         <div className="header__right-side flex items-center 2xl:gap-10 gap-6">
-                            <div className="Header__logo">
+                            <div className="header__logo">
                                 <Logo  className="2xl:text-[56px] text-[40px]" />
                             </div>
                             <nav className="navigation flex gap-4 2xl:gap-6">
@@ -47,12 +48,14 @@ export default function Header({ headerSettings }: Props) {
                                         }}
                                     >
                                         <Link
-                                            className="2xl:text-lg text-sm flex items-center gap-1 hover:text-primary-6 transition"
+                                            className=" flex items-center gap-1  "
                                             href={item.children && item.children.length > 0 ? `/services/${item.slug}` : `/${item.slug}`}
                                         >
-                                            {item.name}
+                                            <Text variant={'body-lg'} as={"span"} >
+                                                {item.name}
+                                            </Text>
                                             {item.children && item.children.length > 0 && (
-                                                <ChevronDown className="w-3 h-3" />
+                                                <ChevronDown className="w-3  h-3" />
                                             )}
                                         </Link>
                                     </div>
@@ -65,9 +68,9 @@ export default function Header({ headerSettings }: Props) {
                                     <Button variant="primary" size="lg">
                                         <div className="flex gap-2 items-center text-white">
                                             <PhoneIcon className="2xl:w-6 w-5 h-5 2xl:h-6" />
-                                            <span className="2xl:text-base text-sm">
+                                            <Text variant={'body'} as={'span'} textColor={'white'}>
                                                 Call {btn.number}
-                                            </span>
+                                            </Text>
                                         </div>
                                     </Button>
                                 </a>
@@ -75,7 +78,6 @@ export default function Header({ headerSettings }: Props) {
                         </div>
                     </div>
                 </Container>
-
                 {hasAnyChildren && megaOpen && (
                     <div className="hidden lg:block absolute left-0 right-0 top-full max-w-[900px] xl:max-w-[1100px] mx-auto 2xl:px-0 pb-4">
                         <div className="">

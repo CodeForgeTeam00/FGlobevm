@@ -29,5 +29,6 @@ export const BlogEditorChoiceSection: React.FC<Props> = ({ data }) => {
                 </div>
             </Link>
         </div>
+        
     );
 };

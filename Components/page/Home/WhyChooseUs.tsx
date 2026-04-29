@@ -66,7 +66,6 @@ export const WhyChooseUs: React.FC = () => {
                         lgCenter
                         badge={content.badge}
                         title={content.title}
-                        highlight={content.highlight}
                         description={content.des}
                     />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-6">

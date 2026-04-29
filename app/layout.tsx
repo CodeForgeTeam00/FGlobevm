@@ -1,10 +1,15 @@
-
-
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import HeaderSwitcher from "@/Components/layout/HeaderSwitcher";
-import  Footer  from "@/Components/layout/Footer";
+import Footer from "@/Components/layout/Footer";
 import { getHeaderSettings } from "@/services/wp-options";
+
+const dmSans = localFont({
+    src: "../public/fonts/variable-font.ttf",
+    variable: "--font-sans",
+    display: "swap",
+});
 
 export const metadata: Metadata = {
     title: {
@@ -23,9 +28,9 @@ export default async function RootLayout({
     const headerSettings = await getHeaderSettings();
 
     return (
-        <html lang="en">
+        <html lang="en" className={dmSans.variable}>
         <body className="antialiased max-w-[1920px] mx-auto">
-            <HeaderSwitcher headerSettings={headerSettings} />
+        <HeaderSwitcher headerSettings={headerSettings} />
         {children}
         <Footer />
         </body>

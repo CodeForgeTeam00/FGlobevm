@@ -51,12 +51,9 @@ export async function getSubCategories(parentSlug: string) {
         "/wp/v2/categories?per_page=100",
         { strategy: { type: "isr", revalidate: 3600 }, tag: "categories" }
     );
-
     if (!categories) return [];
-
     const parent = categories.find((c: any) => c.slug === parentSlug);
     if (!parent) return [];
-
     return categories
         .filter((c: any) => c.parent === parent.id)
         .map((c: any) => ({
@@ -69,9 +66,9 @@ export async function getCategorySeoBox(slug: string) {
         "/wp/v2/categories?per_page=100",
         { strategy: { type: "isr", revalidate: 3600 }, tag: "categories" }
     );
-
     if (!categories) return null;
-
     const category = categories.find((c: any) => c.slug === slug);
     return category?.acf?.seo_box || null;
 }
+
+
