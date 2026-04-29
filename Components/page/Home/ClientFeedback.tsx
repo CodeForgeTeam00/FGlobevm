@@ -25,7 +25,6 @@ export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image 
                 lgCenter
                 badge="Client Feedback"
                 title="Trusted by Businesses That Value Reliability"
-                highlight="Reliability"
                 description="Business owners trust GlobeVM to keep their systems secure and reliable. Our clients value our responsiveness, technical expertise, and ability to prevent problems before they impact productivity."
             />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

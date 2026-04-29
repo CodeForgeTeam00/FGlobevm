@@ -27,8 +27,7 @@ export const AboutStability = ({ background }: AboutStabilityProps) => {
                     <div className="mb-6">
                         <SectionIntro
                             badge="PROACTIVE IT"
-                            title="Proactive IT That Keeps Your Business"
-                            highlight="Secure"
+                            title="Proactive IT That Keeps Your Business Secure"
                             description="GlobeVM was created to help growing companies run reliable, secure, and scalable IT environments without the overhead of a full internal team. We specialize in virtual infrastructure, managed IT, and cybersecurity designed for real-world business operations."
                         />
                     </div>

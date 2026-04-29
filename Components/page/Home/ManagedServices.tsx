@@ -16,8 +16,7 @@ export const ManagedServices = ({ services }: ServicesListProps) => {
                     <SectionIntro
                         lgCenter
                         badge="WHAT WE DO"
-                        title="Managed IT and Cybersecurity That"
-                        highlight="Scales With You"
+                        title="Managed IT and Cybersecurity That Scales With You"
                         description="From infrastructure management and cloud environments to endpoint protection and network security, our services are designed to keep your systems running smoothly and your data protected. We provide proactive monitoring, fast response, and long-term stability."
                     />
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
