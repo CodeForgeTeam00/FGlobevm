@@ -17,15 +17,20 @@ interface Props {
     searchParams: Promise<{ preview?: string; id?: string }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
     const { slug } = await params;
-    const data = await getServiceAreaPage(slug);
+    const { preview, id } = await searchParams;
+    const isPreview = preview === "true" && !!id;
+
+    const data = isPreview
+        ? await getPreviewById(id!)
+        : await getServiceAreaPage(slug);
 
     if (!data) return { title: "Service Area Not Found" };
 
     return {
-        title: data.acf.hero_section.title,
-        description: data.acf.hero_section.description,
+        title: data?.acf?.hero_section?.title || "Service Area",
+        description: data?.acf?.hero_section?.description || "",
     };
 }
 
@@ -33,53 +38,72 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
     const { slug } = await params;
     const { preview, id } = await searchParams;
     const { isEnabled } = await draftMode();
+    const isPreview = preview === "true" && !!id;
 
     let data;
 
-    if (isEnabled && preview === "true" && id) {
-        data = await getPreviewById(id);
+    if (isPreview) {
+        data = await getPreviewById(id!);
     } else {
         data = await getServiceAreaPage(slug);
     }
 
     if (!data) notFound();
 
-    const { acf } = data;
+    const acf = data?.acf ?? {};
+    const hero = acf.hero_section ?? {};
+    const second = acf.second_section ?? {};
+    const offering = acf.offering_section ?? {};
+    const feedback = acf.client_feedback ?? {};
+    const faqBox = acf.faq_box ?? {};
 
     return (
         <div className="relative">
-            {isEnabled && <PreviewBar slug={slug} type="service_area_page" />}
+            {(isEnabled || isPreview) && <PreviewBar slug={slug} type="service_area_page" />}
+
             <EstimateSection
-                label={acf.hero_section?.label}
-                title={acf.hero_section?.title}
-                description={acf.hero_section?.description}
+                label={hero.label ?? ""}
+                title={hero.title ?? ""}
+                description={hero.description ?? ""}
             />
-            <Container>
-                <ServicesSection
-                    label={acf.second_section?.label}
-                    title={acf.second_section?.title}
-                    description={acf.second_section?.description}
-                    services={acf.second_section?.services}
+
+            {(second.title || (second.services && second.services.length > 0)) && (
+                <Container>
+                    <ServicesSection
+                        label={second.label ?? ""}
+                        title={second.title ?? ""}
+                        description={second.description ?? ""}
+                        services={second.services ?? []}
+                    />
+                </Container>
+            )}
+
+            {(offering.title || (offering.offerings && offering.offerings.length > 0)) && (
+                <WhyUsSection
+                    label={offering.label ?? ""}
+                    title={offering.title ?? ""}
+                    description={offering.description ?? ""}
+                    offerings={offering.offerings ?? []}
                 />
-            </Container>
-            <WhyUsSection
-                label={acf.offering_section?.label}
-                title={acf.offering_section?.title}
-                description={acf.offering_section?.description}
-                offerings={acf.offering_section?.offerings}
-            />
-            <TestimonialsSection
-                label={acf.client_feedback?.label}
-                title={acf.client_feedback?.title}
-                description={acf.client_feedback?.description}
-                comments={acf.client_feedback?.comments}
-            />
-            <Container>
-                <QBox
-                    title={acf.faq_box?.title}
-                    description={acf.faq_box?.description}
-                    faqs={acf.faq_box?.faq}
+            )}
+
+            {(feedback.title || (feedback.comments && feedback.comments.length > 0)) && (
+                <TestimonialsSection
+                    label={feedback.label ?? ""}
+                    title={feedback.title ?? ""}
+                    description={feedback.description ?? ""}
+                    comments={feedback.comments ?? []}
                 />
+            )}
+
+            <Container>
+                {(faqBox.title || (faqBox.faq && faqBox.faq.length > 0)) && (
+                    <QBox
+                        title={faqBox.title ?? ""}
+                        description={faqBox.description ?? ""}
+                        faqs={faqBox.faq ?? []}
+                    />
+                )}
                 <ContactCTA />
             </Container>
         </div>

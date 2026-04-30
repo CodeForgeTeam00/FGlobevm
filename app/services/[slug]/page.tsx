@@ -21,15 +21,20 @@ interface Props {
     searchParams: Promise<{ preview?: string; id?: string }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
     const { slug } = await params;
-    const data = await getServicePage(slug);
+    const { preview, id } = await searchParams;
+    const isPreview = preview === "true" && !!id;
+
+    const data = isPreview
+        ? await getPreviewById(id!)
+        : await getServicePage(slug);
 
     if (!data) return { title: "Service Not Found" };
 
     return {
-        title: data.acf.hero_section.title,
-        description: data.acf.hero_section.description,
+        title: data?.acf?.hero_section?.title || "Service",
+        description: data?.acf?.hero_section?.description || "",
     };
 }
 
@@ -37,63 +42,83 @@ export default async function ServicePage({ params, searchParams }: Props) {
     const { slug } = await params;
     const { preview, id } = await searchParams;
     const { isEnabled } = await draftMode();
+    const isPreview = preview === "true" && !!id;
 
     let data;
 
-    if (isEnabled && preview === "true" && id) {
-        data = await getPreviewById(id);
+    if (isPreview) {
+        data = await getPreviewById(id!);
     } else {
         data = await getServicePage(slug);
     }
 
     if (!data) notFound();
 
-    const [services, rawPosts] = await Promise.all([
+    const [, rawPosts] = await Promise.all([
         getAllServices(),
         getBlogs({ per_page: 4 }),
     ]);
 
-    const { acf } = data;
+    const acf = data?.acf ?? {};
+    const hero = acf.hero_section ?? {};
+    const second = acf.second_section ?? {};
+    const subServices = acf.sub_services ?? {};
+    const feedback = acf.client_feedback ?? {};
+    const faqBox = acf.faq_box ?? {};
+
     const blogData = mapBlogsResponse(rawPosts);
 
     return (
         <div className="relative">
-            {isEnabled && <PreviewBar slug={slug} type="services" />}
+            {(isEnabled || isPreview) && <PreviewBar slug={slug} type="services" />}
+
             <ServicesHeroSection
-                title={data.title}
-                label={acf.hero_section.label}
-                description={acf.hero_section.description}
-                image={acf.hero_section.image}
-                keyFeatures={acf.hero_section.key_features}
+                title={data.title ?? ""}
+                label={hero.label ?? ""}
+                description={hero.description ?? ""}
+                image={hero.image ?? null}
+                keyFeatures={hero.key_features ?? []}
             />
+
+            {(second.title || (second.offerings && second.offerings.length > 0)) && (
+                <Container>
+                    <Features
+                        offerings={second.offerings ?? []}
+                        description={second.description ?? ""}
+                        title={second.title ?? ""}
+                        label={second.label ?? ""}
+                    />
+                </Container>
+            )}
+
+            {(subServices.title || (subServices.add_service && subServices.add_service.length > 0)) && (
+                <PrimarySection>
+                    <AllServices
+                        label={subServices.label ?? "Our Services"}
+                        title={subServices.title ?? ""}
+                        description={subServices.description ?? ""}
+                        services={subServices.add_service ?? []}
+                    />
+                </PrimarySection>
+            )}
+
+            {(feedback.title || (feedback.comments && feedback.comments.length > 0)) && (
+                <Testimonials
+                    title={feedback.title ?? ""}
+                    comments={feedback.comments ?? []}
+                    description={feedback.description ?? ""}
+                    label={feedback.label ?? ""}
+                />
+            )}
+
             <Container>
-                <Features
-                    offerings={acf.second_section.offerings}
-                    description={acf.second_section.description}
-                    title={acf.second_section.title}
-                    label={acf.second_section.label}
-                />
-            </Container>
-            <PrimarySection>
-                <AllServices
-                    label={acf.sub_services?.label ?? "Our Services"}
-                    title={acf.sub_services?.title ?? ""}
-                    description={acf.sub_services?.description ?? ""}
-                    services={acf.sub_services?.add_service ?? []}
-                />
-            </PrimarySection>
-            <Testimonials
-                title={acf.client_feedback.title}
-                comments={acf.client_feedback.comments}
-                description={acf.client_feedback.description}
-                label={acf.client_feedback.label}
-            />
-            <Container>
-                <QBox
-                    faqs={acf.faq_box.faq}
-                    title={acf.faq_box.title}
-                    description={acf.faq_box.description}
-                />
+                {(faqBox.title || (faqBox.faq && faqBox.faq.length > 0)) && (
+                    <QBox
+                        faqs={faqBox.faq ?? []}
+                        title={faqBox.title ?? ""}
+                        description={faqBox.description ?? ""}
+                    />
+                )}
                 <BlogSection data={blogData?.posts ?? []} />
                 <ContactCTA />
             </Container>
