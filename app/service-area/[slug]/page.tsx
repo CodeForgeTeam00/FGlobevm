@@ -50,35 +50,35 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
         <div className="relative">
             {isEnabled && <PreviewBar slug={slug} type="service_area_page" />}
             <EstimateSection
-                label={acf.hero_section.label}
-                title={acf.hero_section.title}
-                description={acf.hero_section.description}
+                label={acf.hero_section?.label}
+                title={acf.hero_section?.title}
+                description={acf.hero_section?.description}
             />
             <Container>
                 <ServicesSection
-                    label={acf.second_section.label}
-                    title={acf.second_section.title}
-                    description={acf.second_section.description}
-                    services={acf.second_section.services}
+                    label={acf.second_section?.label}
+                    title={acf.second_section?.title}
+                    description={acf.second_section?.description}
+                    services={acf.second_section?.services}
                 />
             </Container>
             <WhyUsSection
-                label={acf.offering_section.label}
-                title={acf.offering_section.title}
-                description={acf.offering_section.description}
-                offerings={acf.offering_section.offerings}
+                label={acf.offering_section?.label}
+                title={acf.offering_section?.title}
+                description={acf.offering_section?.description}
+                offerings={acf.offering_section?.offerings}
             />
             <TestimonialsSection
-                label={acf.client_feedback.label}
-                title={acf.client_feedback.title}
-                description={acf.client_feedback.description}
-                comments={acf.client_feedback.comments}
+                label={acf.client_feedback?.label}
+                title={acf.client_feedback?.title}
+                description={acf.client_feedback?.description}
+                comments={acf.client_feedback?.comments}
             />
             <Container>
                 <QBox
-                    title={acf.faq_box.title}
-                    description={acf.faq_box.description}
-                    faqs={acf.faq_box.faq}
+                    title={acf.faq_box?.title}
+                    description={acf.faq_box?.description}
+                    faqs={acf.faq_box?.faq}
                 />
                 <ContactCTA />
             </Container>
