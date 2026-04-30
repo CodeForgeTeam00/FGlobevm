@@ -76,7 +76,7 @@ export default async function ServicePage({ params, searchParams }: Props) {
                 title={data.title ?? ""}
                 label={hero.label ?? ""}
                 description={hero.description ?? ""}
-                image={hero.image ?? null}
+                image={hero.image && typeof hero.image === 'object' ? hero.image : null}
                 keyFeatures={hero.key_features ?? []}
             />
 
