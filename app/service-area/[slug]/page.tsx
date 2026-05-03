@@ -58,9 +58,9 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
     const feedback = acf.client_feedback ?? {};
     const faqBox = acf.faq_box ?? {};
 
-    console.log(faqBox , 'faqBox')
+
     return (
-        <div className="relative">
+        <div className="relative lg:mt-16 mt-4 ">
             {(isEnabled || isPreview) && <PreviewBar slug={slug} type="service_area_page" />}
 
             <EstimateSection
