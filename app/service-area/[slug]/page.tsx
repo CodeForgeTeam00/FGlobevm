@@ -46,6 +46,7 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
         data = await getPreviewById(id!);
     } else {
         data = await getServiceAreaPage(slug);
+        console.log(data)
     }
 
     if (!data) notFound();
@@ -56,6 +57,7 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
     const offering = acf.offering_section ?? {};
     const feedback = acf.client_feedback ?? {};
     const faqBox = acf.faq_box ?? {};
+
 
     return (
         <div className="relative">
