@@ -13,20 +13,13 @@ interface Props {
     offerings: Offering[];
 }
 
-function FeatureCard({ title, description }: { title: string; description: string }) {
+
+function FeatureCard({ title, description, icon }: Offering) {
+
     return (
         <div className="bg-white rounded-[1.5rem] p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300 h-full flex flex-col">
             <div className="mb-6">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 28V14L24 9V28H14Z" fill="#e0f2fe" />
-                    <path d="M8 28V18L14 15V28H8Z" fill="#bae6fd" />
-                    <rect x="16" y="16" width="2" height="2" fill="#7dd3fc" />
-                    <rect x="20" y="16" width="2" height="2" fill="#7dd3fc" />
-                    <rect x="16" y="20" width="2" height="2" fill="#7dd3fc" />
-                    <rect x="20" y="20" width="2" height="2" fill="#7dd3fc" />
-                    <circle cx="26" cy="22" r="7" fill="#1da1f2" />
-                    <path d="M26 19V22.5L28 24.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <img src={icon?.url} alt={icon?.alt}/>
             </div>
             <h4 className="text-[#1da1f2] font-bold text-lg mb-3 leading-tight">{title}</h4>
             <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
@@ -68,7 +61,7 @@ export default function WhyUsSection({ label, title, description, offerings }: P
                     <Container>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {offerings.map((item, index) => (
-                                <FeatureCard key={index} title={item.title} description={item.description} />
+                                <FeatureCard key={index} title={item.title} description={item.description}  icon={item.icon} />
                             ))}
                         </div>
                     </Container>

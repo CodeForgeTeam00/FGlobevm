@@ -4,7 +4,7 @@ import {
     HeaderSettings,
     FooterSettings,
     SocialMedia,
-    CPTHeaderItem,
+    CPTHeaderItem, CPTCardItem,
 } from "@/types/wp-options";
 
 export async function getGlobalOptions() {
@@ -51,6 +51,17 @@ export async function getServicePagesHeaderInfo() {
 export async function getServiceAreaPagesHeaderInfo() {
     return fetchWP<CPTHeaderItem[]>(
         "/gvm/v1/service_area_page?header_info",
+        { strategy: { type: "isr", revalidate: 3600 }, tag: "header" }
+    );
+}
+
+/**
+ * cards for Services Pages
+ */
+
+export async function getServicePagesCards() {
+    return fetchWP<CPTCardItem[]>(
+        "/gvm/v1/service_page?service_cards",
         { strategy: { type: "isr", revalidate: 3600 }, tag: "header" }
     );
 }

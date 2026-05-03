@@ -10,7 +10,7 @@ import {ContactCTA} from "@/Components/page/Home/ContactCTA";
 import {FAQAccordion} from "@/Components/global/FAQAccordion";
 import Container from "@/Components/global/Sections/Container";
 import mask from "@/public/assets/image/heroSectionLayout.svg";
-import {getGlobalOptions} from "@/services/wp-options";
+import {getGlobalOptions, getServicePagesCards} from "@/services/wp-options";
 import {getAllServices} from "@/services/wp-services";
 import {getBlogs} from "@/services/wp-blog";
 import {mapGlobalOptions} from "@/mappers/options.mapper";
@@ -21,7 +21,8 @@ import Text from "@/Components/global/text";
 export default async function Home() {
     const [options, services, rawPosts] = await Promise.all([
         getGlobalOptions(),
-        getAllServices(),
+        getServicePagesCards(),
+
         getBlogs({per_page: 4}),
     ]);
     const data = mapGlobalOptions(options);

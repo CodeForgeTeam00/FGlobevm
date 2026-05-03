@@ -68,6 +68,7 @@ export default async function ServicePage({ params, searchParams }: Props) {
 
     const blogData = mapBlogsResponse(rawPosts);
 
+    console.log(subServices.add_services , '()')
     return (
         <div className="relative">
             {(isEnabled || isPreview) && <PreviewBar slug={slug} type="services" />}
@@ -97,9 +98,11 @@ export default async function ServicePage({ params, searchParams }: Props) {
                         label={subServices.label ?? "Our Services"}
                         title={subServices.title ?? ""}
                         description={subServices.description ?? ""}
-                        services={subServices.add_service ?? []}
+
+                        services={subServices.add_services ?? []}
                     />
                 </PrimarySection>
+
             )}
 
             {(feedback.title || (feedback.comments && feedback.comments.length > 0)) && (

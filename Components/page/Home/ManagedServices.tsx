@@ -2,17 +2,17 @@ import React from "react";
 import SectionIntro from "@/Components/global/SectionIntro";
 import Container from "@/Components/global/Sections/Container";
 import ServicesCard from "@/Components/global/Cards/ServicesCard";
-import { WPService } from "@/types/wp-services";
+import {CPTCardItem} from "@/types/wp-options";
 
 interface ServicesListProps {
-    services: WPService[];
+    services: CPTCardItem[];
 }
 
 export const ManagedServices = ({ services }: ServicesListProps) => {
     return (
         <div className="py-24 px-6 bg-[#fcfdfe]">
             <Container>
-                <div className="flex flex-col lg:gap-10">
+                <div className="flex flex-col lg:gap-10 gap-6">
                     <SectionIntro
                         lgCenter
                         badge="WHAT WE DO"

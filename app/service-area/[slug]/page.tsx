@@ -51,14 +51,14 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
 
     if (!data) notFound();
 
-    const acf = data?.acf ?? {};
+    const acf = data[0]?.acf ?? {};
     const hero = acf.hero_section ?? {};
     const second = acf.second_section ?? {};
     const offering = acf.offering_section ?? {};
     const feedback = acf.client_feedback ?? {};
     const faqBox = acf.faq_box ?? {};
 
-
+    console.log(faqBox , 'faqBox')
     return (
         <div className="relative">
             {(isEnabled || isPreview) && <PreviewBar slug={slug} type="service_area_page" />}

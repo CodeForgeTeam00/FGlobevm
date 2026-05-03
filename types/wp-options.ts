@@ -73,3 +73,11 @@ export interface CPTHeaderItem {
     header_title: string | null;
     slug: string;
 }
+
+export interface CPTCardItem {
+    icon:WPImage | null;
+    slug: string | null;
+    title: string | null;
+    description: string | null;
+    id: string;
+}

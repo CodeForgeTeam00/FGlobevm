@@ -8,7 +8,7 @@ export interface WPService {
         description: string;
     };
 }
-interface Card{
+export interface Card{
         icon: { url: string; alt: string };
         title: string;
         description: string;

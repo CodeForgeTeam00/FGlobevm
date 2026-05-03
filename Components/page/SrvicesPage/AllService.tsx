@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Container from "@/Components/global/Sections/Container";
+import {Card} from "@/types/wp-services";
 
 interface SubService {
     icon: { url: string; alt: string };
@@ -12,27 +13,12 @@ interface Props {
     label: string;
     title: string;
     description: string;
-    services: SubService[];
+    services: Card[];
 }
 
 export default function AllServices({ label, title, description, services }: Props) {
+    console.log(services , '[hallo]')
     return (
-        <section className="py-12 font-sans">
-            <div className="bg-gradient-to-br from-[#166e9c] to-[#0f4d70] rounded-[2.5rem] p-8 md:p-12 lg:p-16 relative overflow-hidden shadow-2xl">
-                <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[80%] pointer-events-none opacity-10">
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                        <path d="M -50 100 Q 50 0 150 100 T 350 100" fill="none" stroke="white" strokeWidth="0.5" />
-                        <path d="M -50 120 Q 50 20 150 120 T 350 120" fill="none" stroke="white" strokeWidth="0.5" />
-                        <path d="M -50 140 Q 50 40 150 140 T 350 140" fill="none" stroke="white" strokeWidth="0.5" />
-                    </svg>
-                </div>
-                <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[120%] pointer-events-none opacity-[0.07]">
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                        {[...Array(15)].map((_, i) => (
-                            <circle key={i} cx="150" cy="150" r={30 + i * 8} fill="none" stroke="white" strokeWidth="0.5" />
-                        ))}
-                    </svg>
-                </div>
                 <Container>
                     <div className="relative z-10">
                         <div className="flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-16 mb-16">
@@ -81,7 +67,5 @@ export default function AllServices({ label, title, description, services }: Pro
                         </div>
                     </div>
                 </Container>
-            </div>
-        </section>
     );
 }
