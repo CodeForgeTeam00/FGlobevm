@@ -17,15 +17,15 @@ const FeatureLineCard: React.FC<FeatureLineCardProps> = ({
                                                              lineColor = "bg-primary-6",
                                                          }) => {
     return (
-        <div className={`flex flex-col ${className}`}>
+        <div className={`flex h-full flex-col ${className}`}>
             <div className="relative p-6 border flex flex-col gap-2 bg-white border-neutral-30 rounded-3xl">
-                <div className="flex items-center gap-4">
+                <div className="flex items-start  gap-4 min-h-16">
                     {icon}
-                    <h3 className="font-bold text-lg lg:text-xl">{title}</h3>
+                    <Text textColor={'black'} align={'left'} variant={'card-title-lg'}>{title}</Text>
                 </div>
-                <p className="text-start text-small lg:text-base leading-[28px] text-neutral-100">
+                <Text textColor={"light"} align={'left'} variant={"card-subtitle-lg"}>
                     {description}
-                </p>
+                </Text>
             </div>
             <div className={`mx-6 h-2 rounded-b-2xl ${lineColor}`} />
         </div>

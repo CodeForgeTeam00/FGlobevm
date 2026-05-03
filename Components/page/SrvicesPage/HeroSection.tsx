@@ -47,15 +47,15 @@ export default function ServicesHeroSection({ title, label, description, image, 
                         </div>
                     </div>
                 </Container>
-                { image.url &&
+                {image?.url && (
                     <Image
-                        src={image.url || ""}
+                        src={image.url}
                         alt={image.alt || title}
                         width={808}
                         height={840}
                         className="relative object-cover  mt-8 lg:mt-0 w-full lg:max-w-[600px] xl:max-w-[808px] lg:h-[840px] lg:top-0"
                     />
-                }
+                )}
             </div>
             <div className="bg-neutral-10 w-full  py-18 lg:pe-[120px] lg:ps-[190px] lg:absolute lg:translate-y-[-100%] max-w-[1454px]">
                 <div className="grid md:grid-cols-3 p-6 lg:p-0 gap-20">

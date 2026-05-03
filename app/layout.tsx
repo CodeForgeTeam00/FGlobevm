@@ -3,7 +3,11 @@ import localFont from "next/font/local";
 import "./globals.css";
 import HeaderSwitcher from "@/Components/layout/HeaderSwitcher";
 import Footer from "@/Components/layout/Footer";
-import { getHeaderSettings } from "@/services/wp-options";
+import {
+    getHeaderSettings,
+    getServicePagesHeaderInfo,
+    getServiceAreaPagesHeaderInfo,
+} from "@/services/wp-options";
 
 const dmSans = localFont({
     src: "../public/fonts/variable-font.ttf",
@@ -25,12 +29,20 @@ export default async function RootLayout({
                                          }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const headerSettings = await getHeaderSettings();
+    const [headerSettings, servicePages, serviceAreaPages] = await Promise.all([
+        getHeaderSettings(),
+        getServicePagesHeaderInfo(),
+        getServiceAreaPagesHeaderInfo(),
+    ]);
 
     return (
         <html lang="en" className={dmSans.variable}>
         <body className="antialiased max-w-[1920px] mx-auto">
-        <HeaderSwitcher headerSettings={headerSettings} />
+        <HeaderSwitcher
+            headerSettings={headerSettings}
+            servicePages={servicePages}
+            serviceAreaPages={serviceAreaPages}
+        />
         {children}
         <Footer />
         </body>

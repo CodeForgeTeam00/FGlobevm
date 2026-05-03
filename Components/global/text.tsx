@@ -1,11 +1,11 @@
 import React from "react";
-import {cva, type VariantProps} from "class-variance-authority";
-import {cn} from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
 const textVariants = cva("font-sans", {
     variants: {
         variant: {
-            // Headings (mobile → desktop) - exactly 4 like Figma
+            // Headings (mobile → desktop)
             "heading-lg": "text-2xl lg:text-4xl font-bold leading-10 lg:leading-relaxed",
             "heading-md": "text-xl lg:text-3xl font-bold leading-9 lg:leading-relaxed",
             "heading-sm": "text-lg lg:text-2xl font-bold leading-8 lg:leading-10",
@@ -15,6 +15,7 @@ const textVariants = cva("font-sans", {
             "body-lg": "text-base lg:text-lg font-medium leading-7 lg:leading-8",
             "body-md": "text-sm lg:text-base font-medium leading-6 lg:leading-7",
             "body-sm": "text-xs lg:text-sm font-medium leading-5 lg:leading-6",
+
             // Card Components (mobile → desktop)
             "card-tag": "text-xs font-medium leading-4 lg:leading-5",
             "card-caption": "text-xs lg:text-sm font-medium leading-5 lg:leading-7",
@@ -26,9 +27,31 @@ const textVariants = cva("font-sans", {
             // UI Components (mobile → desktop)
             "label": "text-xs font-medium leading-4 lg:leading-5",
             "link": "text-xs lg:text-sm font-medium leading-5 lg:leading-7",
+
+            // Buttons (mobile → desktop)
+            "button-xl": "text-base font-medium leading-8",
+            "button-lg": "text-sm font-medium leading-7",
+            "button-md": "text-xs font-medium leading-6",
+            "button-sm": "text-xs font-medium leading-5",
+            "button-xs": "text-xs font-medium leading-4",
+
+            // Blog Title & Headings (mobile → desktop)
+            "blog-title": "text-2xl lg:text-3xl font-bold leading-loose lg:leading-relaxed",
+            "blog-h1": "text-2xl lg:text-3xl font-bold leading-loose lg:leading-relaxed",
+            "blog-h2": "text-2xl lg:text-3xl font-bold leading-loose lg:leading-relaxed",
+            "blog-h3": "text-xl lg:text-2xl font-bold leading-loose lg:leading-relaxed",
+            "blog-h4": "text-lg lg:text-2xl font-bold leading-10",
+            "blog-h5": "text-base lg:text-xl font-bold leading-8 lg:leading-9",
+            "blog-h6": "text-sm lg:text-lg font-bold leading-7 lg:leading-8",
+
+            // Blog Body (mobile → desktop)
+            "blog-body": "text-sm lg:text-lg font-medium leading-8 lg:leading-10",
+            "blog-body-bold": "text-sm lg:text-lg font-bold leading-8 lg:leading-10",
+            "blog-body-small": "text-xs lg:text-base font-medium leading-5 lg:leading-8",
+            "blog-body-small-bold": "text-xs lg:text-base font-bold leading-5 lg:leading-7",
         },
         textColor: {
-            default:"inherit",
+            default: "inherit",
             "black": "text-neutral-900",
             "muted": "text-neutral-500",
             "light": "text-neutral-300",
@@ -65,7 +88,23 @@ const TAG_MAP: Record<string, ValidTag> = {
     "card-title-md": "p",
     "card-title-lg": "p",
     "label": "span",
-    "link": "a",
+    "link": "span",
+    "button-xl": "span",
+    "button-lg": "span",
+    "button-md": "span",
+    "button-sm": "span",
+    "button-xs": "span",
+    "blog-title": "h1",
+    "blog-h1": "h1",
+    "blog-h2": "h2",
+    "blog-h3": "h3",
+    "blog-h4": "h4",
+    "blog-h5": "h5",
+    "blog-h6": "h6",
+    "blog-body": "p",
+    "blog-body-bold": "p",
+    "blog-body-small": "p",
+    "blog-body-small-bold": "p",
 };
 
 interface TextProps extends VariantProps<typeof textVariants> {
@@ -89,7 +128,7 @@ export default function Text({
     return React.createElement(
         Component,
         {
-            className: cn(textVariants({variant, textColor, align}), className),
+            className: cn(textVariants({ variant, textColor, align }), className),
             ...props,
         },
         children

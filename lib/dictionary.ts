@@ -69,20 +69,20 @@ export const dictionary = {
                 },
                 features: [
                     {
-                        title: "24/7 Live Local Support",
-                        description: "Forget outsourced call centers. Get immediate emergency response from a live local expert in Los Angeles, day or night. Whether it's chat, email, or phone, we're always here.",
+                        title: "24/7 Local IT Support",
+                        description: "Get immediate help from our local Los Angeles experts anytime. No outsourced call centers",
                     },
                     {
                         title: "Proactive Threat Prevention",
-                        description: "We stay ahead of hackers with enterprise-grade security. Our proactive monitoring detects and blocks vulnerabilities before they can impact your data or reputation.",
+                        description: "We use enterprise-grade security to detect and block vulnerabilities before they impact your business",
                     },
                     {
-                        title: "Certified & Trusted Experts",
-                        description: "Partner with a team of certified specialists committed to excellence. We deliver high-level technical expertise and strategic IT consulting tailored to your specific business goals.",
+                        title: " Certified IT Experts",
+                        description: "Partner with certified specialists for high-level technical expertise and strategic IT consulting",
                     },
                     {
                         title: "Hassle-Free Compliance",
-                        description: "Navigating HIPAA, PCI DSS, or GDPR is complex. We manage your compliance requirements and risk management, so you can focus on your business without worrying about fines.",
+                        description: "We manage your HIPAA, PCI DSS, and GDPR requirements so you can focus on your core business",
                     },
                 ],
             }

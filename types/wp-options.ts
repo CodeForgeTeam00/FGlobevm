@@ -68,3 +68,8 @@ export interface FooterSettings {
     };
     description: string;
 }
+
+export interface CPTHeaderItem {
+    header_title: string | null;
+    slug: string;
+}
