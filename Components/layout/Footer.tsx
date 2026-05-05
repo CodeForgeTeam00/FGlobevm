@@ -11,6 +11,7 @@ import {
     YoutubeIcon,
 } from "@/Components/global/Icons";
 import {Phone, Mail} from "lucide-react";
+import Text from "@/Components/global/text";
 
 const ICON_MAP: Record<string, React.FC<{ className?: string }>> = {
     instagram: InstagramIcon,
@@ -65,9 +66,9 @@ export default async function Footer() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[128px]">
                     <div className="flex flex-col gap-6">
                         <Logo className="text-[56px]"/>
-                        <p className="text-gray-500 text-sm leading-relaxed">
+                        <Text variant={'body-lg'} textColor={'light'} >
                             {footer?.description ?? ""}
-                        </p>
+                        </Text>
                         <div className="flex gap-2">
                             {socialLinks.map((social, index) => {
                                 const IconComponent = ICON_MAP[social.name];
@@ -96,7 +97,9 @@ export default async function Footer() {
                                     href={link.href}
                                     className="text-gray-500 text-sm hover:text-primary-6 transition"
                                 >
-                                    {link.name}
+                                  <Text as={'span'} className={'hover:text-primary-6 transition'} variant={'body-lg'} textColor={'light'}>
+                                      {link.name}
+                                  </Text>
                                 </Link>
                             ))}
                         </div>
@@ -108,7 +111,10 @@ export default async function Footer() {
                                     className="flex items-center gap-2 text-gray-500 text-sm hover:text-primary-6 transition"
                                 >
                                     <Phone className="w-4 h-4"/>
-                                    {footer.contact_us.btn_num.number}
+
+                                    <Text as={'span'} className={'hover:text-primary-6 transition'} variant={'body-lg'} textColor={'light'}>
+                                        {footer.contact_us.btn_num.number}
+                                    </Text>
                                 </a>
                             )}
                             {footer?.contact_us?.contact_email && (
@@ -117,7 +123,10 @@ export default async function Footer() {
                                     className="flex items-center gap-2 text-gray-500 text-sm hover:text-primary-6 transition"
                                 >
                                     <Mail className="w-4 h-4"/>
-                                    {footer.contact_us.contact_email}
+                                    <Text as={'span'} className={'hover:text-primary-6 transition'} variant={'body-lg'} textColor={'light'}>
+                                        {footer.contact_us.contact_email}
+                                    </Text>
+
                                 </a>
                             )}
                         </div>

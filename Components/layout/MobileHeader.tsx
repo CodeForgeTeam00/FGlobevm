@@ -157,7 +157,7 @@ export default function MobileHeader({
                                 })}
                             </div>
                         ) : (
-                            <div className="flex flex-col py-2">
+                            <div className="flex flex-col py-2 h-screen overflow-y-auto">
                                 <button
                                     className="flex items-center gap-2 px-6 py-4 text-sm text-primary-6 font-medium border-b border-gray-100"
                                     onClick={() => setActiveSubmenu(null)}
