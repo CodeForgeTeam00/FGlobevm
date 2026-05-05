@@ -1,4 +1,5 @@
 import { WPImage } from "./wp-common";
+import {getBusinessPartner} from "@/services/wp-options";
 
 export interface HeroSectionImages {
     hero_primary_image: WPImage;
@@ -80,4 +81,8 @@ export interface CPTCardItem {
     title: string | null;
     description: string | null;
     id: string;
+}
+
+export interface BusinessPartner {
+    logo:WPImage |  null
 }

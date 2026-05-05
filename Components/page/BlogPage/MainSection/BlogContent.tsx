@@ -34,10 +34,10 @@ export const FeaturedBlogContent: React.FC<Props> = ({ data, avatarLess = false 
             {!avatarLess && (
                 <div className="flex flex-col gap-10">
                     <FeaturedBlogAuthor author={data.author} />
-                    <a href="#" className="flex gap-1 items-center">
+                    <div className="flex gap-1 items-center">
                         <span className="text-primary-6">Read More</span>
                         <ArrowRightIcon className="w-4" />
-                    </a>
+                    </div>
                 </div>
             )}
         </div>

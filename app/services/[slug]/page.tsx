@@ -9,12 +9,14 @@ import ServicesHeroSection from "@/Components/page/SrvicesPage/HeroSection";
 import Features from "@/Components/page/SrvicesPage/WayChooseUsSection";
 import AllServices from "@/Components/page/SrvicesPage/AllService";
 import Testimonials from "@/Components/page/SrvicesPage/Testimonials";
-import QBox from "@/Components/page/SrvicesPage/QBox";
 import BlogSection from "@/Components/page/SrvicesPage/PostSection";
 import { ContactCTA } from "@/Components/page/Home/ContactCTA";
 import PreviewBar from "@/Components/global/PreviewBar";
 import PrimarySection from "@/Components/global/PrimarySection";
 import type { Metadata } from "next";
+import {FAQAccordion} from "@/Components/global/FAQAccordion";
+import SectionIntro from "@/Components/global/SectionIntro";
+import React from "react";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -65,6 +67,7 @@ export default async function ServicePage({ params, searchParams }: Props) {
     const subServices = acf.sub_services ?? {};
     const feedback = acf.client_feedback ?? {};
     const faqBox = acf.faq_box ?? {};
+    console.log(faqBox , 'oo')
 
     const blogData = mapBlogsResponse(rawPosts);
 
@@ -116,11 +119,17 @@ export default async function ServicePage({ params, searchParams }: Props) {
 
             <Container>
                 {(faqBox.title || (faqBox.faq && faqBox.faq.length > 0)) && (
-                    <QBox
-                        faqs={faqBox.faq ?? []}
-                        title={faqBox.title ?? ""}
-                        description={faqBox.description ?? ""}
-                    />
+
+                    <div className={'grid grid-cols-2 items-center'}>
+                        <div className={'me-[128px]'}>
+                            <SectionIntro
+                                title={faqBox.title}
+                                description={faqBox.description}
+                            />
+                        </div>
+                        <FAQAccordion items={faqBox.faq} variant="dark"/>
+                    </div>
+
                 )}
                 <BlogSection data={blogData?.posts ?? []} />
                 <ContactCTA />

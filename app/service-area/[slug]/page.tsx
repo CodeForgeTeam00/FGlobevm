@@ -3,14 +3,16 @@ import { getPreviewById } from "@/lib/preview";
 import { notFound } from "next/navigation";
 import { draftMode } from "next/headers";
 import Container from "@/Components/global/Sections/Container";
-import EstimateSection from "@/Components/page/servicArea/EstimateSection";
-import ServicesSection from "@/Components/page/servicArea/ServicesSection";
-import WhyUsSection from "@/Components/page/servicArea/WhyUsSection";
-import TestimonialsSection from "@/Components/page/servicArea/TestimonialsSection";
-import QBox from "@/Components/page/servicArea/QBox";
+import EstimateSection from "@/Components/page/ServiceArea/EstimateSection";
+import ServicesSection from "@/Components/page/ServiceArea/ServicesSection";
+import WhyUsSection from "@/Components/page/ServiceArea/WhyUsSection";
+import TestimonialsSection from "@/Components/page/ServiceArea/TestimonialsSection";
 import { ContactCTA } from "@/Components/page/Home/ContactCTA";
 import PreviewBar from "@/Components/global/PreviewBar";
 import type { Metadata } from "next";
+import SectionIntro from "@/Components/global/SectionIntro";
+import {FAQAccordion} from "@/Components/global/FAQAccordion";
+import React from "react";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -100,11 +102,15 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
 
             <Container>
                 {(faqBox.title || (faqBox.faq && faqBox.faq.length > 0)) && (
-                    <QBox
-                        title={faqBox.title ?? ""}
-                        description={faqBox.description ?? ""}
-                        faqs={faqBox.faq ?? []}
-                    />
+                    <div className={'grid grid-cols-2 items-center'}>
+                        <div className={'me-[128px]'}>
+                            <SectionIntro
+                                title={faqBox.title}
+                                description={faqBox.description}
+                            />
+                        </div>
+                        <FAQAccordion items={faqBox.faq} variant="dark"/>
+                    </div>
                 )}
                 <ContactCTA />
             </Container>

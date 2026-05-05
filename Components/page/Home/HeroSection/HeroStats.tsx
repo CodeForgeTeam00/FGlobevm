@@ -36,14 +36,18 @@ export const HeroStats: React.FC<HeroStatsProps> = ({ data }) => {
                         <div className="flex justify-between text-footnote text-neutral-100">
                             <span>+ 23 Performance</span>
                         </div>
-
-                        <div className="w-full h-[6px] bg-[#f1f5f9] rounded-full">
-                            <div className="bg-primary-6 h-full w-[65%] rounded-full shadow-[0_0_12px_rgba(79,70,229,0.3)]"></div>
+                        <div className="w-full h-1 bg-primary-1 rounded-2xl flex  items-center pr-1  ">
+                            <div
+                                className=" w-6/10 h-1 bg-primary-6 rounded-l-2xl relative flex items-center flex-row-reverse">
+                                <div
+                                    className=" w-2 h-2 bg-primary-6 rounded-2xl translate-x-[25%] absolute  z-2"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="hero__mini-card bg-neutral-black text-neutral-30 py-3 px-4 rounded-2xl gap-4 flex items-center">
+                <div
+                    className="hero__mini-card bg-neutral-black text-neutral-30 py-3 px-4 lg:px-6 rounded-2xl gap-4 flex items-center">
                     <div className="w-16 h-16 rounded-full bg-primary-6 flex items-center justify-center text-caption">
                         <Text textColor={'white'} variant={'body-md'}>
                             99

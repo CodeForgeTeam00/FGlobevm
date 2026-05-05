@@ -23,7 +23,7 @@ const FeatureLineCard: React.FC<FeatureLineCardProps> = ({
                     {icon}
                     <Text textColor={'black'} align={'left'} variant={'card-title-lg'}>{title}</Text>
                 </div>
-                <Text textColor={"light"} align={'left'} variant={"card-subtitle-lg"}>
+                <Text textColor={"light"} align={'left'} variant={"card-subtitle-lg"} className={'lg:line-clamp-3 line-clamp-2 min-h-[48px] lg:min-h-[96px]'}>
                     {description}
                 </Text>
             </div>

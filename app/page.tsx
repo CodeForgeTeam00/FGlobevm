@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {HeroSection} from "@/Components/page/Home/HeroSection/HeroSection";
-import {TrustedBy} from "@/Components/page/Home/TrustedBy";
+import {TrustedBy} from "@/Components/global/TrustedBy";
 import {AboutStability} from "@/Components/page/Home/AboutStability";
 import {WhyChooseUs} from "@/Components/page/Home/WhyChooseUs";
 import {ManagedServices} from "@/Components/page/Home/ManagedServices";
@@ -10,7 +10,7 @@ import {ContactCTA} from "@/Components/page/Home/ContactCTA";
 import {FAQAccordion} from "@/Components/global/FAQAccordion";
 import Container from "@/Components/global/Sections/Container";
 import mask from "@/public/assets/image/heroSectionLayout.svg";
-import {getGlobalOptions, getServicePagesCards} from "@/services/wp-options";
+import {getBusinessPartner, getGlobalOptions, getServicePagesCards} from "@/services/wp-options";
 import {getAllServices} from "@/services/wp-services";
 import {getBlogs} from "@/services/wp-blog";
 import {mapGlobalOptions} from "@/mappers/options.mapper";
@@ -19,11 +19,11 @@ import PrimarySection from "@/Components/global/PrimarySection";
 import Text from "@/Components/global/text";
 
 export default async function Home() {
-    const [options, services, rawPosts] = await Promise.all([
+    const [options, services, rawPosts , partners] = await Promise.all([
         getGlobalOptions(),
         getServicePagesCards(),
-
         getBlogs({per_page: 4}),
+        getBusinessPartner(),
     ]);
     const data = mapGlobalOptions(options);
     const blogData = mapBlogsResponse(rawPosts);
@@ -48,7 +48,7 @@ export default async function Home() {
                 />
             </Container>
             <Container bemClass="trusted-by__section">
-                <TrustedBy/>
+                <TrustedBy partners={partners ?? []} />
             </Container>
 
             <Container fullWidth bemClass="why-chooseUs__section">

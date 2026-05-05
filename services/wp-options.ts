@@ -4,7 +4,7 @@ import {
     HeaderSettings,
     FooterSettings,
     SocialMedia,
-    CPTHeaderItem, CPTCardItem,
+    CPTHeaderItem, CPTCardItem, BusinessPartner,
 } from "@/types/wp-options";
 
 export async function getGlobalOptions() {
@@ -34,6 +34,13 @@ export async function getSocialMedia() {
         { strategy: { type: "isr", revalidate: 86400 }, tag: "options" }
     );
 }
+export async function getBusinessPartner() {
+    return fetchWP<BusinessPartner[]>(
+        "/gvm/v1/options/business_partner",
+        { strategy: { type: "isr", revalidate: 86400 }, tag: "options" }
+    );
+}
+
 
 /**
  * Header info for Service Pages - used in main nav dropdown

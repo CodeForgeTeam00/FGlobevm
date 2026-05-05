@@ -10,7 +10,7 @@ interface ServicesListProps {
 
 export const ManagedServices = ({ services }: ServicesListProps) => {
     return (
-        <div className="py-24 px-6 bg-[#fcfdfe]">
+        <div className="py-24  bg-[#fcfdfe]">
             <Container>
                 <div className="flex flex-col lg:gap-10 gap-6">
                     <SectionIntro

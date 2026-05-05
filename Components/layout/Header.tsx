@@ -127,6 +127,7 @@ export default function Header({
                     <div className="desktop-header hidden px-4 2xl:px-0 lg:flex py-5 w-full justify-between items-center">
                         <div className="header__right-side flex items-center 2xl:gap-10 gap-6">
                             <div className="header__logo">
+
                                 <Logo className="2xl:text-[56px] text-[40px]" />
                             </div>
                             <nav className="navigation flex gap-4 2xl:gap-6">

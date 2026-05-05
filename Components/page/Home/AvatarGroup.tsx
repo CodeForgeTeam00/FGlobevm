@@ -6,14 +6,14 @@ type User = {
 }
 
 const users: User[] = [
-    { name: "shadcn", image: "https://github.com/shadcn.png" },
-    { name: "maxleiter", image: "https://github.com/maxleiter.png" },
-    { name: "evilrabbit", image: "https://github.com/evilrabbit.png" },
+    { name: "evilrabbit", image: "/assets/image/avatrComent1.jpg" },
+    { name: "evilrabbit", image: "/assets/image/avatrComent2.jpg" },
+    { name: "evilrabbit", image: "/assets/image/avatrComent3.jpg" },
 ]
 
-export function AvatarGroupExample() {
+export function AvatarGroupImage() {
     return (
-        <div className="flex -space-x-8 grayscale">
+        <div className="flex -space-x-8 ">
             {users.map((user) => (
                 <div
                     key={user.name}

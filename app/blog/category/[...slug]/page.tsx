@@ -112,7 +112,8 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                     <>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 lg:px-0">
                             {blog!.posts.map((item) => (
-                                <BlogCard hasAuthor key={item.id} data={item} />
+                                <BlogCard layout="vertical" key={item.id} data={item} />
+
                             ))}
                         </div>
 
@@ -133,7 +134,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                     </p>
                 )}
 
-                {/* SEO Box */}
+
                 {seoBox && (
                     <SeoBoxSection content={seoBox} title="All About The GlobeVM" />
                 )}

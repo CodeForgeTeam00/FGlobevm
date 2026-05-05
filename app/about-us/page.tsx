@@ -49,20 +49,3 @@ export default async function AboutUsPage() {
         </div>
     );
 }
-
-// GET /gvm/v1/menus/header
-    [
-    {
-        "name": "Inspection Services",
-        "url": "/inspection-services",
-        "children": [
-            { "name": "Interactive Reports", "url": "/inspection-services/interactive-reports" },
-            { "name": "Team Dashboard", "url": "/inspection-services/team-dashboard" }
-        ]
-    },
-        {
-            "name": "Services",
-            "url": "/services",
-            "children": []
-        }
-    ]

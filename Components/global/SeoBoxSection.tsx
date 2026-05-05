@@ -19,11 +19,9 @@ export default function SeoBoxSection({ content, title }: Props) {
             {title && (
                 <h2 className="text-3xl font-serif font-bold mb-4">{title}</h2>
             )}
-            <div className={`relative ${!expanded ? "max-h-[120px] overflow-hidden" : ""}`}>
+            <div className={`relative ${!expanded ? "max-h-16 overflow-hidden" : ""}`}>
                 <WpContent content={content} />
-                {!expanded && (
-                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
-                )}
+
             </div>
             <button
                 onClick={() => setExpanded(!expanded)}

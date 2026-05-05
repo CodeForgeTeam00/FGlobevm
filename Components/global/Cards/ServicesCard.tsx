@@ -15,8 +15,8 @@ const ServicesCard: React.FC<ServicesCardProps> = ({service,}) => {
             <div className='group'>
                 <div
                     className='p-6 border flex flex-col gap-4 items-start bg-neutral-0 border-neutral-30
-                rounded-3xl transition-colors duration-300
-                group-hover:shadow-[0_0_2px_2px_rgba(25,154,213,0.25)] group-hover:border-primary-6'>
+                                rounded-3xl transition-colors duration-300
+                                group-hover:shadow-[0_0_2px_2px_rgba(25,154,213,0.25)] group-hover:border-primary-6'>
                     <div className='p-4 bg-neutral-10 rounded-full'>
                         {service.icon ?
                             <img className={'w-10 h-10'} src={service.icon?.url} alt={service.icon?.alt}/> :

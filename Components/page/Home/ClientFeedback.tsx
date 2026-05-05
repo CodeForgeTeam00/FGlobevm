@@ -3,8 +3,9 @@ import Image from "next/image";
 import SectionIntro from "@/Components/global/SectionIntro";
 import { QuoteIcon } from "@/Components/global/Icons";
 import MySlider from "@/Components/page/Home/SliderComent";
-import { AvatarGroupExample } from "@/Components/page/Home/AvatarGroup";
+import {AvatarGroupImage} from "@/Components/page/Home/AvatarGroup";
 import { WPImage } from "@/types/wp-common";
+import Text from "@/Components/global/text";
 
 interface CommentItem {
     description: string;
@@ -20,7 +21,7 @@ interface ClientFeedbackProps {
 
 export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image }) => {
     return (
-        <div className="relative py-24 px-6 flex flex-col gap-10 overflow-hidden">
+        <div className="relative py-24  flex flex-col gap-10 overflow-hidden">
             <SectionIntro
                 lgCenter
                 badge="Client Feedback"
@@ -29,7 +30,7 @@ export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image 
             />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-6">
-                    <div className="p-10 rounded-3xl h-[400px] gradient-primary overflow-hidden relative">
+                    <div className="lg:p-10 p-6 rounded-3xl h-[400px] gradient-primary overflow-hidden relative">
                         <div className="w-[424px] h-[424px] absolute rounded-full translate-x-[35%] left-2/4 bottom-2/4 flex justify-center items-center bg-white/5">
                             <div className="w-[298px] h-[298px] flex rounded-full justify-center items-center bg-white/10">
                                 <div className="w-[172px] h-[172px] rounded-full bg-white/15" />
@@ -56,10 +57,11 @@ export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image 
                             <MySlider comments={comments} />
                         </div>
                     </div>
-                    <div className="p-10 border border-neutral-30 rounded-3xl items-center bg-neutral-10 flex gap-5">
-                        <AvatarGroupExample />
+                    <div className="p-10 border border-neutral-30 rounded-3xl lg:items-center flex-col lg:flex-row  bg-neutral-10 flex gap-5">
+                        <AvatarGroupImage />
                         <div>
-                            <p className="text-xl leading-[36px]">100+ Happy Customers</p>
+                            <Text variant={'card-title-lg'}>100+ Happy Customers</Text>
+
                             <p className="text-lg leading-[32px] text-neutral-100">
                                 Work with people and brands worldwide.
                             </p>

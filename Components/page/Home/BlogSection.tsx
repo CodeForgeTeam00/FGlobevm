@@ -11,7 +11,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
     if (!posts.length) return null;
     const [featured, ...sidebar] = posts;
     return (
-        <section className="py-24 px-6">
+        <section className="py-24 ">
             <div className="text-center mb-16">
                 <SectionIntro
                     lgCenter
@@ -19,10 +19,10 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
                     description={"    Stay informed with the latest tips, trends, and best practices in IT, virtualization, and cybersecurity."}
                 />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 <Link
                     href={`/blog/${featured.slug}`}
-                    className="lg:col-span-2 relative rounded-[2.5rem] overflow-hidden group min-h-[650px]"
+                    className="lg:col-span-3 relative rounded-[2.5rem] overflow-hidden group min-h-[650px]"
                 >
                     <Image
                         src={featured.image?.url || ""}

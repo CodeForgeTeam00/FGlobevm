@@ -21,7 +21,7 @@ const STATS_DATA = [
 
 export const AboutStability = ({ background }: AboutStabilityProps) => {
     return (
-        <section className="relative px-6 lg:py-18 overflow-hidden">
+        <section className="relative  lg:py-18 overflow-hidden">
             <div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div className="mb-6">
