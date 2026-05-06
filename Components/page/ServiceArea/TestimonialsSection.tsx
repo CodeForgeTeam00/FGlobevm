@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import "swiper/css";
+import SectionIntro from "@/Components/global/SectionIntro";
+import Container from "@/Components/global/Sections/Container";
 
 interface Comment {
     avatar: { url: string; alt: string } | null;
@@ -32,7 +34,7 @@ function TestimonialCard({ name, job, avatar, description }: Comment) {
                         alt={avatar.alt || name}
                         width={56}
                         height={56}
-                        className="w-14 h-14 rounded-full object-cover border-2 border-gray-50"
+                        className="w-14 h-14 lg:w-20 lg:h-20 rounded-full object-cover border-2 border-gray-50"
                         unoptimized
                     />
                 ) : (
@@ -61,25 +63,6 @@ export default function TestimonialsSection({ label, title, description, comment
         <section className="py-24 overflow-hidden">
             <div className="px-4 sm:px-6 lg:px-8">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                    <div className="lg:col-span-5">
-                        <div className="flex items-center gap-4">
-                            <button
-                                onClick={() => swiperRef?.slidePrev()}
-                                className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
-                                aria-label="Previous testimonial"
-                            >
-                                <ChevronLeft size={20} strokeWidth={2} />
-                            </button>
-                            <button
-                                onClick={() => swiperRef?.slideNext()}
-                                className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
-                                aria-label="Next testimonial"
-                            >
-                                <ChevronRight size={20} strokeWidth={2} />
-                            </button>
-                        </div>
-                    </div>
-
                     <div className="lg:col-span-7 relative">
                         <div className="w-full">
                             <Swiper
@@ -91,26 +74,16 @@ export default function TestimonialsSection({ label, title, description, comment
                                 breakpoints={{
                                     640: { slidesPerView: 1.2 },
                                     1024: { slidesPerView: 1.2 },
-                                    1280: { slidesPerView: 2.4 },
+                                    1280: { slidesPerView: 2.8 },
                                 }}
                                 className="testimonial-swiper !overflow-visible"
                             >
                                 <SwiperSlide className="h-auto">
-                                    <div className="inline-flex items-center border border-[#1da1f2]/30 text-[#1da1f2] rounded-full px-5 py-1.5 text-xs font-semibold tracking-wide mb-6 bg-white shadow-sm">
-                                        {label}
-                                    </div>
-                                    <h2 className="text-4xl sm:text-5xl font-serif text-gray-900 mb-6 leading-[1.2]">
-                                        {titleParts.map((part, i) =>
-                                            part.toLowerCase() === "reliability" ? (
-                                                <span key={i} className="text-[#1da1f2]">{part}</span>
-                                            ) : (
-                                                <span key={i}>{part}</span>
-                                            )
-                                        )}
-                                    </h2>
-                                    <p className="text-gray-500 text-sm sm:text-base leading-relaxed mb-10">
-                                        {description}
-                                    </p>
+                                    <SectionIntro
+                                        badge={label}
+                                        title={title}
+                                        description={description}
+                                    />
                                 </SwiperSlide>
                                 {comments.map((comment, index) => (
                                     <SwiperSlide key={index} className="h-auto">
@@ -119,8 +92,29 @@ export default function TestimonialsSection({ label, title, description, comment
                                 ))}
                             </Swiper>
                         </div>
+                        <Container>
+                            <div>
+                                <div className="flex items-center gap-4">
+                                    <button
+                                        onClick={() => swiperRef?.slidePrev()}
+                                        className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
+                                        aria-label="Previous testimonial"
+                                    >
+                                        <ChevronLeft size={20} strokeWidth={2} />
+                                    </button>
+                                    <button
+                                        onClick={() => swiperRef?.slideNext()}
+                                        className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
+                                        aria-label="Next testimonial"
+                                    >
+                                        <ChevronRight size={20} strokeWidth={2} />
+                                    </button>
+                                </div>
+                            </div>
+                        </Container>
                     </div>
                 </div>
+
             </div>
         </section>
     );

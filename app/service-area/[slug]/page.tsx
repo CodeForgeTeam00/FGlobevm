@@ -13,6 +13,9 @@ import type { Metadata } from "next";
 import SectionIntro from "@/Components/global/SectionIntro";
 import {FAQAccordion} from "@/Components/global/FAQAccordion";
 import React from "react";
+import Image from "next/image";
+import mask from "@/public/assets/image/heroSectionLayout.svg";
+import PrimarySection from "@/Components/global/PrimarySection";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -62,15 +65,18 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
 
 
     return (
-        <div className="relative lg:mt-16 mt-4 ">
+        <div className="relative  ">
             {(isEnabled || isPreview) && <PreviewBar slug={slug} type="service_area_page" />}
-
+            <Image
+                className="absolute hidden lg:inline top-20 "
+                src={mask}
+                alt="layout"
+            />
             <EstimateSection
                 label={hero.label ?? ""}
                 title={hero.title ?? ""}
                 description={hero.description ?? ""}
             />
-
             {(second.title || (second.services && second.services.length > 0)) && (
                 <Container>
                     <ServicesSection
@@ -81,16 +87,17 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
                     />
                 </Container>
             )}
-
             {(offering.title || (offering.offerings && offering.offerings.length > 0)) && (
-                <WhyUsSection
-                    label={offering.label ?? ""}
-                    title={offering.title ?? ""}
-                    description={offering.description ?? ""}
-                    offerings={offering.offerings ?? []}
-                />
-            )}
+                <PrimarySection>
+                    <WhyUsSection
+                        label={offering.label ?? ""}
+                        title={offering.title ?? ""}
+                        description={offering.description ?? ""}
+                        offerings={offering.offerings ?? []}
+                    />
+                </PrimarySection>
 
+            )}
             {(feedback.title || (feedback.comments && feedback.comments.length > 0)) && (
                 <TestimonialsSection
                     label={feedback.label ?? ""}
@@ -99,20 +106,23 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
                     comments={feedback.comments ?? []}
                 />
             )}
-
             <Container>
                 {(faqBox.title || (faqBox.faq && faqBox.faq.length > 0)) && (
-                    <div className={'grid grid-cols-2 items-center'}>
-                        <div className={'me-[128px]'}>
+                    <div className={'grid  items-center'}>
+                        <div className={'flex flex-col lg:gap-10 gap-6'}>
                             <SectionIntro
                                 title={faqBox.title}
                                 description={faqBox.description}
+                                lgCenter
                             />
+                            <FAQAccordion items={faqBox.faq} variant="dark"/>
                         </div>
-                        <FAQAccordion items={faqBox.faq} variant="dark"/>
+
                     </div>
                 )}
-                <ContactCTA />
+                <div className={' lg:mt-10 mt-6'}>
+                    <ContactCTA />
+                </div>
             </Container>
         </div>
     );
