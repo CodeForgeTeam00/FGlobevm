@@ -17,6 +17,24 @@ const nextConfig: NextConfig = {
             },
         ],
     },
+
+    typescript: {
+        ignoreBuildErrors: false,
+    },
+
+    async headers() {
+        return [
+            {
+                source: "/:path*",
+                headers: [
+                    {
+                        key: "X-Robots-Tag",
+                        value: "noindex, nofollow",
+                    },
+                ],
+            },
+        ];
+    },
 };
 
 export default nextConfig;

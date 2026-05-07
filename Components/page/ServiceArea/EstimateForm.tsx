@@ -122,7 +122,6 @@ export default function EstimateForm() {
             <p className="text-gray-500 text-sm sm:text-base mb-8">
                 Tell us about your project. We'll confirm scope, timing, and next steps.
             </p>
-
             {status === "success" ? (
                 <div className="flex items-center gap-3 bg-green-50 text-green-700 rounded-2xl p-6">
                     <CheckCircle size={24} />
@@ -133,7 +132,7 @@ export default function EstimateForm() {
                 </div>
             ) : (
                 <form className="space-y-5" onSubmit={handleSubmit}>
-                    {/* Name + Email */}
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div className="space-y-2">
                             <label className="text-sm font-semibold text-gray-900 ml-1">Name</label>
@@ -158,8 +157,6 @@ export default function EstimateForm() {
                             />
                         </div>
                     </div>
-
-                    {/* Service Type + Budget Range */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div className="space-y-2">
                             <label className="text-sm font-semibold text-gray-900 ml-1">Service Type</label>
@@ -190,8 +187,6 @@ export default function EstimateForm() {
                             </select>
                         </div>
                     </div>
-
-                    {/* Timeline */}
                     <div className="space-y-2">
                         <label className="text-sm font-semibold text-gray-900 ml-1">Timeline</label>
                         <select
@@ -206,8 +201,6 @@ export default function EstimateForm() {
                             ))}
                         </select>
                     </div>
-
-                    {/* File Upload */}
                     <div className="space-y-2">
                         <label className="text-sm font-semibold text-gray-900 ml-1">
                             Upload File <span className="text-gray-400 font-normal">(Optional)</span>
@@ -248,8 +241,6 @@ export default function EstimateForm() {
                             Supported Formats: JPG, PNG, TXT, PDF
                         </p>
                     </div>
-
-                    {/* Description */}
                     <div className="space-y-2">
                         <label className="text-sm font-semibold text-gray-900 ml-1">Project Description</label>
                         <textarea
@@ -262,14 +253,11 @@ export default function EstimateForm() {
                         />
                     </div>
 
-                    {/* Error */}
                     {errorMsg && (
                         <p className="text-red-500 text-sm flex items-center gap-1">
                             <AlertCircle size={14} /> {errorMsg}
                         </p>
                     )}
-
-                    {/* Submit */}
                     <div className="pt-2">
                         <button
                             type="submit"
