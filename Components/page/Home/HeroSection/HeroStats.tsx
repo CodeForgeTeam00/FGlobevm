@@ -1,0 +1,78 @@
+import React from "react";
+import { HeroSectionProps } from "@/modules/home/types";
+import {HomeIcon} from "@/Components/global/Icons";
+import Text from "@/Components/global/text";
+
+interface HeroStatsProps {
+    data: HeroSectionProps;
+}
+export const HeroStats: React.FC<HeroStatsProps> = ({ data }) => {
+    const { primaryImageUrl, secondaryImageUrl , secondaryAlt , primaryAlt } = data;
+
+    return (
+        <div className="hero__stats
+                    lg:max-w-[582px]  2xl:!max-w-[776px]
+                    w-full
+                    items-center
+                    flex flex-col sm:flex-row
+                    gap-6
+                    relative
+                    ">
+
+            <div className="hero__stats-left flex flex-col flex-1 gap-6 w-full lg:max-w-[264px] 2xl:!max-w-[352px]">
+                <div className="hero__card bg-neutral-10 rounded-3xl relative lg:mt-20 p-8 pt-14">
+                    <div className="hero__card-icon w-10 h-10 md:w-16 md:h-16 bg-black rounded-full absolute top-[-20px] md:top-[-32px] flex items-center justify-center">
+                        <HomeIcon className="h-5 w-5 lg:w-8 lg:h-8" />
+                    </div>
+
+                    <div className="hero__card-content mb-6">
+                        <Text textColor={'light'} variant={'body-md'}>25%</Text>
+                        <Text textColor={'black'} variant={'body-lg'}>
+                            Stay informed with the latest tips, trends, and best practices in IT, virtualization
+                        </Text>
+                    </div>
+
+                    <div className="hero__progress flex flex-col gap-2">
+                        <div className="flex justify-between text-footnote text-neutral-100">
+                            <span>+ 23 Performance</span>
+                        </div>
+                        <div className="w-full h-1 bg-primary-1 rounded-2xl flex  items-center pr-1  ">
+                            <div
+                                className=" w-6/10 h-1 bg-primary-6 rounded-l-2xl relative flex items-center flex-row-reverse">
+                                <div
+                                    className=" w-2 h-2 bg-primary-6 rounded-2xl translate-x-[25%] absolute  z-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    className="hero__mini-card bg-neutral-black text-neutral-30 py-3 px-4 lg:px-6 rounded-2xl gap-4 flex items-center">
+                    <div className="w-16 h-16 rounded-full bg-primary-6 flex items-center justify-center text-caption">
+                        <Text textColor={'white'} variant={'body-md'}>
+                            99
+                        </Text>
+                    </div>
+                    <div className="flex flex-col text-caption">
+                        <Text textColor={'white'} variant={'body-md'}>
+                            Title
+                        </Text>
+                        <Text textColor={'light'} variant={'body-md'}>
+                            Description
+                        </Text>
+                        <span className="text-neutral-0"></span>
+                        <span className="text-neutral-30"></span>
+                    </div>
+                </div>
+            </div>
+            <div className="hero__media flex flex-row-reverse sm:flex-col flex-1 gap-6">
+                <div className="hero__placeholder relative w-full">
+                    <img src={primaryImageUrl} alt={primaryAlt} />
+                </div>
+                <div className="hero__image w-full overflow-hidden">
+                    <img className="rounded-xl" src={secondaryImageUrl} alt={secondaryAlt} />
+                </div>
+            </div>
+        </div>
+    );
+};
