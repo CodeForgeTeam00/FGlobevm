@@ -11,7 +11,9 @@ export const WhyChooseUs: React.FC = () => {
     const content = dict.home.whyChooseUs.content;
     const features = dict.home.whyChooseUs.features;
     return (
-        <section className="relative overflow-hidden py-6 px-6 lg:py-[96]">
+
+        <section className="relative overflow-hidden py-6 px-6 lg:py-[96] mx-auto max-w-[1920px]">
+
             <div className="absolute hidden lg:block inset-0 pointer-events-none">
                 <div
                     className="
@@ -19,7 +21,7 @@ export const WhyChooseUs: React.FC = () => {
                         w-[85vw] aspect-square
                         max-w-[1632]
                         -top-[25vw] -left-[45vw]
-                        4xl:top-[-500] 4xl:left-[-900]
+                        4xl:top-[-500px] 4xl:left-[-900px]
                         rounded-full
                         gradient-circle-light-gray
                        "
@@ -31,7 +33,7 @@ export const WhyChooseUs: React.FC = () => {
                         w-[85vw] aspect-square
                         max-w-[1632]
                         -top-[25vw] -left-[43vw]
-                         4xl:top-[-500] 4xl:left-[-830]
+                         4xl:top-[-500px] 4xl:left-[-830px]
                         rounded-full
                         border border-neutral-30
                     "
@@ -41,7 +43,7 @@ export const WhyChooseUs: React.FC = () => {
                         absolute
                         w-[85vw] aspect-square
                         max-w-[1632]
-                        -bottom-[72vw] -right-[37vw] 4xl:bottom-[-1365] 4xl:right-[-765]
+                        -bottom-[72vw] -right-[37vw] 4xl:bottom-[-1365px] 4xl:right-[-765px]
                         rotate-[-45deg]
                         rounded-full
                         gradient-circle-light-gray
@@ -52,16 +54,15 @@ export const WhyChooseUs: React.FC = () => {
                         absolute
                         w-[85vw] aspect-square
                         max-w-[1632]
-                        -bottom-[69vw] -right-[36vw] 4xl:bottom-[-1274] 4xl:right-[-700]
+                        -bottom-[69vw] -right-[36vw] 4xl:bottom-[-1274px] 4xl:right-[-700px]
                         rounded-full
                         border border-neutral-30
                     "
                 />
-                <Image src={dots} alt="dots"  className={'absolute right-[90] top-[155]'}/>
+                <Image src={dots} alt="dots"  className={'absolute right-[90] top-[155px]'}/>
             </div>
             <Container>
                 <div className="relative text-center  flex flex-col gap-6 lg:gap-10">
-
                     <SectionIntro
                         lgCenter
                         badge={content.badge}

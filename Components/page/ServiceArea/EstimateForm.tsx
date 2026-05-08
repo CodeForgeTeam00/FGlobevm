@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { ArrowRight, Upload, X, AlertCircle, CheckCircle } from "lucide-react";
+import Text from "@/Components/global/text";
 
 const SERVICE_OPTIONS = [
     "Managed IT Services",
@@ -116,12 +117,12 @@ export default function EstimateForm() {
 
     return (
         <div className="bg-white rounded-[2rem] p-6 sm:p-10 shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-gray-100">
-            <h3 className="text-2xl sm:text-3xl font-serif text-gray-900 mb-3">
+            <Text variant={'heading-sm'} >
                 Request Your Free Estimate
-            </h3>
-            <p className="text-gray-500 text-sm sm:text-base mb-8">
+            </Text>
+            <Text variant={'card-subtitle-lg'} textColor={'light'}>
                 Tell us about your project. We'll confirm scope, timing, and next steps.
-            </p>
+            </Text>
             {status === "success" ? (
                 <div className="flex items-center gap-3 bg-green-50 text-green-700 rounded-2xl p-6">
                     <CheckCircle size={24} />
@@ -132,10 +133,11 @@ export default function EstimateForm() {
                 </div>
             ) : (
                 <form className="space-y-5" onSubmit={handleSubmit}>
-
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div className="space-y-2">
-                            <label className="text-sm font-semibold text-gray-900 ml-1">Name</label>
+                            <Text  variant={'body-md'} as={'label'} className={'ms-4'}>
+                                Name
+                            </Text>
                             <input
                                 type="text"
                                 name="name"
@@ -146,7 +148,9 @@ export default function EstimateForm() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-sm font-semibold text-gray-900 ml-1">Email</label>
+                            <Text  variant={'body-md'} as={'label'} className={'ms-4'}>
+                                Email
+                            </Text>
                             <input
                                 type="email"
                                 name="email"
@@ -159,7 +163,9 @@ export default function EstimateForm() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div className="space-y-2">
-                            <label className="text-sm font-semibold text-gray-900 ml-1">Service Type</label>
+                            <Text  variant={'body-md'} as={'label'} className={'ms-4'}>
+                                Service Type
+                            </Text>
                             <select
                                 name="service_type"
                                 value={form.service_type}
@@ -173,7 +179,9 @@ export default function EstimateForm() {
                             </select>
                         </div>
                         <div className="space-y-2">
-                            <label className="text-sm font-semibold text-gray-900 ml-1">Budget Range</label>
+                            <Text  variant={'body-md'} as={'label'} className={'ms-4'}>
+                                Budget Range
+                            </Text>
                             <select
                                 name="budget_range"
                                 value={form.budget_range}
@@ -188,7 +196,9 @@ export default function EstimateForm() {
                         </div>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-semibold text-gray-900 ml-1">Timeline</label>
+                        <Text  variant={'body-md'} as={'label'} className={'ms-4'}>
+                            Timeline
+                        </Text>
                         <select
                             name="timeline"
                             value={form.timeline}
@@ -232,7 +242,9 @@ export default function EstimateForm() {
                             ) : (
                                 <div className="flex flex-col items-center gap-1">
                                     <Upload size={20} className="text-gray-400" />
-                                    <span className="text-sm text-gray-400">Choose a file or drag here</span>
+                                    <Text  variant={'body-md'} as={'label'} className={'ms-4'}>
+                                        Choose a file or drag here
+                                    </Text>
                                 </div>
                             )}
                         </div>
@@ -242,7 +254,9 @@ export default function EstimateForm() {
                         </p>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-semibold text-gray-900 ml-1">Project Description</label>
+                        <Text  variant={'body-md'} as={'label'} className={'ms-4'}>
+                            Project Description
+                        </Text>
                         <textarea
                             name="description"
                             value={form.description}
