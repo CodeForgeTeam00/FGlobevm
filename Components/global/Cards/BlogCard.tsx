@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CalendarAddIcon } from "@/Components/global/Icons";
 import { BlogPost } from "@/types/wp-blog";
+import Text from "@/Components/global/text";
 
 type BlogCardLayout = "vertical" | "horizontal";
 
@@ -34,12 +35,12 @@ const BlogCard: React.FC<BlogCardProps> = ({
         : "w-full h-full aspect-[16/9] object-cover rounded-lg group-hover:scale-105 transition-transform duration-300";
 
     const contentClasses = isHorizontal
-        ? "lg:py-4 lg:px-2 flex w-full flex-col gap-1 lg:gap-2"
+        ? "lg:py-4 lg:px-2 flex  flex-col gap-1 lg:gap-2"
         : "blog-card__content py-3 lg:py-4 px-2 flex w-full flex-col gap-2";
 
     return (
         <Link href={`/blog/${slug}`} className={wrapperClasses}>
-            <div className="blog-card__image-wrapper overflow-hidden rounded-lg">
+            <div className="blog-card__image-wrapper  rounded-lg">
                 <Image
                     src={image?.url || ""}
                     alt={image?.alt || title}
@@ -49,20 +50,28 @@ const BlogCard: React.FC<BlogCardProps> = ({
                 />
             </div>
             <div className={contentClasses}>
-                <span className="text-caption text-primary-6">{categoryName}</span>
-                <p className="lg:text-xl">{title}</p>
+                <Text variant={"card-caption"} textColor={'primary'}>
+                    {categoryName}
+                </Text>
+                <Text variant={'card-title-lg'} className={'lg:line-clamp-2 line-clamp-2 lg:min-h-16 min-h-14 '}>
+                    {title}
+                </Text>
                 <div className="flex gap-2 lg:gap-4">
                     {showAuthor && author?.name && (
                         <div className="flex text-footnote lg:text-small gap-1">
-                            <span className="text-neutral-100">By</span>
-                            <span className="text-neutral-50">{author.name}</span>
+                            <Text variant={'card-tag'} textColor={'black'}>
+                                By
+                            </Text>
+                            <Text variant={'card-tag'} textColor={'light'}>
+                                {author.name}
+                            </Text>
                         </div>
                     )}
                     <div className="flex gap-1">
-                        <CalendarAddIcon className="w-4 text-neutral-50" />
-                        <span className="text-footnote lg:text-small text-neutral-50">
+                        <CalendarAddIcon className="w-4 text-neutral-300" />
+                        <Text variant={'card-tag'} textColor={'light'}>
                             {date}
-                        </span>
+                        </Text>
                     </div>
                 </div>
             </div>

@@ -37,7 +37,7 @@ export default async function RootLayout({
 
     return (
         <html lang="en" className={dmSans.variable}>
-        <body className="antialiased max-w-[1920px] mx-auto">
+        <body className="antialiased  mx-auto">
         <HeaderSwitcher
             headerSettings={headerSettings}
             servicePages={servicePages}

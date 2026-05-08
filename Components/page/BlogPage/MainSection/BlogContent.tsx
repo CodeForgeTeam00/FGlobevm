@@ -3,6 +3,7 @@ import { FeaturedBlogMeta } from "./BlogMeta";
 import { FeaturedBlogAuthor } from "./BlogAuthor";
 import { ArrowRightIcon } from "@/Components/global/Icons";
 import { BlogPost } from "@/types/wp-blog";
+import Text from "@/Components/global/text";
 
 type Props = {
     data: BlogPost;
@@ -14,7 +15,7 @@ export const FeaturedBlogContent: React.FC<Props> = ({ data, avatarLess = false 
         <div
             className={`featured-blog__content overflow-hidden flex flex-col gap-10 py-8 ${
                 !avatarLess
-                    ? "bg-neutral-10 rounded-l-xl xl:w-[633px] px-4 lg:px-10 justify-between"
+                    ? "bg-neutral-10 rounded-l-xl lg:w-[633px] px-4 lg:px-10 justify-between"
                     : ""
             }`}
         >
@@ -25,17 +26,17 @@ export const FeaturedBlogContent: React.FC<Props> = ({ data, avatarLess = false 
                     categoryUrl={data.categoryUrl}
                 />
                 <div className="flex flex-col gap-2">
-                    <h3 className="font-h3">{data.title}</h3>
-                    <p className={`leading-[32px] ${!avatarLess ? "max-w-[535px]" : ""}`}>
+                    <Text variant={'heading-md'}>{data.title}</Text>
+                    <Text textColor={'light'} variant={'body-md'} className={` lg:line-clamp-4 line-clamp-6 lg:min-h-[112px] min-h-[144px] ${!avatarLess ? "max-w-[535px]" : ""}`}>
                         {data.description}
-                    </p>
+                    </Text>
                 </div>
             </div>
             {!avatarLess && (
                 <div className="flex flex-col gap-10">
                     <FeaturedBlogAuthor author={data.author} />
                     <div className="flex gap-1 items-center">
-                        <span className="text-primary-6">Read More</span>
+                        <Text variant={'link'} textColor={'primary'} >Read More</Text>
                         <ArrowRightIcon className="w-4" />
                     </div>
                 </div>

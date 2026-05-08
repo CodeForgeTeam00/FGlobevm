@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { BlogPost } from "@/types/wp-blog";
+import Text from "@/Components/global/text";
 
 type Props = {
     author: BlogPost["author"];
@@ -13,8 +14,8 @@ export const FeaturedBlogAuthor: React.FC<Props> = ({ author }) => {
                 <Image src={author.avatar?.url || ""} alt={author.avatar?.alt || author.name} width={32} height={32} className="w-full h-full object-cover" />
             </div>
             <div className="featured-blog__author-info flex flex-col">
-                <p className="text-footnote text-neutral-50">Write By</p>
-                <p className="text-caption text-neutral-700">{author.name}</p>
+                <Text  variant={'card-tag'} textColor={'light'} >Write By</Text>
+                <Text variant={'card-tag'} >{author.name}</Text>
             </div>
         </div>
     );

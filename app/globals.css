@@ -3,16 +3,6 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
-
-/* ================= FONTS ================= */
-@font-face {
-    font-family: "DM Sans";
-    src: url("/fonts/variable-font.ttf") format("truetype");
-    font-weight: 100 900;
-    font-display: swap;
-}
-
-/* ================= CUSTOM CLASSES ================= */
 .gradient-circle-light-gray {
     background: linear-gradient(135deg, rgba(25, 154, 213, 0.00) 0%, rgba(25, 154, 213, 0.05) 50%, rgba(25, 154, 213, 0.10) 100%);
 }
