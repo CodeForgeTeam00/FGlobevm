@@ -50,19 +50,15 @@ export default async function Home() {
             <Container bemClass="trusted-by__section">
                 <TrustedBy partners={partners ?? []} />
             </Container>
-
             <Container fullWidth bemClass="why-chooseUs__section">
                 <WhyChooseUs/>
             </Container>
-
             <Container bemClass="about-stability__section">
                 <AboutStability background={data.backgroundImage}/>
             </Container>
-
             <Container fullWidth bg="lightGray" bemClass="managed-services__section">
                 <ManagedServices services={services ?? []}/>
             </Container>
-
             <Container bemClass="client-feedback__section">
                 <ClientFeedback
                     comments={data.comments.map((c) => ({

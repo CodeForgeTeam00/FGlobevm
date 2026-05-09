@@ -71,18 +71,22 @@ export const dictionary = {
                     {
                         title: "24/7 Local IT Support",
                         description: "Get immediate help from our local Los Angeles experts anytime. No outsourced call centers",
+                        icon:"assets/image/LocalITSupport.svg",
                     },
                     {
                         title: "Proactive Threat Prevention",
                         description: "We use enterprise-grade security to detect and block vulnerabilities before they impact your business",
+                        icon:"assets/image/ProactiveThreatPrevention.svg",
                     },
                     {
                         title: " Certified IT Experts",
                         description: "Partner with certified specialists for high-level technical expertise and strategic IT consulting",
+                        icon:"assets/image/CertifiedITExperts.svg",
                     },
                     {
                         title: "Hassle-Free Compliance",
                         description: "We manage your HIPAA, PCI DSS, and GDPR requirements so you can focus on your core business",
+                        icon:"assets/image/HassleFreeCompliance.svg",
                     },
                 ],
             }

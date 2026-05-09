@@ -30,6 +30,7 @@ export default function MySlider({ comments = [] }: MySliderProps) {
                 spaceBetween={30}
                 slidesPerView={1}
                 loop
+
                 autoplay={{
                     delay: 4000,
                     disableOnInteraction: false,
@@ -42,7 +43,7 @@ export default function MySlider({ comments = [] }: MySliderProps) {
                 {validComments.length > 0 ? (
                     validComments.map((item, index) => (
                         <SwiperSlide key={index}>
-                            <div className="flex flex-col mb-20">
+                            <div className="flex flex-col ">
                                 <h3 className="mb-3 text-neutral-0 text-xl font-semibold">
                                     Client Feedback
                                 </h3>

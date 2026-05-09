@@ -85,4 +85,5 @@ export interface CPTCardItem {
 
 export interface BusinessPartner {
     logo:WPImage |  null
+    url: string | null;
 }
