@@ -45,12 +45,10 @@ const nextConfig: NextConfig = {
             { source: "/24-7-it-services-for-business-continuity", destination: "/services/24-7-it-services-for-business-continuity", permanent: true },
             { source: "/remote-it-monitoring-management", destination: "/services/remote-it-monitoring-management", permanent: true },
             { source: "/cloud-services-and-migration", destination: "/services/cloud-services-and-migration", permanent: true },
-
             // ========== CYBERSECURITY ==========
             { source: "/cybersecurity-solutions", destination: "/services/cybersecurity-solutions", permanent: true },
             { source: "/pentest", destination: "/services/pentest", permanent: true },
             { source: "/compliance-and-risk-management-services", destination: "/services/compliance-and-risk-management-services", permanent: true },
-
             { source: "/medical-offices", destination: "/services/medical-offices", permanent: true },
             { source: "/law-firms", destination: "/services/law-firms", permanent: true },
             { source: "/manufacturing", destination: "/services/manufacturing", permanent: true },
