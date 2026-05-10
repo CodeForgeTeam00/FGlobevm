@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+    trailingSlash: true,
     images: {
         remotePatterns: [
             {
@@ -30,9 +31,6 @@ const nextConfig: NextConfig = {
             { source: "/thousand-oaks", destination: "/service-area/thousand-oaks", permanent: true },
             { source: "/simi-valley", destination: "/service-area/simi-valley", permanent: true },
             { source: "/locations", destination: "/", permanent: true },
-
-            // ========== URL های ترکیبی (شهر + سرویس) — ⚠️ مرور لازم ==========
-            // این‌ها نیاز به تصمیم داره: می‌رن به shr یا service؟
             { source: "/encino-network-security-audits", destination: "/service-area/encino", permanent: true },
             { source: "/woodland-hills-managed-it-services", destination: "/service-area/woodland-hills", permanent: true },
             { source: "/woodland-hills-risk-management", destination: "/service-area/woodland-hills", permanent: true },
@@ -53,22 +51,11 @@ const nextConfig: NextConfig = {
             { source: "/pentest", destination: "/services/pentest", permanent: true },
             { source: "/compliance-and-risk-management-services", destination: "/services/compliance-and-risk-management-services", permanent: true },
 
-            // ========== INDUSTRIES — ⚠️ به نازی بپرس ==========
-            // این چهارتا تو سایت جدید کجا میرن؟ صفحه جدا دارن؟
             { source: "/medical-offices", destination: "/services/medical-offices", permanent: true },
             { source: "/law-firms", destination: "/services/law-firms", permanent: true },
             { source: "/manufacturing", destination: "/services/manufacturing", permanent: true },
             { source: "/financial-services", destination: "/services/financial-services", permanent: true },
 
-            // ========== ABOUT / MARKETING ==========
-            { source: "/why-choose-us", destination: "/about-us", permanent: true },
-            { source: "/george-mansoor", destination: "/about-us", permanent: true },
-
-            // ========== LEAD / CTA PAGES ==========
-            { source: "/referral-program", destination: "/contact-us", permanent: true },
-            { source: "/initial-consultation", destination: "/contact-us", permanent: true },
-            { source: "/initial-consultation-thank-you", destination: "/contact-us", permanent: true },
-            { source: "/discoverycall", destination: "/contact-us", permanent: true },
         ];
     },
     typescript: {

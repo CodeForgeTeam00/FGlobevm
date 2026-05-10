@@ -1,5 +1,5 @@
 import { fetchWP } from "@/lib/api";
-import { BlogCategory, BlogPost, BlogSinglePost } from "@/types/wp-blog";
+import {BlogCategory, BlogPage, BlogPost, BlogSinglePost} from "@/types/wp-blog";
 
 interface GetBlogsParams {
     page?: number;
@@ -26,7 +26,7 @@ export async function getBlogs(params?: GetBlogsParams) {
 }
 
 export async function getBlogBySlug(slug: string) {
-    return fetchWP<any>(
+    return fetchWP<BlogPage>(
         `/gvm/v1/blog/${slug}`,
         { strategy: { type: "isr", revalidate: 1800 }, tag: "blog" }
     );
@@ -39,9 +39,9 @@ export async function getBlogCategories() {
     );
 }
 
-export async function getBlogEditorChoice() {
-    return fetchWP<any>(
-        "/gvm/v1/pages/211/acf-data/editor_choice",
+export async function getBlog() {
+    return fetchWP<BlogPage>(
+        "/gvm/v1/pages/211/acf-data/",
         { strategy: { type: "isr", revalidate: 3600 }, tag: "blog" }
     );
 }
@@ -72,3 +72,14 @@ export async function getCategorySeoBox(slug: string) {
 }
 
 
+export async function getCategoryBySlug(slug: string) {
+    const url = `${process.env.NEXT_PUBLIC_WP_API}/wp/v2/categories?slug=${encodeURIComponent(slug)}&per_page=1`;
+    try {
+        const res = await fetch(url, { next: { revalidate: 3600 } });
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data?.[0] ?? null;
+    } catch {
+        return null;
+    }
+}

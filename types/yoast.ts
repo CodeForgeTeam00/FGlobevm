@@ -1,3 +1,5 @@
+// types/yoast.ts
+
 export interface YoastImage {
     url: string;
     width: number;

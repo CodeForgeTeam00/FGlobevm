@@ -7,33 +7,45 @@ import {BlogCategoriesSection} from "@/Components/page/BlogPage/BlogCategoriesSe
 import {BlogColSection} from "@/Components/page/BlogPage/BlogColSection";
 import {WpContent} from "@/Components/global/SeoBox";
 
-import {getBlogs, getBlogEditorChoice, getBlogCategories} from "@/services/wp-blog";
+import {getBlogs, getBlogCategories, getBlog} from "@/services/wp-blog";
 import {getSeoBox} from "@/services/shared";
 import {mapBlogsResponse, mapBlogToFeaturedAndGrid, mapPost} from "@/mappers/blog-mapper";
 
 import type {Metadata} from "next";
+import { yoastToMetadata } from "@/lib/yoast-to-metadata";
+import type { YoastSEO } from "@/types/yoast";
 import SeoBoxSection from "@/Components/global/SeoBoxSection";
 import SocialBanner from "@/Components/global/SocialBanner";
 import {getSocialMedia} from "@/services/wp-options";
 
-export const metadata: Metadata = {
-    title: "Blog",
-    description: "Latest insights on IT infrastructure, cybersecurity, and cloud solutions from GlobeVM.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const data = await getBlog();
+
+    if (data?.yoast_head_json) {
+        return yoastToMetadata(data.yoast_head_json as YoastSEO, {
+            canonicalOverride: "https://www.globevm.com/blog",
+        });
+    }
+    return {
+        title: "Blog | GlobeVM",
+        description: "Latest insights on IT infrastructure, cybersecurity, and cloud solutions from GlobeVM.",
+        alternates: {
+            canonical: "https://www.globevm.com/blog",
+        },
+    };
+}
 
 export default async function Blog() {
-    const [blogSeoBox, rawBlog, rawSidebar, rawEditorChoice, categories , socialMedia] = await Promise.all([
-        getSeoBox(211, 'seo_box'),
+    const [ rawBlog, rawSidebar, data , socialMedia] = await Promise.all([
         getBlogs({per_page: 5}),
         getBlogs({per_page: 3}),
-        getBlogEditorChoice(),
-        getBlogCategories(),
+        getBlog(),
         getSocialMedia()
     ]);
 
     const blog = mapBlogsResponse(rawBlog);
     const sidebar = mapBlogsResponse(rawSidebar);
-    const editorChoice = rawEditorChoice ? mapPost(rawEditorChoice) : null;
+    // const editorChoice = rawEditorChoice ? mapPost(rawEditorChoice) : null;
 
     const {featured, grid} = mapBlogToFeaturedAndGrid(blog?.posts ?? []);
 
@@ -44,14 +56,12 @@ export default async function Blog() {
                     <BlogMainSection data={featured}/>
                     <BlogGrid data={grid}/>
                 </div>
-                <BlogEditorChoiceSection data={editorChoice}/>
-                <BlogCategoriesSection data={categories ?? []}/>
+                <BlogEditorChoiceSection data={data?.editor_choice ?? null}/>
+                <BlogCategoriesSection data={data?.popular_categories ?? []}/>
                 <div className="grid lg:grid-cols-2 px-4 lg:px-0 gap-10">
                     <BlogColSection data={sidebar?.posts ?? []}/>
                     <BlogColSection data={sidebar?.posts ?? []}/>
                 </div>
-
-                {/*<SocialBanner socials={socialMedia} title={"lklksalklsklkl"} subtitle={'ssjsjkajs'}/>*/}
             </div>
         </Container>
     );

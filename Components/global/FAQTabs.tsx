@@ -11,7 +11,7 @@ interface FAQTabsProps {
     variant?: "light" | "dark";
 }
 
-function CategoryIcon({ icon, name }: { icon: FAQCategory["category_icon"]; name: string }) {
+function CategoryIcon({ icon, name }: { icon: FAQCategory["icon"]; name: string }) {
     if (icon) {
         return (
             <Image
@@ -34,7 +34,7 @@ export function FAQTabs({ categories, variant = "light" }: FAQTabsProps) {
         ...categories.map((cat, i) => ({
             value: String(i),
             label: cat.category_name,
-            icon: cat.category_icon,
+            icon: cat.icon,
             items: cat.faqs,
         })),
     ];

@@ -46,7 +46,7 @@ export function yoastToMetadata(
             siteName: yoast.og_site_name,
             title: yoast.og_title ?? yoast.title,
             description: yoast.og_description ?? yoast.description,
-            url: canonical, // use frontend URL, not Yoast's WP URL
+            url: canonical,
             images: yoast.og_image?.length
                 ? yoast.og_image.map((img) => ({
                     url: img.url,
