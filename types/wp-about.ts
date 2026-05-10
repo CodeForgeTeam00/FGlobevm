@@ -1,5 +1,6 @@
 import { WPImage } from "./wp-common";
 import { FAQItem } from "./wp-options";
+import {YoastSEO} from "@/types/yoast";
 
 export interface TeamMember {
     team_member_image: WPImage;
@@ -13,4 +14,5 @@ export interface AboutPageData {
     faq_section: FAQItem[];
     about_globevm: string;
     featured_image: string;
+    yoast_head_json:YoastSEO;
 }

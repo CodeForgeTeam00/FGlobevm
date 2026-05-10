@@ -73,7 +73,7 @@ export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image 
                     alt={image.alt || "Client feedback"}
                     width={600}
                     height={800}
-                    className="w-full h-auto rounded-3xl"
+                    className="w-full h-auto hover:scale-[101%] transition-transform duration-300 rounded-3xl"
                 />
             </div>
         </div>

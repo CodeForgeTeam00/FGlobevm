@@ -1,5 +1,6 @@
 import { WPImage } from "./wp-common";
 import {getBusinessPartner} from "@/services/wp-options";
+import {YoastSEO} from "@/types/yoast";
 
 export interface HeroSectionImages {
     hero_primary_image: WPImage;
@@ -17,19 +18,29 @@ export interface FAQItem {
     question: string;
     answer: string;
 }
+export interface FAQItem {
+    question: string;
+    answer: string;
+}
 
 export interface FAQCategory {
     category_name: string;
-    category_icon: WPImage | null;
+    icon: WPImage | null;
     faqs: FAQItem[];
 }
 
+export interface FAQPageData {
+    faq_categories: FAQCategory[];
+    image: { url: string | false; alt: string };
+    yoast_head_json: YoastSEO;
+}
 export interface GlobalOptions {
     hero_section_images: HeroSectionImages;
     background_image: WPImage;
     slider_section_image: WPImage;
     comment_field: Testimonial[];
     faq: FAQItem[];
+    yoast_head_json: YoastSEO;
 }
 
 export interface HeaderNavChild {
@@ -85,4 +96,5 @@ export interface CPTCardItem {
 
 export interface BusinessPartner {
     logo:WPImage |  null
+    url: string | null;
 }

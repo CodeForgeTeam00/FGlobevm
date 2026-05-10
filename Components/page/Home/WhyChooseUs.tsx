@@ -73,7 +73,7 @@ export const WhyChooseUs: React.FC = () => {
                         {features.map((feature, index) => (
                             <FeatureLineCard
                                 key={index}
-                                icon={<MagicEditIcon className="min-w-8 h-8 text-primary-6" />}
+                                icon={feature.icon}
                                 title={feature.title}
                                 description={feature.description}
                             />

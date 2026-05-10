@@ -1,4 +1,5 @@
-import { WPImage } from "./wp-common";
+    import { WPImage } from "./wp-common";
+    import {YoastSEO} from "@/types/yoast";
 
 
 export interface BlogAuthor {
@@ -43,6 +44,14 @@ export interface BlogCategory {
     postCount: number;
     image: WPImage;
 }
+export interface BlogPage {
+    popular_categories:BlogCategory[];
+    editor_choice:BlogPost;
+    image: WPImage;
+    yoast_head_json:YoastSEO;
+}
+
+
 
 export type BlogComponent =
     | { type: "core/paragraph"; html: string }

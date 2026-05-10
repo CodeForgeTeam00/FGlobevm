@@ -197,7 +197,7 @@ export default  function BlogHeader() {
                                 >
                                     <Search className="w-8 h-8 text-neutral-black" />
                                 </button>
-                                <div className={'w-1 border-l  h-14 bg-neutral-300'}/>
+                                <div className={'w-[1px] h-8 bg-neutral-30'}/>
                                 <Link href={'/'}>
                                     <Button variant={'primary'} size={'lg' }>
                                         <div className={'flex gap-2 items-center '}>

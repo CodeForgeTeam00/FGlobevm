@@ -127,8 +127,9 @@ export default function Header({
                     <div className="desktop-header hidden px-4 2xl:px-0 lg:flex py-5 w-full justify-between items-center">
                         <div className="header__right-side flex items-center 2xl:gap-10 gap-6">
                             <div className="header__logo">
-
-                                <Logo className="2xl:text-[56px] text-[40px]" />
+                                <Link href='/'>
+                                    <Logo className="2xl:text-[56px] text-[40px]" />
+                                </Link>
                             </div>
                             <nav className="navigation flex gap-4 2xl:gap-6">
                                 {nav.map((item, index) => {
@@ -147,6 +148,7 @@ export default function Header({
                                                 }
                                             }}
                                         >
+
                                             <Link
                                                 className="flex items-center gap-1"
                                                 href={getParentHref(item.slug)}
@@ -197,7 +199,7 @@ export default function Header({
                                     {navWithChildren.map((item, index) => (
                                         <div key={index} className="flex flex-col gap-2">
                                             <Link
-                                                href={getParentHref(item.slug)}
+                                                href='#'
                                                 className="text-sm font-bold text-neutral-100 mb-2"
                                             >
                                                 {item.name}

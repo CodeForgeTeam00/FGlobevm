@@ -4,66 +4,70 @@ import Container from "@/Components/global/Sections/Container";
 import { OfficeList } from "@/Components/page/ContactUs/OfficeList";
 import { ContactForm } from "@/Components/page/ContactUs/ContactForm";
 import type { Metadata } from "next";
+import { getContactPage } from "@/services/wp-pages";
+import { yoastToMetadata } from "@/lib/yoast-to-metadata";
+import type { YoastSEO } from "@/types/yoast";
 
-export const metadata: Metadata = {
-    title: "Contact Us",
-    description:
-        "Get in touch with GlobeVM Digital Services for managed IT, cybersecurity, and cloud solutions.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const data = await getContactPage();
+
+    if (data?.yoast_head_json) {
+        return yoastToMetadata(data.yoast_head_json as YoastSEO, {
+            canonicalOverride: "https://www.globevm.com/contact-us",
+        });
+    }
+
+    return {
+        title: data?.title || "Contact Us | GlobeVM",
+        description: data?.description ||
+            "Get in touch with GlobeVM Digital Services for managed IT, cybersecurity, and cloud solutions.",
+        alternates: {
+            canonical: "https://www.globevm.com/contact-us",
+        },
+    };
+}
 
 const INFO_CARDS = [
-    {
-        icon: Phone,
-        title: "Contact Number",
-        value: "(310) 750-4939",
-        highlight: false,
-    },
-    {
-        icon: Mail,
-        title: "Email",
-        value: "info@globevm.com",
-        highlight: false,
-    },
-    {
-        icon: Briefcase,
-        title: "Working hours",
-        value: "24 hours",
-        highlight: false,
-    },
-    {
-        icon: Send,
-        title: "Send Ticket",
-        value: "Speak to an Expert",
-        highlight: true,
-    },
+    { icon: Phone, title: "Contact Number", value: "(310) 750-4939", highlight: false },
+    { icon: Mail, title: "Email", value: "info@globevm.com", highlight: false },
+    { icon: Briefcase, title: "Working hours", value: "24 hours", highlight: false },
+    { icon: Send, title: "Send Ticket", value: "Speak to an Expert", highlight: true },
 ];
 
-export default function ContactUsPage() {
+export default async function ContactUsPage() {
+    const data = await getContactPage();
+
+    const heroTitle = data?.title || "Contact Us";
+    const heroDescription = data?.description ||
+        "From infrastructure management and cloud environments to endpoint protection and network security";
+    const heroImage = data?.image;
+
     return (
         <div className="min-h-screen bg-[#fafafa] pb-20">
             <section
                 aria-label="Contact Hero"
                 className="relative h-[450px] w-full flex flex-col items-center justify-center text-center"
             >
-                <Image
-                    src=""
-                    alt="GlobeVM contact support team"
-                    fill
-                    priority
-                    className="object-cover object-center"
-                />
+                {heroImage?.url && (
+                    <Image
+                        src={heroImage.url}
+                        alt={heroImage.alt || heroTitle}
+                        fill
+                        priority
+                        sizes="100vw h-full"
+                        className="object-cover object-center"
+                    />
+                )}
                 <div className="absolute inset-0 bg-black/60" />
                 <div className="relative z-10 text-white px-4 mt-[-60px]">
                     <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4 tracking-tight">
-                        Contact Us
+                        {heroTitle}
                     </h1>
                     <p className="text-gray-200 max-w-2xl mx-auto text-sm md:text-base">
-                        From infrastructure management and cloud environments to
-                        endpoint protection and network security
+                        {heroDescription}
                     </p>
                 </div>
             </section>
-
             <div className="px-4 sm:px-6 lg:px-8 relative z-20 -mt-24">
                 <Container>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -80,29 +84,21 @@ export default function ContactUsPage() {
                                 >
                                     <div className="mb-5">
                                         <Icon
-                                            className={
-                                                card.highlight
-                                                    ? "text-white"
-                                                    : "text-[#209cee]"
-                                            }
+                                            className={card.highlight ? "text-white" : "text-[#209cee]"}
                                             size={36}
                                             strokeWidth={1.5}
                                         />
                                     </div>
                                     <h3
                                         className={`font-serif font-bold text-xl mb-2 ${
-                                            card.highlight
-                                                ? "text-white"
-                                                : "text-gray-900"
+                                            card.highlight ? "text-white" : "text-gray-900"
                                         }`}
                                     >
                                         {card.title}
                                     </h3>
                                     <p
                                         className={`text-sm ${
-                                            card.highlight
-                                                ? "text-blue-100"
-                                                : "text-gray-500"
+                                            card.highlight ? "text-blue-100" : "text-gray-500"
                                         }`}
                                     >
                                         {card.value}

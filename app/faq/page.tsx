@@ -1,17 +1,34 @@
 import { FAQTabs } from "@/Components/global/FAQTabs";
 import { getFAQCategories } from "@/services/shared";
 import type { Metadata } from "next";
+import { yoastToMetadata } from "@/lib/yoast-to-metadata";
+import type { YoastSEO } from "@/types/yoast";
 import SectionIntro from "@/Components/global/SectionIntro";
 import React from "react";
 import Container from "@/Components/global/Sections/Container";
 
-export const metadata: Metadata = {
-    title: "FAQ",
-    description: "Frequently asked questions about GlobeVM IT and cybersecurity services.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const data = await getFAQCategories();
+
+    const yoast = data?.yoast_head_json;
+
+    if (yoast) {
+        return yoastToMetadata(yoast as YoastSEO, {
+            canonicalOverride: "https://www.globevm.com/faq",
+        });
+    }
+    return {
+        title: "FAQ | GlobeVM",
+        description: "Frequently asked questions about GlobeVM IT and cybersecurity services.",
+        alternates: {
+            canonical: "https://www.globevm.com/faq",
+        },
+    };
+}
 
 export default async function FAQPage() {
-    const categories = await getFAQCategories();
+    const data = await getFAQCategories();
+    console.log(data?.faq_categories , '[faq]');
     return (
         <div className={'min-h-screen mt-10'}>
             <Container>
@@ -19,10 +36,10 @@ export default async function FAQPage() {
                     <SectionIntro
                         badge={'Your Questions'}
                         title={'Frequently Asked Questions'}
-                        description={"Quick answers about our services, response times, security practices, and what working with GlobeVM looks like day to day. This section helps you understand what’s included, how support works, and what to expect during onboarding."}
+                        description={"Quick answers about our services, response times, security practices, and what working with GlobeVM looks like day to day. This section helps you understand what's included, how support works, and what to expect during onboarding."}
                         lgCenter
                     />
-                    <FAQTabs categories={categories ?? []} />
+                    <FAQTabs categories={data?.faq_categories?? []} />
                 </div>
             </Container>
         </div>

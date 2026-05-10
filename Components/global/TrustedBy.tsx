@@ -14,14 +14,15 @@ export const TrustedBy: React.FC<TrustedByProps> = ({ partners }) => {
             </Text>
             <div className="flex flex-nowrap items-center overflow-auto  gap-20 mt-8  opacity-40">
                 {partners.map((item, index) => (
-                    <Image
-                        key={index}
-                        src={item.logo?.url || ""}
-                        alt={item.logo?.alt || "logo"}
-                        width={120}
-                        height={60}
+                    <a key={index} target={'_blank'} href={item.url || ""}>
+                        <Image
+                            src={item.logo?.url || ""}
+                            alt={item.logo?.alt || "logo"}
+                            width={120}
+                            height={60}
 
-                    />
+                        />
+                    </a>
                 ))}
             </div>
         </div>

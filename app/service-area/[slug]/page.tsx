@@ -10,6 +10,8 @@ import TestimonialsSection from "@/Components/page/ServiceArea/TestimonialsSecti
 import { ContactCTA } from "@/Components/page/Home/ContactCTA";
 import PreviewBar from "@/Components/global/PreviewBar";
 import type { Metadata } from "next";
+import { yoastToMetadata } from "@/lib/yoast-to-metadata";
+import type { YoastSEO } from "@/types/yoast";
 import SectionIntro from "@/Components/global/SectionIntro";
 import {FAQAccordion} from "@/Components/global/FAQAccordion";
 import React from "react";
@@ -33,9 +35,26 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 
     if (!data) return { title: "Service Area Not Found" };
 
+    // Service area endpoint returns an array (single endpoint quirk in backend).
+    // Preview mode returns a single object. Handle both.
+    const item = Array.isArray(data) ? data[0] : data;
+
+    if (!item) return { title: "Service Area Not Found" };
+
+    // Use Yoast SEO data if available (filled in via WP admin → Yoast SEO box)
+    if (item.yoast_head_json) {
+        return yoastToMetadata(item.yoast_head_json as YoastSEO, {
+            canonicalOverride: `https://www.globevm.com/service-area/${slug}`,
+        });
+    }
+
+    // Fallback to ACF hero data when Yoast SEO is not yet filled
     return {
-        title: data?.acf?.hero_section?.title || "Service Area",
-        description: data?.acf?.hero_section?.description || "",
+        title: item?.acf?.hero_section?.title || "Service Area",
+        description: item?.acf?.hero_section?.description || "",
+        alternates: {
+            canonical: `https://www.globevm.com/service-area/${slug}`,
+        },
     };
 }
 

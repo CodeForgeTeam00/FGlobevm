@@ -6,6 +6,8 @@ import ContentRenderer from "@/Components/page/Single/ContentRenderer";
 import { notFound } from "next/navigation";
 import { draftMode } from "next/headers";
 import type { Metadata } from "next";
+import { yoastToMetadata } from "@/lib/yoast-to-metadata";
+import type { YoastSEO } from "@/types/yoast";
 import CommentSection from "@/Components/page/Single/Block/CommentSection";
 import PreviewBar from "@/Components/global/PreviewBar";
 
@@ -18,10 +20,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const raw = await getBlogBySlug(slug);
     if (!raw) return { title: "Post Not Found" };
+    if (raw.yoast_head_json) {
+        return yoastToMetadata(raw.yoast_head_json as YoastSEO, {
+            canonicalOverride: `https://www.globevm.com/blog/${slug}`,
+        });
+    }
     const data = mapPost(raw);
     return {
         title: data.title,
         description: data.description,
+        alternates: {
+            canonical: `https://www.globevm.com/blog/${slug}`,
+        },
     };
 }
 

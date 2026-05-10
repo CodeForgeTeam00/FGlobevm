@@ -37,7 +37,7 @@ export const AboutStability = ({ background }: AboutStabilityProps) => {
                             alt={background.alt || "GlobeVM office"}
                             width={800}
                             height={600}
-                            className="w-full"
+                            className="w-full hover:scale-[101%] transition-transform duration-300"
                         />
                         <div className="lg:hidden">
                             <TableInfo data={STATS_DATA} />

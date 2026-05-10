@@ -14,6 +14,8 @@ import { ContactCTA } from "@/Components/page/Home/ContactCTA";
 import PreviewBar from "@/Components/global/PreviewBar";
 import PrimarySection from "@/Components/global/PrimarySection";
 import type { Metadata } from "next";
+import { yoastToMetadata } from "@/lib/yoast-to-metadata";
+import type { YoastSEO } from "@/types/yoast";
 import {FAQAccordion} from "@/Components/global/FAQAccordion";
 import SectionIntro from "@/Components/global/SectionIntro";
 import React from "react";
@@ -31,9 +33,18 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
         : await getServicePage(slug);
 
     if (!data) return { title: "Service Not Found" };
+
+    if (data.yoast_head_json) {
+        return yoastToMetadata(data.yoast_head_json as YoastSEO, {
+            canonicalOverride: `https://www.globevm.com/services/${slug}`,
+        });
+    }
     return {
         title: data?.acf?.hero_section?.title || "Service",
         description: data?.acf?.hero_section?.description || "",
+        alternates: {
+            canonical: `https://www.globevm.com/services/${slug}`,
+        },
     };
 }
 export default async function ServicePage({ params, searchParams }: Props) {

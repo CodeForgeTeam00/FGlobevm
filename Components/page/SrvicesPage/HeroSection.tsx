@@ -20,7 +20,7 @@ interface Props {
 
 export default function ServicesHeroSection({ title, label, description, image, keyFeatures }: Props) {
     return (
-        <section className="relative  overflow-hidden">
+        <section className="relative  overflow-hidden max-w-[1920px] mx-auto">
             <div className="lg:flex w-full justify-between">
                 <Container>
                     <div className="lg:min-w-[470px] lg:py-16 flex flex-col gap-6">

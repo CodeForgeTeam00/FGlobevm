@@ -1,6 +1,7 @@
 import { BlogPost, BlogsResponse, BlogPagination } from "@/types/wp-blog";
+import type { YoastSEO } from "@/types/yoast";
 
-export  interface RawBlogPost {
+export interface RawBlogPost {
     id?: number;
     slug?: string;
     title: string;
@@ -10,9 +11,12 @@ export  interface RawBlogPost {
     date: string;
     author: { name: string; avatar: string };
     image_url: string;
+    yoast_head_json?: YoastSEO | null;   // ← اضافه شد
+    components?: unknown[];
+    comments_data?: unknown;
 }
 
-export  interface RawBlogsResponse {
+export interface RawBlogsResponse {
     posts: RawBlogPost[];
     pagination: {
         total_posts: number;
@@ -45,6 +49,7 @@ export function mapPost(raw: any): BlogPost {
             : raw.image ?? (raw.image_url ? { url: raw.image_url, alt: "" } : { url: "", alt: "" }),
     };
 }
+
 function mapPagination(raw: RawBlogsResponse["pagination"]): BlogPagination {
     return {
         totalPosts: raw.total_posts,
@@ -69,24 +74,4 @@ export function mapBlogToFeaturedAndGrid(posts: BlogPost[]) {
     if (!posts.length) return { featured: null, grid: [] };
     const [featured, ...grid] = posts;
     return { featured, grid };
-}
-export function decodeHtmlEntities(str: string | undefined | null): string {
-    if (!str) return "";
-    return str
-        .replace(/&hellip;/g, "…")
-        .replace(/&amp;/g, "&")
-        .replace(/&lt;/g, "<")
-        .replace(/&gt;/g, ">")
-        .replace(/&quot;/g, '"')
-        .replace(/&#039;/g, "'")
-        .replace(/&apos;/g, "'")
-        .replace(/&nbsp;/g, " ")
-        .replace(/&mdash;/g, "—")
-        .replace(/&ndash;/g, "–")
-        .replace(/&rsquo;/g, "'")
-        .replace(/&lsquo;/g, "'")
-        .replace(/&rdquo;/g, '"')
-        .replace(/&ldquo;/g, '"')
-        .replace(/&#(\d+);/g, (_, num) => String.fromCharCode(parseInt(num, 10)))
-        .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
 }

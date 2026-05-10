@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import {HeroSection} from "@/Components/page/Home/HeroSection/HeroSection";
 import {TrustedBy} from "@/Components/global/TrustedBy";
@@ -11,12 +12,29 @@ import {FAQAccordion} from "@/Components/global/FAQAccordion";
 import Container from "@/Components/global/Sections/Container";
 import mask from "@/public/assets/image/heroSectionLayout.svg";
 import {getBusinessPartner, getGlobalOptions, getServicePagesCards} from "@/services/wp-options";
-import {getAllServices} from "@/services/wp-services";
 import {getBlogs} from "@/services/wp-blog";
 import {mapGlobalOptions} from "@/mappers/options.mapper";
 import {mapBlogsResponse} from "@/mappers/blog-mapper";
+import { yoastToMetadata } from "@/lib/yoast-to-metadata";
+import type { YoastSEO } from "@/types/yoast";
 import PrimarySection from "@/Components/global/PrimarySection";
 import Text from "@/Components/global/text";
+
+export async function generateMetadata(): Promise<Metadata> {
+    const options = await getGlobalOptions();
+    if (options?.yoast_head_json) {
+        return yoastToMetadata(options.yoast_head_json as YoastSEO, {
+            canonicalOverride: "https://www.globevm.com",
+        });
+    }
+    return {
+        title: "GlobeVM | Managed IT, Cybersecurity & Cloud Services in Los Angeles",
+        description: "Enterprise-grade managed IT, cybersecurity, and cloud solutions for businesses in Los Angeles, Encino, and Woodland Hills.",
+        alternates: {
+            canonical: "https://www.globevm.com",
+        },
+    };
+}
 
 export default async function Home() {
     const [options, services, rawPosts , partners] = await Promise.all([
@@ -50,19 +68,15 @@ export default async function Home() {
             <Container bemClass="trusted-by__section">
                 <TrustedBy partners={partners ?? []} />
             </Container>
-
             <Container fullWidth bemClass="why-chooseUs__section">
                 <WhyChooseUs/>
             </Container>
-
             <Container bemClass="about-stability__section">
                 <AboutStability background={data.backgroundImage}/>
             </Container>
-
             <Container fullWidth bg="lightGray" bemClass="managed-services__section">
                 <ManagedServices services={services ?? []}/>
             </Container>
-
             <Container bemClass="client-feedback__section">
                 <ClientFeedback
                     comments={data.comments.map((c) => ({

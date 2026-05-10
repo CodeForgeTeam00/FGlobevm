@@ -1,5 +1,5 @@
 import { fetchWP } from "@/lib/api";
-import { FAQCategory } from "@/types/wp-options";
+import { FAQPageData} from "@/types/wp-options";
 
 export async function getSeoBox(pageId: number, fieldName: string = "seo-box") {
     return fetchWP<string>(
@@ -9,8 +9,8 @@ export async function getSeoBox(pageId: number, fieldName: string = "seo-box") {
 }
 
 export async function getFAQCategories() {
-    return fetchWP<FAQCategory[]>(
-        "/gvm/v1/pages/494/acf-data/faq_categories",
+    return fetchWP<FAQPageData>(
+        "/gvm/v1/pages/494/acf-data",
         { strategy: { type: "isr", revalidate: 86400 }, tag: "faq" }
     );
 }

@@ -6,18 +6,49 @@ import { mapBlogsResponse } from "@/mappers/blog-mapper";
 import Link from "next/link";
 import SeoBoxSection from "@/Components/global/SeoBoxSection";
 import type { Metadata } from "next";
+import { yoastToMetadata } from "@/lib/yoast-to-metadata";
+import type { YoastSEO } from "@/types/yoast";
 
 interface Props {
     params: Promise<{ slug: string[] }>;
     searchParams: Promise<{ page?: string; sort?: string }>;
 }
+async function fetchCategoryWithYoast(slug: string) {
+    const base = process.env.WORDPRESS_API_URL;
+    if (!base) return null;
 
+    const url = `${base}/wp/v2/categories?slug=${encodeURIComponent(slug)}&per_page=1`;
+
+    try {
+        const res = await fetch(url, { next: { revalidate: 3600 } });
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data?.[0] ?? null;
+    } catch {
+        return null;
+    }
+}
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
+    const categorySlug = slug[slug.length - 1];
+
+
+    const category = await fetchCategoryWithYoast(categorySlug);
+
+    if (category?.yoast_head_json) {
+        return yoastToMetadata(category.yoast_head_json as YoastSEO, {
+            canonicalOverride: `https://www.globevm.com/blog/category/${slug.join("/")}`,
+        });
+    }
+
+    // Fallback when Yoast data not available
     const categoryName = slug[slug.length - 1];
     return {
         title: `${categoryName} Articles`,
         description: `Browse all articles in ${categoryName} category on GlobeVM blog.`,
+        alternates: {
+            canonical: `https://www.globevm.com/blog/category/${slug.join("/")}`,
+        },
     };
 }
 
@@ -133,8 +164,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                         No articles found in this category.
                     </p>
                 )}
-
-
                 {seoBox && (
                     <SeoBoxSection content={seoBox} title="All About The GlobeVM" />
                 )}
