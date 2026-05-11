@@ -222,14 +222,12 @@ export default function Header({
                         </div>
                     </div>
                 )}
-
                 <MobileHeader
                     headerSettings={headerSettings}
                     servicePages={servicePages}
                     serviceAreaPages={serviceAreaPages}
                 />
             </header>
-
             {megaOpen && (
                 <div
                     className="hidden lg:block fixed inset-0 bg-black/20 z-40"

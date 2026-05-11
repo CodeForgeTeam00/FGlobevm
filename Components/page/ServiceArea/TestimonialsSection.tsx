@@ -26,7 +26,7 @@ interface Props {
 
 function TestimonialCard({ name, job, avatar, description }: Comment) {
     return (
-        <div className="bg-white rounded-[1.5rem] p-8 sm:p-10 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col select-none">
+        <div className="bg-white rounded-[1.5rem] p-8 sm:p-10 border border-gray-100 hover:text-primary-6  hover:shadow-[0_0_2px_2px_rgba(25,154,213,0.25)] shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col select-none">
             <div className="flex items-center gap-4 mb-6">
                 {avatar?.url ? (
                     <Image

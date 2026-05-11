@@ -141,7 +141,7 @@ export default function CommentSection({ data, postId }: Props) {
 
     return (
         <>
-            <div className="mt-16 max-w-4xl mx-auto">
+            <div className="mt-16 ">
                 <div className="border border-gray-200 rounded-2xl p-6 lg:p-8">
                     <div className="mb-6">
                         <h3 className="text-2xl font-bold">Comments</h3>

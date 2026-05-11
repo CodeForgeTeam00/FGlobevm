@@ -12,7 +12,7 @@ export function Hero({ data }: { data: any }) {
                 </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-gray-900 leading-[1.15] max-w-4xl">
+            <h1 className="blog-content title">
                 {data.title}
             </h1>
 

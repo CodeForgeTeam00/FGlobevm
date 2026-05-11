@@ -9,8 +9,7 @@ import { BlogComponent } from "@/types/wp-blog";
 
 function HtmlBlock({ html }: { html: string }) {
     return (
-        <div
-            className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:font-bold prose-p:text-gray-700 prose-p:leading-relaxed prose-strong:font-bold prose-strong:text-gray-900 my-6"
+        <div className="max-w-none blog-content"
             dangerouslySetInnerHTML={{ __html: html }}
         />
     );

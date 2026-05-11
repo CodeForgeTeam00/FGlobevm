@@ -30,17 +30,17 @@ export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image 
             />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-6">
-                    <div className="lg:p-10 p-6 rounded-3xl h-[400px] gradient-primary overflow-hidden relative">
+                    <div className="lg:py-10  py-6 rounded-3xl h-[343px] gradient-primary overflow-hidden relative">
                         <div className="w-[424px] h-[424px] absolute rounded-full translate-x-[35%] left-2/4 bottom-2/4 flex justify-center items-center bg-white/5">
                             <div className="w-[298px] h-[298px] flex rounded-full justify-center items-center bg-white/10">
                                 <div className="w-[172px] h-[172px] rounded-full bg-white/15" />
                             </div>
                         </div>
                         <div>
-                            <div className="relative">
+                            <div className="relative px-10">
                                 <QuoteIcon className="w-13 h-13 text-neutral-0" />
                                 <svg
-                                    className="absolute left-[3px] bottom-0"
+                                    className="absolute left-[43px] bottom-0"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="66"
                                     height="56"
