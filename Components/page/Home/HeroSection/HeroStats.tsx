@@ -3,6 +3,7 @@ import { HeroSectionProps } from "@/modules/home/types";
 import {HomeIcon} from "@/Components/global/Icons";
 import Text from "@/Components/global/text";
 import {TimerIcon} from "lucide-react";
+import Image from "next/image";
 
 interface HeroStatsProps {
     data: HeroSectionProps;
@@ -52,10 +53,26 @@ export const HeroStats: React.FC<HeroStatsProps> = ({ data }) => {
             </div>
             <div className="hero__media flex flex-row-reverse sm:flex-col flex-1 gap-6">
                 <div className="hero__placeholder relative w-full">
-                    <img src={primaryImageUrl} alt={primaryAlt} />
+                    <Image
+                        src={primaryImageUrl}
+                        alt={primaryAlt}
+                        width={636}
+                        height={400}
+                        priority
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                        className="w-full h-auto"
+                    />
                 </div>
                 <div className="hero__image w-full overflow-hidden">
-                    <img className="rounded-xl" src={secondaryImageUrl} alt={secondaryAlt} />
+                    <Image
+                        src={secondaryImageUrl}
+                        alt={secondaryAlt}
+                        width={636}
+                        height={400}
+                        priority
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                        className="rounded-xl w-full h-auto"
+                    />
                 </div>
             </div>
         </div>
