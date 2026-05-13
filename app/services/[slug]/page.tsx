@@ -109,17 +109,18 @@ export default async function ServicePage({ params, searchParams }: Props) {
             )}
 
             {(feedback.title || (feedback.comments && feedback.comments.length > 0)) && (
-                <Testimonials
-                    title={feedback.title ?? ""}
-                    comments={feedback.comments ?? []}
-                    description={feedback.description ?? ""}
-                    label={feedback.label ?? ""}
-                />
+                <div className={'max-w-[1920px] mx-auto'}>
+                    <Testimonials
+                        title={feedback.title ?? ""}
+                        comments={feedback.comments ?? []}
+                        description={feedback.description ?? ""}
+                        label={feedback.label ?? ""}
+                    />
+                </div>
             )}
 
             <Container>
                 {(faqBox.title || (faqBox.faq && faqBox.faq.length > 0)) && (
-
                     <div className={'grid lg:grid-cols-2 grid-cols-1 lg:gap-0 gap-6 relative items-center lg:py-[96px] ] '}>
                         <Image src="/assets/image/Question.svg" className={'w-[50%] hidden lg:flex h-[740px] top-[2px]  absolute'} alt="question" width={200} height={812} />
                         <div className={'lg:me-[128px] flex flex-col items-center '}>

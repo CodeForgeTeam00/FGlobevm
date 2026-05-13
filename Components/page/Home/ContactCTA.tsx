@@ -16,12 +16,21 @@ export const ContactCTA: React.FC = () => {
                         Talk to our experts or Browse through more properties.
                     </Text>
                 </div>
-                <Button size={'lg'} variant={'primary'}>
-                    <div className={'flex gap-2'}>
-                        <Phone className="w-5 h-5 fill-white/20" />
-                        Contact US
-                    </div>
-                </Button>
+                <a href="/tel:(310)750-4939">
+                    <Button size={'lg'} variant={'primary'}>
+                        <div className={'flex gap-2'}>
+                            <Phone className="w-5 h-5 fill-white/20" />
+                            <Text
+                                variant={"body-md"}
+                                as={"span"}
+                                textColor={"white"}
+                            >
+                                Contact US
+                            </Text>
+                        </div>
+                    </Button>
+                </a>
+
             </div>
         </section>
     );

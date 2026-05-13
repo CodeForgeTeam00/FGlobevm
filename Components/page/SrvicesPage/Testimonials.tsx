@@ -1,99 +1,108 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import { Star } from "lucide-react";
+import React, {useState} from "react";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Navigation} from "swiper/modules";
+import type {Swiper as SwiperType} from "swiper";
+import {ChevronLeft, ChevronRight} from "lucide-react";
 import Image from "next/image";
-
 import "swiper/css";
 import SectionIntro from "@/Components/global/SectionIntro";
+import Container from "@/Components/global/Sections/Container";
 
 interface Comment {
     avatar: { url: string; alt: string } | null;
     name: string;
     job: string;
     description: string;
-    star: string;
 }
 
 interface Props {
-    comments: Comment[];
+    label: string;
     title: string;
     description: string;
-    label: string;
+    comments: Comment[];
 }
 
-export default function Testimonials({ comments, label, title, description }: Props) {
-    const [activeIndex, setActiveIndex] = useState(0);
-
+function TestimonialCard({name, job, avatar, description}: Comment) {
     return (
-        <section className="py-24 bg-white overflow-hidden">
-            <SectionIntro
-                badge={label}
-                title={title}
-                description={description}
-                lgCenter={true}
-            />
-            <div className="relative w-full mt-6 lg:mt-10">
-                <Swiper
-                    modules={[Autoplay]}
-                    spaceBetween={24}
-                    slidesPerView="auto"
-                    centeredSlides={true}
-                    loop={true}
-                    autoplay={{
-                        delay: 4000,
-                        disableOnInteraction: false,
-                    }}
-                    speed={600}
-                    onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-                    onSwiper={(swiper) => setActiveIndex(swiper.realIndex)}
-                    className="!pb-16"
-                >
-                    {comments.map((comment, index) => {
-                        const isActive = index === activeIndex;
-                        return (
-                            <SwiperSlide key={index} className="!w-[520px]">
-                                <div
-                                    className={`bg-white w-full rounded-3xl p-8 border shadow-sm flex flex-col items-center text-center h-full transition-all duration-300 ${
-                                        isActive
-                                            ? "opacity-100 scale-100"
-                                            : "opacity-40 scale-90"
-                                    }`}
+        <div
+            className="bg-white rounded-[1.5rem] p-8  sm:p-10 border border-neutral-30 group  hover:shadow-[0_0_2px_2px_rgba(25,154,213,0.25)] hover:border-primary-6 h-full flex flex-col select-none">
+            <div className="flex items-center gap-4 mb-6">
+                {avatar?.url ? (
+                    <Image
+                        src={avatar.url}
+                        alt={avatar.alt || name}
+                        width={56}
+                        height={56}
+                        className="w-14 h-14 lg:w-20 lg:h-20 rounded-full object-cover border-2 border-gray-50"
+                        unoptimized
+                    />
+                ) : (
+                    <div
+                        className="w-14 h-14 rounded-full bg-primary-6/10 flex items-center justify-center text-primary-6 font-bold text-xl">
+                        {name.charAt(0).toUpperCase()}
+                    </div>
+                )}
+                <div>
+                    <h4 className="font-bold text-gray-900 text-lg">{name}</h4>
+                    <p className="text-sm text-gray-400 font-medium">{job}</p>
+                </div>
+            </div>
+            <p className="text-gray-600 leading-relaxed text-sm sm:text-base flex-grow">
+                {description}
+            </p>
+        </div>
+    );
+}
+
+export default function TestimonialsSection({label, title, description, comments}: Props) {
+    const [swiperRef, setSwiperRef] = useState<SwiperType | null>(null);
+    const titleParts = title.split(/(\bReliability\b)/i);
+    return (
+        <section className="py-24 overflow-hidden">
+            <div className="px-4 sm:px-6 lg:px-8">
+                <div className="w-full flex xl:flex-row flex-col gap-2 items-start">
+                    <div className={'lg:min-w-[600px] flex flex-col w-full items-start gap-10 2xl:ms-[10%] lg:w-[600px]'}>
+                        <SectionIntro
+                            badge={label}
+                            title={title}
+                            description={description}
+                        />
+                        <div>
+                            <div className="items-start lg:flex  hidden gap-4">
+                                <button
+                                    onClick={() => swiperRef?.slidePrev()}
+                                    className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
+                                    aria-label="Previous testimonial"
                                 >
-                                    {comment.avatar?.url && (
-                                        <Image
-                                            src={comment.avatar.url}
-                                            alt={comment.avatar.alt || comment.name}
-                                            width={80}
-                                            height={80}
-                                            className="w-20 h-20 rounded-full mb-4"
-                                            unoptimized
-                                        />
-                                    )}
+                                    <ChevronLeft size={20} strokeWidth={2}/>
+                                </button>
+                                <button
+                                    onClick={() => swiperRef?.slideNext()}
+                                    className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
+                                    aria-label="Next testimonial"
+                                >
+                                    <ChevronRight size={20} strokeWidth={2}/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <Swiper
+                        modules={[Navigation]}
+                        onSwiper={setSwiperRef}
+                        slidesPerView={'auto'}
+                        spaceBetween={24}
+                        className="testimonial-swiper w-full "
+                    >
 
-                                    <h3 className="text-xl font-bold">{comment.name}</h3>
-                                    <p className="text-sm text-gray-400 mb-6">{comment.job}</p>
-                                    <p className="text-gray-600 mb-8">{comment.description}</p>
-
-                                    <div className="flex gap-1">
-                                        {[...Array(5)].map((_, i) => (
-                                            <Star
-                                                key={i}
-                                                className={`w-5 h-5 ${
-                                                    i < Number(comment.star)
-                                                        ? "fill-yellow-400 text-yellow-400"
-                                                        : "text-gray-300"
-                                                }`}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
+                        {comments.map((comment, index) => (
+                            <SwiperSlide key={index} className="h-auto max-w-[600px]">
+                                <TestimonialCard {...comment} />
                             </SwiperSlide>
-                        );
-                    })}
-                </Swiper>
+                        ))}
+                    </Swiper>
+                </div>
             </div>
         </section>
     );

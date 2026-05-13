@@ -98,18 +98,38 @@ export default function EstimateForm() {
         setErrorMsg("");
 
         try {
-            const res = await fetch("https://wordpress-1592566-6232100.cloudwaysapps.com/wp-json/gvm/v1/submit_service_area", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(form),
-            });
+            const formData = new FormData();
+            formData.append("name", form.name);
+            formData.append("email", form.email);
+            formData.append("service_type", form.service_type);
+            formData.append("budget_range", form.budget_range);
+            formData.append("timeline", form.timeline);
+            formData.append("description", form.description);
 
-            if (!res.ok) throw new Error("Failed to submit");
+            if (file) {
+                formData.append("file", file);
+            }
+
+            const res = await fetch(
+                "https://wordpress-1592566-6232100.cloudwaysapps.com/wp-json/gvm/v1/submit_service_area",
+                {
+                    method: "POST",
+                    body: formData,
+
+                }
+            );
+
+            if (!res.ok) {
+                const errorText = await res.text();
+                console.error("Backend error:", res.status, errorText);
+                throw new Error(`Server returned ${res.status}`);
+            }
 
             setStatus("success");
             setForm({ name: "", email: "", service_type: "", budget_range: "", timeline: "", description: "" });
             setFile(null);
-        } catch {
+        } catch (err) {
+            console.error("Submit error:", err);
             setStatus("error");
             setErrorMsg("Something went wrong. Please try again.");
         }

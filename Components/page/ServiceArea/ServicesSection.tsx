@@ -19,7 +19,7 @@ interface Props {
 
 function ServiceCard({title, description, icon}: Service) {
     return (
-        <div className={'p-6 pt-0  border flex flex-col items-start  border-neutral-30 rounded-3xl'}>
+        <div className={'p-6 pt-0  border flex flex-col items-start  hover:border-primary-6 hover:shadow-[0_0_2px_2px_rgba(25,154,213,0.25)]  border-neutral-30 rounded-3xl'}>
             <div className={'w-full flex justify-end'}>
                 <div className={'py-5 px-4  rounded-b-4xl    bg-primary-6'}>
                     {icon?.url ? (

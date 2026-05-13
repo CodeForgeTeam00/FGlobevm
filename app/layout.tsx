@@ -8,6 +8,7 @@ import {
     getServicePagesHeaderInfo,
     getServiceAreaPagesHeaderInfo,
 } from "@/services/wp-options";
+import { fetchWP } from "@/lib/api";
 
 const dmSans = localFont({
     src: "../public/fonts/variable-font.ttf",
@@ -24,15 +25,39 @@ export const metadata: Metadata = {
         "GlobeVM Digital Services provides managed IT, cybersecurity, and cloud solutions for businesses in Los Angeles and beyond.",
 };
 
+interface WPCategoryRaw {
+    id: number;
+    parent: number;
+    name: string;
+    slug: string;
+}
+
+async function getTopLevelBlogCategories() {
+    const all = await fetchWP<WPCategoryRaw[]>(
+        "/wp/v2/categories?per_page=100",
+        { strategy: { type: "isr", revalidate: 3600 }, tag: "blog-categories" }
+    );
+    if (!all) return [];
+    return all
+        .filter((c) => c.parent === 0 && c.slug !== "uncategorized")
+        .map((c) => ({ name: c.name, slug: c.slug }));
+}
+
 export default async function RootLayout({
                                              children,
                                          }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const [headerSettings, servicePages, serviceAreaPages] = await Promise.all([
+    const [
+        headerSettings,
+        servicePages,
+        serviceAreaPages,
+        blogCategories,
+    ] = await Promise.all([
         getHeaderSettings(),
         getServicePagesHeaderInfo(),
         getServiceAreaPagesHeaderInfo(),
+        getTopLevelBlogCategories(),
     ]);
 
     return (
@@ -42,6 +67,7 @@ export default async function RootLayout({
             headerSettings={headerSettings}
             servicePages={servicePages}
             serviceAreaPages={serviceAreaPages}
+            blogCategories={blogCategories}
         />
         {children}
         <Footer />

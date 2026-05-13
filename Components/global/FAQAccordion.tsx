@@ -24,8 +24,8 @@ export function FAQAccordion({ items, variant = "light" }: FAQAccordionProps) {
                                     : "bg-primary-6 text-white"
                                 : isLight
                                     ? "bg-white border border-transparent"
-                                    : "bg-white border border-neutral-30"
-                        }`}
+                                    : "bg-white border border-neutral-30   hover:border-primary-6"
+                        } `}
                     >
                         <button
                             onClick={() => setOpenIndex(isOpen ? null : index)}

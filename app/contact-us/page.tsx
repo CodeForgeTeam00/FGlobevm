@@ -1,7 +1,7 @@
 import { Phone, Mail, Briefcase, Send } from "lucide-react";
 import Image from "next/image";
 import Container from "@/Components/global/Sections/Container";
-import { OfficeList } from "@/Components/page/ContactUs/OfficeList";
+import { OfficesWithMap } from "@/Components/page/ContactUs/OfficesWithMap";
 import { ContactForm } from "@/Components/page/ContactUs/ContactForm";
 import type { Metadata } from "next";
 import { getContactPage } from "@/services/wp-pages";
@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     if (data?.yoast_head_json) {
         return yoastToMetadata(data.yoast_head_json as YoastSEO, {
-            canonicalOverride: "https://www.globevm.com/contact-us",
+            canonicalOverride: "https://www.globevm.com/contact-us/",
         });
     }
 
@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
         description: data?.description ||
             "Get in touch with GlobeVM Digital Services for managed IT, cybersecurity, and cloud solutions.",
         alternates: {
-            canonical: "https://www.globevm.com/contact-us",
+            canonical: "https://www.globevm.com/contact-us/",
         },
     };
 }
@@ -54,7 +54,7 @@ export default async function ContactUsPage() {
                         alt={heroImage.alt || heroTitle}
                         fill
                         priority
-                        sizes="100vw h-full"
+                        sizes="100vw"
                         className="object-cover object-center"
                     />
                 )}
@@ -120,7 +120,7 @@ export default async function ContactUsPage() {
                             <p className="text-gray-500 text-sm leading-relaxed mb-8">
                                 Serving businesses across Los Angeles and beyond
                             </p>
-                            <OfficeList />
+                            <OfficesWithMap />
                         </div>
                         <ContactForm />
                     </div>

@@ -6,5 +6,6 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: "*",
             disallow: "/",
         },
+        sitemap: "https://www.globevm.com/sitemap.xml",
     };
 }
