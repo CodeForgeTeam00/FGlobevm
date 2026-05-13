@@ -109,12 +109,14 @@ export default async function ServicePage({ params, searchParams }: Props) {
             )}
 
             {(feedback.title || (feedback.comments && feedback.comments.length > 0)) && (
-                <Testimonials
-                    title={feedback.title ?? ""}
-                    comments={feedback.comments ?? []}
-                    description={feedback.description ?? ""}
-                    label={feedback.label ?? ""}
-                />
+                <div className={'max-w-[1920px] mx-auto'}>
+                    <Testimonials
+                        title={feedback.title ?? ""}
+                        comments={feedback.comments ?? []}
+                        description={feedback.description ?? ""}
+                        label={feedback.label ?? ""}
+                    />
+                </div>
             )}
 
             <Container>

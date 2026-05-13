@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import type { Swiper as SwiperType } from "swiper";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import React, {useState} from "react";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Navigation} from "swiper/modules";
+import type {Swiper as SwiperType} from "swiper";
+import {ChevronLeft, ChevronRight} from "lucide-react";
 import Image from "next/image";
 import "swiper/css";
 import SectionIntro from "@/Components/global/SectionIntro";
@@ -24,9 +24,10 @@ interface Props {
     comments: Comment[];
 }
 
-function TestimonialCard({ name, job, avatar, description }: Comment) {
+function TestimonialCard({name, job, avatar, description}: Comment) {
     return (
-        <div className="bg-white rounded-[1.5rem] p-8 sm:p-10 border border-neutral-30 group  hover:shadow-[0_0_2px_2px_rgba(25,154,213,0.25)] hover:border-primary-6 h-full flex flex-col select-none">
+        <div
+            className="bg-white rounded-[1.5rem] p-8  sm:p-10 border border-neutral-30 group  hover:shadow-[0_0_2px_2px_rgba(25,154,213,0.25)] hover:border-primary-6 h-full flex flex-col select-none">
             <div className="flex items-center gap-4 mb-6">
                 {avatar?.url ? (
                     <Image
@@ -38,7 +39,8 @@ function TestimonialCard({ name, job, avatar, description }: Comment) {
                         unoptimized
                     />
                 ) : (
-                    <div className="w-14 h-14 rounded-full bg-primary-6/10 flex items-center justify-center text-primary-6 font-bold text-xl">
+                    <div
+                        className="w-14 h-14 rounded-full bg-primary-6/10 flex items-center justify-center text-primary-6 font-bold text-xl">
                         {name.charAt(0).toUpperCase()}
                     </div>
                 )}
@@ -54,65 +56,53 @@ function TestimonialCard({ name, job, avatar, description }: Comment) {
     );
 }
 
-export default function TestimonialsSection({ label, title, description, comments }: Props) {
+export default function TestimonialsSection({label, title, description, comments}: Props) {
     const [swiperRef, setSwiperRef] = useState<SwiperType | null>(null);
     const titleParts = title.split(/(\bReliability\b)/i);
     return (
         <section className="py-24 overflow-hidden">
             <div className="px-4 sm:px-6 lg:px-8">
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                    <div className="lg:col-span-7 relative">
-                        <div className="w-full">
-                            <Swiper
-                                modules={[Navigation]}
-                                onSwiper={setSwiperRef}
-                                slidesPerView={1}
-                                spaceBetween={24}
-                                slidesOffsetBefore={100}
-                                breakpoints={{
-                                    640: { slidesPerView: 1.2 },
-                                    1024: { slidesPerView: 1.2 },
-                                    1280: { slidesPerView: 2.8 },
-                                }}
-                                className="testimonial-swiper !overflow-visible"
-                            >
-                                <SwiperSlide className="h-auto">
-                                    <SectionIntro
-                                        badge={label}
-                                        title={title}
-                                        description={description}
-                                    />
-                                </SwiperSlide>
-                                {comments.map((comment, index) => (
-                                    <SwiperSlide key={index} className="h-auto">
-                                        <TestimonialCard {...comment} />
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
-                        </div>
-                        <Container>
-                            <div>
-                                <div className="flex items-center gap-4">
-                                    <button
-                                        onClick={() => swiperRef?.slidePrev()}
-                                        className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
-                                        aria-label="Previous testimonial"
-                                    >
-                                        <ChevronLeft size={20} strokeWidth={2} />
-                                    </button>
-                                    <button
-                                        onClick={() => swiperRef?.slideNext()}
-                                        className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
-                                        aria-label="Next testimonial"
-                                    >
-                                        <ChevronRight size={20} strokeWidth={2} />
-                                    </button>
-                                </div>
+                <div className="w-full flex xl:flex-row flex-col gap-2 items-start">
+                    <div className={'lg:min-w-[600px] flex flex-col w-full items-start gap-10 2xl:ms-[10%] lg:w-[600px]'}>
+                        <SectionIntro
+                            badge={label}
+                            title={title}
+                            description={description}
+                        />
+                        <div>
+                            <div className="items-start lg:flex  hidden gap-4">
+                                <button
+                                    onClick={() => swiperRef?.slidePrev()}
+                                    className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
+                                    aria-label="Previous testimonial"
+                                >
+                                    <ChevronLeft size={20} strokeWidth={2}/>
+                                </button>
+                                <button
+                                    onClick={() => swiperRef?.slideNext()}
+                                    className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
+                                    aria-label="Next testimonial"
+                                >
+                                    <ChevronRight size={20} strokeWidth={2}/>
+                                </button>
                             </div>
-                        </Container>
+                        </div>
                     </div>
-                </div>
+                    <Swiper
+                        modules={[Navigation]}
+                        onSwiper={setSwiperRef}
+                        slidesPerView={'auto'}
+                        spaceBetween={24}
+                        className="testimonial-swiper w-full "
+                    >
 
+                        {comments.map((comment, index) => (
+                            <SwiperSlide key={index} className="h-auto max-w-[600px]">
+                                <TestimonialCard {...comment} />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
             </div>
         </section>
     );

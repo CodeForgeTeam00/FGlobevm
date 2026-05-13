@@ -9,7 +9,7 @@ export default function BlogSection({ data }: { data: BlogPost[] }) {
                 title={"  Insights & Updates"}
                 description={"Stay informed with the latest tips, trends, and best practices in IT, virtualization, and cybersecurity."}
             />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8">
                 {data.map((blog, index) => (
                     <BlogCard key={index} data={blog} />
                 ))}
