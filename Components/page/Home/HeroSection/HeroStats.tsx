@@ -55,7 +55,7 @@ export const HeroStats: React.FC<HeroStatsProps> = ({ data }) => {
                 <div className="hero__placeholder relative w-full">
                     <Image
                         src={primaryImageUrl}
-                        alt={primaryAlt}
+                        alt={primaryAlt ?? "title"}
                         width={636}
                         height={400}
                         priority
@@ -66,7 +66,7 @@ export const HeroStats: React.FC<HeroStatsProps> = ({ data }) => {
                 <div className="hero__image w-full overflow-hidden">
                     <Image
                         src={secondaryImageUrl}
-                        alt={secondaryAlt}
+                        alt={secondaryAlt ?? "title"}
                         width={636}
                         height={400}
                         priority
