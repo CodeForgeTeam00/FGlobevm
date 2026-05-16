@@ -70,7 +70,7 @@ export default async function AboutUsPage() {
                     {data?.team_section && (
                         <TeamSection members={data.team_section} />
                     )}
-                    <ValuesSection data={data?.cards} />
+                    <ValuesSection data={data?.cards ?? []} />
                 </Container>
                 {data?.faq_section && (
                     <PrimarySection>
