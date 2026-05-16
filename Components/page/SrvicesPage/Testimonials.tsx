@@ -73,14 +73,14 @@ export default function TestimonialsSection({label, title, description, comments
                             <div className="items-start lg:flex  hidden gap-4">
                                 <button
                                     onClick={() => swiperRef?.slidePrev()}
-                                    className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
+                                    className="w-12 h-12 cursor-pointer rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
                                     aria-label="Previous testimonial"
                                 >
                                     <ChevronLeft size={20} strokeWidth={2}/>
                                 </button>
                                 <button
                                     onClick={() => swiperRef?.slideNext()}
-                                    className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
+                                    className="w-12 h-12 cursor-pointer rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#1da1f2] hover:text-white transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm"
                                     aria-label="Next testimonial"
                                 >
                                     <ChevronRight size={20} strokeWidth={2}/>

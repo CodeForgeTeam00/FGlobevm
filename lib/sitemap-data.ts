@@ -2,26 +2,41 @@ import { fetchWP } from "@/lib/api";
 
 export const BASE = "https://www.globevm.com";
 
+const BUILD_TIME = new Date();
+
 export const CONFIG = {
     pages: {
         items: [
-            { path: "/",            changeFrequency: "weekly",  priority: 1.0 },
-            { path: "/about-us/",   changeFrequency: "monthly", priority: 0.8 },
-            { path: "/contact-us/", changeFrequency: "monthly", priority: 0.7 },
-            { path: "/faq/",        changeFrequency: "monthly", priority: 0.6 },
-            { path: "/blog/",       changeFrequency: "daily",   priority: 0.9 },
+            { path: "/",            priority: 1.0 },
+            { path: "/about-us/",   priority: 0.8 },
+            { path: "/contact-us/", priority: 0.7 },
+            { path: "/faq/",        priority: 0.6 },
+            { path: "/blog/",       priority: 0.9 },
         ],
     },
-    posts: { changeFrequency: "weekly", priority: 0.6, excludeNoindex: true },
-    categories: { changeFrequency: "weekly", priority: 0.5, excludeSlugs: ["uncategorized", "test6"] },
-    services: { urlPrefix: "/services", changeFrequency: "monthly", priority: 0.8, excludeNoindex: true },
-    serviceAreas: {urlPrefix: "/service-area", changeFrequency: "monthly", priority: 0.7, excludeNoindex: true,},
+    posts: {
+        priority: 0.6,
+        excludeNoindex: true,
+    },
+    categories: {
+        priority: 0.5,
+        excludeSlugs: ["uncategorized", "test6"],
+    },
+    services: {
+        urlPrefix: "/services",
+        priority: 0.8,
+        excludeNoindex: true,
+    },
+    serviceAreas: {
+        urlPrefix: "/service-area",
+        priority: 0.7,
+        excludeNoindex: true,
+    },
 };
 
 export interface SitemapUrl {
     url: string;
     lastModified?: Date;
-    changeFrequency: string;
     priority: number;
 }
 
@@ -30,9 +45,22 @@ interface YoastRobots {
     article_modified_time?: string;
 }
 
-interface PostRaw { slug?: string; date?: string; modified?: string; yoast_head_json?: YoastRobots; }
-interface CategoryRaw { slug: string; parent: number; }
-interface ServiceRaw { slug?: string; yoast_head_json?: YoastRobots; }
+interface PostRaw {
+    slug?: string;
+    date?: string;
+    modified?: string;
+    yoast_head_json?: YoastRobots;
+}
+
+interface CategoryRaw {
+    slug: string;
+    parent: number;
+}
+
+interface ServiceRaw {
+    slug?: string;
+    yoast_head_json?: YoastRobots;
+}
 
 function isIndexable(item: { yoast_head_json?: YoastRobots }): boolean {
     const idx = item.yoast_head_json?.robots?.index?.toLowerCase() ?? "";
@@ -47,10 +75,14 @@ function getLastModified(item: ServiceRaw | PostRaw): Date | undefined {
     return undefined;
 }
 
+function formatSitemapDate(date: Date): string {
+    return date.toISOString().replace(/\.\d{3}Z$/, "+00:00");
+}
+
 export async function getPagesUrls(): Promise<SitemapUrl[]> {
     return CONFIG.pages.items.map((p) => ({
         url: `${BASE}${p.path}`,
-        changeFrequency: p.changeFrequency,
+        lastModified: BUILD_TIME,
         priority: p.priority,
     }));
 }
@@ -68,7 +100,6 @@ export async function getPostsUrls(): Promise<SitemapUrl[]> {
             .map((p) => ({
                 url: `${BASE}/blog/${p.slug}/`,
                 lastModified: getLastModified(p),
-                changeFrequency: CONFIG.posts.changeFrequency,
                 priority: CONFIG.posts.priority,
             }));
     } catch (err) {
@@ -89,7 +120,7 @@ export async function getCategoriesUrls(): Promise<SitemapUrl[]> {
             .filter((c) => !CONFIG.categories.excludeSlugs.includes(c.slug))
             .map((c) => ({
                 url: `${BASE}/blog/category/${c.slug}/`,
-                changeFrequency: CONFIG.categories.changeFrequency,
+                lastModified: BUILD_TIME,
                 priority: CONFIG.categories.priority,
             }));
     } catch (err) {
@@ -111,7 +142,6 @@ export async function getServicesUrls(): Promise<SitemapUrl[]> {
             .map((s) => ({
                 url: `${BASE}${CONFIG.services.urlPrefix}/${s.slug}/`,
                 lastModified: getLastModified(s),
-                changeFrequency: CONFIG.services.changeFrequency,
                 priority: CONFIG.services.priority,
             }));
     } catch (err) {
@@ -119,6 +149,7 @@ export async function getServicesUrls(): Promise<SitemapUrl[]> {
         return [];
     }
 }
+
 export async function getServiceAreasUrls(): Promise<SitemapUrl[]> {
     try {
         const areas = await fetchWP<ServiceRaw[]>(
@@ -132,7 +163,6 @@ export async function getServiceAreasUrls(): Promise<SitemapUrl[]> {
             .map((a) => ({
                 url: `${BASE}${CONFIG.serviceAreas.urlPrefix}/${a.slug}/`,
                 lastModified: getLastModified(a),
-                changeFrequency: CONFIG.serviceAreas.changeFrequency,
                 priority: CONFIG.serviceAreas.priority,
             }));
     } catch (err) {
@@ -140,6 +170,7 @@ export async function getServiceAreasUrls(): Promise<SitemapUrl[]> {
         return [];
     }
 }
+
 export function escapeXml(str: string): string {
     return str
         .replace(/&/g, "&amp;")
@@ -152,14 +183,13 @@ export function escapeXml(str: string): string {
 export function buildUrlsetXml(urls: SitemapUrl[]): string {
     const urlBlocks = urls.map((u) => {
         const parts = [`    <loc>${escapeXml(u.url)}</loc>`];
-        if (u.lastModified) parts.push(`    <lastmod>${u.lastModified.toISOString()}</lastmod>`);
-        parts.push(`    <changefreq>${u.changeFrequency}</changefreq>`);
+        if (u.lastModified) parts.push(`    <lastmod>${formatSitemapDate(u.lastModified)}</lastmod>`);
         parts.push(`    <priority>${u.priority}</priority>`);
         return `  <url>\n${parts.join("\n")}\n  </url>`;
     }).join("\n");
 
     return `<?xml version="1.0" encoding="UTF-8"?>
-        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 ${urlBlocks}

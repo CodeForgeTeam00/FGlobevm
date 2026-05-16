@@ -9,6 +9,8 @@ import {
     getServiceAreaPagesHeaderInfo,
 } from "@/services/wp-options";
 import { fetchWP } from "@/lib/api";
+import JsonLd from "@/Components/global/JsonLd";
+import { organizationSchema } from "@/lib/seo/schemas";
 
 const dmSans = localFont({
     src: "../public/fonts/variable-font.ttf",
@@ -17,12 +19,24 @@ const dmSans = localFont({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://www.globevm.com"),
     title: {
         default: "GlobeVM Digital Services | Managed IT & Cybersecurity",
         template: "%s | GlobeVM",
     },
     description:
         "GlobeVM Digital Services provides managed IT, cybersecurity, and cloud solutions for businesses in Los Angeles and beyond.",
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-snippet": -1,
+            "max-image-preview": "large",
+            "max-video-preview": -1,
+        },
+    },
 };
 
 interface WPCategoryRaw {
@@ -62,7 +76,8 @@ export default async function RootLayout({
 
     return (
         <html lang="en" className={dmSans.variable}>
-        <body className="antialiased  mx-auto">
+        <body className="antialiased mx-auto" suppressHydrationWarning>
+        <JsonLd data={organizationSchema()} />
         <HeaderSwitcher
             headerSettings={headerSettings}
             servicePages={servicePages}

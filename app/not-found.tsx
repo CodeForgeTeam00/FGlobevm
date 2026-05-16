@@ -12,39 +12,29 @@ export const metadata: Metadata = {
 export default function NotFound() {
     return (
         <section className="min-h-[70vh] flex items-center justify-center px-4 py-16">
-            <div className="text-center max-w-xl">
-                {/* Title */}
+            <div className="text-center ">
                 <Text variant="heading-lg" textColor="black" className="font-serif mb-4">
                     Oops...
                 </Text>
                 <p className="text-gray-400 text-xs sm:text-sm uppercase tracking-[0.2em] mb-12">
-                    Looks like something was wrong, we&apos;re working on it
+                    LOOKS LIKE SOMETHINGWASWRONG WE’REWORKING ON IT
                 </p>
-
-                {/* Divider */}
-                <div className="border-t border-gray-200 mb-12" />
-
-                {/* Robot illustration */}
-                <div className="mb-10">
+                <div className="mb-10 w-[100dvw]    flex relative xl:after:content-[''] after:block after:absolute overflow-hidden  after:w-screen after:h-[2px] after:bg-neutral-40 after:mt-4">
                     <Image
-                        src="/images/404-robot.svg"
+                        src="/assets/image/404.svg"
                         alt=""
                         width={340}
                         height={340}
-                        className="mx-auto w-64 sm:w-80"
+                        className="w-full lg:w-[1320px] mx-auto "
                         priority
                     />
                 </div>
-
-                {/* 404 */}
                 <Text variant="heading-lg" textColor="black" className="text-5xl sm:text-6xl mb-2">
                     404
                 </Text>
                 <p className="text-gray-500 text-sm mb-10">
                     Page not found
                 </p>
-
-                {/* CTA */}
                 <Link
                     href="/"
                     className="inline-flex items-center gap-2 bg-primary-6 hover:bg-primary-6/90 text-white px-7 py-3 rounded-xl font-medium transition-colors shadow-lg shadow-primary-6/20"

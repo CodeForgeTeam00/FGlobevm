@@ -20,7 +20,6 @@ const nextConfig: NextConfig = {
     },
     async redirects() {
         return [
-            // ========== SERVICE AREAS (شهرها) ==========
             { source: "/san-fernando-valley", destination: "/service-area/san-fernando-valley", permanent: true },
             { source: "/sylmar", destination: "/service-area/sylmar", permanent: true },
             { source: "/westlake-village", destination: "/service-area/westlake-village", permanent: true },
@@ -36,7 +35,6 @@ const nextConfig: NextConfig = {
             { source: "/woodland-hills-risk-management", destination: "/service-area/woodland-hills", permanent: true },
             { source: "/managed-it-services-los-angeles", destination: "/services/managed-it-services", permanent: true },
 
-            // ========== IT SERVICES ==========
             { source: "/managed-it-services", destination: "/services/managed-it-services", permanent: true },
             { source: "/co-managed-it-services", destination: "/services/co-managed-it-services", permanent: true },
             { source: "/helpdesk-and-it-support", destination: "/services/helpdesk-and-it-support", permanent: true },
@@ -45,7 +43,7 @@ const nextConfig: NextConfig = {
             { source: "/24-7-it-services-for-business-continuity", destination: "/services/24-7-it-services-for-business-continuity", permanent: true },
             { source: "/remote-it-monitoring-management", destination: "/services/remote-it-monitoring-management", permanent: true },
             { source: "/cloud-services-and-migration", destination: "/services/cloud-services-and-migration", permanent: true },
-            // ========== CYBERSECURITY ==========
+
             { source: "/cybersecurity-solutions", destination: "/services/cybersecurity-solutions", permanent: true },
             { source: "/pentest", destination: "/services/pentest", permanent: true },
             { source: "/compliance-and-risk-management-services", destination: "/services/compliance-and-risk-management-services", permanent: true },
@@ -53,25 +51,10 @@ const nextConfig: NextConfig = {
             { source: "/law-firms", destination: "/services/law-firms", permanent: true },
             { source: "/manufacturing", destination: "/services/manufacturing", permanent: true },
             { source: "/financial-services", destination: "/services/financial-services", permanent: true },
-
         ];
     },
     typescript: {
         ignoreBuildErrors: false,
-    },
-
-    async headers() {
-        return [
-            {
-                source: "/:path*",
-                headers: [
-                    {
-                        key: "X-Robots-Tag",
-                        value: "noindex, nofollow",
-                    },
-                ],
-            },
-        ];
     },
 };
 

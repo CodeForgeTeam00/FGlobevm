@@ -81,7 +81,7 @@ export default async function Footer() {
                                         rel="noopener noreferrer"
                                     >
                                         <SocialItem>
-                                            <IconComponent className="h-6 w-6 text-primary-6"/>
+                                            <IconComponent className="h-6 w-6 text-neutral-black  group-hover:text-primary-6"/>
                                         </SocialItem>
                                     </a>
                                 );

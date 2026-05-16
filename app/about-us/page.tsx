@@ -10,6 +10,9 @@ import type { Metadata } from "next";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
 import PrimarySection from "@/Components/global/PrimarySection";
+import JsonLd from "@/Components/global/JsonLd";
+import { webPageSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schemas";
+import { SITE } from "@/lib/seo/site-config";
 
 export async function generateMetadata(): Promise<Metadata> {
     const data = await getAboutPage();
@@ -28,37 +31,66 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
-
 export default async function AboutUsPage() {
     const data = await getAboutPage();
+
+    const yoast = data?.yoast_head_json as YoastSEO | undefined;
+
+    const schemas: object[] = [
+        webPageSchema({
+            title: yoast?.title || "About Us | GlobeVM",
+            url: `${SITE.url}/about-us/`,
+            description: yoast?.description ||
+                "Learn about GlobeVM Digital Services, our team, and our mission to provide managed IT and cybersecurity solutions.",
+        }),
+        breadcrumbSchema([
+            { name: "Home", url: `${SITE.url}/` },
+            { name: "About Us", url: `${SITE.url}/about-us/` },
+        ]),
+    ];
+
+    if (data?.faq_section && data.faq_section.length > 0) {
+        schemas.push(
+            faqSchema(
+                data.faq_section.map((item: any) => ({
+                    question: item.question,
+                    answer: item.answer,
+                }))
+            )
+        );
+    }
+
     return (
-        <div className="relative">
-            <HeroSection featuredImage={data?.featured_image} />
-            <Container>
-                <StorySection midSectionImage={data?.mid_section_image} />
-                {data?.team_section && (
-                    <TeamSection members={data.team_section} />
-                )}
-                <ValuesSection />
-            </Container>
-            {data?.faq_section && (
-                <PrimarySection>
-                    <div>
-                        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-20 mb-10">
-                            <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
-                                Frequently Asked<br />Questions
-                            </h2>
-                            <p className="text-white/80 text-sm lg:text-base leading-relaxed max-w-1/2">
-                                Quick answers about our services, response times, security practices, and what working with GlobeVM looks like day to day. This section helps you understand what's included, how support works, and what to expect during onboarding.
-                            </p>
+        <>
+            <JsonLd data={schemas} />
+            <div className="relative">
+                <HeroSection featuredImage={data?.image} />
+                <Container>
+                    <StorySection midSectionImage={data?.mid_section_image} />
+                    {data?.team_section && (
+                        <TeamSection members={data.team_section} />
+                    )}
+                    <ValuesSection data={data?.cards ?? []} />
+                </Container>
+                {data?.faq_section && (
+                    <PrimarySection>
+                        <div>
+                            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-20 mb-10">
+                                <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
+                                    Frequently Asked<br />Questions
+                                </h2>
+                                <p className="text-white/80 text-sm lg:text-base leading-relaxed max-w-1/2">
+                                    Quick answers about our services, response times, security practices, and what working with GlobeVM looks like day to day. This section helps you understand what's included, how support works, and what to expect during onboarding.
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <FAQAccordion items={data.faq_section} variant="light" />
-                </PrimarySection>
-            )}
-            {data?.about_globevm && (
-                <WpContent content={data.about_globevm} />
-            )}
-        </div>
+                        <FAQAccordion items={data.faq_section} variant="light" />
+                    </PrimarySection>
+                )}
+                {data?.about_globevm && (
+                    <WpContent content={data.about_globevm} />
+                )}
+            </div>
+        </>
     );
 }
