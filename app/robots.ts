@@ -2,10 +2,14 @@ import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
     return {
-        rules: {
-            userAgent: "*",
-            disallow: "/",
-        },
+        rules: [
+            {
+                userAgent: "*",
+                allow: "/",
+                disallow: ["/api/", "/preview/", "/_next/"],
+            },
+        ],
         sitemap: "https://www.globevm.com/sitemap.xml",
+        host: "https://www.globevm.com",
     };
 }

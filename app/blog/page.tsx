@@ -1,22 +1,25 @@
 import React from "react";
 import Container from "@/Components/global/Sections/Container";
-import {BlogMainSection} from "@/Components/page/BlogPage/BlogMainSection";
-import {BlogGrid} from "@/Components/page/BlogPage/BlogGrid";
-import {BlogEditorChoiceSection} from "@/Components/page/BlogPage/BlogEditorChoiceSection";
-import {BlogCategoriesSection} from "@/Components/page/BlogPage/BlogCategoriesSection";
-import {BlogColSection} from "@/Components/page/BlogPage/BlogColSection";
-import {WpContent} from "@/Components/global/SeoBox";
+import { BlogMainSection } from "@/Components/page/BlogPage/BlogMainSection";
+import { BlogGrid } from "@/Components/page/BlogPage/BlogGrid";
+import { BlogEditorChoiceSection } from "@/Components/page/BlogPage/BlogEditorChoiceSection";
+import { BlogCategoriesSection } from "@/Components/page/BlogPage/BlogCategoriesSection";
+import { BlogColSection } from "@/Components/page/BlogPage/BlogColSection";
+import { WpContent } from "@/Components/global/SeoBox";
 
-import {getBlogs, getBlogCategories, getBlog} from "@/services/wp-blog";
-import {getSeoBox} from "@/services/shared";
-import {mapBlogsResponse, mapBlogToFeaturedAndGrid, mapPost} from "@/mappers/blog-mapper";
+import { getBlogs, getBlogCategories, getBlog } from "@/services/wp-blog";
+import { getSeoBox } from "@/services/shared";
+import { mapBlogsResponse, mapBlogToFeaturedAndGrid, mapPost } from "@/mappers/blog-mapper";
 
-import type {Metadata} from "next";
+import type { Metadata } from "next";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
 import SeoBoxSection from "@/Components/global/SeoBoxSection";
 import SocialBanner from "@/Components/global/SocialBanner";
-import {getSocialMedia} from "@/services/wp-options";
+import { getSocialMedia } from "@/services/wp-options";
+import JsonLd from "@/Components/global/JsonLd";
+import { webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
+import { SITE } from "@/lib/seo/site-config";
 
 export async function generateMetadata(): Promise<Metadata> {
     const data = await getBlog();
@@ -36,33 +39,49 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Blog() {
-    const [ rawBlog, rawSidebar, data , socialMedia] = await Promise.all([
-        getBlogs({per_page: 5}),
-        getBlogs({per_page: 3}),
+    const [rawBlog, rawSidebar, data, socialMedia] = await Promise.all([
+        getBlogs({ per_page: 5 }),
+        getBlogs({ per_page: 3 }),
         getBlog(),
-        getSocialMedia()
+        getSocialMedia(),
     ]);
 
     const blog = mapBlogsResponse(rawBlog);
     const sidebar = mapBlogsResponse(rawSidebar);
-    // const editorChoice = rawEditorChoice ? mapPost(rawEditorChoice) : null;
 
-    const {featured, grid} = mapBlogToFeaturedAndGrid(blog?.posts ?? []);
+    const { featured, grid } = mapBlogToFeaturedAndGrid(blog?.posts ?? []);
+
+    const yoast = data?.yoast_head_json as YoastSEO | undefined;
+
+    const schemas: object[] = [
+        webPageSchema({
+            title: yoast?.title || "Blog | GlobeVM",
+            url: `${SITE.url}/blog/`,
+            description: yoast?.description || "Latest insights on IT infrastructure, cybersecurity, and cloud solutions from GlobeVM.",
+        }),
+        breadcrumbSchema([
+            { name: "Home", url: `${SITE.url}/` },
+            { name: "Blog", url: `${SITE.url}/blog/` },
+        ]),
+    ];
 
     return (
-        <Container>
-            <div className="flex flex-col lg:gap-14">
-                <div className="flex flex-col lg:gap-20 lg:mt-10">
-                    <BlogMainSection data={featured}/>
-                    <BlogGrid data={grid}/>
+        <>
+            <JsonLd data={schemas} />
+            <Container>
+                <div className="flex flex-col lg:gap-14">
+                    <div className="flex flex-col lg:gap-20 lg:mt-10">
+                        <BlogMainSection data={featured} />
+                        <BlogGrid data={grid} />
+                    </div>
+                    <BlogEditorChoiceSection data={data?.editor_choice ?? null} />
+                    <BlogCategoriesSection data={data?.popular_categories ?? []} />
+                    <div className="grid lg:grid-cols-2 px-4 lg:px-0 gap-10">
+                        <BlogColSection data={sidebar?.posts ?? []} />
+                        <BlogColSection data={sidebar?.posts ?? []} />
+                    </div>
                 </div>
-                <BlogEditorChoiceSection data={data?.editor_choice ?? null}/>
-                <BlogCategoriesSection data={data?.popular_categories ?? []}/>
-                <div className="grid lg:grid-cols-2 px-4 lg:px-0 gap-10">
-                    <BlogColSection data={sidebar?.posts ?? []}/>
-                    <BlogColSection data={sidebar?.posts ?? []}/>
-                </div>
-            </div>
-        </Container>
+            </Container>
+        </>
     );
 }

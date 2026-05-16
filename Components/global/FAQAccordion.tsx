@@ -17,14 +17,14 @@ export function FAQAccordion({ items, variant = "light" }: FAQAccordionProps) {
                 return (
                     <div
                         key={index}
-                        className={`rounded-[24px] overflow-hidden transition-colors duration-300 ${
+                        className={`rounded-[24px] overflow-hidden  transition-colors duration-300 ${
                             isOpen
                                 ? isLight
                                     ? "bg-white border border-sky-300"
                                     : "bg-primary-6 text-white"
                                 : isLight
-                                    ? "bg-white border border-transparent"
-                                    : "bg-white border border-neutral-30   hover:border-primary-6"
+                                    ? "bg-white border border-transparent hover:bg-gray-200"
+                                    : "bg-white border hover:bg-gray-50 "
                         } `}
                     >
                         <button

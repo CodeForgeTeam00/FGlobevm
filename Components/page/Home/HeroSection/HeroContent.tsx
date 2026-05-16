@@ -31,8 +31,8 @@ export const HeroContent: React.FC = () => {
                 {actions.map(({ label, icon: Icon, variant }) => (
                     <Button key={label} variant={variant} size="lg">
                         <div className="flex items-center justify-center gap-2">
-                            <Icon className="w-6 h-6" />
-                            <Text  variant={'body-md'}>{label}</Text>
+                            <Icon className="w-6 h-6 group-hover:text-primary-6" />
+                            <Text className={'group-hover:text-primary-6'} variant={'body-md'}>{label}</Text>
                         </div>
                     </Button>
                 ))}

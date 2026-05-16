@@ -3,61 +3,70 @@ import Link from "next/link";
 import { Calendar, Phone } from "lucide-react";
 import Container from "@/Components/global/Sections/Container";
 import { StatsBar } from "./StatsBar";
+import SectionIntro from "@/Components/global/SectionIntro";
+import { WPImage } from "@/types/wp-common";
+import {Button} from "@/Components/Ui/button";
+import Text from "@/Components/global/text";
+import React from "react";
 
 interface HeroSectionProps {
-    featuredImage?: string;
+    featuredImage?: WPImage;
 }
 
 export default function HeroSection({ featuredImage }: HeroSectionProps) {
+    const imageSrc = featuredImage?.url || "/assets/image/about-hero.jpg";
+
     return (
         <section
             aria-label="About GlobeVM"
-            className="relative bg-black pt-20 pb-32 sm:pt-28 sm:pb-40 px-4 sm:px-6 lg:px-8 mb-20"
+            className="relative bg-black  mb-20"
         >
-            <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-60 lg:opacity-100">
-                <Image
-                    src={featuredImage || "/assets/image/about-hero.jpg"}
-                    alt="GlobeVM IT security professional"
-                    fill
-                    className="object-cover object-center [mask-image:linear-gradient(to_right,transparent,black_30%)] lg:[mask-image:linear-gradient(to_right,transparent,black_20%)]"
-                    priority
-                />
-            </div>
-
             <Container>
-                <div className="max-w-7xl mx-auto relative z-10">
-                    <div className="max-w-2xl">
-                        <span className="inline-flex items-center border border-[#1da1f2]/40 text-[#1da1f2] rounded-full px-5 py-1.5 text-xs font-medium tracking-wide mb-8 bg-black/50 backdrop-blur-sm">
-                            About us
-                        </span>
-
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-white mb-6 leading-[1.15]">
-                            Proactive IT That Keeps Your Business{" "}
-                            <span className="text-[#1da1f2]">Secure</span>
-                        </h1>
-
-                        <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-10 max-w-xl">
-                            We manage, secure, and optimize your infrastructure
-                            so your team can focus on growth instead of
-                            downtime.
-                        </p>
-
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pt-20 pb-32 sm:pt-28 sm:pb-40">
+                    <div className="flex flex-col gap-6">
+                        <SectionIntro
+                            badge="About us"
+                            title="Proactive IT That Keeps Your Business Secure"
+                            isLight
+                            description="We manage, secure, and optimize your infrastructure so your team can focus on growth instead of downtime. From virtual environments to network protection, we keep your systems stable, fast, and protected."
+                        />
                         <div className="flex flex-wrap items-center gap-4">
+
                             <Link
                                 href="/contact-us"
-                                className="bg-[#1da1f2] hover:bg-[#1a91da] text-white rounded-xl px-6 py-3.5 font-medium flex items-center gap-2.5 transition-colors shadow-lg shadow-[#1da1f2]/20"
                             >
-                                <Calendar size={18} />
-                                Book A Free Consultation
+                                <Button variant={'primary'} size="lg">
+                                    <div className="flex items-center justify-center gap-2">
+                                        <Calendar size={18}  className={"w-6 h-6 text-white"}/>
+                                        <Text className={'group-hover:text-primary-6'} variant={'body-md'}>
+                                            Get A Free Penetration Test</Text>
+                                    </div>
+                                </Button>
+
+
                             </Link>
                             <a
-                                href="tel:3107504939"
-                                className="bg-white hover:bg-gray-50 text-gray-900 rounded-xl px-6 py-3.5 font-medium flex items-center gap-2.5 transition-colors"
-                            >
-                                <Phone size={18} className="text-gray-500" />
-                                Get A Free Penetration Test
+                                href="tel:3107504939" rel={'nofollow'}>
+
+                                <Button variant={'outline'} size="lg">
+                                    <div className="flex items-center justify-center gap-2">
+                                        <Phone size={18}  className={"w-6 h-6 group-hover:text-primary-6"}/>
+                                        <Text className={'group-hover:text-primary-6'} variant={'body-md'}> Book A Free Consultation</Text>
+                                    </div>
+                                </Button>
                             </a>
                         </div>
+                    </div>
+
+                    <div className="relative w-full hidden lg:block">
+                        <Image
+                            src={imageSrc}
+                            alt="GlobeVM IT security professional"
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                            priority
+                            className="object-cover object-center"
+                        />
                     </div>
                 </div>
             </Container>

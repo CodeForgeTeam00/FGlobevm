@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { TeamMember } from "@/types/wp-about";
+import SectionIntro from "@/Components/global/SectionIntro";
 
 const THEMES = {
     blue: {
@@ -73,21 +74,15 @@ export default function TeamSection({ members }: TeamSectionProps) {
     return (
         <section aria-label="Our Team" className="py-24 relative overflow-hidden">
             <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col items-center">
-                <span className="inline-flex items-center border border-[#1da1f2]/30 text-[#1da1f2] rounded-full px-5 py-1.5 text-xs font-semibold tracking-wide mb-6 bg-white shadow-sm">
-                    Our Team
-                </span>
-
-                <h2 className="text-4xl sm:text-5xl font-serif text-gray-900 mb-6 leading-[1.2]">
-                    Meet Our Team in{" "}
-                    <span className="text-[#1da1f2]">GlobeVM</span>
-                </h2>
-
-                <p className="text-gray-500 text-sm sm:text-base leading-relaxed">
-                    From infrastructure management and cloud environments to
+                <SectionIntro
+                    badge=" Our Team"
+                    title="GlobeVMe"
+                    lgCenter
+                    description="              From infrastructure management and cloud environments to
                     endpoint protection and network security, our services are
                     designed to keep your systems running smoothly and your data
-                    protected.
-                </p>
+                    protected."
+                />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">

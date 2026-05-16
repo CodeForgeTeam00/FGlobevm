@@ -13,11 +13,14 @@ import type { Metadata } from "next";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
 import SectionIntro from "@/Components/global/SectionIntro";
-import {FAQAccordion} from "@/Components/global/FAQAccordion";
+import { FAQAccordion } from "@/Components/global/FAQAccordion";
 import React from "react";
 import Image from "next/image";
 import mask from "@/public/assets/image/heroSectionLayout.svg";
 import PrimarySection from "@/Components/global/PrimarySection";
+import JsonLd from "@/Components/global/JsonLd";
+import { webPageSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schemas";
+import { SITE } from "@/lib/seo/site-config";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -35,20 +38,16 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 
     if (!data) return { title: "Service Area Not Found" };
 
-    // Service area endpoint returns an array (single endpoint quirk in backend).
-    // Preview mode returns a single object. Handle both.
     const item = Array.isArray(data) ? data[0] : data;
 
     if (!item) return { title: "Service Area Not Found" };
 
-    // Use Yoast SEO data if available (filled in via WP admin → Yoast SEO box)
     if (item.yoast_head_json) {
         return yoastToMetadata(item.yoast_head_json as YoastSEO, {
             canonicalOverride: `https://www.globevm.com/service-area/${slug}`,
         });
     }
 
-    // Fallback to ACF hero data when Yoast SEO is not yet filled
     return {
         title: item?.acf?.hero_section?.title || "Service Area",
         description: item?.acf?.hero_section?.description || "",
@@ -70,79 +69,106 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
         data = await getPreviewById(id!);
     } else {
         data = await getServiceAreaPage(slug);
-        console.log(data)
     }
 
     if (!data) notFound();
 
-    const acf = data[0]?.acf ?? {};
+    const item = Array.isArray(data) ? data[0] : data;
+    const acf = item?.acf ?? {};
     const hero = acf.hero_section ?? {};
     const second = acf.second_section ?? {};
     const offering = acf.offering_section ?? {};
     const feedback = acf.client_feedback ?? {};
     const faqBox = acf.faq_box ?? {};
 
+    const yoast = item?.yoast_head_json as YoastSEO | undefined;
+    const pageTitle = item?.title || hero.title || "Service Area";
+
+    const schemas: object[] = [
+        webPageSchema({
+            title: yoast?.title || pageTitle,
+            url: `${SITE.url}/service-area/${slug}/`,
+            description: yoast?.description || hero.description || "",
+        }),
+        breadcrumbSchema([
+            { name: "Home", url: `${SITE.url}/` },
+            { name: "Service Areas", url: `${SITE.url}/service-area/` },
+            { name: pageTitle, url: `${SITE.url}/service-area/${slug}/` },
+        ]),
+    ];
+
+    if (faqBox.faq && faqBox.faq.length > 0) {
+        schemas.push(
+            faqSchema(
+                faqBox.faq.map((f: any) => ({
+                    question: f.question,
+                    answer: f.answer,
+                }))
+            )
+        );
+    }
 
     return (
-        <div className="relative  ">
-            {(isEnabled || isPreview) && <PreviewBar slug={slug} type="service_area_page" />}
-            <Image
-                className="absolute hidden lg:inline top-20 "
-                src={mask}
-                alt="layout"
-            />
-            <EstimateSection
-                label={hero.label ?? ""}
-                title={hero.title ?? ""}
-                description={hero.description ?? ""}
-            />
-            {(second.title || (second.services && second.services.length > 0)) && (
-                <Container>
-                    <ServicesSection
-                        label={second.label ?? ""}
-                        title={second.title ?? ""}
-                        description={second.description ?? ""}
-                        services={second.services ?? []}
-                    />
-                </Container>
-            )}
-            {(offering.title || (offering.offerings && offering.offerings.length > 0)) && (
-                <PrimarySection>
-                    <WhyUsSection
-                        label={offering.label ?? ""}
-                        title={offering.title ?? ""}
-                        description={offering.description ?? ""}
-                        offerings={offering.offerings ?? []}
-                    />
-                </PrimarySection>
-
-            )}
-            {(feedback.title || (feedback.comments && feedback.comments.length > 0)) && (
-                <TestimonialsSection
-                    label={feedback.label ?? ""}
-                    title={feedback.title ?? ""}
-                    description={feedback.description ?? ""}
-                    comments={feedback.comments ?? []}
+        <>
+            <JsonLd data={schemas} />
+            <div className="relative">
+                {(isEnabled || isPreview) && <PreviewBar slug={slug} type="service_area_page" />}
+                <Image
+                    className="absolute hidden lg:inline top-20"
+                    src={mask}
+                    alt="layout"
                 />
-            )}
-            <Container>
-                {(faqBox.title || (faqBox.faq && faqBox.faq.length > 0)) && (
-                    <div className={'grid  items-center'}>
-                        <div className={'flex flex-col lg:gap-10 gap-6'}>
-                            <SectionIntro
-                                title={faqBox.title}
-                                description={faqBox.description}
-                                lgCenter
-                            />
-                            <FAQAccordion items={faqBox.faq} variant="dark"/>
-                        </div>
-
-                    </div>
+                <EstimateSection
+                    label={hero.label ?? ""}
+                    title={hero.title ?? ""}
+                    description={hero.description ?? ""}
+                />
+                {(second.title || (second.services && second.services.length > 0)) && (
+                    <Container>
+                        <ServicesSection
+                            label={second.label ?? ""}
+                            title={second.title ?? ""}
+                            description={second.description ?? ""}
+                            services={second.services ?? []}
+                        />
+                    </Container>
                 )}
-                <div className={' lg:mt-10 mt-6'}>
-                    <ContactCTA />
-                </div>
-            </Container>
-        </div>
+                {(offering.title || (offering.offerings && offering.offerings.length > 0)) && (
+                    <PrimarySection>
+                        <WhyUsSection
+                            label={offering.label ?? ""}
+                            title={offering.title ?? ""}
+                            description={offering.description ?? ""}
+                            offerings={offering.offerings ?? []}
+                        />
+                    </PrimarySection>
+                )}
+                {(feedback.title || (feedback.comments && feedback.comments.length > 0)) && (
+                    <TestimonialsSection
+                        label={feedback.label ?? ""}
+                        title={feedback.title ?? ""}
+                        description={feedback.description ?? ""}
+                        comments={feedback.comments ?? []}
+                    />
+                )}
+                <Container>
+                    {(faqBox.title || (faqBox.faq && faqBox.faq.length > 0)) && (
+                        <div className={"grid items-center"}>
+                            <div className={"flex flex-col lg:gap-10 gap-6"}>
+                                <SectionIntro
+                                    title={faqBox.title}
+                                    description={faqBox.description}
+                                    lgCenter
+                                />
+                                <FAQAccordion items={faqBox.faq} variant="dark" />
+                            </div>
+                        </div>
+                    )}
+                    <div className={"lg:mt-10 mt-6"}>
+                        <ContactCTA />
+                    </div>
+                </Container>
+            </div>
+        </>
     );
 }
