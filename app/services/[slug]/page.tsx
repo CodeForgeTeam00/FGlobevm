@@ -94,16 +94,16 @@ export default async function ServicePage({ params, searchParams }: Props) {
         ]),
     ];
 
-    if (faqBox.faq && faqBox.faq.length > 0) {
-        schemas.push(
-            faqSchema(
-                faqBox.faq.map((f: any) => ({
-                    question: f.question,
-                    answer: f.answer,
-                }))
-            )
-        );
-    }
+    // if (faqBox.faq && faqBox.faq.length > 0) {
+    //     schemas.push(
+    //         faqSchema(
+    //             faqBox.faq.map((f: any) => ({
+    //                 question: f.question,
+    //                 answer: f.answer,
+    //             }))
+    //         )
+    //     );
+    // }
 
     return (
         <>
