@@ -9,8 +9,6 @@ import {
     getServiceAreaPagesHeaderInfo,
 } from "@/services/wp-options";
 import { fetchWP } from "@/lib/api";
-import JsonLd from "@/Components/global/JsonLd";
-import { organizationSchema } from "@/lib/seo/schemas";
 
 const dmSans = localFont({
     src: "../public/fonts/variable-font.ttf",
@@ -77,7 +75,6 @@ export default async function RootLayout({
     return (
         <html lang="en" className={dmSans.variable}>
         <body className="antialiased mx-auto" suppressHydrationWarning>
-        <JsonLd data={organizationSchema()} />
         <HeaderSwitcher
             headerSettings={headerSettings}
             servicePages={servicePages}

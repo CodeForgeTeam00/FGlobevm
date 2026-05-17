@@ -20,7 +20,7 @@ import type { YoastSEO } from "@/types/yoast";
 import PrimarySection from "@/Components/global/PrimarySection";
 import Text from "@/Components/global/text";
 import JsonLd from "@/Components/global/JsonLd";
-import { webPageSchema, faqSchema } from "@/lib/seo/schemas";
+import { organizationSchema, webPageSchema, faqSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -55,12 +55,24 @@ export default async function Home() {
     const yoast = options?.yoast_head_json as YoastSEO | undefined;
 
     const schemas: object[] = [
+        organizationSchema(),
         webPageSchema({
             title: yoast?.title || "GlobeVM | Managed IT, Cybersecurity & Cloud Services in Los Angeles",
             url: `${SITE.url}/`,
             description: yoast?.description || "Enterprise-grade managed IT, cybersecurity, and cloud solutions for businesses in Los Angeles, Encino, and Woodland Hills.",
         }),
     ];
+
+    if (data.faq && data.faq.length > 0) {
+        schemas.push(
+            faqSchema(
+                data.faq.map((item: { question: string; answer: string }) => ({
+                    question: item.question,
+                    answer: item.answer,
+                }))
+            )
+        );
+    }
 
     return (
         <>
