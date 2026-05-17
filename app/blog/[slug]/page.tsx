@@ -11,7 +11,7 @@ import type { YoastSEO } from "@/types/yoast";
 import CommentSection from "@/Components/page/Single/Block/CommentSection";
 import PreviewBar from "@/Components/global/PreviewBar";
 import JsonLd from "@/Components/global/JsonLd";
-import {articleSchema, breadcrumbSchema, faqSchema, webPageSchema} from "@/lib/seo/schemas";
+import { articleSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
 
 interface Props {
@@ -61,15 +61,22 @@ export default async function BlogPage({ params, searchParams }: Props) {
     const description = yoast?.description || data.description || "";
     const datePublished = yoast?.article_published_time || raw.date || "";
     const dateModified = yoast?.article_modified_time || raw.modified || datePublished;
-    const image = yoast?.og_image?.[0]?.url || data.image?.url ;
+    const image = yoast?.og_image?.[0]?.url || data.image?.url;
+
+    const faqBlocks = (raw.components ?? []).filter(
+        (block: any) => block.type === "acf/custom-faq"
+    );
+
+    const allFaqs = faqBlocks.flatMap((block: any) =>
+        Array.isArray(block.data) ? block.data : []
+    );
 
     const schemas: object[] = [
         webPageSchema({
-            headline,
+            title: headline,
             url: `${SITE.url}/blog/${slug}/`,
             description,
-            title: headline,
-        } as any),
+        }),
         breadcrumbSchema([
             { name: "Home", url: `${SITE.url}/` },
             { name: "Blog", url: `${SITE.url}/blog/` },
@@ -84,16 +91,17 @@ export default async function BlogPage({ params, searchParams }: Props) {
         }),
     ];
 
-    if (raw.faq && raw.faq.length > 0) {
+
         schemas.push(
             faqSchema(
-                raw.faq.map((f: any) => ({
+                allFaqs.map((f: any) => ({
                     question: f.question,
                     answer: f.answer,
                 }))
             )
         );
-    }
+
+
     return (
         <>
             <JsonLd data={schemas} />
