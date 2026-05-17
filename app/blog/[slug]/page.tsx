@@ -91,7 +91,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
         }),
     ];
 
-    if (allFaqs.length > 0) {
+
         schemas.push(
             faqSchema(
                 allFaqs.map((f: any) => ({
@@ -100,7 +100,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
                 }))
             )
         );
-    }
+
 
     return (
         <>
