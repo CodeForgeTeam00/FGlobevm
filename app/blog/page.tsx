@@ -65,6 +65,7 @@ export default async function Blog() {
         ]),
     ];
 
+
     return (
         <>
             <JsonLd data={schemas} />

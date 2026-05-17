@@ -11,7 +11,7 @@ import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
 import PrimarySection from "@/Components/global/PrimarySection";
 import JsonLd from "@/Components/global/JsonLd";
-import { webPageSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schemas";
+import { organizationSchema, webPageSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -37,6 +37,7 @@ export default async function AboutUsPage() {
     const yoast = data?.yoast_head_json as YoastSEO | undefined;
 
     const schemas: object[] = [
+        organizationSchema(),
         webPageSchema({
             title: yoast?.title || "About Us | GlobeVM",
             url: `${SITE.url}/about-us/`,

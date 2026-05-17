@@ -8,7 +8,7 @@ import { getContactPage } from "@/services/wp-pages";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
 import JsonLd from "@/Components/global/JsonLd";
-import { webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
+import { organizationSchema, webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -47,6 +47,7 @@ export default async function ContactUsPage() {
     const yoast = data?.yoast_head_json as YoastSEO | undefined;
 
     const schemas: object[] = [
+        organizationSchema(),
         webPageSchema({
             title: yoast?.title || heroTitle,
             url: `${SITE.url}/contact-us/`,
