@@ -62,17 +62,6 @@ export default async function Home() {
         }),
     ];
 
-    if (data.faq && data.faq.length > 0) {
-        schemas.push(
-            faqSchema(
-                data.faq.map((item: { question: string; answer: string }) => ({
-                    question: item.question,
-                    answer: item.answer,
-                }))
-            )
-        );
-    }
-
     return (
         <>
             <JsonLd data={schemas} />
