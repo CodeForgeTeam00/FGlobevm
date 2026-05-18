@@ -1,5 +1,5 @@
 import React from "react";
-import Text from "@/Components/global/text";
+import Text, {ValidTag} from "@/Components/global/text";
 
 interface SectionIntroProps {
     badge?: string;
@@ -7,6 +7,7 @@ interface SectionIntroProps {
     description?: string;
     lgCenter?: boolean;
     isLight?: boolean;
+    as? :ValidTag
 }
 
 const SectionIntro: React.FC<SectionIntroProps> = ({
@@ -14,7 +15,8 @@ const SectionIntro: React.FC<SectionIntroProps> = ({
                                                        title,
                                                        lgCenter,
                                                        description,
-                                                       isLight
+                                                       isLight,
+                                                        as
                                                    }) => {
     return (
         <div className={`flex flex-col items-center ${!lgCenter ? "lg:items-start" : "lg:max-w-[900] mx-auto"}`}>
@@ -27,7 +29,7 @@ const SectionIntro: React.FC<SectionIntroProps> = ({
                 </div>
             )}
             <Text
-                as={'h3'}
+                as={ as || 'h3'}
                 className={`text-center mb-2  ${!lgCenter ? "lg:text-start" : ""}`}
                 variant={'heading-lg'} textColor={isLight ? 'white' :"black"}>
                 {title}

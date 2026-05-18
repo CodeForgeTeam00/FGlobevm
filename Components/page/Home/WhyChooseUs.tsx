@@ -64,6 +64,7 @@ export const WhyChooseUs: React.FC = () => {
             <Container>
                 <div className="relative text-center  flex flex-col gap-6 lg:gap-10">
                     <SectionIntro
+                        as={'h2'}
                         lgCenter
                         badge={content.badge}
                         title={content.title}

@@ -41,8 +41,8 @@ export const dictionary = {
             heroSection:{
                 content:{
                     badge:"Proactive IT",
-                    title:" IT Support & Cybersecurity Services in Los Angeles ",
-                    des:"Stop settling for slow, reactive IT support. GlobeVM delivers proactive managed IT, secure cloud solutions, and enterprise-grade cybersecurity. We eliminate tech bottlenecks so you can focus entirely on scaling your business without the fear of downtime.",
+                    title:" IT Services & Cybersecurity in Los Angeles — 30 Years of Expertise ",
+                    des:"GlobeVM has managed and secured IT infrastructure for over 75 organizations across Southern California. From hospitals and law firms to manufacturers and government agencies. 24/7 support. Under 15-minute response times. A live local expert every time you call.",
                     primaryBtn:"Book A Free Consulation",
                     secondaryBtn:"Get A Free Penetration Test",
                 },
@@ -65,28 +65,28 @@ export const dictionary = {
                 content:{
                     badge:"Why GlobeVM",
                     title:"Why Businesses Choose   GlobeVM ",
-                    des:"We don’t just fix problems after they happen; we prevent them. Our team monitors, secures, and maintains your environment around the clock to eliminate costly disruptions and keep your team productive.",
+                    des:"From government agencies to private businesses, here's why companies across LA trust GlobeVM with their IT and security",
                 },
                 features: [
                     {
-                        title: "24/7 Local IT Support",
-                        description: "Get immediate help from our local Los Angeles experts anytime. No outsourced call centers",
-                        icon:"assets/image/LocalITSupport.svg",
+                        title: "You Talk to the Owners",
+                        description: "When you call GlobeVM, you reach George or Nazy directly. Not a ticket queue. Not a call center overseas.",
+                        icon: "assets/image/LocalITSupport.svg",
                     },
                     {
-                        title: "Proactive Threat Prevention",
-                        description: "We use enterprise-grade security to detect and block vulnerabilities before they impact your business",
-                        icon:"assets/image/ProactiveThreatPrevention.svg",
+                        title: "Cybersecurity Built In, Not Bolted On",
+                        description: "Every client gets firewall management, endpoint protection, email filtering, and MFA as standard. Not an add-on.",
+                        icon: "assets/image/ProactiveThreatPrevention.svg",
                     },
                     {
-                        title: " Certified IT Experts",
-                        description: "Partner with certified specialists for high-level technical expertise and strategic IT consulting",
-                        icon:"assets/image/CertifiedITExperts.svg",
+                        title: "Government-Tested Expertise",
+                        description: "Our team has managed IT for California's DMV and municipal agencies. That rigor carries into every client engagement.",
+                        icon: "assets/image/CertifiedITExperts.svg",
                     },
                     {
-                        title: "Hassle-Free Compliance",
-                        description: "We manage your HIPAA, PCI DSS, and GDPR requirements so you can focus on your core business",
-                        icon:"assets/image/HassleFreeCompliance.svg",
+                        title: "Bilingual Support",
+                        description: "We proudly serve LA's Persian business community in both English and Farsi.",
+                        icon: "assets/image/HassleFreeCompliance.svg",
                     },
                 ],
             }

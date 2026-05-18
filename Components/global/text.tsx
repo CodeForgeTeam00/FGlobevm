@@ -71,7 +71,7 @@ const textVariants = cva("font-sans", {
     },
 });
 
-type ValidTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div" | "label" | "li" | "a";
+export type ValidTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div" | "label" | "li" | "a" | "strong";
 
 const TAG_MAP: Record<string, ValidTag> = {
     "heading-lg": "h1",

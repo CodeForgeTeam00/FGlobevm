@@ -9,11 +9,11 @@ export const ContactCTA: React.FC = () => {
         <section className="">
             <div className="bg-[#f8fafc] rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 border border-slate-100 ">
                 <div>
-                    <Text variant={'heading-md'} textColor={'black'}>
-                        Need help? Talk to our expert.
+                    <Text variant={'heading-md'} as={'strong'} textColor={'black'}>
+                        Find Out Where Your IT and Security Stand
                     </Text>
                     <Text variant={"body-lg"} textColor={'light'}>
-                        Talk to our experts or Browse through more properties.
+                        Schedule a free IT assessment today.
                     </Text>
                 </div>
                 <a href="/tel:(310)750-4939">

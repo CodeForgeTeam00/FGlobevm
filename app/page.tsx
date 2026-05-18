@@ -110,7 +110,7 @@ export default async function Home() {
                 <PrimarySection>
                     <div>
                         <div className="grid lg:grid-cols-2 lg:justify-between gap-4 lg:gap-20 mb-10">
-                            <Text textColor={"white"} variant={"heading-md"}>
+                            <Text as={'h2'} textColor={"white"} variant={"heading-md"}>
                                 Frequently Asked Questions
                             </Text>
                             <Text textColor={"white"} variant={"body-lg"}>

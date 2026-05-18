@@ -15,6 +15,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
             <div className="text-center mb-16">
                 <SectionIntro
                     lgCenter
+                    as={'h2'}
                     title={"Insights & Updates"}
                     description={"    Stay informed with the latest tips, trends, and best practices in IT, virtualization, and cybersecurity."}
                 />
@@ -65,9 +66,9 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
                                 <span className="text-[9px] font-bold text-white/50 uppercase mb-2">
                                     {post.categoryName}
                                 </span>
-                                <h4 className="text-white text-sm font-bold mb-3 line-clamp-2 leading-tight">
+                                <h3 className="text-white text-sm font-bold mb-3 line-clamp-2 leading-tight">
                                     {post.title}
-                                </h4>
+                                </h3>
                                 <div className="flex items-center gap-4 text-[10px] text-white/60 font-medium">
                                     <span>By {post.author.name}</span>
                                     <span className="flex items-center gap-1">
