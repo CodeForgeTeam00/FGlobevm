@@ -50,6 +50,7 @@ export default function ServicesSection({label, title, description, services}: P
                 title={title}
                 description={description}
                 lgCenter
+                as={"h2"}
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {services.map((service, index) => (

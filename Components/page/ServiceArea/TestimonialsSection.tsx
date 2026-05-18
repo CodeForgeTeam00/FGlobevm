@@ -68,6 +68,7 @@ export default function TestimonialsSection({label, title, description, comments
                             badge={label}
                             title={title}
                             description={description}
+                            as={'h2'}
                         />
                         <div>
                             <div className="items-start lg:flex  hidden gap-4">

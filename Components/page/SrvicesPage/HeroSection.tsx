@@ -27,6 +27,7 @@ export default function ServicesHeroSection({ title, label, description, image, 
                         <div className={' lg:max-w-xl'}>
                             <SectionIntro
                                 badge={label}
+                                as={'h1'}
                                 title={title}
                                 description={description}
                             />

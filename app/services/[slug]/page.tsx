@@ -160,6 +160,7 @@ export default async function ServicePage({ params, searchParams }: Props) {
                                 <SectionIntro
                                     title={faqBox.title}
                                     description={faqBox.description}
+                                    as={'h2'}
                                 />
                             </div>
                             <FAQAccordion items={faqBox.faq} variant="dark" />

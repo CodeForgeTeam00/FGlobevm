@@ -42,6 +42,7 @@ export default function WhyUsSection({ label, title, description, offerings }: P
                             badge={label}
                             title={title}
                             isLight
+                            as={'h2'}
                         />
                         <Text variant={'body-lg'} textColor={'white'} >
                             {description}

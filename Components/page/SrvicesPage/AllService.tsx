@@ -28,6 +28,7 @@ export default function AllServices({ label, title, description, services }: Pro
                                 badge={label}
                                 title={title}
                                 isLight
+                                as={'h2'}
                             />
                             <Text variant={'body-lg'} textColor={'white'} >
                                 {description}

@@ -23,6 +23,7 @@ export default function Features({ offerings, description  , title, label}: Prop
                 title={title}
                 description={description}
                 lgCenter
+                as={'h2'}
             />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {offerings.map((item, index) => (
