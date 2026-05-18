@@ -159,6 +159,7 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
                                     title={faqBox.title}
                                     description={faqBox.description}
                                     lgCenter
+                                    as={'h2'}
                                 />
                                 <FAQAccordion items={faqBox.faq} variant="dark" />
                             </div>
