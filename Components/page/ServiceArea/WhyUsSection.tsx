@@ -26,7 +26,7 @@ function FeatureCard({ title, description, icon }: Offering) {
             <div className="mb-6">
                 <img src={icon?.url} alt={icon?.alt}/>
             </div>
-            <h4 className="text-[#1da1f2] font-bold text-lg mb-3 leading-tight">{title}</h4>
+            <h3 className="text-[#1da1f2] font-bold text-lg mb-3 leading-tight">{title}</h3>
             <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
         </div>
     );

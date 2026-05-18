@@ -30,7 +30,7 @@ function ServiceCard({title, description, icon}: Service) {
                 </div>
             </div>
             <div className={'flex flex-col gap-4'}>
-                <Text variant={'card-title-lg'}>
+                <Text as={'h3'} variant={'card-title-lg'}>
                     {title}
                 </Text>
                 <Text variant={'card-subtitle-lg'} >
