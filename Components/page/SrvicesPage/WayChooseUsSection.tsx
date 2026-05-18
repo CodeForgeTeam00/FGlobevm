@@ -36,7 +36,7 @@ export default function Features({ offerings, description  , title, label}: Prop
                                 height={40}
                                 className="w-10 h-10"
                             />
-                            <Text variant={"card-title-lg"} textColor={'primary'}>
+                            <Text as={'h3'} variant={"card-title-lg"} textColor={'primary'}>
                                 {item.title}
                             </Text>
                         </div>

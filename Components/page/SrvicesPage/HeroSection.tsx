@@ -54,7 +54,8 @@ export default function ServicesHeroSection({ title, label, description, image, 
                         alt={image.alt || title}
                         width={808}
                         height={840}
-                        className="relative object-cover  mt-8 lg:mt-0 w-full lg:max-w-[600px] xl:max-w-[808px] lg:h-[840px] lg:top-0"
+                        priority
+                        className="relative object-cover mt-8 lg:mt-0 w-full lg:max-w-[600px] xl:max-w-[808px] lg:h-[840px] lg:top-0"
                     />
                 )}
             </div>
