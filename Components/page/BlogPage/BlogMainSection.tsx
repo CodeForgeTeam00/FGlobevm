@@ -23,6 +23,8 @@ export const BlogMainSection: React.FC<Props> = ({data}) => {
                             alt={data.image?.alt || data.title}
                             width={907}
                             height={510}
+                            priority
+                            sizes="(max-width: 1024px) 100vw, 907px"
                             className="w-full h-full object-cover"
                         />
                     </div>
