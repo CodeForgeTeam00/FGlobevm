@@ -22,7 +22,7 @@ export default function EstimateSection({ label, title, description }: Props) {
                         <SectionIntro
                             badge={label}
                             title={title}
-                            as={'h2'}
+                            as={'h1'}
                             description={description}
                         />
                         <Button variant={'primary'} size={'lg'}>
