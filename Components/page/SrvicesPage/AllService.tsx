@@ -52,7 +52,7 @@ export default function AllServices({ label, title, description, services }: Pro
                                         </div>
                                     </div>
                                     <div className="flex flex-col">
-                                        <Text variant={'card-title-lg'}>
+                                        <Text as={'h3'} variant={'card-title-lg'}>
                                             {service.title}
                                         </Text>
                                         <Text variant={'card-subtitle-lg'} textColor={'light'}>

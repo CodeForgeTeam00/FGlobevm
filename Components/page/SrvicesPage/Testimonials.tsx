@@ -45,7 +45,8 @@ function TestimonialCard({name, job, avatar, description}: Comment) {
                     </div>
                 )}
                 <div>
-                    <h4 className="font-bold text-gray-900 text-lg">{name}</h4>
+
+                    <h3 className="font-bold text-gray-900 text-lg">{name}</h3>
                     <p className="text-sm text-gray-400 font-medium">{job}</p>
                 </div>
             </div>

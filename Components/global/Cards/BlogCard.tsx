@@ -53,7 +53,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
                 <Text variant={"card-caption"} textColor={'primary'}>
                     {categoryName}
                 </Text>
-                <Text variant={'card-title-lg'} className={'lg:line-clamp-2 line-clamp-2 lg:min-h-16 min-h-14 '}>
+                <Text as={'h3'} variant={'card-title-lg'} className={'lg:line-clamp-2 line-clamp-2 lg:min-h-16 min-h-14 '}>
                     {title}
                 </Text>
                 <div className="flex gap-2 lg:gap-4">
