@@ -25,8 +25,9 @@ export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image 
             <SectionIntro
                 lgCenter
                 badge="Client Feedback"
-                title="Trusted by Businesses That Value Reliability"
-                description="Business owners trust GlobeVM to keep their systems secure and reliable. Our clients value our responsiveness, technical expertise, and ability to prevent problems before they impact productivity."
+                title=" What Our Clients Say"
+                as={'h2'}
+                description="  Rated 5.0 on Google"
             />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-6">
@@ -60,10 +61,10 @@ export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image 
                     <div className="p-10 border border-neutral-30 rounded-3xl lg:items-center flex-col lg:flex-row  bg-neutral-10 flex gap-5">
                         <AvatarGroupImage />
                         <div>
-                            <Text variant={'card-title-lg'}>100+ Happy Customers</Text>
+                            <Text variant={'card-title-lg'}>75+ Businesses Protected</Text>
 
                             <p className="text-lg leading-[32px] text-neutral-100">
-                                Work with people and brands worldwide.
+                                Serving companies across Southern California
                             </p>
                         </div>
                     </div>

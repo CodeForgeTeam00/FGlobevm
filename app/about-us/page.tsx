@@ -50,17 +50,6 @@ export default async function AboutUsPage() {
         ]),
     ];
 
-    if (data?.faq_section && data.faq_section.length > 0) {
-        schemas.push(
-            faqSchema(
-                data.faq_section.map((item: any) => ({
-                    question: item.question,
-                    answer: item.answer,
-                }))
-            )
-        );
-    }
-
     return (
         <>
             <JsonLd data={schemas} />
