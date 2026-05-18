@@ -89,19 +89,23 @@ export async function getPagesUrls(): Promise<SitemapUrl[]> {
 
 export async function getPostsUrls(): Promise<SitemapUrl[]> {
     try {
-        const data = await fetchWP<{ posts: PostRaw[] }>(
-            "/gvm/v1/posts?per_page=100",
+        const data = await fetchWP<any[]>(
+            "/wp/v2/posts?per_page=100&_fields=slug,modified_gmt,yoast_head_json",
             { strategy: { type: "isr", revalidate: 3600 }, tag: "sitemap-posts" }
         );
-        if (!data?.posts) return [];
-        return data.posts
+        if (!data || !Array.isArray(data)) return [];
+        return data
             .filter((p) => p.slug)
             .filter((p) => CONFIG.posts.excludeNoindex ? isIndexable(p) : true)
-            .map((p) => ({
-                url: `${BASE}/blog/${p.slug}/`,
-                lastModified: getLastModified(p),
-                priority: CONFIG.posts.priority,
-            }));
+            .map((p) => {
+                const yoastMod = p.yoast_head_json?.article_modified_time;
+                const modified = yoastMod || p.modified_gmt;
+                return {
+                    url: `${BASE}/blog/${p.slug}/`,
+                    lastModified: new Date(modified),
+                    priority: CONFIG.posts.priority,
+                };
+            });
     } catch (err) {
         console.error("Sitemap posts fetch failed:", err);
         return [];
