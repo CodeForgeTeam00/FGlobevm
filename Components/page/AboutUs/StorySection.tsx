@@ -13,15 +13,15 @@ interface StorySectionProps {
 }
 export default function StorySection({ midSectionImage }: StorySectionProps) {
     return (
-        <section aria-label="Our Story" className="py-24">
-            <div className="grid lg:grid-cols-2 gap-16 lg:gap-12 items-center">
-                <div className="max-w-xl flex flex-col gap-14 ">
+        <section aria-label="OurStory "  className={' py-4 lg:py-24'}>
+            <div className="grid lg:grid-cols-2 gap-16 lg:gap-12 justify-center  items-center">
+                <div className=" flex flex-col items-center lg:items-start gap-14 ">
                     <SectionIntro
                         badge={'Our Story'}
                         title={"Managed IT and Cybersecurity That Scales With You"}
                         description="From infrastructure management and cloud environments to endpoint protection and network security, our services are designed to keep your systems running smoothly and your data protected. We provide proactive monitoring, fast response, and long-term stability."
                     />
-                    <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 items-start sm:items-center">
+                    <div className="flex flex-row gap-8 sm:gap-12 items-start sm:items-center lg:items-start">
                         <ul className="space-y-4">
                             {CHECKLIST.map((item) => (
                                 <li
@@ -55,7 +55,6 @@ export default function StorySection({ midSectionImage }: StorySectionProps) {
                     </div>
                 </div>
                 <div className="relative">
-                    <div className="absolute -inset-4 bg-gradient-to-tr from-blue-50 to-emerald-50 rounded-[2.5rem] -z-10 transform rotate-2" />
                     <Image
                         src={midSectionImage?.url || "/assets/image/about-story.jpg"}
                         alt={midSectionImage?.alt || "GlobeVM team collaborating on IT infrastructure"}

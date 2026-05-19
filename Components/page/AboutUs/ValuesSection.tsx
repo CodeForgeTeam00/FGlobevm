@@ -37,8 +37,8 @@ function ValueCard({title, description, icon}: ValueCardProps) {
 
 export default function ValuesSection({data}: ValueCardState) {
     return (
-        <section className="py-24 ">
-            <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <section className="lg:py-24 py-4 ">
+            <div className="grid lg:grid-cols-12  gap-12 lg:gap-16 items-center">
                 <div className="lg:col-span-5">
                     <SectionIntro
                         badge=" Our Values"
@@ -49,7 +49,7 @@ export default function ValuesSection({data}: ValueCardState) {
                         monitoring, fast response, and long-term stability."
                     />
                 </div>
-                <div className="lg:col-span-7">
+                <div className="xl:col-span-6 lg:col-span-7 ">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         {data.map((value, index) => (
                             <ValueCard

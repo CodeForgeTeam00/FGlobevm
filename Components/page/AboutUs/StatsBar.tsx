@@ -1,4 +1,5 @@
 import Container from "@/Components/global/Sections/Container";
+import Text from "@/Components/global/text";
 
 const STATS = [
     {value: "99.9%", label: "Uptime Guarantee", highlight: true},
@@ -9,31 +10,30 @@ const STATS = [
 
 export function StatsBar() {
     return (
-        <div className=" w-full translate-y-1/2 px-4 sm:px-6 lg:px-8 z-20">
+        <div className=" w-full -translate-y-1/3 lg:-translate-y-1/2    z-20">
             <Container>
-                <div className="flex flex-col lg:flex-row shadow-2xl shadow-black/10 rounded-2xl overflow-hidden">
+                <div className="flex  flex-row-reverse lg:flex-row ">
                     <div
-                        className="flex-grow bg-white grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-gray-100">
+                        className=" flex-grow bg-white grid rounded-2xl border overflow-hidden border-neutral-30
+                        grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-neutral-30">
                         {STATS.map((stat) => (
                             <div
                                 key={stat.label}
-                                className="p-6 sm:p-8 text-center flex flex-col justify-center"
+                                className=" p-4 sm:p-6 sm:p-8 text-center group flex flex-col justify-center"
                             >
-                                <div
-                                    className={`text-3xl sm:text-4xl font-serif mb-1 ${stat.highlight ? "text-[#1da1f2]" : "text-gray-900"}`}>
+                                <Text className={'group-hover:text-primary-6'} variant={'card-title-lg'}>
                                     {stat.value}
-                                </div>
-                                <div
-                                    className={`text-xs sm:text-sm font-medium ${stat.highlight ? "text-[#1da1f2]" : "text-gray-500"}`}>
+                                </Text>
+                                <Text className={'group-hover:text-primary-6'} variant={'card-title-lg'}>
                                     {stat.label}
-                                </div>
+                                </Text>
                             </div>
                         ))}
                     </div>
-                    <div className="bg-[#1da1f2] text-white p-8 lg:w-64 flex items-center justify-center text-center">
-                        <h3 className="font-serif text-xl sm:text-2xl leading-tight">
+                    <div className="bg-primary-6 text-neutral-0 rounded-2xl  p-8 lg:w-64 flex items-center justify-center text-center">
+                        <Text variant={'card-title-lg'}>
                             Why Choose <br/> GlobeVM
-                        </h3>
+                        </Text>
                     </div>
                 </div>
             </Container>
