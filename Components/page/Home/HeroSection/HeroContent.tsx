@@ -37,8 +37,8 @@ export const HeroContent: React.FC = () => {
             <div className="hero__actions flex flex-col sm:flex-row gap-4 lg:justify-start justify-center">
                 {actions.map(({label, icon: Icon, variant, href, internal}) => (
 
-                    internal ? <Link href={href} key={label}>
-                            <Button variant={variant} size="lg">
+                    internal ? <Link className={'w-full'} href={href} key={label}>
+                            <Button className={'w-full'} variant={variant} size="lg">
                                 <div className="flex items-center justify-center gap-2">
                                     <Icon className="w-6 h-6 group-hover:text-primary-6"/>
                                     <Text className={'group-hover:text-primary-6'} variant={'body-md'}>{label}</Text>
@@ -46,8 +46,8 @@ export const HeroContent: React.FC = () => {
                             </Button>
                         </Link>
                         :
-                        <a href={href} key={label}>
-                            <Button variant={variant} size="lg">
+                        <a className={'w-full'} href={href} key={label}>
+                            <Button className={'w-full'} variant={variant} size="lg">
                                 <div className="flex items-center justify-center gap-2">
                                     <Icon className="w-6 h-6 group-hover:text-primary-6"/>
                                     <Text className={'group-hover:text-primary-6'} variant={'body-md'}>{label}</Text>

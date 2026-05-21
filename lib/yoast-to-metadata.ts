@@ -1,10 +1,11 @@
 // lib/yoast-to-metadata.ts
 import type { Metadata } from "next";
 import type { YoastSEO } from "@/types/yoast";
+import { SITE } from "@/lib/seo/site-config";
 
 interface YoastMappingOptions {
     /**
-     * Override canonical URL — recommended for headless setup.
+     * Override canonical URL - recommended for headless setup.
      * Yoast returns the WordPress backend URL by default; here we replace it
      * with the actual frontend URL.
      */
@@ -30,20 +31,10 @@ export function yoastToMetadata(
             canonical,
         },
 
-        // NOTE: robots field intentionally NOT mapped from Yoast right now.
-        // The site is currently in noindex mode (set in layout.tsx + next.config.ts).
-        // When you're ready to go live, remove the layout-level noindex and
-        // uncomment the robots block below.
-        //
-        // robots: {
-        //     index: !yoast.robots?.index?.toLowerCase().includes("noindex"),
-        //     follow: !yoast.robots?.follow?.toLowerCase().includes("nofollow"),
-        // },
-
         openGraph: {
             type: (yoast.og_type as "website" | "article") ?? "website",
             locale: yoast.og_locale,
-            siteName: yoast.og_site_name,
+            siteName: SITE.name,
             title: yoast.og_title ?? yoast.title,
             description: yoast.og_description ?? yoast.description,
             url: canonical,

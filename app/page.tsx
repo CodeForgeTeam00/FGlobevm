@@ -25,17 +25,30 @@ import { SITE } from "@/lib/seo/site-config";
 
 export async function generateMetadata(): Promise<Metadata> {
     const options = await getGlobalOptions();
+
+    const verification = {
+        other: {
+            "msvalidate.01": "E74273AAA5C350704506A7EA5DEF7393",
+        },
+    };
+
     if (options?.yoast_head_json) {
-        return yoastToMetadata(options.yoast_head_json as YoastSEO, {
+        const meta = yoastToMetadata(options.yoast_head_json as YoastSEO, {
             canonicalOverride: "https://www.globevm.com",
         });
+        return {
+            ...meta,
+            verification,
+        };
     }
+
     return {
         title: "GlobeVM | Managed IT, Cybersecurity & Cloud Services in Los Angeles",
         description: "Enterprise-grade managed IT, cybersecurity, and cloud solutions for businesses in Los Angeles, Encino, and Woodland Hills.",
         alternates: {
             canonical: "https://www.globevm.com",
         },
+        verification,
     };
 }
 
@@ -51,9 +64,7 @@ export default async function Home() {
     if (!data) {
         return <div className="p-10">Failed to load page data.</div>;
     }
-
     const yoast = options?.yoast_head_json as YoastSEO | undefined;
-
     const schemas: object[] = [
         organizationSchema(),
         webPageSchema({
@@ -62,9 +73,6 @@ export default async function Home() {
             description: yoast?.description || "Enterprise-grade managed IT, cybersecurity, and cloud solutions for businesses in Los Angeles, Encino, and Woodland Hills.",
         }),
     ];
-
-
-
     return (
         <>
             <JsonLd data={schemas} />

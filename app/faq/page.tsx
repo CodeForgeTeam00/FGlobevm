@@ -68,6 +68,7 @@ export default async function FAQPage() {
                             title={"Frequently Asked Questions"}
                             description={"Quick answers about our services, response times, security practices, and what working with GlobeVM looks like day to day. This section helps you understand what's included, how support works, and what to expect during onboarding."}
                             lgCenter
+                            as={'h1'}
                         />
                         <FAQTabs categories={data?.faq_categories ?? []} />
                     </div>

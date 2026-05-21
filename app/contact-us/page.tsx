@@ -10,6 +10,7 @@ import type { YoastSEO } from "@/types/yoast";
 import JsonLd from "@/Components/global/JsonLd";
 import { organizationSchema, webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
+import Text from "@/Components/global/text";
 
 export async function generateMetadata(): Promise<Metadata> {
     const data = await getContactPage();
@@ -65,7 +66,7 @@ export default async function ContactUsPage() {
             <div className="min-h-screen bg-[#fafafa] pb-20">
                 <section
                     aria-label="Contact Hero"
-                    className="relative h-[450px] w-full flex flex-col items-center justify-center text-center"
+                    className="relative h-[600px] w-full flex flex-col items-center justify-center text-center"
                 >
                     {heroImage?.url && (
                         <Image
@@ -79,12 +80,12 @@ export default async function ContactUsPage() {
                     )}
                     <div className="absolute inset-0 bg-black/60" />
                     <div className="relative z-10 text-white px-4 mt-[-60px]">
-                        <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4 tracking-tight">
+                        <Text as={'h1'} textColor={'white'} variant={'heading-md'}>
                             {heroTitle}
-                        </h1>
-                        <p className="text-gray-200 max-w-2xl mx-auto text-sm md:text-base">
+                        </Text>
+                        <Text variant={'body-lg'}  textColor={'white'}>
                             {heroDescription}
-                        </p>
+                        </Text>
                     </div>
                 </section>
                 <div className="px-4 sm:px-6 lg:px-8 relative z-20 -mt-24">
@@ -95,7 +96,7 @@ export default async function ContactUsPage() {
                                 return (
                                     <div
                                         key={card.title}
-                                        className={`rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 text-center flex flex-col items-center transition-transform hover:-translate-y-1 ${
+                                        className={`rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] group p-8 text-center flex flex-col items-center transition-transform hover:-translate-y-1 ${
                                             card.highlight
                                                 ? "bg-[#209cee] shadow-[0_8px_30px_rgb(0,0,0,0.1)]"
                                                 : "bg-white"
@@ -103,42 +104,35 @@ export default async function ContactUsPage() {
                                     >
                                         <div className="mb-5">
                                             <Icon
-                                                className={card.highlight ? "text-white" : "text-[#209cee]"}
+                                                className={" text-neutral-black group-hover:text-primary-6"}
                                                 size={36}
                                                 strokeWidth={1.5}
                                             />
                                         </div>
-                                        <h3
-                                            className={`font-serif font-bold text-xl mb-2 ${
-                                                card.highlight ? "text-white" : "text-gray-900"
-                                            }`}
-                                        >
+                                        <Text variant={'card-title-lg'} className={'group-hover:text-primary-6 text-neutral-black'}>
                                             {card.title}
-                                        </h3>
-                                        <p
-                                            className={`text-sm ${
-                                                card.highlight ? "text-blue-100" : "text-gray-500"
-                                            }`}
-                                        >
+                                        </Text>
+                                        <Text variant={'card-title-lg'} className={'group-hover:text-primary-6 text-neutral-black'}>
                                             {card.value}
-                                        </p>
+                                        </Text>
                                     </div>
                                 );
                             })}
                         </div>
                     </Container>
                 </div>
-
                 <Container>
                     <div className="mt-16">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                            <div className="lg:col-span-4 bg-white rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-gray-100/50">
-                                <h2 className="text-3xl font-serif font-bold mb-4 text-gray-900 tracking-tight">
-                                    Our Offices
-                                </h2>
-                                <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                                    Serving businesses across Los Angeles and beyond
-                                </p>
+                            <div className="lg:col-span-4 bg-white rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-neutral-30">
+                                    <div className={'mb-6'}>
+                                        <Text as={'h2'} variant={'heading-sm'}>
+                                            Our Offices
+                                        </Text>
+                                        <Text  variant={'card-subtitle-md'} textColor={'light'}>
+                                            Serving businesses across Los Angeles and beyond
+                                        </Text>
+                                    </div>
                                 <OfficesWithMap />
                             </div>
                             <ContactForm />
