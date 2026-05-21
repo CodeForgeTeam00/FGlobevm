@@ -42,11 +42,8 @@ export default function ValuesSection({data}: ValueCardState) {
                 <div className="lg:col-span-5">
                     <SectionIntro
                         badge=" Our Values"
-                        title="We Don't Say anything, We Just Do it"
-                        description=" From infrastructure management and cloud environments to endpoint
-                        protection and network security, our services are designed to keep your
-                        systems running smoothly and your data protected. We provide proactive
-                        monitoring, fast response, and long-term stability."
+                        title="What We Stand For"
+                        description="  Every decision we make is guided by four principles that shape how we work, how we communicate, and how we protect your business."
                     />
                 </div>
                 <div className="xl:col-span-6 lg:col-span-7 ">

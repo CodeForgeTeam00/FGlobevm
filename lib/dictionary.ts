@@ -43,7 +43,7 @@ export const dictionary = {
                     badge:"Proactive IT",
                     title:" IT Services & Cybersecurity in Los Angeles — 30 Years of Expertise ",
                     des:"GlobeVM has managed and secured IT infrastructure for over 75 organizations across Southern California. From hospitals and law firms to manufacturers and government agencies. 24/7 support. Under 15-minute response times. A live local expert every time you call.",
-                    primaryBtn:"Book A Free Consulation",
+                    primaryBtn:"Book A Free Consultation",
                     secondaryBtn:"Get A Free Penetration Test",
                 },
                 imageSection:{

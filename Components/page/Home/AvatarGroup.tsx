@@ -1,27 +1,28 @@
 "use client"
 
 type User = {
+    id: number
     name: string
     image: string
 }
 
 const users: User[] = [
-    { name: "evilrabbit", image: "/assets/image/avatrComent1.jpg" },
-    { name: "evilrabbit", image: "/assets/image/avatrComent2.jpg" },
-    { name: "evilrabbit", image: "/assets/image/avatrComent3.jpg" },
+    { id: 1, name: "GlobeVM client", image: "/assets/image/avatrComent1.jpg" },
+    { id: 2, name: "GlobeVM client", image: "/assets/image/avatrComent2.jpg" },
+    { id: 3, name: "GlobeVM client", image: "/assets/image/avatrComent3.jpg" },
 ]
 
 export function AvatarGroupImage() {
     return (
-        <div className="flex -space-x-8 ">
+        <div className="flex -space-x-8">
             {users.map((user) => (
                 <div
-                    key={user.name}
+                    key={user.id}
                     className="relative w-14 h-14 rounded-full border-2 border-white overflow-hidden bg-gray-200"
                 >
                     <img
                         src={user.image}
-                        alt={user.name}
+                        alt={`${user.name} ${user.id}`}
                         className="w-full h-full object-cover"
                     />
                 </div>

@@ -25,10 +25,10 @@ export default function HeroSection({featuredImage}: HeroSectionProps) {
                     <div className="flex flex-col z-2 top-12 lg:top-0 absolute lg:relative lg:max-w-[636px] gap-6">
                         <SectionIntro
                             badge="About us"
-                            title="Proactive IT That Keeps Your Business Secure"
+                            title="The Team Behind GlobeVM — 30+ Years of IT Expertise"
                             isLight
                             as={'h1'}
-                            description="We manage, secure, and optimize your infrastructure so your team can focus on growth instead of downtime. From virtual environments to network protection, we keep your systems stable, fast, and protected."
+                            description="We manage, secure, and optimize your infrastructure so your business stays protected. From virtual environments to network protection, we keep your systems stable, fast, and running."
                         />
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <Link

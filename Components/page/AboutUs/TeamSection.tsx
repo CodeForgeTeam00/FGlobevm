@@ -58,7 +58,8 @@ function TeamCard({name, role, image, imageAlt, themeColor}: TeamCardProps) {
                     className={`absolute inset-0 bg-gradient-to-t ${theme.gradient} mix-blend-hard-light `}
                 />
 
-                <div className={'bg-[linear-gradient(180deg,rgba(0,0,0,0)_29.17%,rgba(0,0,0,0.68)_100%)] z-3 w-full top-0 h-full absolute'}/>
+                <div
+                    className={'bg-[linear-gradient(180deg,rgba(0,0,0,0)_29.17%,rgba(0,0,0,0.68)_100%)] z-3 w-full top-0 h-full absolute'}/>
                 <div
                     className="absolute bottom-0 left-0 w-full p-6 z-4 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                     <Text variant={'heading-sm'} textColor={'white'}>
@@ -125,18 +126,15 @@ export default function TeamSection({members}: TeamSectionProps) {
                         border border-neutral-30
                     "
                 />
-                <Image src={dots} alt="dots"  className={'absolute right-[90] top-[155px]'}/>
+                <Image src={dots} alt="dots" className={'absolute right-[90] top-[155px]'}/>
             </div>
             <Container>
                 <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col items-center">
                     <SectionIntro
                         badge=" Our Team"
-                        title="GlobeVMe"
+                        title="GlobeVM"
                         lgCenter
-                        description="              From infrastructure management and cloud environments to
-                    endpoint protection and network security, our services are
-                    designed to keep your systems running smoothly and your data
-                    protected."
+                        description="Meet the people behind GlobeVM. When you call, George or Nazy answers. Not a ticket queue, not a call center."
                     />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-6 lg:gap-8">
