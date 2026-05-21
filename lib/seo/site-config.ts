@@ -1,5 +1,5 @@
 export const SITE = {
-    name: "GlobeVM Digital Services",
+    name: "GlobeVM it Services",
     url: "https://www.globevm.com",
     logo: "https://www.globevm.com/assets/image/Logo.svg",
     telephone: "+1-310-750-4939",

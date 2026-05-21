@@ -16,7 +16,7 @@ export const ContactCTA: React.FC = () => {
                         Schedule a free IT assessment today.
                     </Text>
                 </div>
-                <a href="/tel:(310)750-4939">
+                <a href="tel:(310)750-4939" target={'_blank'}>
                     <Button size={'lg'} variant={'primary'}>
                         <div className={'flex gap-2'}>
                             <Phone className="w-5 h-5 fill-white/20" />

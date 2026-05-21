@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Calendar } from "lucide-react";
 import { BlogPost } from "@/types/wp-blog";
 import SectionIntro from "@/Components/global/SectionIntro";
+import Text from "@/Components/global/text";
 interface BlogSectionProps {
     posts: BlogPost[];
 }
@@ -23,7 +24,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 <Link
                     href={`/blog/${featured.slug}`}
-                    className="lg:col-span-3 relative rounded-[2.5rem] overflow-hidden group min-h-[650px]"
+                    className="lg:col-span-3 relative rounded-3xl lg:rounded-[2.5rem] overflow-hidden group min-h-[184px] lg:min-h-[650px]"
                 >
                     <Image
                         src={featured.image?.url || ""}
@@ -36,15 +37,17 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
                         <span className="inline-block px-3 py-1 rounded-md bg-primary-6 text-white text-[10px] font-bold uppercase mb-4">
                             {featured.categoryName}
                         </span>
-                        <h3 className="text-white text-2xl md:text-3xl font-bold mb-6 max-w-xl leading-snug">
+                        <Text textColor={'white'} variant={'card-title-md'}>
                             {featured.title}
-                        </h3>
+                        </Text>
                         <div className="flex flex-wrap items-center gap-6 text-white/70 text-xs font-medium">
-                            <span>By {featured.author.name}</span>
-                            <span className="flex items-center gap-2">
+                            <Text textColor={'white'} variant={'label'}>
+                                By {featured.author.name}
+                            </Text>
+                            <Text textColor={'white'} variant={'label'} className={'flex items-center gap-2'}>
                                 <Calendar className="w-4 h-4" />
                                 {featured.date}
-                            </span>
+                            </Text>
                         </div>
                     </div>
                 </Link>
@@ -53,7 +56,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
                         <Link
                             key={post.id}
                             href={`/blog/${post.slug}`}
-                            className="relative flex-1 min-h-[160px] rounded-[1.5rem] overflow-hidden group"
+                            className="relative flex-1 min-h-[184px] rounded-[1.5rem] overflow-hidden group"
                         >
                             <Image
                                 src={post.image?.url || ""}
@@ -66,15 +69,17 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
                                 <span className="text-[9px] font-bold text-white/50 uppercase mb-2">
                                     {post.categoryName}
                                 </span>
-                                <h3 className="text-white text-sm font-bold mb-3 line-clamp-2 leading-tight">
-                                    {post.title}
-                                </h3>
-                                <div className="flex items-center gap-4 text-[10px] text-white/60 font-medium">
-                                    <span>By {post.author.name}</span>
-                                    <span className="flex items-center gap-1">
-                                        <Calendar className="w-3 h-3" />
-                                        {post.date}
-                                    </span>
+                                <Text textColor={'white'} variant={'card-title-md'}>
+                                    {featured.title}
+                                </Text>
+                                <div className="flex flex-wrap items-center gap-6 text-white/70 text-xs font-medium">
+                                    <Text textColor={'white'} variant={'label'}>
+                                        By {featured.author.name}
+                                    </Text>
+                                    <Text textColor={'white'} variant={'label'} className={'flex items-center gap-2'}>
+                                        <Calendar className="w-4 h-4" />
+                                        {featured.date}
+                                    </Text>
                                 </div>
                             </div>
                         </Link>

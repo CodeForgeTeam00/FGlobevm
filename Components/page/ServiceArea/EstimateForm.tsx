@@ -45,6 +45,7 @@ export default function EstimateForm() {
         timeline: "",
         description: "",
     });
+    const [honeypot, setHoneypot] = useState("");
     const [file, setFile] = useState<File | null>(null);
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [errorMsg, setErrorMsg] = useState("");
@@ -89,6 +90,13 @@ export default function EstimateForm() {
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
+        if (honeypot) {
+            setStatus("success");
+            setForm({ name: "", email: "", service_type: "", budget_range: "", timeline: "", description: "" });
+            setFile(null);
+            return;
+        }
+
         if (!form.name || !form.email) {
             setErrorMsg("Name and email are required");
             return;
@@ -105,6 +113,7 @@ export default function EstimateForm() {
             formData.append("budget_range", form.budget_range);
             formData.append("timeline", form.timeline);
             formData.append("description", form.description);
+            formData.append("company_website", honeypot);
 
             if (file) {
                 formData.append("file", file);
@@ -115,7 +124,6 @@ export default function EstimateForm() {
                 {
                     method: "POST",
                     body: formData,
-
                 }
             );
 
@@ -153,6 +161,33 @@ export default function EstimateForm() {
                 </div>
             ) : (
                 <form className="space-y-5" onSubmit={handleSubmit}>
+                    {/* Honeypot field - hidden from humans, bots fill it */}
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            position: "absolute",
+                            width: "1px",
+                            height: "1px",
+                            padding: 0,
+                            margin: "-1px",
+                            overflow: "hidden",
+                            clip: "rect(0,0,0,0)",
+                            whiteSpace: "nowrap",
+                            border: 0,
+                        }}
+                    >
+                        <label htmlFor="company_website_estimate">Company Website</label>
+                        <input
+                            type="text"
+                            id="company_website_estimate"
+                            name="company_website"
+                            tabIndex={-1}
+                            autoComplete="off"
+                            value={honeypot}
+                            onChange={(e) => setHoneypot(e.target.value)}
+                        />
+                    </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div className="space-y-2">
                             <Text  variant={'body-md'} as={'label'} className={'ms-4'}>

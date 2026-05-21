@@ -33,7 +33,9 @@ const nextConfig: NextConfig = {
             { source: "/encino-network-security-audits", destination: "/service-area/encino", permanent: true },
             { source: "/woodland-hills-managed-it-services", destination: "/service-area/woodland-hills", permanent: true },
             { source: "/woodland-hills-risk-management", destination: "/service-area/woodland-hills", permanent: true },
-            { source: "/managed-it-services-los-angeles", destination: "/services/managed-it-services", permanent: true },
+            { source: "/managed-it-services-los-angeles", destination: "/service-area/managed-it-services", permanent: true },
+            { source: "/law-firms", destination: "/service-area/law-firms", permanent: true },
+
 
             { source: "/managed-it-services", destination: "/services/managed-it-services", permanent: true },
             { source: "/co-managed-it-services", destination: "/services/co-managed-it-services", permanent: true },
@@ -43,12 +45,11 @@ const nextConfig: NextConfig = {
             { source: "/24-7-it-services-for-business-continuity", destination: "/services/24-7-it-services-for-business-continuity", permanent: true },
             { source: "/remote-it-monitoring-management", destination: "/services/remote-it-monitoring-management", permanent: true },
             { source: "/cloud-services-and-migration", destination: "/services/cloud-services-and-migration", permanent: true },
-
             { source: "/cybersecurity-solutions", destination: "/services/cybersecurity-solutions", permanent: true },
             { source: "/pentest", destination: "/services/pentest", permanent: true },
             { source: "/compliance-and-risk-management-services", destination: "/services/compliance-and-risk-management-services", permanent: true },
             { source: "/medical-offices", destination: "/services/medical-offices", permanent: true },
-            { source: "/law-firms", destination: "/services/law-firms", permanent: true },
+
             { source: "/manufacturing", destination: "/services/manufacturing", permanent: true },
             { source: "/financial-services", destination: "/services/financial-services", permanent: true },
         ];
