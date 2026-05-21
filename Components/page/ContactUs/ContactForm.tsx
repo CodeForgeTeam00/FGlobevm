@@ -27,6 +27,7 @@ export function ContactForm() {
         subject: "",
         message: "",
     });
+    const [honeypot, setHoneypot] = useState("");
     const [file, setFile] = useState<File | null>(null);
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [errorMsg, setErrorMsg] = useState("");
@@ -72,6 +73,13 @@ export function ContactForm() {
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
+        if (honeypot) {
+            setStatus("success");
+            setForm({ name: "", phone: "", email: "", subject: "", message: "" });
+            setFile(null);
+            return;
+        }
+
         if (!form.name || !form.email) {
             setErrorMsg("Name and email are required");
             return;
@@ -87,6 +95,7 @@ export function ContactForm() {
             formData.append("email", form.email);
             formData.append("subject", form.subject);
             formData.append("message", form.message);
+            formData.append("company_website", honeypot);
 
             if (file) {
                 formData.append("file", file);
@@ -135,6 +144,32 @@ export function ContactForm() {
                 </div>
             ) : (
                 <form className="space-y-5" onSubmit={handleSubmit}>
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            position: "absolute",
+                            width: "1px",
+                            height: "1px",
+                            padding: 0,
+                            margin: "-1px",
+                            overflow: "hidden",
+                            clip: "rect(0,0,0,0)",
+                            whiteSpace: "nowrap",
+                            border: 0,
+                        }}
+                    >
+                        <label htmlFor="company_website">Company Website</label>
+                        <input
+                            type="text"
+                            id="company_website"
+                            name="company_website"
+                            tabIndex={-1}
+                            autoComplete="off"
+                            value={honeypot}
+                            onChange={(e) => setHoneypot(e.target.value)}
+                        />
+                    </div>
+
                     {/* Name + Phone */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div className="space-y-2">

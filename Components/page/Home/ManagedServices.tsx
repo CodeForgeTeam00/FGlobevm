@@ -10,7 +10,7 @@ interface ServicesListProps {
 
 export const ManagedServices = ({ services }: ServicesListProps) => {
     return (
-        <div className="py-24  bg-[#fcfdfe]">
+        <div className="lg:py-24   bg-[#fcfdfe]">
             <Container>
                 <div className="flex flex-col lg:gap-10 gap-6">
                     <SectionIntro
@@ -20,7 +20,7 @@ export const ManagedServices = ({ services }: ServicesListProps) => {
                         as={'h2'}
                         description="From infrastructure management and cloud environments to endpoint protection and network security, our services are designed to keep your systems running smoothly and your data protected. We provide proactive monitoring, fast response, and long-term stability."
                     />
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
                         {services.map((service) => (
                             <ServicesCard key={service.id} service={service} />
                         ))}

@@ -31,7 +31,7 @@ export const AboutStability = ({background}: AboutStabilityProps) => {
                             title="Proactive IT That Keeps Your Business Secure"
                             description=" Most MSPs stop at IT support. GlobeVM combines managed IT, advanced cybersecurity,
                             regulatory compliance, and digital services into one team. One point of contact. One partner accountable
-                            for your entire technology environment"
+                            for your entire technology environment."
                         />
                     </div>
                     <div className="relative">

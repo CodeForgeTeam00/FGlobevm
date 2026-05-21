@@ -15,7 +15,7 @@ const buttonVariants = cva(
         },
         size: {
           default: "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-          lg: "h-14 py-1 rounded-2xl gap-2 px-4",
+          lg: "lg:h-14 h-12 py-1 rounded-2xl gap-2 px-4",
           icon: "h-8 w-8 flex items-center justify-center p-0",
         },
       },

@@ -46,7 +46,7 @@ export const HeroContent: React.FC = () => {
                             </Button>
                         </Link>
                         :
-                        <a className={'w-full'} href={href} key={label}>
+                        <a className={'w-full flex mb-10 sm:mb-0'} href={href} key={label}>
                             <Button className={'w-full'} variant={variant} size="lg">
                                 <div className="flex items-center justify-center gap-2">
                                     <Icon className="w-6 h-6 group-hover:text-primary-6"/>

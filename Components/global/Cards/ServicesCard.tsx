@@ -4,6 +4,7 @@ import {ArrowRightIcon, BuildingLockIcon} from "@/Components/global/Icons";
 import {WPService} from "@/types/wp-services";
 import {CPTCardItem} from "@/types/wp-options";
 import Text from "@/Components/global/text";
+import Image from "next/image";
 
 interface ServicesCardProps {
     service: CPTCardItem;
@@ -14,12 +15,12 @@ const ServicesCard: React.FC<ServicesCardProps> = ({service,}) => {
         <Link href={`services//${service.slug}`}>
             <div className='group'>
                 <div
-                    className='p-6 border flex flex-col gap-4 items-start bg-neutral-0 border-neutral-30
+                    className='p-6 border flex flex-col lg:gap-4 gap-2
                                 rounded-3xl transition-colors duration-300
                                 group-hover:shadow-[0_0_2px_2px_rgba(25,154,213,0.25)] group-hover:border-primary-6'>
                     <div className='p-4 bg-neutral-10 rounded-full'>
                         {service.icon ?
-                            <img className={'w-10 h-10'} src={service.icon?.url} alt={service.icon?.alt}/> :
+                            <Image width={48} height={48} className={'w-8 h-8 lg:w-12 hg-h-12'} src={service.icon?.url} alt={service.icon?.alt}/> :
                             <BuildingLockIcon className={'w-10 h-10 text-primary-6'}/>
                         }
                     </div>

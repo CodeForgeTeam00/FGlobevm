@@ -12,7 +12,7 @@ export const WhyChooseUs: React.FC = () => {
     const features = dict.home.whyChooseUs.features;
     return (
 
-        <section className="relative overflow-hidden py-6 px-6 lg:py-[96] mx-auto max-w-[1920px]">
+        <section className="relative overflow-hidden py-6  lg:py-[96] mx-auto max-w-[1920px]">
 
             <div className="absolute hidden lg:block inset-0 pointer-events-none">
                 <div
