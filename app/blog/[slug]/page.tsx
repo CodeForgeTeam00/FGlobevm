@@ -100,8 +100,6 @@ export default async function BlogPage({ params, searchParams }: Props) {
                 }))
             )
         );
-
-
     return (
         <>
             <JsonLd data={schemas} />

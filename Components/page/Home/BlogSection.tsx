@@ -70,15 +70,15 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
                                     {post.categoryName}
                                 </span>
                                 <Text textColor={'white'} variant={'card-title-md'}>
-                                    {featured.title}
+                                    {post.title}
                                 </Text>
                                 <div className="flex flex-wrap items-center gap-6 text-white/70 text-xs font-medium">
                                     <Text textColor={'white'} variant={'label'}>
-                                        By {featured.author.name}
+                                        By {post.author.name}
                                     </Text>
                                     <Text textColor={'white'} variant={'label'} className={'flex items-center gap-2'}>
                                         <Calendar className="w-4 h-4" />
-                                        {featured.date}
+                                        {post.date}
                                     </Text>
                                 </div>
                             </div>

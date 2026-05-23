@@ -6,10 +6,18 @@ import FeatureLineCard from "@/Components/global/Cards/AccentLineCard";
 import Image from "next/image";
 import dots from "@/public/assets/image/Dots.svg";
 import {useDictionary} from "@/lib/useDictionary";
-export const WhyChooseUs: React.FC = () => {
+import type {ServiceArea} from "@/Components/page/ServiceAreaLanding/ServiceAreaMap";
+import {ServiceAreaLandingPage, services_options} from "@/services/wp-service-area";
+interface Props {
+    isLocation?: boolean;
+    data?: services_options;
+}
+
+export const WhyChooseUs= ({isLocation , data} :Props) => {
     const dict = useDictionary();
     const content = dict.home.whyChooseUs.content;
     const features = dict.home.whyChooseUs.features;
+    console.log(data)
     return (
 
         <section className="relative overflow-hidden py-6  lg:py-[96] mx-auto max-w-[1920px]">
@@ -66,19 +74,31 @@ export const WhyChooseUs: React.FC = () => {
                     <SectionIntro
                         as={'h2'}
                         lgCenter
-                        badge={content.badge}
-                        title={content.title}
-                        description={content.des}
+                        badge={isLocation ? data?.label ?? '' : content.badge}
+                        title={isLocation ? data?.title ?? '' : content.title}
+                        description={isLocation ? data?.description ?? '' : content.des}
                     />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-6">
-                        {features.map((feature, index) => (
-                            <FeatureLineCard
-                                key={index}
-                                icon={feature.icon}
-                                title={feature.title}
-                                description={feature.description}
-                            />
-                        ))}
+
+                        {!isLocation ? (
+                            features.map((feature, index) => (
+                                <FeatureLineCard
+                                    key={index}
+                                    icon={feature.icon}
+                                    title={feature.title}
+                                    description={feature.description}
+                                />
+                            ))
+                        ) : (
+                            data?.cards.map((feature, index) => (
+                                <FeatureLineCard
+                                    key={index}
+                                    icon={feature.icon}
+                                    title={feature.title}
+                                    description={feature.description}
+                                />
+                            ))
+                        )}
                     </div>
                 </div>
             </Container>

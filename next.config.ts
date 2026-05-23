@@ -29,7 +29,7 @@ const nextConfig: NextConfig = {
             { source: "/ventura-county", destination: "/service-area/ventura-county", permanent: true },
             { source: "/thousand-oaks", destination: "/service-area/thousand-oaks", permanent: true },
             { source: "/simi-valley", destination: "/service-area/simi-valley", permanent: true },
-            { source: "/locations", destination: "/", permanent: true },
+            { source: "/locations", destination: "/service-area/", permanent: true },
             { source: "/encino-network-security-audits", destination: "/service-area/encino", permanent: true },
             { source: "/woodland-hills-managed-it-services", destination: "/service-area/woodland-hills", permanent: true },
             { source: "/woodland-hills-risk-management", destination: "/service-area/woodland-hills", permanent: true },

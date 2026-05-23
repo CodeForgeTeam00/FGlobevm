@@ -1,9 +1,10 @@
 import React from "react";
 import Text from "@/Components/global/text";
 import Image from "next/image";
+import {WPImage} from "@/types/wp-common";
 
 type FeatureLineCardProps = {
-    icon: React.ReactNode;
+    icon: WPImage;
     title: string;
     description: string;
     className?: string;
@@ -22,7 +23,7 @@ const FeatureLineCard: React.FC<FeatureLineCardProps> = ({
         <div className={`flex h-full flex-col group ${className}`}>
             <div className="relative p-6 border flex flex-col gap-2 bg-white border-neutral-30 hover:border-primary-6 hover:shadow-[0_0_2px_2px_rgba(25,154,213,0.25)] rounded-3xl">
                 <div className="flex items-start   gap-4 min-h-16">
-                    <Image width={48} height={48} className={'w-8 h-8 lg:w-12 hg-h-12'} src={icon as string} alt={title}/>
+                    <Image width={48} height={48} className={'w-8 h-8 lg:w-12 hg-h-12'} src={icon.url?? '' as string} alt={icon.alt ?? title} />
                     <Text textColor={'black'} align={'left'} variant={'card-title-lg'}>{title}</Text>
                 </div>
                 <Text textColor={"light"} align={'left'} variant={"card-subtitle-lg"} className={'lg:line-clamp-3 line-clamp-2 min-h-[48px] lg:min-h-[96px]'}>

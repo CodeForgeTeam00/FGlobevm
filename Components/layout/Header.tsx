@@ -120,7 +120,7 @@ export default function Header({
     return (
         <>
             <header
-                className="sticky top-0 z-50 border-b border-neutral-30 bg-white"
+                className="sticky top-0 z-[1000] border-b border-neutral-30 bg-white"
                 onMouseLeave={() => setActiveMenu(null)}
             >
                 <Container>
