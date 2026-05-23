@@ -99,7 +99,6 @@ export default function Header({
                                    servicePages,
                                    serviceAreaPages,
                                }: Props) {
-    // ← state از boolean به string|null تغییر کرد
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
     const rawNav = headerSettings?.navigation ?? [];
@@ -109,8 +108,6 @@ export default function Header({
         () => buildNavigation(rawNav, servicePages, serviceAreaPages),
         [rawNav, servicePages, serviceAreaPages]
     );
-
-
     const activeNavItem = activeMenu
         ? nav.find((item) => normalizeSlug(item.slug) === activeMenu)
         : null;
@@ -127,7 +124,7 @@ export default function Header({
                     <div className="desktop-header hidden px-4 2xl:px-0 lg:flex py-5 w-full justify-between items-center">
                         <div className="header__right-side flex items-center 2xl:gap-10 gap-6">
                             <div className="header__logo">
-                                <Link href='/'>
+                                <Link href="/">
                                     <Logo className="2xl:text-[56px] text-[40px]" />
                                 </Link>
                             </div>
@@ -138,6 +135,7 @@ export default function Header({
                                         Array.isArray(item.children) &&
                                         item.children.length > 0;
                                     const isActive = activeMenu === normalizeSlug(item.slug);
+                                    const isServiceParent = isServicesSlug(item.slug);
 
                                     return (
                                         <div
@@ -148,26 +146,46 @@ export default function Header({
                                                 );
                                             }}
                                         >
-                                            <Link
-                                                className="flex items-center gap-1 hover:text-primary-6 transition-transform duration-200"
-                                                href={getParentHref(item.slug)}
-                                            >
-                                                <Text
-                                                    variant={"body-lg"}
-                                                    as={"span"}
-                                                    textColor={isActive ? "primary" : "default"}
-                                                    className="transition-colors"
+                                            {isServiceParent ? (
+                                                <span className="flex items-center gap-1 hover:text-primary-6 cursor-pointer transition-transform duration-200">
+                                                    <Text
+                                                        variant={"body-lg"}
+                                                        as={"span"}
+                                                        textColor={isActive ? "primary" : "default"}
+                                                        className="transition-colors"
+                                                    >
+                                                        {item.name}
+                                                    </Text>
+                                                    {hasChildren && (
+                                                        <ChevronDown
+                                                            className={`w-3 h-3 transition-transform duration-200 ${
+                                                                isActive ? "rotate-180 text-primary-6" : ""
+                                                            }`}
+                                                        />
+                                                    )}
+                                                </span>
+                                            ) : (
+                                                <Link
+                                                    className="flex items-center gap-1 hover:text-primary-6 transition-transform duration-200"
+                                                    href={getParentHref(item.slug)}
                                                 >
-                                                    {item.name}
-                                                </Text>
-                                                {hasChildren && (
-                                                    <ChevronDown
-                                                        className={`w-3 h-3 transition-transform duration-200 ${
-                                                            isActive ? "rotate-180 text-primary-6" : ""
-                                                        }`}
-                                                    />
-                                                )}
-                                            </Link>
+                                                    <Text
+                                                        variant={"body-lg"}
+                                                        as={"span"}
+                                                        textColor={isActive ? "primary" : "default"}
+                                                        className="transition-colors"
+                                                    >
+                                                        {item.name}
+                                                    </Text>
+                                                    {hasChildren && (
+                                                        <ChevronDown
+                                                            className={`w-3 h-3 transition-transform duration-200 ${
+                                                                isActive ? "rotate-180 text-primary-6" : ""
+                                                            }`}
+                                                        />
+                                                    )}
+                                                </Link>
+                                            )}
                                         </div>
                                     );
                                 })}
