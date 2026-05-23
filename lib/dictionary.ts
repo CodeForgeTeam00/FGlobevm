@@ -71,22 +71,34 @@ export const dictionary = {
                     {
                         title: "You Talk to the Owners",
                         description: "When you call GlobeVM, you reach George or Nazy directly. Not a ticket queue. Not a call center overseas.",
-                        icon: "assets/image/LocalITSupport.svg",
+                        icon: {
+                            url:"assets/image/LocalITSupport.svg",
+                            alt:"LocalITSupport Logo",
+                        },
                     },
                     {
                         title: "Cybersecurity Built In, Not Bolted On",
                         description: "Every client gets firewall management, endpoint protection, email filtering, and MFA as standard. Not an add-on.",
-                        icon: "assets/image/ProactiveThreatPrevention.svg",
+                        icon:{
+                            url: "assets/image/ProactiveThreatPrevention.svg",
+                            alt:"ProactiveThreatPrevention",
+                        },
                     },
                     {
                         title: "Government-Tested Expertise",
                         description: "Our team has managed IT for California's DMV and municipal agencies. That rigor carries into every client engagement.",
-                        icon: "assets/image/CertifiedITExperts.svg",
+                        icon: {
+                            url:"assets/image/CertifiedITExperts.svg",
+                            alt:"CertifiedITExperts",
+                        },
                     },
                     {
                         title: "Bilingual Support",
                         description: "We proudly serve LA's Persian business community in both English and Farsi.",
-                        icon: "assets/image/HassleFreeCompliance.svg",
+                        icon: {
+                            url:"assets/image/HassleFreeCompliance.svg",
+                            alt:"HassleFreeCompliance",
+                        },
                     },
                 ],
             }

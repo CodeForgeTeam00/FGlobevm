@@ -12,7 +12,7 @@ interface ServicesCardProps {
 
 const ServicesCard: React.FC<ServicesCardProps> = ({service,}) => {
     return (
-        <Link href={`services//${service.slug}`}>
+        <Link href={`services/${service.slug}/`}>
             <div className='group'>
                 <div
                     className='p-6 border flex flex-col lg:gap-4 gap-2
