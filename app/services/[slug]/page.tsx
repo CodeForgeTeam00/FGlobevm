@@ -133,6 +133,7 @@ export default async function ServicePage({ params, searchParams }: Props) {
                 {(subServices.title || (subServices.add_service && subServices.add_service.length > 0)) && (
                     <PrimarySection>
                         <AllServices
+
                             label={subServices.label ?? "Our Services"}
                             title={subServices.title ?? ""}
                             description={subServices.description ?? ""}

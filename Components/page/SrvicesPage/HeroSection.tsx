@@ -5,6 +5,7 @@ import { CalendarIcon, PhoneIcon } from "@/Components/global/Icons";
 import { ServicePageData } from "@/types/wp-services";
 import SectionIntro from "@/Components/global/SectionIntro";
 import React from "react";
+import Link from "next/link";
 
 interface Props {
     title: string;
@@ -33,18 +34,23 @@ export default function ServicesHeroSection({ title, label, description, image, 
                             />
                         </div>
                         <div className="flex flex-col lg:justify-start justify-center sm:flex-row gap-2">
-                            <Button variant="primary" size="lg">
-                                <div className={'flex justify-center gap-2'}>
-                                    <CalendarIcon className="w-5 h-5" />
-                                    <p className="text-small">Book A Free Consultation</p>
-                                </div>
-                            </Button>
-                            <Button variant="outline" size="lg">
-                                <div className={'flex justify-center gap-2'}>
-                                    <PhoneIcon className="w-5 h-5" />
-                                    <p className="text-small">Get A Free Penetration Test</p>
-                                </div>
-                            </Button>
+                            <a target={'_blank'} href={'tel:(310)750-4939'}>
+                                <Button variant="primary" size="lg">
+                                    <div className={'flex justify-center gap-2'}>
+                                        <CalendarIcon className="w-5 h-5" />
+                                        <p className="text-small">Book A Free Consultation</p>
+                                    </div>
+                                </Button>
+                            </a>
+
+                            <Link href={'/contact'}>
+                                <Button variant="outline" size="lg">
+                                    <div className={'flex justify-center gap-2'}>
+                                        <PhoneIcon className="w-5 h-5" />
+                                        <p className="text-small">Get A Free Penetration Test</p>
+                                    </div>
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 </Container>

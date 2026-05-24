@@ -21,7 +21,6 @@ export default function SeoBoxSection({ content, title }: Props) {
             )}
             <div className={`relative ${!expanded ? "max-h-16 overflow-hidden" : ""}`}>
                 <WpContent content={content} />
-
             </div>
             <button
                 onClick={() => setExpanded(!expanded)}
