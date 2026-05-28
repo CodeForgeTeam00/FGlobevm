@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
-import HeaderSwitcher from "@/Components/layout/HeaderSwitcher";
-import Footer from "@/Components/layout/Footer";
+import HeaderSwitcher from "@/components/layout/HeaderSwitcher";
+import Footer from "@/components/layout/Footer";
 import {
     getHeaderSettings,
     getServicePagesHeaderInfo,
@@ -83,6 +84,18 @@ export default async function RootLayout({
         />
         {children}
         <Footer />
+
+        {process.env.NODE_ENV === "production" && (
+            <Script id="microsoft-clarity" strategy="afterInteractive">
+                {`
+                    (function(c,l,a,r,i,t,y){
+                        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                    })(window, document, "clarity", "script", "vhfmq2ot6q");
+                `}
+            </Script>
+        )}
         </body>
         </html>
     );

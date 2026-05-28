@@ -1,16 +1,16 @@
 import { getBlogBySlug } from "@/services/wp-blog";
 import { getPreviewById } from "@/lib/preview";
 import { mapPost } from "@/mappers/blog-mapper";
-import { Hero } from "@/Components/page/Single/Block/HeroBlock";
-import ContentRenderer from "@/Components/page/Single/ContentRenderer";
+import { Hero } from "@/components/page/Single/Block/HeroBlock";
+import ContentRenderer from "@/components/page/Single/ContentRenderer";
 import { notFound } from "next/navigation";
 import { draftMode } from "next/headers";
 import type { Metadata } from "next";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
-import CommentSection from "@/Components/page/Single/Block/CommentSection";
-import PreviewBar from "@/Components/global/PreviewBar";
-import JsonLd from "@/Components/global/JsonLd";
+import CommentSection from "@/components/page/Single/Block/CommentSection";
+import PreviewBar from "@/components/global/PreviewBar";
+import JsonLd from "@/components/global/JsonLd";
 import { articleSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
 

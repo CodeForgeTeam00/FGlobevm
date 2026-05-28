@@ -9,6 +9,7 @@ export interface WPService {
     };
 }
 export interface Card{
+        slug: string;
         icon: { url: string; alt: string };
         title: string;
         description: string;
