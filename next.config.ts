@@ -43,9 +43,9 @@ const nextConfig: NextConfig = {
             { source: "/encino-network-security-audits", destination: "/service-area/encino", permanent: true },
 
             // Woodland Hills
-            { source: "/woodland-hills-managed-it-services", destination: "/service-area/woodland-hills", permanent: true },
-            { source: "/woodland-hills-cybersecurity-solution", destination: "/service-area/woodland-hills", permanent: true },
-            { source: "/woodland-hills-risk-management", destination: "/service-area/woodland-hills", permanent: true },
+            { source: "/woodland-hills-managed-it-services", destination: "/service-area/woodland-hills-managed-it-services", permanent: true },
+            { source: "/woodland-hills-cybersecurity-solution", destination: "/service-area/woodland-hills-managed-it-services", permanent: true },
+            { source: "/woodland-hills-risk-management", destination: "/service-area/woodland-hills-managed-it-services", permanent: true },
 
             // Industry / location pages
             { source: "/law-firms", destination: "/service-area/law-firms", permanent: true },
@@ -82,7 +82,8 @@ const nextConfig: NextConfig = {
              * =========================
              */
             { source: "/medical-offices", destination: "/services/medical-offices", permanent: true },
-            { source: "/manufacturing", destination: "/services/manufacturing", permanent: true },
+            { source: "/cybersecurity-services", destination: "services/cybersecurity-solutions/", permanent: true },
+            { source: "/manufacturing", destination: "/services/managed-it-services/", permanent: true },
             { source: "/financial-services", destination: "/services/financial-services", permanent: true },
 
             /**
