@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Home } from "lucide-react";
 import type { Metadata } from "next";
-import Text from "@/Components/global/text";
+import Text from "@/components/global/text";
 
 export const metadata: Metadata = {
     title: "Page Not Found | GlobeVM",

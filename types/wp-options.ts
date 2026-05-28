@@ -63,11 +63,11 @@ export interface HeaderSettings {
 }
 
 export interface SocialMedia {
-    youtube: string;
-    instagram: string;
-    facebook: string;
-    x: string;
-    linkedin: string;
+    youtube?: string;
+    instagram?: string;
+    facebook?: string;
+    x?: string;
+    linkedin?: string;
 }
 
 export interface FooterSettings {

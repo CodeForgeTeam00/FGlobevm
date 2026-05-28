@@ -1,11 +1,11 @@
 import React from "react";
-import Container from "@/Components/global/Sections/Container";
-import { BlogMainSection } from "@/Components/page/BlogPage/BlogMainSection";
-import { BlogGrid } from "@/Components/page/BlogPage/BlogGrid";
-import { BlogEditorChoiceSection } from "@/Components/page/BlogPage/BlogEditorChoiceSection";
-import { BlogCategoriesSection } from "@/Components/page/BlogPage/BlogCategoriesSection";
-import { BlogColSection } from "@/Components/page/BlogPage/BlogColSection";
-import { WpContent } from "@/Components/global/SeoBox";
+import Container from "@/components/global/Sections/Container";
+import { BlogMainSection } from "@/components/page/BlogPage/BlogMainSection";
+import { BlogGrid } from "@/components/page/BlogPage/BlogGrid";
+import { BlogEditorChoiceSection } from "@/components/page/BlogPage/BlogEditorChoiceSection";
+import { BlogCategoriesSection } from "@/components/page/BlogPage/BlogCategoriesSection";
+import { BlogColSection } from "@/components/page/BlogPage/BlogColSection";
+import { WpContent } from "@/components/global/SeoBox";
 
 import { getBlogs, getBlogCategories, getBlog } from "@/services/wp-blog";
 import { getSeoBox } from "@/services/shared";
@@ -14,10 +14,10 @@ import { mapBlogsResponse, mapBlogToFeaturedAndGrid, mapPost } from "@/mappers/b
 import type { Metadata } from "next";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
-import SeoBoxSection from "@/Components/global/SeoBoxSection";
-import SocialBanner from "@/Components/global/SocialBanner";
+import SeoBoxSection from "@/components/global/SeoBoxSection";
+import SocialBanner from "@/components/global/SocialBanner";
 import { getSocialMedia } from "@/services/wp-options";
-import JsonLd from "@/Components/global/JsonLd";
+import JsonLd from "@/components/global/JsonLd";
 import { webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
 

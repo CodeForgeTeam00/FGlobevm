@@ -1,16 +1,16 @@
 import { Phone, Mail, Briefcase, Send } from "lucide-react";
 import Image from "next/image";
-import Container from "@/Components/global/Sections/Container";
-import { OfficesWithMap } from "@/Components/page/ContactUs/OfficesWithMap";
-import { ContactForm } from "@/Components/page/ContactUs/ContactForm";
+import Container from "@/components/global/Sections/Container";
+import { OfficesWithMap } from "@/components/page/ContactUs/OfficesWithMap";
+import { ContactForm } from "@/components/page/ContactUs/ContactForm";
 import type { Metadata } from "next";
 import { getContactPage } from "@/services/wp-pages";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
-import JsonLd from "@/Components/global/JsonLd";
+import JsonLd from "@/components/global/JsonLd";
 import { organizationSchema, webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
-import Text from "@/Components/global/text";
+import Text from "@/components/global/text";
 
 export async function generateMetadata(): Promise<Metadata> {
     const data = await getContactPage();

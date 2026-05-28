@@ -1,14 +1,14 @@
-import Container from "@/Components/global/Sections/Container";
-import BlogCard from "@/Components/global/Cards/BlogCard";
-import CustomPagination from "@/Components/global/Pagination";
+import Container from "@/components/global/Sections/Container";
+import BlogCard from "@/components/global/Cards/BlogCard";
+import CustomPagination from "@/components/global/Pagination";
 import { getBlogs, getSubCategories, getCategorySeoBox } from "@/services/wp-blog";
 import { mapBlogsResponse } from "@/mappers/blog-mapper";
 import Link from "next/link";
-import SeoBoxSection from "@/Components/global/SeoBoxSection";
+import SeoBoxSection from "@/components/global/SeoBoxSection";
 import type { Metadata } from "next";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
-import JsonLd from "@/Components/global/JsonLd";
+import JsonLd from "@/components/global/JsonLd";
 import { webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
 

@@ -4,25 +4,27 @@ import { getPreviewById } from "@/lib/preview";
 import { mapBlogsResponse } from "@/mappers/blog-mapper";
 import { notFound } from "next/navigation";
 import { draftMode } from "next/headers";
-import Container from "@/Components/global/Sections/Container";
-import ServicesHeroSection from "@/Components/page/SrvicesPage/HeroSection";
-import Features from "@/Components/page/SrvicesPage/WayChooseUsSection";
-import AllServices from "@/Components/page/SrvicesPage/AllService";
-import Testimonials from "@/Components/page/SrvicesPage/Testimonials";
-import BlogSection from "@/Components/page/SrvicesPage/PostSection";
-import { ContactCTA } from "@/Components/page/Home/ContactCTA";
-import PreviewBar from "@/Components/global/PreviewBar";
-import PrimarySection from "@/Components/global/PrimarySection";
+import Container from "@/components/global/Sections/Container";
+import ServicesHeroSection from "@/components/page/SrvicesPage/HeroSection";
+import Features from "@/components/page/SrvicesPage/WayChooseUsSection";
+import AllServices from "@/components/page/SrvicesPage/AllService";
+import Testimonials from "@/components/page/SrvicesPage/Testimonials";
+import BlogSection from "@/components/page/SrvicesPage/PostSection";
+import { ContactCTA } from "@/components/page/Home/ContactCTA";
+import PreviewBar from "@/components/global/PreviewBar";
+import PrimarySection from "@/components/global/PrimarySection";
 import type { Metadata } from "next";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
-import { FAQAccordion } from "@/Components/global/FAQAccordion";
-import SectionIntro from "@/Components/global/SectionIntro";
+import { FAQAccordion } from "@/components/global/FAQAccordion";
+import SectionIntro from "@/components/global/SectionIntro";
 import React from "react";
 import Image from "next/image";
-import JsonLd from "@/Components/global/JsonLd";
+import JsonLd from "@/components/global/JsonLd";
 import { webPageSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
+import SocialBanner from "@/components/global/SocialBanner";
+import {getSocialMedia} from "@/services/wp-options";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -65,9 +67,10 @@ export default async function ServicePage({ params, searchParams }: Props) {
         data = await getServicePage(slug);
     }
     if (!data) notFound();
-    const [, rawPosts] = await Promise.all([
+    const [, rawPosts , socials] = await Promise.all([
         getAllServices(),
         getBlogs({ per_page: 4 }),
+        getSocialMedia()
     ]);
     const acf = data?.acf ?? {};
     const hero = acf.hero_section ?? {};
@@ -169,6 +172,7 @@ export default async function ServicePage({ params, searchParams }: Props) {
                     )}
                     <BlogSection data={blogData?.posts ?? []} />
                     <ContactCTA />
+
                 </Container>
             </div>
         </>

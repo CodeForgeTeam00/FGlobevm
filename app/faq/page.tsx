@@ -1,12 +1,12 @@
-import { FAQTabs } from "@/Components/global/FAQTabs";
+import { FAQTabs } from "@/components/global/FAQTabs";
 import { getFAQCategories } from "@/services/shared";
 import type { Metadata } from "next";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
-import SectionIntro from "@/Components/global/SectionIntro";
+import SectionIntro from "@/components/global/SectionIntro";
 import React from "react";
-import Container from "@/Components/global/Sections/Container";
-import JsonLd from "@/Components/global/JsonLd";
+import Container from "@/components/global/Sections/Container";
+import JsonLd from "@/components/global/JsonLd";
 import { webPageSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
 

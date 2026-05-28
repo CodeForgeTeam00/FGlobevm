@@ -2,7 +2,7 @@ import { fetchWP } from "@/lib/api";
 
 export const BASE = "https://www.globevm.com";
 
-const BUILD_TIME = new Date();
+const BuiLD_TIME = new Date();
 
 export const CONFIG = {
     pages: {
@@ -82,7 +82,7 @@ function formatSitemapDate(date: Date): string {
 export async function getPagesUrls(): Promise<SitemapUrl[]> {
     return CONFIG.pages.items.map((p) => ({
         url: `${BASE}${p.path}`,
-        lastModified: BUILD_TIME,
+        lastModified: BuiLD_TIME,
         priority: p.priority,
     }));
 }
@@ -124,7 +124,7 @@ export async function getCategoriesUrls(): Promise<SitemapUrl[]> {
             .filter((c) => !CONFIG.categories.excludeSlugs.includes(c.slug))
             .map((c) => ({
                 url: `${BASE}/blog/category/${c.slug}/`,
-                lastModified: BUILD_TIME,
+                lastModified: BuiLD_TIME,
                 priority: CONFIG.categories.priority,
             }));
     } catch (err) {

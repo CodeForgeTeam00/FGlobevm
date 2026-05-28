@@ -1,14 +1,14 @@
-import Container from "@/Components/global/Sections/Container";
-import ServiceAreaCard from "@/Components/page/ServiceAreaLanding/ServiceAreaCard";
-import ServiceAreaMapWrapper from "@/Components/page/ServiceAreaLanding/ServiceAreaMapWrapper";
-import type { ServiceArea } from "@/Components/page/ServiceAreaLanding/ServiceAreaMap";
+import Container from "@/components/global/Sections/Container";
+import ServiceAreaCard from "@/components/page/ServiceAreaLanding/ServiceAreaCard";
+import ServiceAreaMapWrapper from "@/components/page/ServiceAreaLanding/ServiceAreaMapWrapper";
+import type { ServiceArea } from "@/components/page/ServiceAreaLanding/ServiceAreaMap";
 import { getServiceAreaLanding, getServiceAreaLandingPage } from "@/services/wp-service-area";
-import { FAQAccordion } from "@/Components/global/FAQAccordion";
-import SectionIntro from "@/Components/global/SectionIntro";
-import { ContactCTA } from "@/Components/page/Home/ContactCTA";
+import { FAQAccordion } from "@/components/global/FAQAccordion";
+import SectionIntro from "@/components/global/SectionIntro";
+import { ContactCTA } from "@/components/page/Home/ContactCTA";
 import type { Metadata } from "next";
 import React from "react";
-import {WhyChooseUs} from "@/Components/page/Home/WhyChooseUs";
+import {WhyChooseUs} from "@/components/page/Home/WhyChooseUs";
 
 const COORDINATES: Record<string, { lat: number; lng: number }> = {
     "managed-it-services-los-angeles": { lat: 34.0522, lng: -118.2437 },
