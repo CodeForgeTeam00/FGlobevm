@@ -120,7 +120,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         }),
         breadcrumbSchema(breadcrumbItems),
     ];
-    console.log(seoBox , 'ali')
     return (
         <>
             <JsonLd data={schemas} />

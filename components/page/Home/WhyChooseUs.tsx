@@ -17,7 +17,7 @@ export const WhyChooseUs= ({isLocation , data} :Props) => {
     const dict = useDictionary();
     const content = dict.home.whyChooseUs.content;
     const features = dict.home.whyChooseUs.features;
-    console.log(data)
+
     return (
 
         <section className="relative overflow-hidden py-6  lg:py-[96] mx-auto max-w-[1920px]">
