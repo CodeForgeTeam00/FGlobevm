@@ -68,7 +68,7 @@ const nextConfig: NextConfig = {
             { source: "/helpdesk-and-it-support", destination: "/services/helpdesk-and-it-support/", permanent: true },
             { source: "/managed-office-365-services", destination: "/services/managed-office-365-services/", permanent: true },
             { source: "/data-backup-and-disaster-recovery", destination: "/services/data-backup-and-disaster-recovery/", permanent: true },
-            { source: "/24-7-it-services-for-business-continuity", destination: "/services/24-7-it-services-for-business-continuity/", permanent: true },
+            { source: "/24-7-it-support-business-continuity", destination: "/services/24-7-it-services-for-business-continuity/", permanent: true },
             { source: "/remote-it-monitoring-management", destination: "/services/remote-it-monitoring-management/", permanent: true },
             { source: "/business-virtualization-services", destination: "/services/cloud-services-and-migration/", permanent: true },
             { source: "/cloud-services-and-migration", destination: "/services/cloud-services-and-migration/", permanent: true },
