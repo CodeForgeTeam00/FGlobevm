@@ -11,14 +11,13 @@ import type { YoastSEO } from "@/types/yoast";
 import CommentSection from "@/components/page/Single/Block/CommentSection";
 import PreviewBar from "@/components/global/PreviewBar";
 import JsonLd from "@/components/global/JsonLd";
+import ViewTracker from "@/components/global/ViewTracker";
 import { articleSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
-
 interface Props {
     params: Promise<{ slug: string }>;
     searchParams: Promise<{ preview?: string; id?: string }>;
 }
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const raw = await getBlogBySlug(slug);
@@ -91,7 +90,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
         }),
     ];
 
-
+    if (allFaqs.length > 0) {
         schemas.push(
             faqSchema(
                 allFaqs.map((f: any) => ({
@@ -100,9 +99,12 @@ export default async function BlogPage({ params, searchParams }: Props) {
                 }))
             )
         );
+    }
+
     return (
         <>
             <JsonLd data={schemas} />
+            {!isEnabled && <ViewTracker postId={raw.id} />}
             <div className="min-h-screen bg-white">
                 {isEnabled && <PreviewBar slug={slug} type="post" />}
                 <main className="max-w-[1200px] mx-auto py-10">

@@ -70,6 +70,8 @@ export function mapBlogsResponse(raw: RawBlogsResponse | null): BlogsResponse | 
     };
 }
 
+
+
 export function mapBlogToFeaturedAndGrid(posts: BlogPost[]) {
     if (!posts.length) return { featured: null, grid: [] };
     const [featured, ...grid] = posts;

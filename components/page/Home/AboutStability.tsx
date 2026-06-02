@@ -24,7 +24,7 @@ export const AboutStability = ({background}: AboutStabilityProps) => {
         <section className="relative  lg:py-18 overflow-hidden">
             <div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div className="mb-6">
+                    <div className="lg:mb-6">
                         <SectionIntro
                             as={'h2'}
                             badge="PROACTIVE IT"

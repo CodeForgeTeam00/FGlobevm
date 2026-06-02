@@ -83,3 +83,10 @@ export async function getCategoryBySlug(slug: string) {
         return null;
     }
 }
+
+export async function getPopularPosts() {
+    return fetchWP("/gvm/v1/posts/popular", {
+        strategy: { type: "isr", revalidate: 1800 },  // ۳۰ دقیقه
+        tag: "popular-posts",
+    });
+}

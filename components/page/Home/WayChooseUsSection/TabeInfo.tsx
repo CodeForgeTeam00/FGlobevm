@@ -5,16 +5,14 @@ type TableCellData = {
     title: string;
     subtitle: string;
 };
-
 type TableInfoProps = {
     data: TableCellData[][];
 };
-
 const TableInfo = ({ data }: TableInfoProps) => {
     const TableCell = ({ title, subtitle }: TableCellData) => (
-        <div className="py-2  text-center flex-1 gap-1 hover:bg-white/10 py-2 px-8 lg:px-2 lg:py-6 lg:gap-0 flex flex-col items-center  justify-center">
-            <Text as={'p'} variant={'heading-md'} textColor={'white'}>{title}</Text>
-            <Text as={'p'} variant={'body-lg'} textColor={'white'}>{subtitle}</Text>
+        <div className="  text-center flex-1 gap-1 hover:bg-white/10 py-2 px-8 lg:px-2 lg:py-6 lg:gap-0 flex flex-col items-center  justify-center">
+            <Text as={'p'} className={'text-base'} textColor={'white'}>{title}</Text>
+            <Text as={'p'} className={'text-[9px]'} textColor={'white'}>{subtitle}</Text>
         </div>
     );
     const TableRow = ({ row }: { row: TableCellData[] }) => (
