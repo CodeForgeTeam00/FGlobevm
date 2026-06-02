@@ -27,7 +27,7 @@ export const HeroContent: React.FC = () => {
     ];
 
     return (
-        <div className="hero__content w-full lg:pt-12 pt-5 flex flex-col gap-14 lg:max-w-[477px] 2xl:!max-w-[636px]">
+        <div className="hero__content w-full lg:pt-12 pt-4 flex flex-col gap-6 lg:gap-14 lg:max-w-[477px] 2xl:!max-w-[636px]">
             <SectionIntro
                 badge={content.badge}
                 title={content.title}

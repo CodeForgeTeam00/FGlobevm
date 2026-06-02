@@ -7,7 +7,7 @@ import { BlogCategoriesSection } from "@/components/page/BlogPage/BlogCategories
 import { BlogColSection } from "@/components/page/BlogPage/BlogColSection";
 import { WpContent } from "@/components/global/SeoBox";
 
-import { getBlogs, getBlogCategories, getBlog } from "@/services/wp-blog";
+import { getBlogs, getBlogCategories, getBlog, getPopularPosts } from "@/services/wp-blog";
 import { getSeoBox } from "@/services/shared";
 import { mapBlogsResponse, mapBlogToFeaturedAndGrid, mapPost } from "@/mappers/blog-mapper";
 
@@ -39,15 +39,20 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Blog() {
-    const [rawBlog, rawSidebar, data, socialMedia] = await Promise.all([
+    const [rawBlog, rawSidebar, data, socialMedia, popular] = await Promise.all([
         getBlogs({ per_page: 5 }),
         getBlogs({ per_page: 3 }),
         getBlog(),
         getSocialMedia(),
+        getPopularPosts(),
     ]);
 
     const blog = mapBlogsResponse(rawBlog);
     const sidebar = mapBlogsResponse(rawSidebar);
+
+    // Popular Posts endpoint returns a raw array (not wrapped in { posts, pagination }),
+    // so map each item directly with mapPost.
+    const popularPosts = Array.isArray(popular) ? popular.map(mapPost) : [];
 
     const { featured, grid } = mapBlogToFeaturedAndGrid(blog?.posts ?? []);
 
@@ -57,14 +62,15 @@ export default async function Blog() {
         webPageSchema({
             title: yoast?.title || "Blog | GlobeVM",
             url: `${SITE.url}/blog/`,
-            description: yoast?.description || "Latest insights on IT infrastructure, cybersecurity, and cloud solutions from GlobeVM.",
+            description:
+                yoast?.description ||
+                "Latest insights on IT infrastructure, cybersecurity, and cloud solutions from GlobeVM.",
         }),
         breadcrumbSchema([
             { name: "Home", url: `${SITE.url}/` },
             { name: "Blog", url: `${SITE.url}/blog/` },
         ]),
     ];
-
 
     return (
         <>
@@ -78,8 +84,8 @@ export default async function Blog() {
                     <BlogEditorChoiceSection data={data?.editor_choice ?? null} />
                     <BlogCategoriesSection data={data?.popular_categories ?? []} />
                     <div className="grid lg:grid-cols-2 px-4 lg:px-0 gap-10">
-                        <BlogColSection data={sidebar?.posts ?? []} />
-                        <BlogColSection data={sidebar?.posts ?? []} />
+                        <BlogColSection title="Popular Articles" data={popularPosts} />
+                        <BlogColSection title="New Articles" data={sidebar?.posts ?? []} />
                     </div>
                 </div>
             </Container>

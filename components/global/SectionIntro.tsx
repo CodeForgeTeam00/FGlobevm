@@ -31,12 +31,12 @@ const SectionIntro: React.FC<SectionIntroProps> = ({
             <Text
                 as={ as || 'h3'}
                 className={`text-center mb-2  ${!lgCenter ? "lg:text-start" : ""}`}
-                variant={'heading-lg'} textColor={isLight ? 'white' :"black"}>
+                variant={'heading-md'} textColor={isLight ? 'white' :"black"}>
                 {title}
 
             </Text>
             {description && (
-                <Text textColor={'light'} className={`text-center ${!lgCenter ? "lg:text-start" : ""} `}>
+                <Text variant={'body-lg'} textColor={'light'} className={`text-center ${!lgCenter ? "lg:text-start" : ""} `}>
                     {description}
                 </Text>
             )}

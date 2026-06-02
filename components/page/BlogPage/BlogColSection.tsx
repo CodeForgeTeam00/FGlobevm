@@ -6,12 +6,13 @@ import Text from "@/components/global/text";
 
 type Props = {
     data: BlogPost[];
+    title:string
 };
 
-export const BlogColSection: React.FC<Props> = ({ data }) => {
+export const BlogColSection: React.FC<Props> = ({ data , title }) => {
     return (
         <div className="flex flex-col p-4 lg:p-10 border border-neutral-30 rounded-xl gap-2 lg:gap-4">
-            <Text variant={'heading-md'} className="font-h3">Popular Articles</Text>
+            <Text variant={'heading-md'} className="font-h3">{title}</Text>
 
             {data.map((item, index) => (
                 <BlogCard layout={'horizontal'}  key={index} data={item} />
