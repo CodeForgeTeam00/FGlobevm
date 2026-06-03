@@ -12,7 +12,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
     if (!posts.length) return null;
     const [featured, ...sidebar] = posts;
     return (
-        <section className="py-24 ">
+        <section className="lg:py-24 py-10 ">
             <div className="text-center mb-16">
                 <SectionIntro
                     lgCenter
