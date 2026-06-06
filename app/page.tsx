@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { HeroSection } from "@/components/page/Home/HeroSection/HeroSection";
+
 import { TrustedBy } from "@/components/global/TrustedBy";
 import { AboutStability } from "@/components/page/Home/AboutStability";
 import { WhyChooseUs } from "@/components/page/Home/WhyChooseUs";

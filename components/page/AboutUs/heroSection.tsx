@@ -57,8 +57,8 @@ export default function HeroSection({featuredImage}: HeroSectionProps) {
                     </div>
                     <div className=" xl:w-[637px] mx-auto   lg:relative sm:w-3/5 lg:w-[500px]   lg:block">
                         <Image
-                            src={imageSrc}
-                            alt="GlobeVM IT security professional"
+                            src={featuredImage?.url || ""}
+                            alt={ featuredImage?.alt ||"GlobeVM IT security professional"}
                             width={1200}
                             height={600}
                             priority
