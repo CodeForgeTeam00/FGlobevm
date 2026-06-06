@@ -17,5 +17,6 @@ export function mapGlobalOptions(data: GlobalOptions | null) {
             stars: Number(item.the_star),
         })),
         faq: data.faq,
+        image: data.image,
     };
 }

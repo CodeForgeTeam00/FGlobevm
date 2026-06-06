@@ -200,4 +200,4 @@ export default async function CategoryPage({ params, searchParams }: Props) {
             </Container>
         </>
     );
-}
+}   
