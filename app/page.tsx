@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { HeroSection } from "@/components/page/Home/HeroSection/HeroSection";
+
 import { TrustedBy } from "@/components/global/TrustedBy";
 import { AboutStability } from "@/components/page/Home/AboutStability";
 import { WhyChooseUs } from "@/components/page/Home/WhyChooseUs";
@@ -22,6 +22,8 @@ import Text from "@/components/global/text";
 import JsonLd from "@/components/global/JsonLd";
 import { organizationSchema, webPageSchema, faqSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
+import {NewHeroSection} from "@/components/page/Home/HeroSection/NewHeroSection";
+import React from "react";
 
 export async function generateMetadata(): Promise<Metadata> {
     const options = await getGlobalOptions();
@@ -70,6 +72,7 @@ export default async function Home() {
             description: yoast?.description || "Enterprise-grade managed IT, cybersecurity, and cloud solutions for businesses in Los Angeles, Encino, and Woodland Hills.",
         }),
     ];
+    console.log(data.image)
     return (
         <>
             <JsonLd data={schemas} />
@@ -79,15 +82,8 @@ export default async function Home() {
                     src={mask}
                     alt="layout"
                 />
-                <Container bemClass="hero__section">
-                    <HeroSection
-                        data={{
-                            primaryImageUrl: data.hero.primaryImage.url,
-                            secondaryImageUrl: data.hero.secondaryImage.url,
-                            primaryAlt: data.hero.primaryImage.alt,
-                            secondaryAlt: data.hero.secondaryImage.alt,
-                        }}
-                    />
+                <Container fullWidth={true} bemClass="hero__section ">
+                    <NewHeroSection image={data.image}/>
                 </Container>
                 <Container bemClass="trusted-by__section">
                     <TrustedBy partners={partners ?? []} />

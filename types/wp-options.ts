@@ -37,6 +37,7 @@ export interface FAQPageData {
 export interface GlobalOptions {
     hero_section_images: HeroSectionImages;
     background_image: WPImage;
+    image:WPImage;
     slider_section_image: WPImage;
     comment_field: Testimonial[];
     faq: FAQItem[];
