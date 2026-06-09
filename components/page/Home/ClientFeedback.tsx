@@ -21,7 +21,7 @@ interface ClientFeedbackProps {
 
 export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image }) => {
     return (
-        <div className="relative py-10 lg:py-24  flex flex-col gap-10 overflow-hidden">
+        <div className="relative py-10 lg:py-24  flex flex-col  gap-4 lg:gap-10 overflow-hidden">
             <SectionIntro
                 lgCenter
                 badge="Client Feedback"
@@ -38,10 +38,10 @@ export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image 
                             </div>
                         </div>
                         <div>
-                            <div className="relative px-10">
+                            <div className="relative px-4 lg:px-10 ">
                                 <QuoteIcon className="w-13 h-13 text-neutral-0" />
                                 <svg
-                                    className="absolute left-[43px] bottom-0"
+                                    className="absolute letf-[18px] lg:left-[43px] bottom-0"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="66"
                                     height="56"
@@ -60,9 +60,8 @@ export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image 
                     </div>
                     <div className="p-10 border border-neutral-30 rounded-3xl lg:items-center flex-col lg:flex-row  bg-neutral-10 flex gap-5">
                         <AvatarGroupImage />
-                        <div>
+                        <div className={'flex flex-col'}>
                             <Text variant={'card-title-lg'}>75+ Businesses Protected</Text>
-
                             <p className="text-lg leading-[32px] text-neutral-100">
                                 Serving companies across Southern California
                             </p>
