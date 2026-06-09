@@ -31,7 +31,7 @@ export default function MySlider({ comments = [] }: MySliderProps) {
     const hasMultiple = validComments.length > 1;
 
     return (
-        <div className="relative w-full mt-4 h-full  testimonial-slider px-10">
+        <div className="relative w-full mt-4 h-full  testimonial-slider px-4 lg:px-10">
             <h3 className="mb-3 text-neutral-0 text-xl font-semibold">
                 Client Feedback
             </h3>
@@ -50,14 +50,14 @@ export default function MySlider({ comments = [] }: MySliderProps) {
                     {validComments.length > 0 ? (
                         validComments.map((item, index) => (
                             <SwiperSlide key={`${item.the_author}-${index}`}>
-                                <div className="flex flex-col h-full ">
+                                <div className="flex flex-col  h-full ">
                                     <p className="text-neutral-0/80 leading-relaxed line-clamp-4">
                                         {item.description || "No description"}
                                     </p>
                                     <div>
                                         <div className="w-full border-b border-dashed my-4 border-white/15" />
 
-                                        <div className="flex justify-between items-center">
+                                        <div className="flex justify-between flex-col lg:flex-row lg:items-center">
                                             <div>
                                                 <p className="text-neutral-0 font-medium">
                                                     {item.the_author || "Anonymous"}
@@ -85,7 +85,7 @@ export default function MySlider({ comments = [] }: MySliderProps) {
                     )}
                 </Swiper>
                 {hasMultiple && (
-                    <div className="  flex flex-col items-center gap-2 ">
+                    <div className="   hidden lg:flex flex-col items-center gap-2 ">
                         <button
                             type="button"
                             onClick={() => swiper?.slidePrev()}
