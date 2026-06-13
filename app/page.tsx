@@ -72,7 +72,6 @@ export default async function Home() {
             description: yoast?.description || "Enterprise-grade managed IT, cybersecurity, and cloud solutions for businesses in Los Angeles, Encino, and Woodland Hills.",
         }),
     ];
-    console.log(data.image)
     return (
         <>
             <JsonLd data={schemas} />

@@ -8,13 +8,9 @@ import {CalendarIcon, PhoneIcon} from "@/components/global/Icons";
 import {Button} from "@/components/ui/button";
 import Text from "@/components/global/text";
 import {WPImage} from "@/types/wp-common";
-
-
 export function NewHeroSection({ image }: { image: WPImage }) {
     const dict = useDictionary();
     const content = dict.home.heroSection.content;
-    console.log(image.url)
-
     const actions = [
         {
             label: content.primaryBtn,

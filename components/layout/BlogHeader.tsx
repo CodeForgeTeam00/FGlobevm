@@ -137,14 +137,12 @@ export default function BlogHeader({ categories = [] }: BlogHeaderProps) {
             )}
         </>
     );
-
     return (
         <>
             <header className="sticky top-0 z-50 bg-white border-b  border-gray-100">
-                {/* ===== DESKTOP NORMAL ===== */}
                 {!searchOpen && (
                     <Container>
-                        <div className="hidden lg:flex px-4 2xl:px-0 py-5 w-full justify-between items-center">
+                        <div className="hidden lg:flex gap-2 px-4 2xl:px-0 py-5 w-full justify-between items-center">
                             <div className="flex items-center 2xl:gap-10 gap-6">
                                 <Link href="/blog/" className="flex flex-col items-center gap-2">
                                     <svg width="247" height="56" viewBox="0 0 247 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -176,16 +174,19 @@ export default function BlogHeader({ categories = [] }: BlogHeaderProps) {
                                         </defs>
                                     </svg>
                                 </Link>
-                                <nav className="flex gap-4 2xl:gap-6">
+                                <nav className="hidden xl:flex gap-4   2xl:gap-6">
                                     {categories.map((item) => (
                                         <Link
                                             key={item.slug}
                                             href={`/blog/category/${item.slug}/`}
-                                            className="2xl:text-lg text-sm text-gray-700 hover:text-primary-6 transition"
+                                            className="2xl:text-base text-nowrap  text-sm text-gray-700 hover:text-primary-6 transition"
                                         >
-                                         <Text variant={'body-lg'}>
-                                             {item.name}
-                                         </Text>
+                                            <Text
+                                                variant="body-md"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: item.slug,
+                                                }}
+                                            />
                                         </Link>
                                     ))}
                                 </nav>
@@ -202,7 +203,7 @@ export default function BlogHeader({ categories = [] }: BlogHeaderProps) {
                                 <Link href={'/'}>
                                     <Button variant={'primary'} size={'lg'}>
                                         <div className={'flex gap-2 items-center '}>
-                                            <Text variant={'button-xl'}>
+                                            <Text className={'text-nowrap'} variant={'button-xl'}>
                                                 Back to GlobeVM
                                             </Text>
                                             <Home className={'text-neutral-0 w-6 h-6'}/>
@@ -211,10 +212,24 @@ export default function BlogHeader({ categories = [] }: BlogHeaderProps) {
                                 </Link>
                             </div>
                         </div>
+                        <nav className="hidden lg:flex xl:hidden gap-4 p-4  2xl:gap-6">
+                            {categories.map((item) => (
+                                <Link
+                                    key={item.slug}
+                                    href={`/blog/category/${item.slug}/`}
+                                    className="2xl:text-base text-nowrap  text-sm text-gray-700 hover:text-primary-6 transition"
+                                >
+                                    <Text
+                                        variant="body-md"
+                                        dangerouslySetInnerHTML={{
+                                            __html: item.slug,
+                                        }}
+                                    />
+                                </Link>
+                            ))}
+                        </nav>
                     </Container>
                 )}
-
-                {/* ===== DESKTOP SEARCH ===== */}
                 {searchOpen && (
                     <div className="hidden lg:block">
                         <Container>
@@ -241,7 +256,6 @@ export default function BlogHeader({ categories = [] }: BlogHeaderProps) {
                     </div>
                 )}
 
-                {/* ===== MOBILE NORMAL ===== */}
                 {!searchOpen && (
                     <div className="flex lg:hidden py-1 px-4 h-12 w-full justify-between items-center">
                         <button onClick={() => setMobileMenuOpen(true)}>
@@ -283,7 +297,6 @@ export default function BlogHeader({ categories = [] }: BlogHeaderProps) {
                 )}
 
             </header>
-
             {/* ===== SEARCH RESULTS DROPDOWN ===== */}
             {searchOpen && query.length >= 2 && (
                 <>

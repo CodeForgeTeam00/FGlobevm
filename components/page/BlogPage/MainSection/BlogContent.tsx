@@ -27,7 +27,8 @@ export const FeaturedBlogContent: React.FC<Props> = ({ data, avatarLess = false 
                 />
                 <div className="flex flex-col gap-2">
                     <Text variant={'heading-md'}>{data.title}</Text>
-                    <Text textColor={'light'} variant={'body-md'} className={` lg:line-clamp-4 line-clamp-6 lg:min-h-[112px] min-h-[144px] ${!avatarLess ? "max-w-[535px]" : ""}`}>
+                    <Text textColor={'light'} variant={'body-md'}
+                          className={` lg:line-clamp-4 line-clamp-6 lg:min-h-[112px] min-h-[144px] ${!avatarLess ? "max-w-[535px]" : ""}`}>
                         {data.description}
                     </Text>
                 </div>
