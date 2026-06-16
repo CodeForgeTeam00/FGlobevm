@@ -221,10 +221,10 @@ export default function BlogHeader({ categories = [] }: BlogHeaderProps) {
                                 >
                                     <Text
                                         variant="body-md"
-                                        dangerouslySetInnerHTML={{
-                                            __html: item.slug,
-                                        }}
-                                    />
+
+                                    >
+                                        {item.name}
+                                    </Text>
                                 </Link>
                             ))}
                         </nav>
