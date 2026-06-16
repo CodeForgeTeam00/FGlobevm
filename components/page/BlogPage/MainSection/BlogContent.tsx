@@ -13,7 +13,7 @@ type Props = {
 export const FeaturedBlogContent: React.FC<Props> = ({ data, avatarLess = false }) => {
     return (
         <div
-            className={`featured-blog__content overflow-hidden flex flex-col gap-10 py-8 ${
+            className={`featured-blog__content overflow-hidden flex flex-col gap-10 lg:py-8 ${
                 !avatarLess
                     ? "bg-neutral-10 rounded-l-xl lg:w-[633px] px-4 lg:px-10 justify-between"
                     : ""
@@ -28,7 +28,7 @@ export const FeaturedBlogContent: React.FC<Props> = ({ data, avatarLess = false 
                 <div className="flex flex-col gap-2">
                     <Text variant={'heading-md'}>{data.title}</Text>
                     <Text textColor={'light'} variant={'body-md'}
-                          className={` lg:line-clamp-4 line-clamp-6 lg:min-h-[112px] min-h-[144px] ${!avatarLess ? "max-w-[535px]" : ""}`}>
+                          className={` lg:line-clamp-4 sm:line-clamp-3 sm:min-h-[66px] line-clamp-6 lg:min-h-[112px] min-h-[144px] ${!avatarLess ? "lg:max-w-[535px]" : ""}`}>
                         {data.description}
                     </Text>
                 </div>

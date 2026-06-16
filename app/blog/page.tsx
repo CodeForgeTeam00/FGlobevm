@@ -37,6 +37,16 @@ export async function generateMetadata(): Promise<Metadata> {
         },
     };
 }
+import type { RawBlogPost } from "@/mappers/blog-mapper";
+import {WPImage} from "@/types/wp-common";
+import {BlogCategory} from "@/types/wp-blog";
+
+ interface BlogPage {
+    popular_categories: BlogCategory[];
+    editor_choice: RawBlogPost;
+    image: WPImage;
+    yoast_head_json: YoastSEO;
+}
 
 export default async function Blog() {
     const [rawBlog, rawSidebar, data, socialMedia, popular] = await Promise.all([
@@ -49,9 +59,6 @@ export default async function Blog() {
 
     const blog = mapBlogsResponse(rawBlog);
     const sidebar = mapBlogsResponse(rawSidebar);
-
-    // Popular Posts endpoint returns a raw array (not wrapped in { posts, pagination }),
-    // so map each item directly with mapPost.
     const popularPosts = Array.isArray(popular) ? popular.map(mapPost) : [];
 
     const { featured, grid } = mapBlogToFeaturedAndGrid(blog?.posts ?? []);
@@ -75,20 +82,23 @@ export default async function Blog() {
     return (
         <>
             <JsonLd data={schemas} />
-            <Container>
-                <div className="flex flex-col lg:gap-14">
-                    <div className="flex flex-col lg:gap-20 lg:mt-10">
+            <div className='w-full max-w-[1540px] mx-auto px-4 xl:px-0 '>
+                <div className="flex flex-col gap-6 lg:gap-14">
+                    <div className="flex flex-col gap-6 lg:gap-14 lg:mt-10">
                         <BlogMainSection data={featured} />
-                        <BlogGrid data={grid} />
+                         <BlogGrid data={grid} />
                     </div>
-                    <BlogEditorChoiceSection data={data?.editor_choice ?? null} />
+                    <BlogEditorChoiceSection
+                        data={data?.editor_choice ? mapPost(data.editor_choice) : null}
+                    />
                     <BlogCategoriesSection data={data?.popular_categories ?? []} />
-                    <div className="grid lg:grid-cols-2 px-4 lg:px-0 gap-10">
+                    <div className="grid xl:grid-cols-2  gap-4 lg:gap-10 ">
                         <BlogColSection title="Popular Articles" data={popularPosts} />
                         <BlogColSection title="New Articles" data={sidebar?.posts ?? []} />
                     </div>
                 </div>
-            </Container>
+            </div>
         </>
     );
 }
+

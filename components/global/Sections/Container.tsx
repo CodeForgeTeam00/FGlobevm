@@ -24,7 +24,7 @@ const Container = ({
                         relative
                         overflow-hidden
                         ${bgClasses[bg]}
-                        ${fullWidth ? 'w-full' : 'max-w-[1540px] mx-auto px-4 lg:px-2'}
+                        ${fullWidth ? 'w-full' : 'max-w-[1540px] mx-auto px-4 xl:px-0'}
                         ${bemClass}
       `}
         >

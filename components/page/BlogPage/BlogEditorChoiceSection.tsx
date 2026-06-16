@@ -9,16 +9,17 @@ type Props = {
     data: BlogPost | null;
 };
 
+
 export const BlogEditorChoiceSection: React.FC<Props> = ({ data }) => {
     if (!data) return null;
 
     return (
-        <div className="featured-blog w-full px-4 lg:px-0">
+        <div className="featured-blog w-full ">
             <Text variant={'heading-md'} className={'mb-6'}>
                 Editors Choice
             </Text>
-            <Link href={`/blog/${data.slug}`} className="">
-                <div className="featured-blog__wrapper justify-center gap-10 items-center grid lg:grid-cols-2 p-4 lg:p-10 border-neutral-30 rounded-xl border">
+            <Link href={`/blog/${data.slug}`} >
+                <div className="featured-blog__wrapper justify-center gap-3 lg:gap-10 items-center grid lg:grid-cols-2 p-4 lg:p-10 border-neutral-30 rounded-xl border">
                     <div className="featured-blog__image-wrapper lg:h-[400px] w-full overflow-hidden">
                         <Image
                             src={data.image?.url || ""}

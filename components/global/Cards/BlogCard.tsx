@@ -53,12 +53,12 @@ const BlogCard: React.FC<BlogCardProps> = ({
                 <Text variant={"card-caption"} textColor={'primary'}>
                     {categoryName}
                 </Text>
-                <Text as={'h3'} variant={'card-title-lg'} className={'lg:line-clamp-2 line-clamp-2 lg:min-h-16 min-h-14 '}>
+                <Text as={'h3'} variant={'card-title-md'} className={'lg:line-clamp-2 line-clamp-2 lg:min-h-16 min-h-14 '}>
                     {title}
                 </Text>
                 <div className="flex gap-2 lg:gap-4">
                     {showAuthor && author?.name && (
-                        <div className="flex text-footnote lg:text-small gap-1">
+                        <div className=" text-footnote hidden md:flex lg:text-small gap-1">
                             <Text variant={'card-tag'} textColor={'black'}>
                                 By
                             </Text>
