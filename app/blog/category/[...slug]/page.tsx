@@ -124,9 +124,9 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         <>
             <JsonLd data={schemas} />
             <Container>
-                <div className="py-10">
+                <div className="py-4 lg:py-10">
                     <div className="text-sm text-gray-400 mb-2">
-                        <Link href="/" className="hover:text-primary-6">home</Link>
+                        <Link href="/blog" className="hover:text-primary-6">home</Link>
                         <span className="mx-2">›</span>
                         <Link href={`/blog/category/${parentSlug}`} className="hover:text-primary-6">
                             {parentSlug}
@@ -171,7 +171,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
                     {(blog?.posts ?? []).length > 0 ? (
                         <>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 lg:px-0">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                                 {blog!.posts.map((item) => (
                                     <BlogCard layout="vertical" key={item.id} data={item} />
                                 ))}

@@ -1,17 +1,39 @@
 import Image from "next/image";
 import { Share2, MessageCircle, Calendar, Home, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
+function extractCategorySlug(url: string): string | null {
+    try {
+        const segments = new URL(url).pathname.split('/').filter(Boolean)
+        const idx = segments.indexOf('category')
+        return idx !== -1 ? segments[idx + 1] ?? null : null
+    } catch {
+        return null
+    }
+}
 export function Hero({ data }: { data: any }) {
+    const isSubcategory = Boolean(data.subcategoryName)
+
     return (
         <div className="flex flex-col gap-8">
-            <div className="flex items-center gap-2 text-sm text-gray-500 font-medium">
-                <Home className="w-4 h-4" />
-                <ChevronRight className="w-4 h-4" />
-                <span className="hover:text-[#00a0e9] cursor-pointer transition-colors">
+            <div className="text-sm text-gray-400 mb-2">
+                <Link href="/blog" className="hover:text-primary-6">home</Link>
+                <span className="mx-2">›</span>
+                <Link href={`/blog/category/${extractCategorySlug(data.categoryUrl)}`} className="hover:text-primary-6">
                     {data.categoryName}
-                </span>
+                </Link>
+                {isSubcategory && (
+                    <>
+                        <span className="mx-2">›</span>
+                        <Link
+                            href={`/blog/category/${data.categoryName}/${data.subcategoryName}`}
+                            className="hover:text-primary-6"
+                        >
+                            {data.subcategoryName}
+                        </Link>
+                    </>
+                )}
             </div>
-
             <h1 className="blog-content title">
                 {data.title}
             </h1>

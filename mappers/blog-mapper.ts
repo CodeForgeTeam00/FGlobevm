@@ -6,12 +6,16 @@ export interface RawBlogPost {
     slug?: string;
     title: string;
     description: string;
-    category_name: string;
-    category_url: string;
+    category_name?: string;
+    category_url?: string;
     date: string;
-    author: { name: string; avatar: string };
-    image_url: string;
-    yoast_head_json?: YoastSEO | null;   // ← اضافه شد
+    author?: {
+        name?: string;
+        avatar?: string | { url: string; alt: string };
+    };
+    image?: string | { url: string; alt: string };
+    image_url?: string;
+    yoast_head_json?: YoastSEO | null;
     components?: unknown[];
     comments_data?: unknown;
 }
@@ -29,24 +33,26 @@ export interface RawBlogsResponse {
     sort_by: { current_sort: string };
 }
 
-export function mapPost(raw: any): BlogPost {
+export function mapPost(raw: RawBlogPost): BlogPost {
     return {
         id: raw.id,
         slug: raw.slug,
         title: raw.title,
         description: raw.description,
-        categoryName: raw.category_name ?? raw.categoryName,
-        categoryUrl: raw.category_url ?? raw.categoryUrl,
+        categoryName: raw.category_name ?? "",
+        categoryUrl: raw.category_url ?? "",
         date: raw.date,
         author: {
-            name: raw.author?.name,
-            avatar: typeof raw.author?.avatar === "string"
-                ? { url: raw.author.avatar, alt: raw.author.name }
-                : raw.author?.avatar ?? { url: "", alt: "" },
+            name: raw.author?.name ?? "",
+            avatar:
+                typeof raw.author?.avatar === "string"
+                    ? { url: raw.author.avatar, alt: raw.author?.name ?? "" }
+                    : raw.author?.avatar ?? { url: "", alt: "" },
         },
-        image: typeof raw.image === "string"
-            ? { url: raw.image, alt: "" }
-            : raw.image ?? (raw.image_url ? { url: raw.image_url, alt: "" } : { url: "", alt: "" }),
+        image:
+            typeof raw.image === "string"
+                ? { url: raw.image, alt: "" }
+                : raw.image ?? (raw.image_url ? { url: raw.image_url, alt: "" } : { url: "", alt: "" }),
     };
 }
 
@@ -69,8 +75,6 @@ export function mapBlogsResponse(raw: RawBlogsResponse | null): BlogsResponse | 
         sortBy: { currentSort: raw.sort_by.current_sort },
     };
 }
-
-
 
 export function mapBlogToFeaturedAndGrid(posts: BlogPost[]) {
     if (!posts.length) return { featured: null, grid: [] };

@@ -61,7 +61,7 @@ export default async function Footer() {
     ].filter((s) => s.url);
 
     return (
-        <footer className="lg:pt-[120px] mt-[128px] pt-16 bg-neutral-10">
+        <footer className="lg:pt-[120px] mt-10 lg:mt-[128px] pt-16 bg-neutral-10">
             <Container>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[128px]">
                     <div className="flex flex-col gap-6">

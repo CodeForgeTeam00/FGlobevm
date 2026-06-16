@@ -14,7 +14,7 @@ export const BlogMainSection: React.FC<Props> = ({data}) => {
     return (
         <div className="featured-blog w-full">
             <Link href={`/blog/${data.slug}`} className="">
-                <div className="featured-blog__wrapper flex flex-col-reverse lg:flex-row">
+                <div className="featured-blog__wrapper flex flex-col-reverse gap-4 lg:gap-0 lg:flex-row">
                     <FeaturedBlogContent data={data}/>
                     <div
                         className="featured-blog__image-wrapper flex-1 lg:max-w-[907px] lg:h-[510px] w-full lg:rounded-r-xl overflow-hidden">

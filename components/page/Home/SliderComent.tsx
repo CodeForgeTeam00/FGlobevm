@@ -8,33 +8,28 @@ import { Autoplay } from "swiper/modules";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { StarRating } from "@/components/ui/star-rating";
-
+import Text from "@/components/global/text";
 interface CommentItem {
     description: string;
     the_author: string;
     author_job: string;
     the_star: string;
 }
-
 interface MySliderProps {
     comments?: CommentItem[];
 }
-
 export default function MySlider({ comments = [] }: MySliderProps) {
     const [swiper, setSwiper] = useState<SwiperType | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
-
     const validComments = comments.filter(
         (item) => item.description || item.the_author
     );
-
     const hasMultiple = validComments.length > 1;
-
     return (
         <div className="relative w-full mt-4 h-full  testimonial-slider px-4 lg:px-10">
-            <h3 className="mb-3 text-neutral-0 text-xl font-semibold">
+            <Text textColor={'white'} variant={'card-title-lg'}>
                 Client Feedback
-            </h3>
+            </Text>
             <div className="relative flex gap-10 items-start ">
                 <Swiper
                     modules={[Autoplay]}
@@ -51,26 +46,40 @@ export default function MySlider({ comments = [] }: MySliderProps) {
                         validComments.map((item, index) => (
                             <SwiperSlide key={`${item.the_author}-${index}`}>
                                 <div className="flex flex-col  h-full ">
-                                    <p className="text-neutral-0/80 leading-relaxed line-clamp-4">
+                                    <Text textColor={'white'} variant={'card-subtitle-lg'}>
                                         {item.description || "No description"}
-                                    </p>
+                                    </Text>
                                     <div>
                                         <div className="w-full border-b border-dashed my-4 border-white/15" />
-
-                                        <div className="flex justify-between flex-col lg:flex-row lg:items-center">
+                                        <div className="flex justify-between  lg:items-center">
                                             <div>
-                                                <p className="text-neutral-0 font-medium">
+                                                <Text textColor={'white'} variant={'card-caption'}>
                                                     {item.the_author || "Anonymous"}
-                                                </p>
-                                                <p className="text-caption text-neutral-0/60">
+                                                </Text>
+                                                <Text textColor={'white'} variant={'card-tag'}>
                                                     {item.author_job || "-"}
-                                                </p>
+                                                </Text>
                                             </div>
                                             <StarRating
                                                 rating={Number(item.the_star) || 0}
                                                 readonly={true}
                                                 size={16}
                                             />
+                                        </div>
+                                        <div className="flex justify-center gap-2 my-2">
+                                            {validComments.map((_, i) => (
+                                                <button
+                                                    key={i}
+                                                    type="button"
+                                                    onClick={() => swiper?.slideToLoop(i)}
+                                                    aria-label={`Go to testimonial ${i + 1}`}
+                                                    className={`w-[6px] h-[6px] rounded-full transition-all cursor-pointer ${
+                                                        i === activeIndex
+                                                            ? "bg-white scale-125"
+                                                            : "bg-white/30 hover:bg-white/40"
+                                                    }`}
+                                                />
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +111,6 @@ export default function MySlider({ comments = [] }: MySliderProps) {
                         >
                             <ChevronUp className="w-4 h-4 group-hover:text-primary-6 text-neutral-0" />
                         </button>
-
                         <div className="flex flex-col gap-2 my-2">
                             {validComments.map((_, i) => (
                                 <button
@@ -118,7 +126,6 @@ export default function MySlider({ comments = [] }: MySliderProps) {
                                 />
                             ))}
                         </div>
-
                         <button
                             type="button"
                             onClick={() => swiper?.slideNext()}

@@ -54,6 +54,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
 
     const data = mapPost(raw);
 
+
     const yoast = raw.yoast_head_json as YoastSEO | undefined;
 
     const headline = yoast?.title || data.title || "";
