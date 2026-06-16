@@ -27,10 +27,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             canonicalOverride: `https://www.globevm.com/blog/${slug}`,
         });
     }
-    const data = mapPost(raw);
+    const data = raw;
     return {
-        title: data.title,
-        description: data.description,
+        title: data.yoast_head_json.title,
+        description: data.yoast_head_json.description,
         alternates: {
             canonical: `https://www.globevm.com/blog/${slug}`,
         },
