@@ -129,7 +129,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                         <Link href="/blog" className="hover:text-primary-6">home</Link>
                         <span className="mx-2">›</span>
                         <Link href={`/blog/category/${parentSlug}`} className="hover:text-primary-6">
-                            {parentSlug}
+                            {parentSlug.replace(/-/g, " ")}
                         </Link>
                         {isSubcategory && <span className="mx-2">›</span>}
                     </div>
