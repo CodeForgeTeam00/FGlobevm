@@ -182,11 +182,9 @@ export default function BlogHeader({ categories = [] }: BlogHeaderProps) {
                                             className="2xl:text-base text-nowrap  text-sm text-gray-700 hover:text-primary-6 transition"
                                         >
                                             <Text
-                                                variant="body-md"
-                                                dangerouslySetInnerHTML={{
-                                                    __html: item.slug,
-                                                }}
-                                            />
+                                                variant="body-md">
+                                                {item.name}
+                                            </Text>
                                         </Link>
                                     ))}
                                 </nav>
