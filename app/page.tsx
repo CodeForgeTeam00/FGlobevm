@@ -75,7 +75,7 @@ export default async function Home() {
     return (
         <>
             <JsonLd data={schemas} />
-            <div className="relative">
+            <div className="relative ">
                 <Image
                     className="absolute hidden lg:inline top-[160px]"
                     src={mask}

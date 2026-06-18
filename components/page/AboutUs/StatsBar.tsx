@@ -14,12 +14,12 @@ export function StatsBar() {
             <Container>
                 <div className="flex  flex-row-reverse lg:flex-row ">
                     <div
-                        className=" flex-grow bg-white grid rounded-2xl border overflow-hidden border-neutral-30
+                        className=" flex-grow bg-white grid rounded-2xl  border overflow-hidden border-neutral-30
                         grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-neutral-30">
                         {STATS.map((stat) => (
                             <div
                                 key={stat.label}
-                                className=" p-4 sm:p-6 sm:p-8 text-center group flex flex-col justify-center"
+                                className=" p-2 sm:p-6 sm:p-8 text-center group flex flex-col justify-center"
                             >
                                 <Text className={'group-hover:text-primary-6'} variant={'card-title-lg'}>
                                     {stat.value}
@@ -30,7 +30,7 @@ export function StatsBar() {
                             </div>
                         ))}
                     </div>
-                    <div className="bg-primary-6 text-neutral-0 rounded-2xl  p-8 lg:w-64 flex items-center justify-center text-center">
+                    <div className="bg-primary-6 text-neutral-0 rounded-2xl p-2 lg:p-8 lg:w-64 flex items-center justify-center text-center">
                         <Text variant={'card-title-lg'}>
                             Why Choose <br/> GlobeVM
                         </Text>

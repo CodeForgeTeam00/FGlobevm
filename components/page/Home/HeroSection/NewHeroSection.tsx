@@ -49,7 +49,7 @@ export function NewHeroSection({ image }: { image: WPImage }) {
             />
 
             <Container>
-                <div className="w-full h-full mt-4 lg:mt-[200px]">
+                <div className="w-full h-full mt-4  lg:mt-[200px]">
                     <div className="max-w-[623px] flex flex-col mx-auto lg:mx-0">
                         <SectionIntro
                             isLight={true}
