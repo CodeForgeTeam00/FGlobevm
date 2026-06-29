@@ -11,7 +11,7 @@ export interface WPService {
     };
 }
 export interface Card{
-        slug: string;
+        slug?: string;
         icon: { url: string; alt: string };
         title: string;
         description: string;
@@ -64,6 +64,7 @@ export interface ServicePageData {
     };
 }
 import type { YoastSEO } from "@/types/yoast";
+import {SeoBox} from "@/types/wp-options";
 
 export interface CategoryFeature {
     title: string;
@@ -100,6 +101,11 @@ export interface CategoryServicePageData {
             description: string;
             items: Card[];
         };
+        service_area_section: {
+                label: string;
+                title: string;
+                description: string;
+        }
         process_section: {
             label: string;
             title: string;
@@ -112,13 +118,19 @@ export interface CategoryServicePageData {
             description: string;
             items: CategoryIconItem[];
         };
+        seo_box:SeoBox,
         testemonial_section: {
             label: string;
             title: string;
             description: string;
             testemonial: CategoryTestimonial[];
         };
-        faq_section: { question: string; answer: string }[];
+
+        faq_section: {
+            title: string;
+            description: string;
+            faq: { question: string; answer: string }[]
+        };
     };
     yoast_head_json?: YoastSEO; // endpoint کتگوری فعلاً نمی‌دتش
 }

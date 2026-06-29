@@ -194,7 +194,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                         </p>
                     )}
                     {seoBox && (
-                        <SeoBoxSection content={seoBox} title="All About The GlobeVM" />
+                        <SeoBoxSection content={seoBox.content} title={seoBox.title} />
                     )}
                 </div>
             </Container>

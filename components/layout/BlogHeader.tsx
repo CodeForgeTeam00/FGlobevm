@@ -9,12 +9,10 @@ import { Menuicon } from "@/components/global/Icons";
 import Container from "@/components/global/Sections/Container";
 import { Button } from "@/components/ui/button";
 import Text from "@/components/global/text";
-
 interface BlogCategoryItem {
     name: string;
     slug: string;
 }
-
 interface BlogHeaderProps {
     categories: BlogCategoryItem[];
 }
@@ -253,7 +251,6 @@ export default function BlogHeader({ categories = [] }: BlogHeaderProps) {
                         </Container>
                     </div>
                 )}
-
                 {!searchOpen && (
                     <div className="flex lg:hidden py-1 px-4 h-12 w-full justify-between items-center">
                         <button onClick={() => setMobileMenuOpen(true)}>
@@ -271,7 +268,6 @@ export default function BlogHeader({ categories = [] }: BlogHeaderProps) {
                         </button>
                     </div>
                 )}
-
                 {searchOpen && (
                     <div className="lg:hidden px-4 py-4">
                         <div className="flex items-center gap-3 bg-gray-50 rounded-full px-4 py-3">

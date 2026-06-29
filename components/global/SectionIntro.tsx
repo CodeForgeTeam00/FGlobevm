@@ -4,7 +4,7 @@ import Text, {ValidTag} from "@/components/global/text";
 interface SectionIntroProps {
     badge?: string;
     title: string;
-    description?: string;
+    description?: string | null;
     lgCenter?: boolean;
     isLight?: boolean;
     as? :ValidTag

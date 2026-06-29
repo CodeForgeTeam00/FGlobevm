@@ -4,6 +4,9 @@ import { useState, useRef } from "react";
 import { ArrowRight, Upload, X, AlertCircle, CheckCircle } from "lucide-react";
 import Text from "@/components/global/text";
 
+interface Props {
+    params: 'service' | 'service_area'
+}
 const SERVICE_OPTIONS = [
     "Managed IT Services",
     "Cybersecurity Solutions",
@@ -36,7 +39,7 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const inputBase =
     "w-full bg-[#f8f9fa] border border-transparent focus:border-primary-6 focus:bg-white focus:ring-2 focus:ring-primary-6/20 rounded-2xl px-5 py-3.5 text-sm transition-all outline-none appearance-none";
 
-export default function EstimateForm() {
+export default function EstimateForm({ params }: Props) {
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -114,6 +117,7 @@ export default function EstimateForm() {
             formData.append("timeline", form.timeline);
             formData.append("description", form.description);
             formData.append("company_website", honeypot);
+            formData.append("source", params);
 
             if (file) {
                 formData.append("file", file);
@@ -122,6 +126,7 @@ export default function EstimateForm() {
             const res = await fetch(
                 "https://wordpress-1592566-6232100.cloudwaysapps.com/wp-json/gvm/v1/submit_service_area",
                 {
+
                     method: "POST",
                     body: formData,
                 }

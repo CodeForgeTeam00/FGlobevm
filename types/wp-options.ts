@@ -99,3 +99,20 @@ export interface BusinessPartner {
     logo:WPImage |  null
     url: string | null;
 }
+
+
+export interface NavService {
+    name: string;
+    slug: string;
+}
+
+export interface NavCategory {
+    name: string;
+    slug: string;
+    services: NavService[];
+}
+
+export interface SeoBox {
+    title?: string;
+    content: string;
+}

@@ -1,5 +1,6 @@
 import parse, { domToReact, HTMLReactParserOptions } from "html-react-parser";
 import Link from "next/link";
+import Text from "@/components/global/text";
 
 type Props = {
     content: string;
@@ -14,12 +15,13 @@ export function WpContent({ content }: Props) {
 
                 if (isInternal) {
                     return (
-                        <Link href={href} className="text-blue-600">
-                            {domToReact(domNode.children, options)}
-                        </Link>
+                            <Text textColor={'primary'}>
+                                <Link href={href}>
+                                    {domToReact(domNode.children, options)}
+                                </Link>
+                            </Text>
                     );
                 }
-
                 return (
                     <a
                         href={href}

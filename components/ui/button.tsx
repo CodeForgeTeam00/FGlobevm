@@ -5,7 +5,7 @@ import { Slot } from "radix-ui"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-    "cursor-pointer border",
+    "cursor-pointer  border",
     {
       variants: {
         variant: {

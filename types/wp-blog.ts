@@ -1,5 +1,6 @@
     import { WPImage } from "./wp-common";
     import {YoastSEO} from "@/types/yoast";
+    import {SeoBox} from "@/types/wp-options";
 
 
 export interface BlogAuthor {
@@ -49,6 +50,7 @@ export interface BlogPage {
     editor_choice:BlogPost;
     image: WPImage;
     yoast_head_json:YoastSEO;
+    seo_box: SeoBox
 }
 
 

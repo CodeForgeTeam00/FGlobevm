@@ -1,17 +1,32 @@
 import { getCategoryService } from "@/services/wp-services";
 import { notFound } from "next/navigation";
-import { draftMode } from "next/headers";
 import type { Metadata } from "next";
-import Link from "next/link";
 import Container from "@/components/global/Sections/Container";
 import PrimarySection from "@/components/global/PrimarySection";
-import PreviewBar from "@/components/global/PreviewBar";
 import JsonLd from "@/components/global/JsonLd";
 import { webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
-import Testimonials from "@/components/page/SrvicesPage/Testimonials";
 import { FAQAccordion } from "@/components/global/FAQAccordion";
 import { ContactCTA } from "@/components/page/Home/ContactCTA";
+import { CategoryServiceHero } from "@/components/page/ServiceCategory/HeroSection";
+import { ServiceFeatures } from "@/components/page/ServiceCategory/ServiceFeatures";
+import AllServices from "@/components/page/SrvicesPage/AllService";
+import WhyUsSection from "@/components/page/ServiceArea/WhyUsSection";
+import BlogSection from "@/components/page/SrvicesPage/PostSection";
+import React from "react";
+import { mapBlogsResponse } from "@/mappers/blog-mapper";
+import { getBlogs } from "@/services/wp-blog";
+import SectionIntro from "@/components/global/SectionIntro";
+import Text from "@/components/global/text";
+import { getServiceAreaLanding } from "@/services/wp-service-area";
+import ServiceAreaCard from "@/components/page/ServiceAreaLanding/ServiceAreaCard";
+import { ClientFeedbackGrid } from "@/components/page/ServiceCategory/Clientfeedbackgrid";
+import EstimateForm from "@/components/page/ServiceArea/EstimateForm";
+import type { Card } from "@/types/wp-services";
+import SeoBoxSection from "@/components/global/SeoBoxSection";
+import Image from "next/image";
+import {ChevronRight} from "lucide-react";
+import Link from "next/link";
 
 interface Props {
     params: Promise<{ category: string }>;
@@ -32,19 +47,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ServiceCategoryPage({ params }: Props) {
     const { category } = await params;
-    const { isEnabled } = await draftMode();
     const data = await getCategoryService(category);
     if (!data) notFound();
 
+    const [rawAreas, rawPosts] = await Promise.all([
+        getServiceAreaLanding(),
+        getBlogs({ per_page: 4 }),
+    ]);
+
     const { acf } = data;
     const hero = acf.hero_section;
-    const features = acf.features_section;
     const services = acf.services_section;
     const proc = acf.process_section;
     const industries = acf.industry_section;
-    const testimonials = acf.testemonial_section;
     const faqs = acf.faq_section;
+    const serviceAriaSections = acf.service_area_section;
+    const seoBox = acf.seo_box
     const pageTitle = hero.title || data.name || "Services";
+    const blogData = mapBlogsResponse(rawPosts);
+
+
+    const areas = (rawAreas ?? []).filter((a) => a.landing_service_area);
+    areas.map((area) => {
+
+        console.log(area.landing_service_area.title)
+    })
 
     const schemas: object[] = [
         webPageSchema({
@@ -59,114 +86,122 @@ export default async function ServiceCategoryPage({ params }: Props) {
         ]),
     ];
 
-    const renderGrid = (
-        label: string,
-        title: string,
-        desc: string,
-        items: { title: string; description: string }[]
-    ) => (
-        <Container>
-            <div className="py-12">
-                {label && <p className="uppercase text-sm">{label}</p>}
-                {title && <h2 className="text-2xl font-semibold mb-2">{title}</h2>}
-                {desc && <p className="opacity-80 mb-6">{desc}</p>}
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    {items.map((it, i) => (
-                        <div key={i} className="rounded-lg border p-6">
-                            <h3 className="font-semibold mb-2">{it.title}</h3>
-                            <p className="text-sm opacity-80">{it.description}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </Container>
-    );
-
     return (
         <>
             <JsonLd data={schemas} />
-            <div className="relative">
-                {isEnabled && <PreviewBar slug={category} type="services" />}
-
-                {/* hero موقتِ ساده، عکس گارد‌شده */}
-                <Container>
-                    <div className="py-12 grid md:grid-cols-2 gap-8 items-center">
-                        <div>
-                            {hero.label && <p className="uppercase text-sm mb-2">{hero.label}</p>}
-                            <h1 className="text-3xl font-bold mb-4">{hero.title}</h1>
-                            {hero.description && <p className="opacity-80">{hero.description}</p>}
-                        </div>
-                        {hero.image?.url && (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                                src={hero.image.url}
-                                alt={hero.image.alt || hero.title}
-                                className="rounded-lg w-full h-auto"
-                            />
-                        )}
-                    </div>
-                </Container>
-
-                {features.length > 0 && renderGrid("", "", "", features)}
-
-                {/* بچه‌ها: جای AllServices، چون icon تو دیتای تست null ـه */}
-                {services.items.length > 0 && (
-                    <PrimarySection>
-                        <Container>
-                            <div className="py-12">
-                                {services.label && <p className="uppercase text-sm">{services.label}</p>}
-                                {services.title && <h2 className="text-2xl font-semibold mb-2">{services.title}</h2>}
-                                {services.description && <p className="opacity-80 mb-6">{services.description}</p>}
-                                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                                    {services.items.map((s, i) => {
-                                        const card = (
-                                            <div className="rounded-lg border p-6 h-full">
-                                                {s.icon?.url && (
-                                                    // eslint-disable-next-line @next/next/no-img-element
-                                                    <img src={s.icon.url} alt={s.icon.alt || s.title} className="mb-4 w-12 h-12" />
-                                                )}
-                                                <h3 className="font-semibold mb-2">{s.title}</h3>
-                                                <p className="text-sm opacity-80">{s.description}</p>
-                                            </div>
-                                        );
-                                        return s.slug ? (
-                                            <Link key={i} href={`/services/${category}/${s.slug}`} className="block">
-                                                {card}
-                                            </Link>
-                                        ) : (
-                                            <div key={i}>{card}</div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        </Container>
-                    </PrimarySection>
-                )}
-
-                {proc.items.length > 0 &&
-                    renderGrid(proc.label, proc.title, proc.description, proc.items)}
-
-                {industries.items.length > 0 &&
-                    renderGrid(industries.label, industries.title, industries.description, industries.items)}
-
-                {testimonials.testemonial.length > 0 && (
-                    <div className="max-w-[1920px] mx-auto">
-                        <Testimonials
-                            label={testimonials.label}
-                            title={testimonials.title}
-                            description={testimonials.description}
-                            comments={testimonials.testemonial.map((t) => ({
-                                ...t,
-                                avatar: null,
-                                job: "",
-                            }))}
+            <div className="relative flex flex-col">
+                <CategoryServiceHero data={hero} />
+                <div className={"bg-neutral-10 w-full"}>
+                    <ServiceFeatures />
+                </div>
+                <div className={"lg:py-20 py-6"}>
+                    <AllServices
+                        isPrimary={false}
+                        label={services.label}
+                        services={services.items as Card[]}
+                        title={services.title}
+                        description={services.description}
+                        isLg={true}
+                    />
+                </div>
+                <PrimarySection>
+                    <WhyUsSection
+                        label={proc.label}
+                        title={proc.title}
+                        description={proc.description}
+                        isStep={true}
+                        offerings={proc.items}
+                    />
+                </PrimarySection>
+                <div className={"py-6 lg:py-20"}>
+                    <Container>
+                        <SectionIntro
+                            badge={industries.label}
+                            title={industries.title}
+                            as={"h2"}
+                            lgCenter={true}
+                            description={industries.description}
                         />
-                    </div>
-                )}
+                        <div className={'lg:pt-10 pt-6'}>
+                            <div className={`grid grid-cols-1 md:grid-cols-3  gap-4 md:gap-6`} >
+                                {industries.items.map((service, idx) => {
+                                    const number = String(idx + 1).padStart(2, "0");
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className="relative bg-white border border-neutral-30 rounded-3xl p-6 md:p-8 h-full overflow-hidden"
+                                        >
+                        <span
+                            aria-hidden="true"
+                            className="absolute top-4 right-6 text-4xl md:text-5xl font-bold text-neutral-30 select-none pointer-events-none"
+                        >
+                            {number}.
+                        </span>
 
+                                            <div className="flex flex-col gap-3 pr-16">
+                                                <Text as="h3" className={'text-neutral-700'} variant="card-title-lg">
+                                                    {service.title}
+                                                </Text>
+                                                <Text variant="card-subtitle-lg" textColor="light">
+                                                    {service.description}
+                                                </Text>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </Container>
+                </div>
+                <div className={"bg-neutral-10 w-full py-6 lg:py-32"}>
+                    <Container>
+                        <div className="grid lg:grid-cols-2 justify-between lg:items-end gap-2 lg:gap-16 mb-6 lg:mb-16">
+                            <SectionIntro
+                                badge={serviceAriaSections.label}
+                                title={serviceAriaSections.title}
+                                as={"h2"}
+                            />
+                            <Text
+                                variant={"body-lg"}
+                                className={"text-center lg:text-left"}
+                                textColor={"light"}
+                            >
+                                {serviceAriaSections.description}
+                            </Text>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {areas.map((area) => (
+                                <ServiceAreaCard
+                                    key={area.slug}
+                                    area={area.landing_service_area!}
+                                    title={area.landing_service_area.title}
+                                />
+                            ))}
+                        </div>
+                    </Container>
+                </div>
+                <ClientFeedbackGrid />
+                <PrimarySection>
+                    <div className={"grid lg:grid-cols-2 gap-6 lg:gap-32"}>
+                        <div className="flex flex-col gap-6">
+                            <SectionIntro
+                                isLight
+                                title={serviceAriaSections.title}
+                                description={serviceAriaSections.description}
+                                as={"h2"}
+                            />
+                            <FAQAccordion items={faqs.faq} variant={"light"} />
+                        </div>
+                        <EstimateForm params={"service"} />
+                    </div>
+                </PrimarySection>
                 <Container>
-                    {faqs.length > 0 && <FAQAccordion items={faqs} variant="dark" />}
+                    <BlogSection data={blogData?.posts ?? []} />
                     <ContactCTA />
+                    {
+                        seoBox &&
+                        <SeoBoxSection content={seoBox.content ?? "hallo"} title={seoBox.title}/>
+                    }
                 </Container>
             </div>
         </>

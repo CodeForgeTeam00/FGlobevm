@@ -4,7 +4,7 @@ import {
     HeaderSettings,
     FooterSettings,
     SocialMedia,
-    CPTHeaderItem, CPTCardItem, BusinessPartner,
+    CPTHeaderItem, CPTCardItem, BusinessPartner, NavCategory,
 } from "@/types/wp-options";
 
 export async function getGlobalOptions() {
@@ -70,5 +70,12 @@ export async function getServicePagesCards() {
     return fetchWP<CPTCardItem[]>(
         "/gvm/v1/service_page?service_cards",
         { strategy: { type: "isr", revalidate: 3600 }, tag: "header" }
+    );
+}
+
+export async function getServiceNavigation() {
+    return fetchWP<NavCategory[]>(
+        "/gvm/v1/service_navigation",
+        { strategy: { type: "isr", revalidate: 86400 }, tag: "service-navigation" }
     );
 }
