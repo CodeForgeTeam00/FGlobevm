@@ -21,6 +21,7 @@ import PrimarySection from "@/components/global/PrimarySection";
 import JsonLd from "@/components/global/JsonLd";
 import { webPageSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
+import SeoBoxSection from "@/components/global/SeoBoxSection";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -80,7 +81,7 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
     const offering = acf.offering_section ?? {};
     const feedback = acf.client_feedback ?? {};
     const faqBox = acf.faq_box ?? {};
-
+    const seoBox = acf.seo_box ?? {};
     const yoast = item?.yoast_head_json as YoastSEO | undefined;
     const pageTitle = item?.title || hero.title || "Service Area";
 
@@ -168,6 +169,10 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
                     <div className={"lg:mt-10 mt-6"}>
                         <ContactCTA />
                     </div>
+                    {
+                        seoBox &&
+                        <SeoBoxSection content={seoBox.content ?? "hallo"} title={seoBox.title}/>
+                    }
                 </Container>
             </div>
         </>

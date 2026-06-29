@@ -36,7 +36,7 @@ export default function EstimateSection({ label, title, description }: Props) {
                     </div>
 
                     <div className="w-full">
-                        <EstimateForm />
+                        <EstimateForm  params={'service_area'}/>
                     </div>
                 </div>
             </Container>

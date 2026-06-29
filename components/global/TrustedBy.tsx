@@ -12,7 +12,7 @@ export const TrustedBy: React.FC<TrustedByProps> = ({ partners }) => {
             <Text  variant={'body-md'} textColor={"primary"} >
                 Trusted by:
             </Text>
-            <div className="flex flex-nowrap items-center overflow-auto  gap-20 mt-8  opacity-40">
+            <div className="flex flex-nowrap items-center overflow-x-auto  gap-20 mt-8  opacity-40">
                 {partners.map((item, index) => (
                     <a key={index} target={'_blank'} rel={'nofollow'} href={item.url || ""}>
                         <Image
@@ -20,6 +20,7 @@ export const TrustedBy: React.FC<TrustedByProps> = ({ partners }) => {
                             alt={item.logo?.alt || "logo"}
                             width={120}
                             height={60}
+                            className={'min-w-[120px]'}
 
                         />
                     </a>

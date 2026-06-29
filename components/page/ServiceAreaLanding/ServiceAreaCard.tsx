@@ -5,14 +5,15 @@ import {LocationIcon} from "@/components/global/Icons";
 
 interface Props {
     area: ServiceArea;
+    title?:string
 
 }
 
-export default function ServiceAreaCard({ area }: Props) {
+export default function ServiceAreaCard({ area  , title}: Props) {
     return (
         <Link href={`/service-area/${area.slug}`}>
             <div
-                className={`rounded-2xl border p-6  transition-all group hover:border-primary-6 `}
+                className={`rounded-2xl border p-6 bg-white   transition-all group hover:border-primary-6 `}
             >
                 <div className="flex items-start justify-between mb-3">
                     <div>
@@ -20,7 +21,7 @@ export default function ServiceAreaCard({ area }: Props) {
                         Region: {area.region}
                     </span>
                         <h3 className="text-lg font-bold text-gray-900 mt-1">
-                            {area.name}
+                            {area.name ?? title}
                         </h3>
                     </div>
                     <div className="p-3 rounded-xl group-hover:bg-primary-6 transition-all bg-neutral-20 flex items-center justify-center">

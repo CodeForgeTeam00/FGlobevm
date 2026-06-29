@@ -1,3 +1,5 @@
+import {WPImage} from "@/types/wp-common";
+
 export interface WPService {
     id: number;
     slug: string;
@@ -8,8 +10,11 @@ export interface WPService {
         description: string;
     };
 }
+
+
+
 export interface Card{
-        slug: string;
+        slug?: string;
         icon: { url: string; alt: string };
         title: string;
         description: string;
@@ -60,4 +65,75 @@ export interface ServicePageData {
             }[];
         }
     };
+}
+import type { YoastSEO } from "@/types/yoast";
+import {SeoBox} from "@/types/wp-options";
+
+export interface CategoryFeature {
+    title: string;
+    description: string;
+}
+
+export interface CategoryIconItem {
+    icon: WPImage | null;
+    title: string;
+    description: string;
+}
+
+export interface CategoryTestimonial {
+    name: string;
+    description: string;
+    star: string;
+}
+
+export interface CategoryServicePageData {
+    id: number;
+    name: string;
+    slug: string;
+    acf: {
+        hero_section: {
+            image: WPImage | null;
+            label: string;
+            title: string;
+            description: string;
+        };
+        features_section: CategoryFeature[];
+        services_section: {
+            label: string;
+            title: string;
+            description: string;
+            items: Card[];
+        };
+        service_area_section: {
+                label: string;
+                title: string;
+                description: string;
+        }
+        process_section: {
+            label: string;
+            title: string;
+            description: string;
+            items: CategoryIconItem[];
+        };
+        industry_section: {
+            label: string;
+            title: string;
+            description: string;
+            items: CategoryIconItem[];
+        };
+        seo_box:SeoBox,
+        testemonial_section: {
+            label: string;
+            title: string;
+            description: string;
+            testemonial: CategoryTestimonial[];
+        };
+
+        faq_section: {
+            title: string;
+            description: string;
+            faq: { question: string; answer: string }[]
+        };
+    };
+    yoast_head_json?: YoastSEO; // endpoint کتگوری فعلاً نمی‌دتش
 }

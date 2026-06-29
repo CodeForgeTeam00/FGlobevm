@@ -68,15 +68,6 @@ export default function ServicesHeroSection({ title, label, description, image, 
                 <div className="grid md:grid-cols-3 p-6 lg:p-0 gap-20">
                     {keyFeatures.map((feature, index) => (
                         <div key={index} className="flex flex-col gap-6">
-                            {feature.icon &&
-                                <Image
-                                    src={feature?.icon?.url}
-                                    alt={feature.icon?.alt || feature.title}
-                                    width={64}
-                                    height={64}
-                                    className="w-16"
-                                />
-                            }
                             <div>
                                 <h3 className="font-semibold mb-2">{feature.title}</h3>
                                 <p className="text-gray-500 text-sm">{feature.description}</p>

@@ -39,6 +39,7 @@ export function Hero({ data }: { data: any }) {
             </h1>
 
             <div className="flex items-center justify-between border-b border-gray-200 pb-6 mt-2">
+
                 <div className="flex items-center gap-4">
                     <Image
                         src={data.author.avatar?.url || ""}

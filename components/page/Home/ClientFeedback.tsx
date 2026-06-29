@@ -21,7 +21,7 @@ interface ClientFeedbackProps {
 
 export const ClientFeedback: React.FC<ClientFeedbackProps> = ({ comments, image }) => {
     return (
-        <div className="relative py-10 lg:py-24  flex flex-col  gap-4 lg:gap-10 overflow-hidden">
+        <div className="relative  flex flex-col  gap-4 lg:gap-10 overflow-hidden">
             <SectionIntro
                 lgCenter
                 badge="Client Feedback"

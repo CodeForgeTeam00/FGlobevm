@@ -13,7 +13,7 @@ interface StorySectionProps {
 }
 export default function StorySection({ midSectionImage }: StorySectionProps) {
     return (
-        <section aria-label="OurStory "  className={' py-4 lg:py-24'}>
+        <section aria-label="OurStory "  className={'-mt-16 py-4 lg:py-24'}>
             <div className="grid lg:grid-cols-2 gap-16 lg:gap-12 justify-center  items-center">
                 <div className=" flex flex-col items-center lg:items-start gap-14 ">
                     <SectionIntro

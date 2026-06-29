@@ -80,7 +80,7 @@ interface TeamSectionProps {
 
 export default function TeamSection({members}: TeamSectionProps) {
     return (
-        <section aria-label="Our Team" className=" max-w-[1920px] py-20 relative overflow-hidden">
+        <section aria-label="Our Team" className=" max-w-[1920px] py-6 lg:py-20 relative overflow-hidden">
             <div className="absolute hidden lg:block inset-0 pointer-events-none">
                 <div
                     className="
@@ -93,7 +93,6 @@ export default function TeamSection({members}: TeamSectionProps) {
                         gradient-circle-light-gray
                        "
                 />
-
                 <div
                     className="
                         absolute

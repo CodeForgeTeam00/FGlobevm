@@ -3,7 +3,7 @@ import { BlogPost } from "@/types/wp-blog";
 import SectionIntro from "@/components/global/SectionIntro";
 export default function BlogSection({ data }: { data: BlogPost[] }) {
     return (
-        <section className="py-20 flex flex-col gap-6 lg:gap-10 px-4 sm:px-6 lg:px-8">
+        <section className=" py-6 lg:py-20 flex flex-col gap-6 lg:gap-10 px-4 sm:px-6 lg:px-8">
             <SectionIntro
                 lgCenter={true}
                 title={"  Insights & Updates"}

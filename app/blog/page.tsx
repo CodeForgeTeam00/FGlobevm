@@ -96,6 +96,12 @@ export default async function Blog() {
                         <BlogColSection title="Popular Articles" data={popularPosts} />
                         <BlogColSection title="New Articles" data={sidebar?.posts ?? []} />
                     </div>
+                    {data?.seo_box && (
+                        <SeoBoxSection
+                            content={data.seo_box.content ?? "hallo"}
+                            title={data.seo_box.title}
+                        />
+                    )}
                 </div>
             </div>
         </>

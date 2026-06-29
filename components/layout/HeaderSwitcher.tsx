@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import Header from "./Header";
 import BlogHeader from "./BlogHeader";
-import { HeaderSettings, CPTHeaderItem } from "@/types/wp-options";
+import { HeaderSettings, CPTHeaderItem, NavCategory } from "@/types/wp-options";
 
 interface BlogCategoryItem {
     name: string;
@@ -14,6 +14,7 @@ interface Props {
     headerSettings: HeaderSettings | null;
     servicePages: CPTHeaderItem[] | null;
     serviceAreaPages: CPTHeaderItem[] | null;
+    serviceNav: NavCategory[] | null;
     blogCategories: BlogCategoryItem[];
 }
 
@@ -21,6 +22,7 @@ export default function HeaderSwitcher({
                                            headerSettings,
                                            servicePages,
                                            serviceAreaPages,
+                                           serviceNav,
                                            blogCategories,
                                        }: Props) {
     const pathname = usePathname();
@@ -33,6 +35,7 @@ export default function HeaderSwitcher({
             headerSettings={headerSettings}
             servicePages={servicePages}
             serviceAreaPages={serviceAreaPages}
+            serviceNav={serviceNav}
         />
     );
 }
