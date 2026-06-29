@@ -125,7 +125,7 @@ export default function Header({
 
     // Mega menu is active when the hovered item is a "services" item AND we have data
     const isServiceMegaActive =
-        activeNavItem !== null &&
+        !!activeNavItem &&
         isServicesSlug(activeNavItem.slug) &&
         hasServiceNav;
 

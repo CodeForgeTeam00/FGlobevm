@@ -24,6 +24,7 @@ import JsonLd from "@/components/global/JsonLd";
 import { webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
 import { SITE } from "@/lib/seo/site-config";
 import SeoBoxSection from "@/components/global/SeoBoxSection";
+import Text from "@/components/global/text";
 
 interface Props {
     params: Promise<{ category: string; service: string }>;
@@ -123,14 +124,44 @@ export default async function ServicePage({ params, searchParams }: Props) {
                 />
 
                 {(second.title || (second.offerings && second.offerings.length > 0)) && (
-                    <Container>
-                        <Features
-                            offerings={second.offerings ?? []}
-                            description={second.description ?? ""}
-                            title={second.title ?? ""}
-                            label={second.label ?? ""}
-                        />
-                    </Container>
+                    <div className={'lg:py-10 '}>
+                        <Container>
+                            <SectionIntro
+                                badge={second.label}
+                                title={second.title}
+                                as={"h2"}
+                                lgCenter={true}
+                                description={second.description}
+                            />
+                            <div className={`grid grid-cols-1 mt-6 lg:mt-10 md:grid-cols-3  gap-4 md:gap-6`} >
+                                {second.offerings.map((service:{ title: string; description: string } , idx:number) => {
+                                    const number = String(idx + 1).padStart(2, "0");
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className="relative bg-white border border-neutral-30 rounded-3xl p-6 md:p-8 h-full overflow-hidden"
+                                        >
+                                <span
+                            aria-hidden="true"
+                            className="absolute top-4 right-6 text-4xl md:text-5xl font-bold text-neutral-30 select-none pointer-events-none"
+                        >
+                            {number}.
+                        </span>
+
+                                            <div className="flex flex-col gap-3 pr-16">
+                                                <Text as="h3" className={'text-neutral-700'} variant="card-title-lg">
+                                                    {service.title}
+                                                </Text>
+                                                <Text variant="card-subtitle-lg" textColor="light">
+                                                    {service.description}
+                                                </Text>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </Container>
+                    </div>
                 )}
 
                 {(subServices.title ||

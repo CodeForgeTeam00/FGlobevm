@@ -23,7 +23,7 @@ export interface ServiceAreaPageData {
             title: string;
             description: string;
             offerings: {
-                icon: { url: string; alt: string } | null;
+                icon?: { url: string; alt: string } | null;
                 title: string;
                 description: string;
             }[];

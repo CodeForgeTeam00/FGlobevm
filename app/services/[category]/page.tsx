@@ -68,11 +68,6 @@ export default async function ServiceCategoryPage({ params }: Props) {
 
 
     const areas = (rawAreas ?? []).filter((a) => a.landing_service_area);
-    areas.map((area) => {
-
-        console.log(area.landing_service_area.title)
-    })
-
     const schemas: object[] = [
         webPageSchema({
             title: pageTitle,
@@ -173,8 +168,8 @@ export default async function ServiceCategoryPage({ params }: Props) {
                             {areas.map((area) => (
                                 <ServiceAreaCard
                                     key={area.slug}
-                                    area={area.landing_service_area!}
-                                    title={area.landing_service_area.title}
+                                    area={area.landing_service_area! as any}
+                                    title={area.landing_service_area!.title}
                                 />
                             ))}
                         </div>
