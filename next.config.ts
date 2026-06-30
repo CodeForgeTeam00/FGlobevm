@@ -73,11 +73,19 @@ const nextConfig: NextConfig = {
             { source: "/managed-it-services", destination: "/services/managed-it-services/", permanent: true },
             { source: "/business-network-setup-support", destination: "/services/managed-it-services/", permanent: true },
 
-            { source: "/co-managed-it-services", destination: "/services/co-managed-it-services/", permanent: true },
-            { source: "/helpdesk-and-it-support", destination: "/services/helpdesk-and-it-support/", permanent: true },
-            { source: "/managed-office-365-services", destination: "/services/managed-office-365-services/", permanent: true },
-            { source: "/data-backup-and-disaster-recovery", destination: "/services/data-backup-and-disaster-recovery/", permanent: true },
-            { source: "/24-7-it-support-business-continuity", destination: "/services/24-7-it-services-for-business-continuity/", permanent: true },
+            { source: "/co-managed-it-services", destination: "/services/co-managed-it-services/", permanent: true }, //step-1
+            { source: "/services/co-managed-it-services/", destination: "/services/managed-it-services/co-managed-it-services/", permanent: true }, //step-2
+
+            { source: "/helpdesk-and-it-support", destination: "/services/helpdesk-and-it-support/", permanent: true }, //step-1
+            { source: "/services/helpdesk-and-it-support/", destination: "/services/managed-it-services/helpdesk-and-it-support/", permanent: true }, //step-2
+
+
+            { source: "/managed-office-365-services", destination: "/services/managed-office-365-services/", permanent: true }, //step-1
+            { source: "/services/managed-office-365-services/", destination: "/services/cloud-services/managed-office-365-services/", permanent: true },
+
+            { source: "/24-7-it-support-business-continuity", destination: "/services/24-7-it-services-for-business-continuity/", permanent: true }, //step-1
+            { source: "/services/24-7-it-services-for-business-continuity/", destination: "/services/backup-disaster-recovery/24-7-it-services-for-business-continuity/", permanent: true }, //step-2
+
             { source: "/remote-it-monitoring-management", destination: "/services/remote-it-monitoring-management/", permanent: true },
             { source: "/business-virtualization-services", destination: "/services/cloud-services-and-migration/", permanent: true },
             { source: "/cloud-services-and-migration", destination: "/services/cloud-services-and-migration/", permanent: true },
@@ -87,8 +95,10 @@ const nextConfig: NextConfig = {
             // =========================
             // PENTEST
             // =========================
-            { source: "/pentest", destination: "/services/pentest/", permanent: true },
-            { source: "/network-computers-assessment-test", destination: "/services/pentest/", permanent: true },
+            { source: "/pentest", destination: "/services/pentest/", permanent: true }, //step-1
+            { source: "/network-computers-assessment-test", destination: "/services/pentest/", permanent: true },  //step-1
+            { source: "/services/pentest/", destination: "/services/cybersecurity/pentest/", permanent: true }, //step-2
+
 
             // =========================
             // INDUSTRY PAGES
