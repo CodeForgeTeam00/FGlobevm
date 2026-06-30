@@ -61,6 +61,7 @@ export default async function ServiceAreaListPage() {
         }));
     const faq = pageData?.faq_box;
     const servicesInfo = pageData?.services_options;
+
     return (
         <div className="relative">
             <Container>

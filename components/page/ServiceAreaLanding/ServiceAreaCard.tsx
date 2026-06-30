@@ -6,12 +6,14 @@ import {LocationIcon} from "@/components/global/Icons";
 interface Props {
     area: ServiceArea;
     title?:string
+    slug?:string
 
 }
 
-export default function ServiceAreaCard({ area  , title}: Props) {
+export default function ServiceAreaCard({ area  , title , slug}: Props) {
+    console.log(area)
     return (
-        <Link href={`/service-area/${area.slug}`}>
+        <Link href={`/service-area/${area.slug ?? slug}`}>
             <div
                 className={`rounded-2xl border p-6 bg-white   transition-all group hover:border-primary-6 `}
             >
