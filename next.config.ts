@@ -38,11 +38,20 @@ const nextConfig: NextConfig = {
             { source: "/locations", destination: "/service-area/", permanent: true },
 
             { source: "/san-fernando-valley", destination: "/service-area/san-fernando-valley/", permanent: true },
-            { source: "/sylmar", destination: "/service-area/sylmar/", permanent: true },
+
+            { source: "/sylmar", destination: "/service-area/sylmar/", permanent: true }, //step -1
+            { source: "/service-area/sylmar/", destination: "/service-area/san-fernando-valley/", permanent: true }, // step -2
+            { source: "/service-area/reseda/", destination: "/service-area/san-fernando-valley/", permanent: true },// step -2
+
             { source: "/westlake-village", destination: "/service-area/westlake-village/", permanent: true },
             { source: "/santa-clarita", destination: "/service-area/santa-clarita/", permanent: true },
             { source: "/reseda", destination: "/service-area/reseda/", permanent: true },
-            { source: "/sherman-oaks", destination: "/service-area/sherman-oaks/", permanent: true },
+
+            { source: "/sherman-oaks", destination: "/service-area/sherman-oaks/", permanent: true }, //step-1
+            { source: "/service-area/sherman-oaks/", destination: "/service-area/san-fernando-valley/", permanent: true }, //step-2
+            { source: "/service-area/woodland-hills-managed-it-services/", destination: "/service-area/san-fernando-valley/", permanent: true }, //step-2
+            { source: "/service-area/encino-network-security-audits/", destination: "/service-area/san-fernando-valley/", permanent: true }, //step-2
+
             { source: "/ventura-county", destination: "/service-area/ventura-county/", permanent: true },
             { source: "/thousand-oaks", destination: "/service-area/thousand-oaks/", permanent: true },
             { source: "/simi-valley", destination: "/service-area/simi-valley/", permanent: true },
