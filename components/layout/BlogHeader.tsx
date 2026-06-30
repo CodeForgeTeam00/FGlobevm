@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/components/global/Logo";
 import { Search, X, ChevronRight, Home } from "lucide-react";
-import { Menuicon } from "@/components/global/Icons";
+import {ArrowRightIcon, Menuicon} from "@/components/global/Icons";
 import Container from "@/components/global/Sections/Container";
 import { Button } from "@/components/ui/button";
 import Text from "@/components/global/text";
@@ -331,6 +331,17 @@ export default function BlogHeader({ categories = [] }: BlogHeaderProps) {
                                     <ChevronRight className="w-4 h-4 text-gray-400" />
                                 </Link>
                             ))}
+                        </div>
+                        <div className= 'w-[calc(100%-32px)] mx-auto pt-4  gap-1 flex flex-col items-center border-t justify-center border-dashed border-neutral-30'>
+                               <Text variant={'body-sm'} textColor={'light'}>
+                                   Back to
+                               </Text>
+                                <Link href={'/'} className={'flex items-center gap-2 justify-center'}>
+                                    <Logo className={'text-[28px]'}/>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="12" viewBox="0 0 16 12" fill="none">
+                                        <path d="M9.85833 0.75L14.9167 5.80833L9.85833 10.8667M0.75 5.80833H14.775" stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </Link>
                         </div>
                     </div>
                 </div>
