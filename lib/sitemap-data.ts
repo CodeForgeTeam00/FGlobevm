@@ -62,12 +62,29 @@ interface ServiceRaw {
     yoast_head_json?: YoastRobots;
 }
 
+interface NavServiceRaw {
+    name: string;
+    slug: string;
+}
+
+interface NavCategoryRaw {
+    name: string;
+    slug: string;
+    services: NavServiceRaw[];
+}
+
+interface ServicePageRaw {
+    slug?: string;
+    category?: { slug: string; name: string } | null;
+    yoast_head_json?: YoastRobots;
+}
+
 function isIndexable(item: { yoast_head_json?: YoastRobots }): boolean {
     const idx = item.yoast_head_json?.robots?.index?.toLowerCase() ?? "";
     return !idx.includes("noindex");
 }
 
-function getLastModified(item: ServiceRaw | PostRaw): Date | undefined {
+function getLastModified(item: ServiceRaw | PostRaw | ServicePageRaw): Date | undefined {
     const y = item.yoast_head_json?.article_modified_time;
     if (y) return new Date(y);
     if ("modified" in item && item.modified) return new Date(item.modified);
@@ -134,24 +151,80 @@ export async function getCategoriesUrls(): Promise<SitemapUrl[]> {
 }
 
 export async function getServicesUrls(): Promise<SitemapUrl[]> {
+    const urls: SitemapUrl[] = [];
+    const seenServiceSlugs = new Set<string>();
+
+    // STEP 1: categories + nested services from service_navigation endpoint
     try {
-        const services = await fetchWP<ServiceRaw[]>(
-            "/gvm/v1/service_page",
-            { strategy: { type: "isr", revalidate: 3600 }, tag: "sitemap-services" }
+        const nav = await fetchWP<NavCategoryRaw[]>(
+            "/gvm/v1/service_navigation",
+            { strategy: { type: "isr", revalidate: 3600 }, tag: "sitemap-services-nav" }
         );
-        if (!Array.isArray(services)) return [];
-        return services
-            .filter((s) => s.slug)
-            .filter((s) => CONFIG.services.excludeNoindex ? isIndexable(s) : true)
-            .map((s) => ({
-                url: `${BASE}${CONFIG.services.urlPrefix}/${s.slug}/`,
-                lastModified: getLastModified(s),
-                priority: CONFIG.services.priority,
-            }));
+
+        if (Array.isArray(nav)) {
+            for (const category of nav) {
+                if (!category.slug) continue;
+
+                // Category landing page (level 1)
+                urls.push({
+                    url: `${BASE}${CONFIG.services.urlPrefix}/${category.slug}/`,
+                    lastModified: BuiLD_TIME,
+                    priority: CONFIG.services.priority,
+                });
+
+                // Nested service pages (level 2)
+                if (Array.isArray(category.services)) {
+                    for (const service of category.services) {
+                        if (!service.slug) continue;
+                        seenServiceSlugs.add(service.slug);
+                        urls.push({
+                            url: `${BASE}${CONFIG.services.urlPrefix}/${category.slug}/${service.slug}/`,
+                            lastModified: BuiLD_TIME,
+                            priority: CONFIG.services.priority,
+                        });
+                    }
+                }
+            }
+        }
     } catch (err) {
-        console.error("Sitemap services fetch failed:", err);
-        return [];
+        console.error("Sitemap service_navigation fetch failed:", err);
     }
+
+    // STEP 2: orphan services (no category) — pulled from flat service_page endpoint
+    try {
+        const services = await fetchWP<ServicePageRaw[]>(
+            "/gvm/v1/service_page",
+            { strategy: { type: "isr", revalidate: 3600 }, tag: "sitemap-services-flat" }
+        );
+
+        if (Array.isArray(services)) {
+            for (const s of services) {
+                if (!s.slug) continue;
+                if (CONFIG.services.excludeNoindex && !isIndexable(s)) continue;
+                if (seenServiceSlugs.has(s.slug)) continue;
+
+                if (s.category && s.category.slug) {
+                    // Has category but didn't appear in nav (edge case) → use 2-level URL
+                    urls.push({
+                        url: `${BASE}${CONFIG.services.urlPrefix}/${s.category.slug}/${s.slug}/`,
+                        lastModified: getLastModified(s),
+                        priority: CONFIG.services.priority,
+                    });
+                } else {
+                    // No category → legacy flat URL
+                    urls.push({
+                        url: `${BASE}${CONFIG.services.urlPrefix}/${s.slug}/`,
+                        lastModified: getLastModified(s),
+                        priority: CONFIG.services.priority,
+                    });
+                }
+            }
+        }
+    } catch (err) {
+        console.error("Sitemap service_page fetch failed:", err);
+    }
+
+    return urls;
 }
 
 export async function getServiceAreasUrls(): Promise<SitemapUrl[]> {
