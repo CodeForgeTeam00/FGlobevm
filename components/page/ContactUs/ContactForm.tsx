@@ -127,7 +127,7 @@ export function ContactForm() {
     }
 
     return (
-        <div className=" bg-white rounded-[2rem] p-6 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-gray-100/50">
+        <div className=" lg:col-span-8 bg-white rounded-[2rem] p-6 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-gray-100/50">
             <Text variant={'heading-sm'}>
                 Request Your Free Estimate
             </Text>
