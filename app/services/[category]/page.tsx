@@ -62,12 +62,13 @@ export default async function ServiceCategoryPage({ params }: Props) {
     const industries = acf.industry_section;
     const faqs = acf.faq_section;
     const serviceAriaSections = acf.service_area_section;
+    const testimonialSection = acf.testemonial_section
     const seoBox = acf.seo_box
     const pageTitle = hero.title || data.name || "Services";
     const blogData = mapBlogsResponse(rawPosts);
+    console.log(acf , 'lalalal')
 
 
-    const areas = (rawAreas ?? []).filter((a) => a.landing_service_area);
     const schemas: object[] = [
         webPageSchema({
             title: pageTitle,
@@ -165,17 +166,29 @@ export default async function ServiceCategoryPage({ params }: Props) {
                             </Text>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {areas.map((area) => (
-                                <ServiceAreaCard
-                                    key={area.slug}
-                                    area={area.landing_service_area! as any}
-                                    title={area.landing_service_area!.title}
-                                />
-                            ))}
+                            {
+                                rawAreas?.map((area) => {
+                                    if (!area.landing_service_area) return null
+                                    return (
+                                        <ServiceAreaCard
+                                            key={area.slug}
+                                            area={area.landing_service_area as any}
+                                            title={area.landing_service_area.title}
+                                            slug={area.slug}
+                                        />
+                                    )
+                                })
+                            }
+
                         </div>
                     </Container>
                 </div>
-                <ClientFeedbackGrid />
+                <ClientFeedbackGrid
+                    label={testimonialSection?.label}
+                    title={testimonialSection?.title}
+                    description={testimonialSection?.description}
+                    testimonials={testimonialSection?.testemonial ?? []}
+                />
                 <PrimarySection>
                     <div className={"grid lg:grid-cols-2 gap-6 lg:gap-32"}>
                         <div className="flex flex-col gap-6">
