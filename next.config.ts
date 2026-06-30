@@ -50,7 +50,7 @@ const nextConfig: NextConfig = {
             { source: "/sherman-oaks", destination: "/service-area/sherman-oaks/", permanent: true }, //step-1
             { source: "/service-area/sherman-oaks/", destination: "/service-area/san-fernando-valley/", permanent: true }, //step-2
             { source: "/service-area/woodland-hills-managed-it-services/", destination: "/service-area/san-fernando-valley/", permanent: true }, //step-2
-            { source: "service-area/encino-network-security-audits/", destination: "/service-area/san-fernando-valley/", permanent: true }, //step-2
+            { source: "/service-area/encino-network-security-audits/", destination: "/service-area/san-fernando-valley/", permanent: true }, //step-2
 
             { source: "/ventura-county", destination: "/service-area/ventura-county/", permanent: true },
             { source: "/thousand-oaks", destination: "/service-area/thousand-oaks/", permanent: true },
