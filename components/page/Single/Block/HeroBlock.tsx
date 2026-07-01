@@ -15,8 +15,8 @@ export function Hero({ data }: { data: any }) {
     const isSubcategory = Boolean(data.subcategoryName)
 
     return (
-        <div className="flex flex-col gap-8">
-            <div className="text-sm text-gray-400 mb-2">
+        <div className="flex flex-col gap-3 lg:gap-8">
+            <div className="text-sm px-4 lg:px-0 text-gray-400 mb-2">
                 <Link href="/blog" className="hover:text-primary-6">home</Link>
                 <span className="mx-2">›</span>
                 <Link href={`/blog/category/${extractCategorySlug(data.categoryUrl)}`} className="hover:text-primary-6">
@@ -34,12 +34,10 @@ export function Hero({ data }: { data: any }) {
                     </>
                 )}
             </div>
-            <h1 className="blog-content title">
+            <h1 className="blog-content px-4 lg:px-0 title">
                 {data.title}
             </h1>
-
-            <div className="flex items-center justify-between border-b border-gray-200 pb-6 mt-2">
-
+            <div className="flex px-4 lg:px-0 items-center justify-between border-b border-gray-200 pb-2 lg:pb-6 mt-2">
                 <div className="flex items-center gap-4">
                     <Image
                         src={data.author.avatar?.url || ""}
@@ -62,8 +60,7 @@ export function Hero({ data }: { data: any }) {
                     <button className="hover:text-[#00a0e9] transition-colors"><MessageCircle className="w-5 h-5" /></button>
                 </div>
             </div>
-
-            <div className="relative w-full aspect-[21/9] mt-2 rounded-[2rem] overflow-hidden shadow-sm">
+            <div className="relative w-full aspect-[21/9] mt-2  lg:rounded-3xl overflow-hidden shadow-sm">
                 <Image
                     src={data.image?.url || ""}
                     alt={data.image?.alt || data.title}

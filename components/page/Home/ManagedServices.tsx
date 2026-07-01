@@ -3,9 +3,10 @@ import SectionIntro from "@/components/global/SectionIntro";
 import Container from "@/components/global/Sections/Container";
 import ServicesCard from "@/components/global/Cards/ServicesCard";
 import {CPTCardItem} from "@/types/wp-options";
+import {ServiceCategoryCard} from "@/types/wp-services";
 
 interface ServicesListProps {
-    services: CPTCardItem[];
+    services: ServiceCategoryCard[];
 }
 
 export const ManagedServices = ({ services }: ServicesListProps) => {
@@ -20,9 +21,9 @@ export const ManagedServices = ({ services }: ServicesListProps) => {
                         as={'h2'}
                         description="From infrastructure management and cloud environments to endpoint protection and network security, our services are designed to keep your systems running smoothly and your data protected. We provide proactive monitoring, fast response, and long-term stability."
                     />
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
-                        {services.map((service) => (
-                            <ServicesCard key={service.id} service={service} />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-6">
+                        {services.map((service, index) => (
+                            <ServicesCard key={index} service={service} />
                         ))}
                     </div>
                 </div>

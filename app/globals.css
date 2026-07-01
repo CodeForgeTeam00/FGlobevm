@@ -175,24 +175,32 @@
     .blog-content.title{
         @apply text-2xl lg:text-3xl font-bold leading-loose lg:leading-relaxed
     }
-    .blog-content h1 {
+    .blog-content h1 , .box-seo-content  h1 {
         @apply text-2xl lg:text-3xl font-bold leading-loose lg:leading-relaxed ;
     }
-    .blog-content h2 {
+    .blog-content h2 , .box-seo-content  h2 {
         @apply text-2xl lg:text-3xl font-bold leading-loose lg:leading-relaxed ;
     }
-    .blog-content h3 {
+    .blog-content h3 , .box-seo-content  h3 {
         @apply text-xl lg:text-2xl font-bold leading-loose lg:leading-relaxed ;
     }
-    .blog-content h4 {
+    .blog-content h4 , .box-seo-content  h4 {
         @apply text-lg lg:text-2xl font-bold leading-10 ;
     }
-    .blog-content h5 {
+    .blog-content h5 , .box-seo-content  h5 {
         @apply text-base lg:text-xl font-bold leading-8 lg:leading-9 ;
     }
-    .blog-content h6 {
+    .blog-content h6 , .box-seo-content  h6 {
         @apply text-sm lg:text-lg font-bold leading-7 lg:leading-8 ;
     }
+    .blog-content ul , .box-seo-content  ul {
+        @apply px-4;
+    }
+
+    .blog-content li {
+        @apply list-disc;
+    }
+
 
         .blog-content p ,
         .blog-content ul ,

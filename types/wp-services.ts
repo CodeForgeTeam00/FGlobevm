@@ -12,7 +12,11 @@ export interface WPService {
 }
 
 
-
+export interface ServiceCategoryCard {
+    name: string;
+    slug: string;
+    description: string;
+}
 export interface Card{
         slug?: string;
         icon: { url: string; alt: string };
