@@ -110,7 +110,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
                 {isEnabled && <PreviewBar slug={slug} type="post" />}
                 <main className="max-w-[1200px] mx-auto py-10">
                     <Hero data={data} />
-                    <div className="mt-16">
+                    <div className="mt-4 lg:mt-16 px-6 xl:px-0">
                         <ContentRenderer components={raw.components ?? []} />
                         {raw.comments_data && (
                             <CommentSection

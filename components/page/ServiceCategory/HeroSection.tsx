@@ -64,9 +64,8 @@ export function CategoryServiceHero({ data }: Props) {
                                 </div>
                             </div>
                         )}
-
                         <div className={"mt-6 lg:mt-10 flex"}>
-                            <Link className={"w-full"} href={"/contact-us"}>
+                            <Link className={"w-full lg:w-auto"} href={"/contact-us"}>
                                 <Button size={"lg"} variant={"primary"}>
                                     <div className={"flex items-center gap-2"}>
                                         <CalendarIcon className={"w-6 h-6"} />

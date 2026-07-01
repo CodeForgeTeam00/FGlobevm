@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-
 import { TrustedBy } from "@/components/global/TrustedBy";
 import { AboutStability } from "@/components/page/Home/AboutStability";
 import { WhyChooseUs } from "@/components/page/Home/WhyChooseUs";
@@ -24,6 +23,7 @@ import { organizationSchema, webPageSchema, faqSchema } from "@/lib/seo/schemas"
 import { SITE } from "@/lib/seo/site-config";
 import {NewHeroSection} from "@/components/page/Home/HeroSection/NewHeroSection";
 import React from "react";
+import {getServiceCategoryCards} from "@/services/wp-services";
 
 export async function generateMetadata(): Promise<Metadata> {
     const options = await getGlobalOptions();
@@ -52,11 +52,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-    const [options, services, rawPosts, partners] = await Promise.all([
+    const [options, services, rawPosts, partners , categoryCard] = await Promise.all([
         getGlobalOptions(),
         getServicePagesCards(),
         getBlogs({ per_page: 4 }),
         getBusinessPartner(),
+        getServiceCategoryCards()
     ]);
     const data = mapGlobalOptions(options);
     const blogData = mapBlogsResponse(rawPosts);
@@ -72,6 +73,7 @@ export default async function Home() {
             description: yoast?.description || "Enterprise-grade managed IT, cybersecurity, and cloud solutions for businesses in Los Angeles, Encino, and Woodland Hills.",
         }),
     ];
+
     return (
         <>
             <JsonLd data={schemas} />
@@ -94,7 +96,7 @@ export default async function Home() {
                     <AboutStability background={data.backgroundImage} />
                 </Container>
                 <Container fullWidth bg="lightGray" bemClass="managed-services__section">
-                    <ManagedServices services={services ?? []} />
+                    <ManagedServices services={categoryCard ?? []} />
                 </Container>
                 <Container bemClass="client-feedback__section">
                     <ClientFeedback
