@@ -86,7 +86,9 @@ const nextConfig: NextConfig = {
             { source: "/24-7-it-support-business-continuity", destination: "/services/24-7-it-services-for-business-continuity/", permanent: true }, //step-1
             { source: "/services/24-7-it-services-for-business-continuity/", destination: "/services/backup-disaster-recovery/24-7-it-services-for-business-continuity/", permanent: true }, //step-2
 
-            { source: "/remote-it-monitoring-management", destination: "/services/remote-it-monitoring-management/", permanent: true },
+            { source: "/remote-it-monitoring-management", destination: "/services/remote-it-monitoring-management/", permanent: true }, //step-1
+            { source: "/services/remote-it-monitoring-management/", destination: "/services/managed-it-services/remote-it-monitoring-management/", permanent: true }, //step-2
+
             { source: "/business-virtualization-services", destination: "/services/cloud-services-and-migration/", permanent: true },
             { source: "/cloud-services-and-migration", destination: "/services/cloud-services-and-migration/", permanent: true },
             { source: "/cybersecurity-solutions", destination: "/services/cybersecurity-solutions/", permanent: true },
