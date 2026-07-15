@@ -51,6 +51,7 @@ function isServicesSlug(slug: string): boolean {
     if (n.startsWith("service-area") || n.startsWith("service_area")) {
         return false;
     }
+    if (n === "industries" || n === "industry") return false;
     return n.startsWith("service") || n === "our-services";
 }
 
@@ -64,25 +65,74 @@ function isServiceAreaSlug(slug: string): boolean {
     );
 }
 
+function isIndustriesSlug(slug: string): boolean {
+    const n = normalizeSlug(slug);
+    return n === "industries" || n === "industry";
+}
+
 function buildNavigation(
     nav: HeaderNavItem[],
-    serviceAreaPages: CPTHeaderItem[] | null
+    serviceAreaPages: CPTHeaderItem[] | null,
+    industriesNav: NavCategory | null
 ): HeaderNavItem[] {
-    // Service is handled separately via serviceNav (3-level drill).
-    // Service Area still uses the simple 2-level drill via children.
     const serviceAreaChildren = cptToChildren(serviceAreaPages);
 
-    return nav.map((item) => {
+    const updated = nav.map((item) => {
         if (isServiceAreaSlug(item.slug) && serviceAreaChildren.length > 0) {
             return { ...item, children: serviceAreaChildren };
         }
+        if (isIndustriesSlug(item.slug) && industriesNav) {
+            return {
+                ...item,
+                children: industriesNav.services.map((s) => ({
+                    name: s.name,
+                    slug: s.slug,
+                })),
+            };
+        }
         return item;
     });
+
+    // Inject Industries if WP nav doesn't include it
+    const hasIndustriesItem = updated.some((item) =>
+        isIndustriesSlug(item.slug)
+    );
+    if (!hasIndustriesItem && industriesNav) {
+        const industriesItem: HeaderNavItem = {
+            name: industriesNav.name,
+            slug: "industries",
+            children: industriesNav.services.map((s) => ({
+                name: s.name,
+                slug: s.slug,
+            })),
+        };
+
+        const serviceAreaIdx = updated.findIndex((item) =>
+            isServiceAreaSlug(item.slug)
+        );
+        if (serviceAreaIdx !== -1) {
+            updated.splice(serviceAreaIdx + 1, 0, industriesItem);
+        } else {
+            const blogIdx = updated.findIndex(
+                (item) => normalizeSlug(item.slug) === "blog"
+            );
+            if (blogIdx !== -1) {
+                updated.splice(blogIdx, 0, industriesItem);
+            } else {
+                updated.push(industriesItem);
+            }
+        }
+    }
+
+    return updated;
 }
 
 function getChildHref(parentSlug: string, childSlug: string): string {
     if (isServiceAreaSlug(parentSlug)) {
         return `/service-area/${childSlug}`;
+    }
+    if (isIndustriesSlug(parentSlug)) {
+        return `/services/industries/${childSlug}`;
     }
     return `/services/${childSlug}`;
 }
@@ -91,6 +141,7 @@ function getParentHref(slug: string): string {
     const clean = normalizeSlug(slug);
     if (isServicesSlug(slug)) return "/services";
     if (isServiceAreaSlug(slug)) return "/service-area";
+    if (isIndustriesSlug(slug)) return "/services/industries";
     return `/${clean}`;
 }
 
@@ -104,12 +155,25 @@ export default function MobileHeader({
     const [view, setView] = useState<View>({ level: "root" });
 
     const rawNav = headerSettings?.navigation ?? [];
-    const hasServiceNav = Array.isArray(serviceNav) && serviceNav.length > 0;
-    console.log("Mobile serviceNav:", serviceNav);
-    console.log("Mobile hasServiceNav:", hasServiceNav);
+
+    // Filter industries OUT of the mega menu categories
+    const filteredServiceNav = useMemo(() => {
+        if (!Array.isArray(serviceNav)) return null;
+        return serviceNav.filter((cat) => !isIndustriesSlug(cat.slug));
+    }, [serviceNav]);
+
+    // Extract industries as its own object
+    const industriesNav = useMemo(() => {
+        if (!Array.isArray(serviceNav)) return null;
+        return serviceNav.find((cat) => isIndustriesSlug(cat.slug)) ?? null;
+    }, [serviceNav]);
+
+    const hasServiceNav =
+        Array.isArray(filteredServiceNav) && filteredServiceNav.length > 0;
+
     const nav = useMemo(
-        () => buildNavigation(rawNav, serviceAreaPages),
-        [rawNav, serviceAreaPages]
+        () => buildNavigation(rawNav, serviceAreaPages, industriesNav),
+        [rawNav, serviceAreaPages, industriesNav]
     );
 
     const closeMenu = () => {
@@ -117,18 +181,21 @@ export default function MobileHeader({
         setView({ level: "root" });
     };
 
-    // Determine whether a nav item opens a section drill (has any children to show)
+    // A nav item opens a Level 1 section if:
+    // - It's Services AND we have filteredServiceNav data (drill 3 levels)
+    // - OR it has flat children (drill 2 levels: Service Areas, Industries, etc.)
     const itemOpensSection = (item: HeaderNavItem): boolean => {
         if (isServicesSlug(item.slug)) return hasServiceNav;
         return (
-            Array.isArray(item.children) && (item.children as HeaderNavChild[]).length > 0
+            Array.isArray(item.children) &&
+            (item.children as HeaderNavChild[]).length > 0
         );
     };
 
     // For the current view, find the active category (level === "category")
     const activeCategory =
-        view.level === "category" && serviceNav
-            ? serviceNav.find((c) => c.slug === view.categorySlug)
+        view.level === "category" && filteredServiceNav
+            ? filteredServiceNav.find((c) => c.slug === view.categorySlug)
             : null;
 
     return (
@@ -184,11 +251,11 @@ export default function MobileHeader({
                             </div>
                         )}
 
-                        {/* LEVEL 1: SECTION (categories of Service, or areas of Service Area) */}
+                        {/* LEVEL 1: SECTION */}
                         {view.level === "section" && (
                             <div className="flex flex-col py-2 overflow-y-auto">
                                 <button
-                                    className="flex items-center gap-2 px-6 py-4 text-sm text-neutral-100 font-medium  border-gray-100"
+                                    className="flex items-center gap-2 px-6 py-4 text-sm text-primary-6 font-medium border-b border-gray-100"
                                     onClick={() => setView({ level: "root" })}
                                 >
                                     <ChevronRight className="w-4 h-4 rotate-180" />
@@ -198,10 +265,10 @@ export default function MobileHeader({
                                     {nav[view.navIndex].name}
                                 </p>
 
-                                {/* If this is Service AND we have serviceNav, show categories */}
+                                {/* Services: show categories from filteredServiceNav (industries excluded) */}
                                 {isServicesSlug(nav[view.navIndex].slug) && hasServiceNav && (
                                     <>
-                                        {serviceNav!.map((category) => {
+                                        {filteredServiceNav!.map((category) => {
                                             const hasServices = category.services.length > 0;
                                             return (
                                                 <button
@@ -215,7 +282,6 @@ export default function MobileHeader({
                                                                 categorySlug: category.slug,
                                                             });
                                                         } else {
-                                                            // No services under this category — go directly to category page
                                                             closeMenu();
                                                             window.location.href = `/services/${category.slug}/`;
                                                         }
@@ -230,6 +296,8 @@ export default function MobileHeader({
                                         })}
                                     </>
                                 )}
+
+                                {/* Non-Services (Service Area, Industries, etc.): flat children list */}
                                 {!isServicesSlug(nav[view.navIndex].slug) &&
                                     Array.isArray(nav[view.navIndex].children) &&
                                     (nav[view.navIndex].children as HeaderNavChild[]).map(
@@ -249,10 +317,12 @@ export default function MobileHeader({
                                     )}
                             </div>
                         )}
+
+                        {/* LEVEL 2: CATEGORY (Services only — services of a specific category) */}
                         {view.level === "category" && activeCategory && (
                             <div className="flex flex-col py-2 overflow-y-auto">
                                 <button
-                                    className="flex items-center gap-2 px-6 py-4 text-sm text-neutral-100 font-medium "
+                                    className="flex items-center gap-2 px-6 py-4 text-sm text-primary-6 font-medium border-b border-gray-100"
                                     onClick={() =>
                                         setView({ level: "section", navIndex: view.navIndex })
                                     }
@@ -260,9 +330,13 @@ export default function MobileHeader({
                                     <ChevronRight className="w-4 h-4 rotate-180" />
                                     Back
                                 </button>
+                                <p className="px-6 py-3 text-base font-bold text-gray-900">
+                                    {activeCategory.name}
+                                </p>
+
                                 <Link
                                     href={`/services/${activeCategory.slug}/`}
-                                    className="block px-6 py-3 text-base text-neutral-black font-medium hover:bg-gray-50 transition"
+                                    className="block px-6 py-3 text-xs text-primary-6 font-medium hover:bg-gray-50 transition border-b border-gray-100"
                                     onClick={closeMenu}
                                 >
                                     View all in {activeCategory.name}
@@ -272,7 +346,7 @@ export default function MobileHeader({
                                     <Link
                                         key={service.slug}
                                         href={`/services/${activeCategory.slug}/${service.slug}/`}
-                                        className="block px-6 py-4 text-xs text-gray-700 hover:bg-gray-50 transition"
+                                        className="block px-6 py-4 text-sm text-gray-700 hover:bg-gray-50 transition"
                                         onClick={closeMenu}
                                     >
                                         {service.name}
