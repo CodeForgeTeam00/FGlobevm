@@ -276,7 +276,7 @@ export default function Header({
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, [activeMenu, isServiceMegaActive, updateDropdownPosition]);
-    console.log(serviceAreaPages , servicePages)
+
     return (
         <>
             <header className="sticky top-0 z-[1000] border-b border-neutral-30 bg-white">
