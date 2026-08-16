@@ -171,7 +171,7 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
                     </div>
                     {
                         seoBox &&
-                        <SeoBoxSection content={seoBox.content ?? "hallo"} title={seoBox.title}/>
+                        <SeoBoxSection content={seoBox.content } title={seoBox.title}/>
                     }
                 </Container>
             </div>
