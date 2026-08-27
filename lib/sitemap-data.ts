@@ -49,6 +49,7 @@ interface PostRaw {
     slug?: string;
     date?: string;
     modified?: string;
+    modified_gmt?: string;
     yoast_head_json?: YoastRobots;
 }
 
@@ -88,12 +89,43 @@ function getLastModified(item: ServiceRaw | PostRaw | ServicePageRaw): Date | un
     const y = item.yoast_head_json?.article_modified_time;
     if (y) return new Date(y);
     if ("modified" in item && item.modified) return new Date(item.modified);
+    if ("modified_gmt" in item && item.modified_gmt) return new Date(item.modified_gmt);
     if ("date" in item && item.date) return new Date(item.date);
     return undefined;
 }
 
 function formatSitemapDate(date: Date): string {
     return date.toISOString().replace(/\.\d{3}Z$/, "+00:00");
+}
+
+/**
+ * Paginated WordPress fetcher. WP REST caps per_page at 100, so for bigger sets
+ * we loop through pages until an empty page is returned or we hit the safety cap.
+ */
+async function fetchAllPaginated<T>(
+    endpoint: string,
+    tag: string,
+    perPage = 100,
+    maxPages = 50
+): Promise<T[]> {
+    const all: T[] = [];
+    for (let page = 1; page <= maxPages; page++) {
+        const sep = endpoint.includes("?") ? "&" : "?";
+        const url = `${endpoint}${sep}per_page=${perPage}&page=${page}`;
+        try {
+            const batch = await fetchWP<T[]>(url, {
+                strategy: { type: "isr", revalidate: 3600 },
+                tag: `${tag}-p${page}`,
+            });
+            if (!Array.isArray(batch) || batch.length === 0) break;
+            all.push(...batch);
+            if (batch.length < perPage) break; // last page
+        } catch (err) {
+            console.error(`Paginated fetch failed on ${url}:`, err);
+            break;
+        }
+    }
+    return all;
 }
 
 export async function getPagesUrls(): Promise<SitemapUrl[]> {
@@ -106,20 +138,19 @@ export async function getPagesUrls(): Promise<SitemapUrl[]> {
 
 export async function getPostsUrls(): Promise<SitemapUrl[]> {
     try {
-        const data = await fetchWP<any[]>(
-            "/wp/v2/posts?per_page=100&_fields=slug,modified_gmt,yoast_head_json",
-            { strategy: { type: "isr", revalidate: 3600 }, tag: "sitemap-posts" }
+        const data = await fetchAllPaginated<PostRaw>(
+            "/wp/v2/posts?_fields=slug,modified_gmt,yoast_head_json",
+            "sitemap-posts"
         );
-        if (!data || !Array.isArray(data)) return [];
         return data
             .filter((p) => p.slug)
-            .filter((p) => CONFIG.posts.excludeNoindex ? isIndexable(p) : true)
+            .filter((p) => (CONFIG.posts.excludeNoindex ? isIndexable(p) : true))
             .map((p) => {
                 const yoastMod = p.yoast_head_json?.article_modified_time;
                 const modified = yoastMod || p.modified_gmt;
                 return {
                     url: `${BASE}/blog/${p.slug}/`,
-                    lastModified: new Date(modified),
+                    lastModified: typeof modified === "string" ? new Date(modified) : undefined,
                     priority: CONFIG.posts.priority,
                 };
             });
@@ -236,7 +267,7 @@ export async function getServiceAreasUrls(): Promise<SitemapUrl[]> {
         if (!Array.isArray(areas)) return [];
         return areas
             .filter((a) => a.slug)
-            .filter((a) => CONFIG.serviceAreas.excludeNoindex ? isIndexable(a) : true)
+            .filter((a) => (CONFIG.serviceAreas.excludeNoindex ? isIndexable(a) : true))
             .map((a) => ({
                 url: `${BASE}${CONFIG.serviceAreas.urlPrefix}/${a.slug}/`,
                 lastModified: getLastModified(a),
