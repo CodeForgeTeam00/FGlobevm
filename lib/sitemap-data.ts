@@ -1,5 +1,29 @@
 import { fetchWP } from "@/lib/api";
-
+async function fetchAllPaginated<T>(
+    endpoint: string,
+    tag: string,
+    perPage = 100,
+    maxPages = 50
+): Promise<T[]> {
+    const all: T[] = [];
+    for (let page = 1; page <= maxPages; page++) {
+        const sep = endpoint.includes("?") ? "&" : "?";
+        const url = `${endpoint}${sep}per_page=${perPage}&page=${page}`;
+        try {
+            const batch = await fetchWP<T[]>(url, {
+                strategy: { type: "isr", revalidate: 3600 },
+                tag: `${tag}-p${page}`,
+            });
+            if (!Array.isArray(batch) || batch.length === 0) break;
+            all.push(...batch);
+            if (batch.length < perPage) break;
+        } catch (err) {
+            console.error(`Paginated fetch failed on ${url}:`, err);
+            break;
+        }
+    }
+    return all;
+}
 export const BASE = "https://www.globevm.com";
 
 const BuiLD_TIME = new Date();
@@ -47,8 +71,8 @@ interface YoastRobots {
 
 interface PostRaw {
     slug?: string;
-    date?: string;
     modified?: string;
+    modified_gmt?: string;
     yoast_head_json?: YoastRobots;
 }
 
@@ -106,20 +130,19 @@ export async function getPagesUrls(): Promise<SitemapUrl[]> {
 
 export async function getPostsUrls(): Promise<SitemapUrl[]> {
     try {
-        const data = await fetchWP<any[]>(
-            "/wp/v2/posts?per_page=100&_fields=slug,modified_gmt,yoast_head_json",
-            { strategy: { type: "isr", revalidate: 3600 }, tag: "sitemap-posts" }
+        const data = await fetchAllPaginated<PostRaw>(
+            "/wp/v2/posts?_fields=slug,modified_gmt,yoast_head_json",
+            "sitemap-posts"
         );
-        if (!data || !Array.isArray(data)) return [];
         return data
             .filter((p) => p.slug)
-            .filter((p) => CONFIG.posts.excludeNoindex ? isIndexable(p) : true)
+            .filter((p) => (CONFIG.posts.excludeNoindex ? isIndexable(p) : true))
             .map((p) => {
                 const yoastMod = p.yoast_head_json?.article_modified_time;
                 const modified = yoastMod || p.modified_gmt;
                 return {
                     url: `${BASE}/blog/${p.slug}/`,
-                    lastModified: new Date(modified),
+                    lastModified: modified ? new Date(modified) : undefined,
                     priority: CONFIG.posts.priority,
                 };
             });
