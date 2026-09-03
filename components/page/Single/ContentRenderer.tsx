@@ -6,6 +6,7 @@ import { QuoteBlock } from "./Block/QuoteBlock";
 import { VideoBlock } from "./Block/VideoBlock";
 import { ImageBlock } from "./Block/ImageBlock";
 import { BlogComponent } from "@/types/wp-blog";
+import {TableBlock} from "@/components/page/Single/Block/Tableblock";
 
 function HtmlBlock({ html }: { html: string }) {
     return (
@@ -46,6 +47,9 @@ export default function ContentRenderer({ components }: { components: BlogCompon
                     case "core/heading":
                     case "core/list":
                         return <HtmlBlock key={index} html={block.html} />;
+
+                    case "core/table":
+                        return <TableBlock key={index} html={block.html} />;
 
                     case "acf/custom-image":
                         return <ImageBlock key={index} data={block.data} />;

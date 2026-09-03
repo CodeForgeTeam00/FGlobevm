@@ -58,6 +58,7 @@ export interface BlogPage {
 export type BlogComponent =
     | { type: "core/paragraph"; html: string }
     | { type: "core/heading"; html: string }
+    | { type: "core/table"; html: string }
     | { type: "core/list"; html: string }
     | { type: "acf/selected-posts"; data: any[] }
     | { type: "acf/single-related-post"; data: any[] }
