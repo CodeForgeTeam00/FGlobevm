@@ -223,7 +223,54 @@
 }
 
 
+/* ================= TABLE BLOCK ================= */
+.table-block table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
+.table-block thead {
+    background-color: #199AD5;
+}
+
+.table-block thead th {
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 14px 20px;
+    text-align: left;
+}
+
+.table-block tbody tr {
+    border-bottom: 1px solid #EBECF0;
+    transition: background-color 0.15s;
+}
+
+.table-block tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table-block tbody tr:hover {
+    background-color: #FAFBFC;
+}
+
+.table-block tbody td {
+    padding: 14px 20px;
+    font-size: 14px;
+    color: #42526E;
+}
+
+.table-block tbody tr:nth-child(even) {
+    background-color: #F4F5F7;
+}
+
+.table-block tbody tr:nth-child(even):hover {
+    background-color: #EBECF0;
+}
+
+.table-block figure {
+    margin: 0;
+}
 
 
 
