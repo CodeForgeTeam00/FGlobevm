@@ -76,15 +76,15 @@ export function ParentServiceHero({ data , partners }: Props) {
                     </div>
                     {data.image?.url && (
                         <div className="relative w-full order-1 lg:order-2 bg-red-600 h-full  rounded-bl-[104px] overflow-hidden">
-                            sss
-                            {/*<Image*/}
-                            {/*    src={data.image.url}*/}
-                            {/*    alt={data.image.alt || data.title}*/}
-                            {/*    fill*/}
-                            {/*    sizes="(max-width: 1024px) 100vw, 50vw"*/}
-                            {/*    className="object-cover"*/}
-                            {/*    priority*/}
-                            {/*/>*/}
+
+                            <Image
+                                src={data.image.url}
+                                alt={data.image.alt || data.title}
+                                fill
+                                sizes="(max-width: 1024px) 100vw, 50vw"
+                                className="object-cover"
+                                priority
+                            />
                         </div>
                     )}
                 </div>
