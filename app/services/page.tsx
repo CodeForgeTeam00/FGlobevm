@@ -1,7 +1,7 @@
 import Container from "@/components/global/Sections/Container";
 import PrimarySection from "@/components/global/PrimarySection";
 import SectionIntro from "@/components/global/SectionIntro";
-import { BlogSection } from "@/components/page/Home/BlogSection";
+import BlogSection from "@/components/page/SrvicesPage/PostSection";
 import { ContactCTA } from "@/components/page/Home/ContactCTA";
 import { getServiceLandingPage, getServiceCategoryCards } from "@/services/wp-services";
 import { getBlogs } from "@/services/wp-blog";
@@ -15,6 +15,7 @@ import  {ParentServiceHero}  from "@/components/serviceParent/HeroSection";
 import { ClientFeedbackGrid } from "@/components/page/ServiceCategory/Clientfeedbackgrid";
 import React from "react";
 import type { Metadata } from "next";
+import {WhyChooseUs} from "@/components/page/Home/WhyChooseUs";
 
 export async function generateMetadata(): Promise<Metadata> {
     const pageData = await getServiceLandingPage();
@@ -54,8 +55,6 @@ export default async function ServicesLandingPage() {
                     image: pageData?.image ?? null,
                 }}
             />
-
-            {/* Service Cards */}
             <PrimarySection>
                 <Container>
                     <div className="py-16 lg:py-24">
@@ -72,7 +71,7 @@ export default async function ServicesLandingPage() {
                                 From infrastructure management and cloud environments to endpoint protection and network security, our services are designed to keep your systems running smoothly and your data protected.
                             </Text>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {(categoryCards ?? []).map((card, index) => (
                                 <Link
                                     key={index}
@@ -140,40 +139,9 @@ export default async function ServicesLandingPage() {
                     </Container>
                 </div>
             )}
-
-            {/* Why Choose Us */}
-            {whyChoose && whyChoose.items && whyChoose.items.length > 0 && (
-                <Container>
-                    <section className="py-6 lg:py-20">
-                        <SectionIntro
-                            badge={whyChoose.label}
-                            title={whyChoose.title}
-                            as="h2"
-                            lgCenter
-                            description={whyChoose.description}
-                        />
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:pt-10 pt-6">
-                            {whyChoose.items.map((item, index) => (
-                                <div
-                                    key={index}
-                                    className="bg-white rounded-2xl p-6 border border-neutral-30 hover:shadow-md hover:border-primary-6/30 transition-all"
-                                >
-                                    <div className="w-12 h-12 rounded-xl bg-primary-6/10 flex items-center justify-center mb-4">
-                                        {item.icon?.url ? (
-                                            <Image src={item.icon.url} alt={item.icon.alt || ""} width={24} height={24} />
-                                        ) : (
-                                            <div className="w-6 h-6 bg-primary-6/30 rounded" />
-                                        )}
-                                    </div>
-                                    <Text variant="card-title-md" className="mb-2">{item.title}</Text>
-                                    <Text variant="body-sm" textColor="muted">{item.description}</Text>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
+                <Container fullWidth bemClass="why-chooseUs__section">
+                    <WhyChooseUs />
                 </Container>
-            )}
-
             {/* Testimonials */}
             {testimonial && testimonial.items && testimonial.items.length > 0 && (
                 <ClientFeedbackGrid
@@ -186,7 +154,7 @@ export default async function ServicesLandingPage() {
 
             {/* Blog + CTA */}
             <Container>
-                <BlogSection posts={blogData?.posts ?? []} />
+                <BlogSection data={blogData?.posts ?? []} />
                 <ContactCTA />
             </Container>
         </div>

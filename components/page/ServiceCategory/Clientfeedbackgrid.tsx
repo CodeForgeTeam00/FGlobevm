@@ -26,13 +26,14 @@ interface Props {
 
 function TestimonialCard({ data }: { data: TestimonialItem }) {
     const rating = typeof data.star === "string" ? parseInt(data.star, 10) || 0 : data.star ?? 0;
+
     return (
         <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)] h-full">
             <h3 className="text-gray-900 font-bold text-base mb-1">{data.name}</h3>
             <p className="text-gray-600 text-sm leading-relaxed mb-5">
                 {data.description}
             </p>
-            rating &&{
+            {rating &&
             <div className="flex items-center gap-1">
                 {[1, 2, 3, 4, 5].map((i) => (
                     <Star
@@ -46,7 +47,7 @@ function TestimonialCard({ data }: { data: TestimonialItem }) {
                     />
                 ))}
             </div>
-        }
+            }
         </div>
     );
 }
