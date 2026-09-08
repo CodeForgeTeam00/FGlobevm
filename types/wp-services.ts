@@ -139,5 +139,45 @@ export interface CategoryServicePageData {
             faq: { question: string; answer: string }[]
         };
     };
-    yoast_head_json?: YoastSEO; // endpoint کتگوری فعلاً نمی‌دتش
+    yoast_head_json?: YoastSEO;
+}
+
+
+export interface ServiceLandingPage {
+    hero_section: {
+        label: string;
+        title: string;
+        description: string;
+    };
+    industries: {
+        label: string;
+        title: string;
+        description: string;
+        items: {
+            title: string;
+            description: string;
+        }[];
+    };
+    why_choose: {
+        label: string;
+        title: string;
+        description: string;
+        items: {
+            icon: { url: string; alt: string } | null;
+            title: string;
+            description: string;
+        }[];
+    };
+    testimonial: {
+        label: string;
+        title: string;
+        description: string;
+        items: {
+            name: string;
+            job: string;
+            description: string;
+        }[];
+    };
+    image: { url: string; alt: string } | null;
+    yoast_head_json?: any;
 }
