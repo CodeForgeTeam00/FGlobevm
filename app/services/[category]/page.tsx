@@ -24,19 +24,13 @@ import { ClientFeedbackGrid } from "@/components/page/ServiceCategory/Clientfeed
 import EstimateForm from "@/components/page/ServiceArea/EstimateForm";
 import type { Card } from "@/types/wp-services";
 import SeoBoxSection from "@/components/global/SeoBoxSection";
-import Image from "next/image";
-import {ChevronRight} from "lucide-react";
-import Link from "next/link";
-
 interface Props {
     params: Promise<{ category: string }>;
 }
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { category } = await params;
     const data = await getCategoryService(category);
     if (!data) return { title: "Service Category Not Found" };
-
     const hero = data.acf.hero_section;
     return {
         title: hero.title || data.name || "Services",
@@ -44,17 +38,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         alternates: { canonical: `${SITE.url}/services/${category}` },
     };
 }
-
 export default async function ServiceCategoryPage({ params }: Props) {
     const { category } = await params;
     const data = await getCategoryService(category);
     if (!data) notFound();
-
     const [rawAreas, rawPosts] = await Promise.all([
         getServiceAreaLanding(),
         getBlogs({ per_page: 4 }),
     ]);
-
     const { acf } = data;
     const hero = acf.hero_section;
     const services = acf.services_section;
@@ -66,9 +57,6 @@ export default async function ServiceCategoryPage({ params }: Props) {
     const seoBox = acf.seo_box
     const pageTitle = hero.title || data.name || "Services";
     const blogData = mapBlogsResponse(rawPosts);
-    console.log(acf , 'lalalal')
-
-
     const schemas: object[] = [
         webPageSchema({
             title: pageTitle,

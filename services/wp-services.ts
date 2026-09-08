@@ -26,3 +26,13 @@ export async function getServiceCategoryCards() {
         { strategy: { type: "isr", revalidate: 86400 }, tag: "service-category-cards" }
     );
 }
+
+import { ServiceLandingPage } from "@/types/wp-services";
+
+export async function getServiceLandingPage() {
+    return fetchWP<ServiceLandingPage>(
+        "/gvm/v1/pages/5011/acf-data/",
+        { strategy: { type: "isr", revalidate: 86400 }, tag: "services" }
+    );
+}
+

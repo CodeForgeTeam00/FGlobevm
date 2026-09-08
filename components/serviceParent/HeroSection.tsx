@@ -7,29 +7,31 @@ import Text from "@/components/global/text";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "@/components/global/Icons";
 import { WPImage } from "@/types/wp-common";
+import {TrustedBy} from "@/components/global/TrustedBy";
+import {BusinessPartner} from "@/types/wp-options";
 interface HeroSectionData {
     description: string;
     image: WPImage | null;
     label: string;
     our_benefits?: string[];
     title: string;
+
 }
 interface Props {
     data: HeroSectionData;
+    partners:BusinessPartner[];
 }
-export function CategoryServiceHero({ data }: Props) {
+export function ParentServiceHero({ data , partners }: Props) {
     return (
-        <section className="w-full py-4 lg:py-16">
-            <Container>
+        <section className="w-full  max-w-[1920px] mx-auto">
                 <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                    <div className="flex flex-col order-2 lg:order-1">
+                    <div className="flex lg:max-w-[720px] mt-20 lg:ms-auto  flex-col order-2 lg:order-1">
                         <SectionIntro
                             badge={data.label}
                             title={data.title}
                             as={"h1"}
                             description={data.description}
                         />
-
                         {(data.our_benefits?.length ?? 0) > 0 && (
                             <div className="mt-2 flex flex-col gap-2">
                                 <Text variant={"heading-xs"}>Our Benefits</Text>
@@ -67,23 +69,26 @@ export function CategoryServiceHero({ data }: Props) {
                                         Book A Free Consultation
                                     </div>
                                 </Button>
+
                             </Link>
                         </div>
+                        <TrustedBy partners={ partners ?? []} />
                     </div>
                     {data.image?.url && (
-                        <div className="relative w-full order-1 lg:order-2 aspect-[4/3] rounded-3xl overflow-hidden">
-                            <Image
-                                src={data.image.url}
-                                alt={data.image.alt || data.title}
-                                fill
-                                sizes="(max-width: 1024px) 100vw, 50vw"
-                                className="object-cover"
-                                priority
-                            />
+                        <div className="relative w-full order-1 lg:order-2 bg-red-600 h-full  rounded-bl-[104px] overflow-hidden">
+                            sss
+                            {/*<Image*/}
+                            {/*    src={data.image.url}*/}
+                            {/*    alt={data.image.alt || data.title}*/}
+                            {/*    fill*/}
+                            {/*    sizes="(max-width: 1024px) 100vw, 50vw"*/}
+                            {/*    className="object-cover"*/}
+                            {/*    priority*/}
+                            {/*/>*/}
                         </div>
                     )}
                 </div>
-            </Container>
+
         </section>
     );
 }
