@@ -318,7 +318,10 @@ export default function Header({
                                             onMouseLeave={scheduleClose}
                                         >
                                             {isServiceParent ? (
-                                                <span className="flex items-center gap-1 hover:text-primary-6 cursor-pointer transition-transform duration-200">
+                                                <Link
+                                                    href="/services"
+                                                    className="flex items-center gap-1 hover:text-primary-6 cursor-pointer transition-transform duration-200"
+                                                >
                                                     <Text
                                                         variant={"body-md"}
                                                         as={"span"}
@@ -338,7 +341,7 @@ export default function Header({
                                                             }`}
                                                         />
                                                     )}
-                                                </span>
+                                                </Link>
                                             ) : (
                                                 <Link
                                                     className="flex items-center gap-1 hover:text-primary-6 transition-transform duration-200"

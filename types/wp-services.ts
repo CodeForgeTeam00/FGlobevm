@@ -158,16 +158,6 @@ export interface ServiceLandingPage {
             description: string;
         }[];
     };
-    why_choose: {
-        label: string;
-        title: string;
-        description: string;
-        items: {
-            icon: { url: string; alt: string } | null;
-            title: string;
-            description: string;
-        }[];
-    };
     testimonial: {
         label: string;
         title: string;
