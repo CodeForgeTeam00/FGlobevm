@@ -5,11 +5,11 @@ import { Slot } from "radix-ui"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-    "cursor-pointer  border",
+    "cursor-pointer w-full  border",
     {
       variants: {
         variant: {
-          primary: "bg-primary-6 text-neutral-0 border-primary-6 hover:bg-[#40A4da] hover:border-[#40A4da]",
+          primary: "bg-primary-6  text-neutral-0 border-primary-6 hover:bg-[#40A4da] hover:border-[#40A4da]",
           outline: "bg-neutral-0 border-neutral-40 group hover:border-primary-6 ",
           ghost: "border-transparent bg-transparent ",
         },

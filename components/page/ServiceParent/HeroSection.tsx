@@ -25,7 +25,7 @@ export function ParentServiceHero({ data , partners }: Props) {
     return (
         <section className="w-full  max-w-[1920px] mx-auto">
                 <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                    <div className="flex lg:max-w-[720px] mt-20 lg:ms-auto  flex-col order-2 lg:order-1">
+                    <div className="flex lg:max-w-[720px] mt-20 lg:ms-auto  flex-col order-1">
                         <SectionIntro
                             badge={data.label}
                             title={data.title}
@@ -63,7 +63,7 @@ export function ParentServiceHero({ data , partners }: Props) {
                         )}
                         <div className={"mt-6 lg:mt-10 flex"}>
                             <Link className={"w-full lg:w-auto"} href={"/contact-us"}>
-                                <Button size={"lg"} variant={"primary"}>
+                                <Button size={"lg"}  className={'w-full'} variant={"primary"}>
                                     <div className={"flex items-center gap-2"}>
                                         <CalendarIcon className={"w-6 h-6"} />
                                         Book A Free Consultation
@@ -75,8 +75,7 @@ export function ParentServiceHero({ data , partners }: Props) {
                         <TrustedBy partners={ partners ?? []} />
                     </div>
                     {data.image?.url && (
-                        <div className="relative w-full order-1 lg:order-2 bg-red-600 h-full  rounded-bl-[104px] overflow-hidden">
-
+                        <div className="relative w-full order-2   h-full  aspect-[4/3] lg:aspect-auto lg:rounded-bl-[104px] overflow-hidden">
                             <Image
                                 src={data.image.url}
                                 alt={data.image.alt || data.title}

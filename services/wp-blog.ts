@@ -1,5 +1,5 @@
 import { fetchWP } from "@/lib/api";
-import {BlogCategory, BlogPage, BlogPost, BlogSinglePost} from "@/types/wp-blog";
+import {BlogCategory, BlogPage, BlogPost, BlogSinglePost , BlogAuthorPage} from "@/types/wp-blog";
 
 interface GetBlogsParams {
     page?: number;
@@ -89,4 +89,13 @@ export async function getPopularPosts() {
         strategy: { type: "isr", revalidate: 1800 },  // ۳۰ دقیقه
         tag: "popular-posts",
     });
+}
+
+
+
+export async function getAuthorBySlug(slug: string) {
+    return fetchWP<BlogAuthorPage>(
+        `/gvm/v1/author/${slug}`,
+        { strategy: { type: "isr", revalidate: 86400 }, tag: "blog" }
+    );
 }
