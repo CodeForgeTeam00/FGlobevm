@@ -72,7 +72,7 @@ export const dictionary = {
                         title: "You Talk to the Owners",
                         description: "When you call GlobeVM, you reach George or Nazy directly. Not a ticket queue. Not a call center overseas.",
                         icon: {
-                            url:"assets/image/LocalITSupport.svg",
+                            url:"/assets/image/LocalITSupport.svg",
                             alt:"LocalITSupport Logo",
                         },
                     },
@@ -80,7 +80,7 @@ export const dictionary = {
                         title: "Cybersecurity Built In, Not Bolted On",
                         description: "Every client gets firewall management, endpoint protection, email filtering, and MFA as standard. Not an add-on.",
                         icon:{
-                            url: "assets/image/ProactiveThreatPrevention.svg",
+                            url: "/assets/image/ProactiveThreatPrevention.svg",
                             alt:"ProactiveThreatPrevention",
                         },
                     },
@@ -88,7 +88,7 @@ export const dictionary = {
                         title: "Government-Tested Expertise",
                         description: "Our team has managed IT for California's DMV and municipal agencies. That rigor carries into every client engagement.",
                         icon: {
-                            url:"assets/image/CertifiedITExperts.svg",
+                            url:"/assets/image/CertifiedITExperts.svg",
                             alt:"CertifiedITExperts",
                         },
                     },
@@ -96,7 +96,7 @@ export const dictionary = {
                         title: "Bilingual Support",
                         description: "We proudly serve LA's Persian business community in both English and Farsi.",
                         icon: {
-                            url:"assets/image/HassleFreeCompliance.svg",
+                            url:"/assets/image/HassleFreeCompliance.svg",
                             alt:"HassleFreeCompliance",
                         },
                     },
