@@ -80,3 +80,23 @@ export interface BlogVideoData {
 export interface BlogSinglePost extends BlogPost {
     components: BlogComponent[];
 }
+
+
+export interface BlogAuthorPage {
+        id: number;
+        slug: string;
+        name: string;
+        job: string;
+        description: string;
+        avatar: {
+            url: string;
+            alt: string;
+        };
+        socials: {
+            youtube: string;
+            instagram: string;
+            facebook: string;
+            x: string;
+            linkedin: string;
+        };
+}

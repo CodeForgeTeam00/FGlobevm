@@ -10,7 +10,7 @@ import { mapBlogsResponse } from "@/mappers/blog-mapper";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Text from "@/components/global/text";
-import  {ParentServiceHero}  from "@/components/serviceParent/HeroSection";
+import  {ParentServiceHero}  from "@/components/page/ServiceParent/HeroSection";
 import { ClientFeedbackGrid } from "@/components/page/ServiceCategory/Clientfeedbackgrid";
 import React from "react";
 import type { Metadata } from "next";
