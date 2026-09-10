@@ -81,7 +81,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
             page: currentPage,
             per_page: 12,
             sort: currentSort,
-
+            author_slug: slug,
         }),
     ]);
 

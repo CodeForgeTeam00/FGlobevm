@@ -8,6 +8,8 @@ export interface BlogAuthor {
     avatar: WPImage;
 }
 
+
+
 export interface BlogPost {
     id?: number;
     slug?: string;
