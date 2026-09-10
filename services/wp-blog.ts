@@ -1,12 +1,12 @@
 import { fetchWP } from "@/lib/api";
 import {BlogCategory, BlogPage, BlogPost, BlogSinglePost , BlogAuthorPage} from "@/types/wp-blog";
-
 interface GetBlogsParams {
     page?: number;
     per_page?: number;
     category_slug?: string;
     search?: string;
     sort?: string;
+    author_slug?: string;
 }
 
 export async function getBlogs(params?: GetBlogsParams) {
@@ -16,6 +16,7 @@ export async function getBlogs(params?: GetBlogsParams) {
     if (params?.category_slug) query.append("category_slug", params.category_slug);
     if (params?.search) query.append("q", params.search);
     if (params?.sort) query.append("sort_by", params.sort);
+    if (params?.author_slug) query.append("author_slug", params.author_slug);
     const queryString = query.toString();
     const endpoint = `/gvm/v1/posts${queryString ? `?${queryString}` : ""}`;
 
