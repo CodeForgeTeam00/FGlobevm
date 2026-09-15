@@ -136,7 +136,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                         {expertise.items.slice(0, 4).map((item, i) => (
                                             <span
                                                 key={i}
-                                                className="px-3 py-1 rounded-full bg-[255, 255, 255, 0.30] text-white text-xs font-medium  "
+                                                className="px-3 py-1 rounded-full bg-neutral-30 text-white text-xs font-medium  "
                                             >
                                                 {item}
                                             </span>
@@ -220,7 +220,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                     {expertise.items.map((item, i) => (
                                         <span
                                             key={i}
-                                            className="px-4 py-3 rounded-2xl bg-neutral-20 text-neutral-100 transition-all hover:bg-primary-1 hover:text-primary-6 "
+                                            className="px-4 py-3 rounded-2xl bg-neutral-20 text-neutral-100 cursor-pointer transition-all hover:bg-primary-1 hover:text-primary-6 "
                                         >
                                             {item}
                                         </span>
