@@ -101,8 +101,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
     return (
         <div>
             {/* ========= HERO ========= */}
-            <div className="relative bg-primary-7 overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/assets/image/author-hero-bg.jpg')] bg-cover bg-center opacity-20" />
+            <div className="relative bg-primary-7 overflow-hidden lg:h-[410px]">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-7/95 to-primary-7/80" />
                 <Image src={'/assets/image/author.png'} alt={'background'}/>
                 <Container>
@@ -138,7 +137,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                         {expertise.items.slice(0, 4).map((item, i) => (
                                             <span
                                                 key={i}
-                                                className="px-3 py-1 rounded-full bg-[255, 255, 255, 0.30] text-white text-xs font-medium border "
+                                                className="px-3 py-1 rounded-full bg-[255, 255, 255, 0.30] text-white text-xs font-medium  "
                                             >
                                                 {item}
                                             </span>
