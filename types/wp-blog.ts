@@ -84,7 +84,7 @@ export interface BlogSinglePost extends BlogPost {
 }
 
 
-export interface BlogAuthorPage {
+    export interface BlogAuthorPage {
         id: number;
         slug: string;
         name: string;
@@ -101,4 +101,16 @@ export interface BlogAuthorPage {
             x: string;
             linkedin: string;
         };
-}
+        areas_expertise: {
+            description: string;
+            items: string[];
+        } | null;
+        credentials: {
+            title: string;
+            description: string;
+            image: {
+                url: string;
+                alt: string;
+            } | null;
+        }[] | null;
+    }

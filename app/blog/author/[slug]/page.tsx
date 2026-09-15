@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Text from "@/components/global/text";
 import type { Metadata } from "next";
+import AskAuthorButton from "@/components/page/Author/AskAuthorButton";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -19,26 +20,6 @@ const SORT_OPTIONS = [
     { label: "Oldest", value: "oldest" },
     { label: "Trends", value: "trends" },
 ];
-
-function formatName(slug: string): string {
-    return slug
-        .replace(/-/g, " ")
-        .replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { slug } = await params;
-    const author = await getAuthorBySlug(slug);
-
-    if (!author) {
-        return { title: "Author Not Found" };
-    }
-
-    return {
-        title: `${author.name} - Author at GlobeVM`,
-        description: author.description || `Articles written by ${author.name} on GlobeVM blog.`,
-    };
-}
 
 const SOCIAL_ICONS: Record<string, (cls: string) => React.ReactNode> = {
     instagram: (cls) => (
@@ -68,6 +49,20 @@ const SOCIAL_ICONS: Record<string, (cls: string) => React.ReactNode> = {
     ),
 };
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
+    const author = await getAuthorBySlug(slug);
+
+    if (!author) {
+        return { title: "Author Not Found" };
+    }
+
+    return {
+        title: `${author.name} - Author at GlobeVM`,
+        description: author.description || `Articles written by ${author.name} on GlobeVM blog.`,
+    };
+}
+
 export default async function AuthorPage({ params, searchParams }: Props) {
     const { slug } = await params;
     const { page, sort } = await searchParams;
@@ -94,6 +89,10 @@ export default async function AuthorPage({ params, searchParams }: Props) {
         ([, url]) => url && url.trim() !== ""
     );
 
+    const expertise = author.areas_expertise;
+    const credentials = author.credentials;
+    const linkedinUrl = author.socials?.linkedin || "";
+
     function buildSortUrl(sortValue: string) {
         const params = new URLSearchParams();
         params.set("sort", sortValue);
@@ -102,38 +101,74 @@ export default async function AuthorPage({ params, searchParams }: Props) {
 
     return (
         <div>
-            {/* Author Hero */}
-            <div className="bg-gradient-to-br from-primary-5 to-primary-7 relative overflow-hidden">
+            {/* ========= HERO ========= */}
+            <div className="relative bg-primary-7 overflow-hidden lg:h-[410px]">
+                <Image
+                    src="/assets/image/author.png"
+                    alt=""
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
+                />
                 <Container>
-                    <div className="py-12 lg:py-16 flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
-                        {/* Avatar */}
-                        <div className="relative flex-shrink-0">
-                            <div className="w-32 h-32 lg:w-44 lg:h-44 rounded-full overflow-hidden border-4 border-white/20">
-                                <Image
-                                    src={author.avatar?.url || ""}
-                                    alt={author.avatar?.alt || author.name}
-                                    width={176}
-                                    height={176}
-                                    className="object-cover w-full h-full"
-                                    unoptimized
-                                />
+                    <div className="relative py-12 lg:py-16">
+                        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
+                            {/* Avatar */}
+                            <div className="flex-shrink-0">
+                                <div className="size-24  lg:size-52 rounded-full overflow-hidden border-4 border-white/20">
+                                    <Image
+                                        src={author.avatar?.url || ""}
+                                        alt={author.avatar?.alt || author.name}
+                                        width={160}
+                                        height={160}
+                                        className="object-cover w-full h-full"
+                                        unoptimized
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Info */}
-                        <div className="flex-grow text-center lg:text-left">
-                            <Text variant="heading-md" as="h1" textColor="white" className="mb-1">
-                                {author.name}
-                            </Text>
-                            {author.job && (
-                                <Text variant="body-md" textColor="white" className="opacity-60 mb-4">
-                                    {author.job}
+                            {/* Info */}
+                            <div className="flex-grow text-center lg:text-left">
+                                <Text variant="heading-md" as="h1" textColor="white" className="mb-1">
+                                    {author.name}
                                 </Text>
-                            )}
+                                {author.job && (
+                                    <Text variant="body-md" textColor="white" className=" mb-4">
+                                        {author.job}
+                                    </Text>
+                                )}
+                                {/* Badges from expertise items */}
+                                {expertise && expertise.items && expertise.items.length > 0 && (
+                                    <div className="flex flex-wrap justify-center items-center  lg:justify-start gap-2 mb-6 lg:mb-10">
+                                        {expertise.items.slice(0, 4).map((item, i) => (
+                                            <span
+                                                key={i}
+                                                className="px-3 py-1 rounded-full flex items-center  h-8 bg-[#696e72]  text-white text-xs font-medium  "
+                                            >
+                                                {item}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+                                {/* Buttons */}
+                                <div className=" grid sm:grid-cols-2 grid-cols-1 gap-3 lg:flex">
+                                    {linkedinUrl && (
+                                        <a
+                                            href={linkedinUrl}
+                                            target="_blank"
+                                            rel="nofollow noopener"
+                                            className="px-5 py-2.5 bg-primary-6 hover:bg-primary-6/90   text-white text-sm font-medium rounded-lg transition-colors"
+                                        >
+                                            Connect on LinkedIn
+                                        </a>
+                                    )}
+                                    <AskAuthorButton authorName={author.name} authorSlug={author.slug} />
+                                </div>
+                            </div>
 
-                            {/* Socials */}
+                            {/* Social Icons */}
                             {socials.length > 0 && (
-                                <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
+                                <div className="flex lg:flex-row gap-3 flex-shrink-0">
                                     {socials.map(([name, url]) => {
                                         const iconFn = SOCIAL_ICONS[name];
                                         if (!iconFn) return null;
@@ -143,7 +178,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                                 href={url}
                                                 target="_blank"
                                                 rel="nofollow noopener"
-                                                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+                                                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors border border-white/20"
                                             >
                                                 {iconFn("w-4 h-4")}
                                             </a>
@@ -152,20 +187,93 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                 </div>
                             )}
                         </div>
-
-                        {/* Bio */}
-                        {author.description && (
-                            <div className="lg:max-w-md flex-shrink-0">
-                                <Text variant="body-sm" textColor="white" className="opacity-80 leading-relaxed">
-                                    {author.description}
-                                </Text>
-                            </div>
-                        )}
                     </div>
                 </Container>
             </div>
 
-            {/* Posts */}
+            {/* ========= ABOUT + EXPERTISE ========= */}
+            {(author.description || (expertise && expertise.items && expertise.items.length > 0)) && (
+                <Container>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-12">
+                        {/* About */}
+                        {author.description && (
+                            <div className="bg-white rounded-2xl border border-neutral-30 p-8">
+                                <Text variant="heading-sm" as="h2" className="mb-4">
+                                    About The Author
+                                </Text>
+                                <Text variant="body-sm" textColor="mid" className="leading-relaxed">
+                                    {author.description}
+                                </Text>
+                            </div>
+                        )}
+
+                        {/* Areas of Expertise */}
+                        {expertise && expertise.items && expertise.items.length > 0 && (
+                            <div className="bg-white rounded-2xl border border-neutral-30 p-8">
+                                <Text variant="heading-sm" as="h2" className="mb-2">
+                                    Areas of Expertise
+                                </Text>
+                                {expertise.description && (
+                                    <Text variant="body-sm" textColor="muted" className="mb-6">
+                                        {expertise.description}
+                                    </Text>
+                                )}
+                                <div className="flex flex-wrap items-center justify-center gap-2">
+                                    {expertise.items.map((item, i) => (
+                                        <span
+                                            key={i}
+                                            className="px-4 py-3 rounded-2xl bg-neutral-20 text-neutral-100 text-nowrap flex justify-center flex-1 cursor-pointer transition-all hover:bg-primary-1 hover:text-primary-6 "
+                                        >
+                                            {item}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </Container>
+            )}
+
+            {/* ========= CREDENTIALS ========= */}
+            {credentials && credentials.length > 0 && (
+                <Container>
+                    <div className="pb-12">
+                        <Text variant="heading-sm" as="h2" className="mb-8">
+                            Credentials
+                        </Text>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            {credentials.map((cred, index) => (
+                                <div
+                                    key={index}
+                                    className="flex gap-5 items-start bg-white rounded-2xl border border-neutral-30 p-6"
+                                >
+                                    {cred.image?.url && (
+                                        <div className="flex-shrink-0 w-24 h-24 lg:w-32 lg:h-24 rounded-xl overflow-hidden border border-neutral-30">
+                                            <Image
+                                                src={cred.image.url}
+                                                alt={cred.image.alt || cred.title}
+                                                width={128}
+                                                height={96}
+                                                className="object-cover w-full h-full"
+                                                unoptimized
+                                            />
+                                        </div>
+                                    )}
+                                    <div>
+                                        <Text variant="card-title-md" className="mb-1">
+                                            {cred.title}
+                                        </Text>
+                                        <Text variant="body-sm" textColor="muted">
+                                            {cred.description}
+                                        </Text>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </Container>
+            )}
+            {/* ========= POSTS ========= */}
             <Container>
                 <div className="py-10">
                     {/* Sort Bar */}
