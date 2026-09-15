@@ -136,7 +136,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                         {expertise.items.slice(0, 4).map((item, i) => (
                                             <span
                                                 key={i}
-                                                className="px-3 py-1 rounded-full bg-neutral-30 text-white text-xs font-medium  "
+                                                className="px-3 py-1 rounded-full h-8 bg-[#696e72]  text-white text-xs font-medium  "
                                             >
                                                 {item}
                                             </span>
