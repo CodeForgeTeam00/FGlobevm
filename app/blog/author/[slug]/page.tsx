@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Text from "@/components/global/text";
 import type { Metadata } from "next";
+import AskAuthorButton from "@/components/page/Author/AskAuthorButton";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -102,7 +103,13 @@ export default async function AuthorPage({ params, searchParams }: Props) {
         <div>
             {/* ========= HERO ========= */}
             <div className="relative bg-primary-7 overflow-hidden lg:h-[410px]">
-                <Image src={'/assets/image/author.png'}  className={'absolute w-full'} alt={'background'}/>
+                <Image
+                    src="/assets/image/author.png"
+                    alt=""
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
+                />
                 <Container>
                     <div className="relative py-12 lg:py-16">
                         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
@@ -126,17 +133,17 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                     {author.name}
                                 </Text>
                                 {author.job && (
-                                    <Text variant="body-md" textColor="white" className="opacity-70 mb-4">
+                                    <Text variant="body-md" textColor="white" className=" mb-4">
                                         {author.job}
                                     </Text>
                                 )}
                                 {/* Badges from expertise items */}
                                 {expertise && expertise.items && expertise.items.length > 0 && (
-                                    <div className="flex flex-wrap justify-center items-center h-8 lg:justify-start gap-2 mb-6">
+                                    <div className="flex flex-wrap justify-center items-center  lg:justify-start gap-2 mb-6 lg:mb-10">
                                         {expertise.items.slice(0, 4).map((item, i) => (
                                             <span
                                                 key={i}
-                                                className="px-3 py-1 rounded-full h-8 bg-[#696e72]  text-white text-xs font-medium  "
+                                                className="px-3 py-1 rounded-full flex items-center  h-8 bg-[#696e72]  text-white text-xs font-medium  "
                                             >
                                                 {item}
                                             </span>
@@ -144,23 +151,18 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                     </div>
                                 )}
                                 {/* Buttons */}
-                                <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+                                <div className=" grid sm:grid-cols-2 grid-cols-1 gap-3 lg:flex">
                                     {linkedinUrl && (
                                         <a
                                             href={linkedinUrl}
                                             target="_blank"
                                             rel="nofollow noopener"
-                                            className="px-5 py-2.5 bg-primary-6 hover:bg-primary-6/90 text-white text-sm font-medium rounded-lg transition-colors"
+                                            className="px-5 py-2.5 bg-primary-6 hover:bg-primary-6/90   text-white text-sm font-medium rounded-lg transition-colors"
                                         >
                                             Connect on LinkedIn
                                         </a>
                                     )}
-                                    <Link
-                                        href="/contact-us"
-                                        className="px-5 py-2.5 bg-white hover:bg-gray-50 text-gray-900 text-sm font-medium rounded-lg transition-colors"
-                                    >
-                                        Ask {author.name.split(" ")[0]} a Question
-                                    </Link>
+                                    <AskAuthorButton authorName={author.name} authorSlug={author.slug} />
                                 </div>
                             </div>
 
@@ -216,11 +218,11 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                         {expertise.description}
                                     </Text>
                                 )}
-                                <div className="flex flex-wrap gap-2">
+                                <div className="flex flex-wrap items-center justify-center gap-2">
                                     {expertise.items.map((item, i) => (
                                         <span
                                             key={i}
-                                            className="px-4 py-3 rounded-2xl bg-neutral-20 text-neutral-100 cursor-pointer transition-all hover:bg-primary-1 hover:text-primary-6 "
+                                            className="px-4 py-3 rounded-2xl bg-neutral-20 text-neutral-100 text-nowrap flex justify-center flex-1 cursor-pointer transition-all hover:bg-primary-1 hover:text-primary-6 "
                                         >
                                             {item}
                                         </span>
