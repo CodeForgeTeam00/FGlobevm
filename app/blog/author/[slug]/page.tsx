@@ -102,8 +102,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
         <div>
             {/* ========= HERO ========= */}
             <div className="relative bg-primary-7 overflow-hidden lg:h-[410px]">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-7/95 to-primary-7/80" />
-                <Image src={'/assets/image/author.png'} alt={'background'}/>
+                <Image src={'/assets/image/author.png'}  className={'absolute w-full'} alt={'background'}/>
                 <Container>
                     <div className="relative py-12 lg:py-16">
                         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
