@@ -104,13 +104,13 @@ export default async function AuthorPage({ params, searchParams }: Props) {
             <div className="relative bg-primary-7 overflow-hidden">
                 <div className="absolute inset-0 bg-[url('/assets/image/author-hero-bg.jpg')] bg-cover bg-center opacity-20" />
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-7/95 to-primary-7/80" />
-
+                <Image src={'/assets/image/author.png'} alt={'background'}/>
                 <Container>
                     <div className="relative py-12 lg:py-16">
                         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
                             {/* Avatar */}
                             <div className="flex-shrink-0">
-                                <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-white/20">
+                                <div className="size-24  lg:size-52 rounded-full overflow-hidden border-4 border-white/20">
                                     <Image
                                         src={author.avatar?.url || ""}
                                         alt={author.avatar?.alt || author.name}
@@ -132,21 +132,19 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                         {author.job}
                                     </Text>
                                 )}
-
                                 {/* Badges from expertise items */}
                                 {expertise && expertise.items && expertise.items.length > 0 && (
-                                    <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6">
+                                    <div className="flex flex-wrap justify-center items-center h-8 lg:justify-start gap-2 mb-6">
                                         {expertise.items.slice(0, 4).map((item, i) => (
                                             <span
                                                 key={i}
-                                                className="px-3 py-1 rounded-full bg-white/10 text-white text-xs font-medium border border-white/20"
+                                                className="px-3 py-1 rounded-full bg-[255, 255, 255, 0.30] text-white text-xs font-medium border "
                                             >
                                                 {item}
                                             </span>
                                         ))}
                                     </div>
                                 )}
-
                                 {/* Buttons */}
                                 <div className="flex flex-wrap justify-center lg:justify-start gap-3">
                                     {linkedinUrl && (
@@ -203,7 +201,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                 <Text variant="heading-sm" as="h2" className="mb-4">
                                     About The Author
                                 </Text>
-                                <Text variant="body-sm" textColor="muted" className="leading-relaxed">
+                                <Text variant="body-sm" textColor="mid" className="leading-relaxed">
                                     {author.description}
                                 </Text>
                             </div>
@@ -224,7 +222,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                                     {expertise.items.map((item, i) => (
                                         <span
                                             key={i}
-                                            className="px-4 py-2 rounded-full border border-primary-6/30 text-primary-6 text-sm font-medium hover:bg-primary-6/5 transition-colors"
+                                            className="px-4 py-3 rounded-2xl bg-neutral-20 text-neutral-100 transition-all hover:bg-primary-1 hover:text-primary-6 "
                                         >
                                             {item}
                                         </span>
@@ -275,7 +273,6 @@ export default async function AuthorPage({ params, searchParams }: Props) {
                     </div>
                 </Container>
             )}
-
             {/* ========= POSTS ========= */}
             <Container>
                 <div className="py-10">

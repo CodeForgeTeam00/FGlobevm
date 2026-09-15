@@ -53,6 +53,7 @@ const textVariants = cva("font-sans", {
         textColor: {
             default: "inherit",
             "black": "text-neutral-900",
+            "mid": "text-neutral-100",
             "muted": "text-neutral-500",
             "light": "text-neutral-300",
             "primary": "text-primary-6",
