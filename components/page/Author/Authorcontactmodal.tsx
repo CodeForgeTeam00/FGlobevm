@@ -41,17 +41,19 @@ export default function AuthorContactModal({ authorName, authorSlug, isOpen, onC
         setErrorMsg("");
 
         try {
-            const res = await fetch("/api/wp?endpoint=/gvm/v1/submit_profile_form", {
+            const res = await fetch("/api/wp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    name: form.name,
-                    email: form.email,
-                    message: form.message,
-                    author_slug: authorSlug,
+                    endpoint: "/gvm/v1/submit_profile_form",
+                    data: {
+                        name: form.name,
+                        email: form.email,
+                        message: form.message,
+                        author_slug: authorSlug,
+                    },
                 }),
             });
-
             if (!res.ok) throw new Error("Failed");
 
             setForm({ name: "", email: "", message: "" });
