@@ -18,9 +18,8 @@ import React from "react";
 import Image from "next/image";
 import mask from "@/public/assets/image/heroSectionLayout.svg";
 import PrimarySection from "@/components/global/PrimarySection";
-import JsonLd from "@/components/global/JsonLd";
-import { webPageSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schemas";
-import { SITE } from "@/lib/seo/site-config";
+import { JsonLd } from "@/components/JsonLd";
+import { serviceAreaSchema } from "@/lib/schema/builders";
 import SeoBoxSection from "@/components/global/SeoBoxSection";
 
 interface Props {
@@ -85,18 +84,17 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
     const yoast = item?.yoast_head_json as YoastSEO | undefined;
     const pageTitle = item?.title || hero.title || "Service Area";
 
-    const schemas: object[] = [
-        webPageSchema({
+    const schema = serviceAreaSchema(
+        `/service-area/${slug}/`,
+        {
             title: yoast?.title || pageTitle,
-            url: `${SITE.url}/service-area/${slug}/`,
             description: yoast?.description || hero.description || "",
-        }),
-        breadcrumbSchema([
-            { name: "Home", url: `${SITE.url}/` },
-            { name: "Service Areas", url: `${SITE.url}/service-area/` },
-            { name: pageTitle, url: `${SITE.url}/service-area/${slug}/` },
-        ]),
-    ];
+        },
+        faqBox?.faq?.map((f: { question: string; answer: string }) => ({
+            question: f.question,
+            answer: f.answer,
+        })),
+    );
 
     // if (faqBox.faq && faqBox.faq.length > 0) {
     //     schemas.push(
@@ -111,7 +109,7 @@ export default async function ServiceAreaPage({ params, searchParams }: Props) {
 
     return (
         <>
-            <JsonLd data={schemas} />
+            <JsonLd data={schema} />
             <div className="relative">
                 {(isEnabled || isPreview) && <PreviewBar slug={slug} type="service_area_page" />}
                 <Image

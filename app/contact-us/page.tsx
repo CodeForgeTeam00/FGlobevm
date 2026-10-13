@@ -7,9 +7,8 @@ import type { Metadata } from "next";
 import { getContactPage } from "@/services/wp-pages";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
-import JsonLd from "@/components/global/JsonLd";
-import { organizationSchema, webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
-import { SITE } from "@/lib/seo/site-config";
+import { JsonLd } from "@/components/JsonLd";
+import { contactSchema } from "@/lib/schema/builders";
 import Text from "@/components/global/text";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -47,22 +46,14 @@ export default async function ContactUsPage() {
 
     const yoast = data?.yoast_head_json as YoastSEO | undefined;
 
-    const schemas: object[] = [
-        organizationSchema(),
-        webPageSchema({
-            title: yoast?.title || heroTitle,
-            url: `${SITE.url}/contact-us/`,
-            description: yoast?.description || heroDescription,
-        }),
-        breadcrumbSchema([
-            { name: "Home", url: `${SITE.url}/` },
-            { name: "Contact Us", url: `${SITE.url}/contact-us/` },
-        ]),
-    ];
+    const schema = contactSchema({
+        title: yoast?.title || heroTitle,
+        description: yoast?.description || heroDescription,
+    });
 
     return (
         <>
-            <JsonLd data={schemas} />
+            <JsonLd data={schema} />
             <div className="min-h-screen bg-[#fafafa] pb-20">
                 <section
                     aria-label="Contact Hero"

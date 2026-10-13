@@ -3,9 +3,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Container from "@/components/global/Sections/Container";
 import PrimarySection from "@/components/global/PrimarySection";
-import JsonLd from "@/components/global/JsonLd";
-import { webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
-import { SITE } from "@/lib/seo/site-config";
+import { JsonLd } from "@/components/JsonLd";
+import { serviceHubSchema } from "@/lib/schema/builders";
 import { FAQAccordion } from "@/components/global/FAQAccordion";
 import { ContactCTA } from "@/components/page/Home/ContactCTA";
 import { CategoryServiceHero } from "@/components/page/ServiceCategory/HeroSection";
@@ -35,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: hero.title || data.name || "Services",
         description: hero.description || "",
-        alternates: { canonical: `${SITE.url}/services/${category}` },
+        alternates: { canonical: `https://www.globevm.com/services/${category}` },
     };
 }
 export default async function ServiceCategoryPage({ params }: Props) {
@@ -57,22 +56,21 @@ export default async function ServiceCategoryPage({ params }: Props) {
     const seoBox = acf.seo_box
     const pageTitle = hero.title || data.name || "Services";
     const blogData = mapBlogsResponse(rawPosts);
-    const schemas: object[] = [
-        webPageSchema({
+    const schema = serviceHubSchema(
+        `/services/${category}/`,
+        {
             title: pageTitle,
-            url: `${SITE.url}/services/${category}/`,
             description: hero.description || "",
-        }),
-        breadcrumbSchema([
-            { name: "Home", url: `${SITE.url}/` },
-            { name: "Services", url: `${SITE.url}/services/` },
-            { name: pageTitle, url: `${SITE.url}/services/${category}/` },
-        ]),
-    ];
+        },
+        faqs?.faq?.map((f: { question: string; answer: string }) => ({
+            question: f.question,
+            answer: f.answer,
+        })),
+    );
 
     return (
         <>
-            <JsonLd data={schemas} />
+            <JsonLd data={schema} />
             <div className="relative flex flex-col">
                 <CategoryServiceHero data={hero} />
                 <div className={"bg-neutral-10 w-full"}>

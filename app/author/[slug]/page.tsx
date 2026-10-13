@@ -9,6 +9,9 @@ import Image from "next/image";
 import Text from "@/components/global/text";
 import type { Metadata } from "next";
 import AskAuthorButton from "@/components/page/Author/AskAuthorButton";
+import { JsonLd } from "@/components/JsonLd";
+import { authorSchema } from "@/lib/schema/builders";
+import type { PersonKey } from "@/lib/schema/config";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -98,229 +101,239 @@ export default async function AuthorPage({ params, searchParams }: Props) {
         params.set("sort", sortValue);
         return `${basePath}?${params.toString()}`;
     }
-
+    const schema = authorSchema(
+        slug as PersonKey,
+        {
+            title: `${author.name} - Author at GlobeVM`,
+            description: author.description || `Articles written by ${author.name} on GlobeVM blog.`,
+        },
+    );
     return (
-        <div>
-            {/* ========= HERO ========= */}
-            <div className="relative bg-primary-7 overflow-hidden lg:h-[410px]">
-                <Image
-                    src="/assets/image/author.png"
-                    alt=""
-                    fill
-                    sizes="100vw"
-                    className="object-cover"
-                />
-                <Container>
-                    <div className="relative py-12 lg:py-16">
-                        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
-                            {/* Avatar */}
-                            <div className="flex-shrink-0">
-                                <div className="size-24  lg:size-52 rounded-full overflow-hidden border-4 border-white/20">
-                                    <Image
-                                        src={author.avatar?.url || ""}
-                                        alt={author.avatar?.alt || author.name}
-                                        width={160}
-                                        height={160}
-                                        className="object-cover w-full h-full"
-                                        unoptimized
-                                    />
+        <>
+            <JsonLd data={schema} />
+            <div>
+                {/* ========= HERO ========= */}
+                <div className="relative bg-primary-7 overflow-hidden lg:h-[410px]">
+                    <Image
+                        src="/assets/image/author.png"
+                        alt=""
+                        fill
+                        sizes="100vw"
+                        className="object-cover"
+                    />
+                    <Container>
+                        <div className="relative py-12 lg:py-16">
+                            <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
+                                {/* Avatar */}
+                                <div className="flex-shrink-0">
+                                    <div className="size-24  lg:size-52 rounded-full overflow-hidden border-4 border-white/20">
+                                        <Image
+                                            src={author.avatar?.url || ""}
+                                            alt={author.avatar?.alt || author.name}
+                                            width={160}
+                                            height={160}
+                                            className="object-cover w-full h-full"
+                                            unoptimized
+                                        />
+                                    </div>
                                 </div>
-                            </div>
 
-                            {/* Info */}
-                            <div className="flex-grow text-center lg:text-left">
-                                <Text variant="heading-md" as="h1" textColor="white" className="mb-1">
-                                    {author.name}
-                                </Text>
-                                {author.job && (
-                                    <Text variant="body-md" textColor="white" className=" mb-4">
-                                        {author.job}
+                                {/* Info */}
+                                <div className="flex-grow text-center lg:text-left">
+                                    <Text variant="heading-md" as="h1" textColor="white" className="mb-1">
+                                        {author.name}
                                     </Text>
-                                )}
-                                {/* Badges from expertise items */}
-                                {expertise && expertise.items && expertise.items.length > 0 && (
-                                    <div className="flex flex-wrap justify-center items-center  lg:justify-start gap-2 mb-6 lg:mb-10">
-                                        {expertise.items.slice(0, 4).map((item, i) => (
-                                            <span
-                                                key={i}
-                                                className="px-3 py-1 rounded-full flex items-center  h-8 bg-[#696e72]  text-white text-xs font-medium  "
-                                            >
+                                    {author.job && (
+                                        <Text variant="body-md" textColor="white" className=" mb-4">
+                                            {author.job}
+                                        </Text>
+                                    )}
+                                    {/* Badges from expertise items */}
+                                    {expertise && expertise.items && expertise.items.length > 0 && (
+                                        <div className="flex flex-wrap justify-center items-center  lg:justify-start gap-2 mb-6 lg:mb-10">
+                                            {expertise.items.slice(0, 4).map((item, i) => (
+                                                <span
+                                                    key={i}
+                                                    className="px-3 py-1 rounded-full flex items-center  h-8 bg-[#696e72]  text-white text-xs font-medium  "
+                                                >
                                                 {item}
                                             </span>
-                                        ))}
-                                    </div>
-                                )}
-                                {/* Buttons */}
-                                <div className=" grid sm:grid-cols-2 grid-cols-1 gap-3 lg:flex">
-                                    {linkedinUrl && (
-                                        <a
-                                            href={linkedinUrl}
-                                            target="_blank"
-                                            rel="nofollow noopener"
-                                            className="px-5 py-2.5 bg-primary-6 hover:bg-primary-6/90   text-white text-sm font-medium rounded-lg transition-colors"
-                                        >
-                                            Connect on LinkedIn
-                                        </a>
+                                            ))}
+                                        </div>
                                     )}
-                                    <AskAuthorButton authorName={author.name} authorSlug={author.slug} />
-                                </div>
-                            </div>
-
-                            {/* Social Icons */}
-                            {socials.length > 0 && (
-                                <div className="flex lg:flex-row gap-3 flex-shrink-0">
-                                    {socials.map(([name, url]) => {
-                                        const iconFn = SOCIAL_ICONS[name];
-                                        if (!iconFn) return null;
-                                        return (
+                                    {/* Buttons */}
+                                    <div className=" grid sm:grid-cols-2 grid-cols-1 gap-3 lg:flex">
+                                        {linkedinUrl && (
                                             <a
-                                                key={name}
-                                                href={url}
+                                                href={linkedinUrl}
                                                 target="_blank"
                                                 rel="nofollow noopener"
-                                                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors border border-white/20"
+                                                className="px-5 py-2.5 bg-primary-6 hover:bg-primary-6/90   text-white text-sm font-medium rounded-lg transition-colors"
                                             >
-                                                {iconFn("w-4 h-4")}
+                                                Connect on LinkedIn
                                             </a>
-                                        );
-                                    })}
+                                        )}
+                                        <AskAuthorButton authorName={author.name} authorSlug={author.slug} />
+                                    </div>
+                                </div>
+
+                                {/* Social Icons */}
+                                {socials.length > 0 && (
+                                    <div className="flex lg:flex-row gap-3 flex-shrink-0">
+                                        {socials.map(([name, url]) => {
+                                            const iconFn = SOCIAL_ICONS[name];
+                                            if (!iconFn) return null;
+                                            return (
+                                                <a
+                                                    key={name}
+                                                    href={url}
+                                                    target="_blank"
+                                                    rel="nofollow noopener"
+                                                    className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors border border-white/20"
+                                                >
+                                                    {iconFn("w-4 h-4")}
+                                                </a>
+                                            );
+                                        })}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </Container>
+                </div>
+
+                {/* ========= ABOUT + EXPERTISE ========= */}
+                {(author.description || (expertise && expertise.items && expertise.items.length > 0)) && (
+                    <Container>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-12">
+                            {/* About */}
+                            {author.description && (
+                                <div className="bg-white rounded-2xl border border-neutral-30 p-8">
+                                    <Text variant="heading-sm" as="h2" className="mb-4">
+                                        About The Author
+                                    </Text>
+                                    <Text variant="body-sm" textColor="mid" className="leading-relaxed">
+                                        {author.description}
+                                    </Text>
+                                </div>
+                            )}
+
+                            {/* Areas of Expertise */}
+                            {expertise && expertise.items && expertise.items.length > 0 && (
+                                <div className="bg-white rounded-2xl border border-neutral-30 p-8">
+                                    <Text variant="heading-sm" as="h2" className="mb-2">
+                                        Areas of Expertise
+                                    </Text>
+                                    {expertise.description && (
+                                        <Text variant="body-sm" textColor="muted" className="mb-6">
+                                            {expertise.description}
+                                        </Text>
+                                    )}
+                                    <div className="flex flex-wrap items-center justify-center gap-2">
+                                        {expertise.items.map((item, i) => (
+                                            <span
+                                                key={i}
+                                                className="px-4 py-3 rounded-2xl bg-neutral-20 text-neutral-100 text-nowrap flex justify-center flex-1 cursor-pointer transition-all hover:bg-primary-1 hover:text-primary-6 "
+                                            >
+                                            {item}
+                                        </span>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
                         </div>
+                    </Container>
+                )}
+
+                {/* ========= CREDENTIALS ========= */}
+                {credentials && credentials.length > 0 && (
+                    <Container>
+                        <div className="pb-12">
+                            <Text variant="heading-sm" as="h2" className="mb-8">
+                                Credentials
+                            </Text>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                {credentials.map((cred, index) => (
+                                    <div
+                                        key={index}
+                                        className="flex gap-5 items-start bg-white rounded-2xl border border-neutral-30 p-6"
+                                    >
+                                        {cred.image?.url && (
+                                            <div className="flex-shrink-0 w-24 h-24 lg:w-32 lg:h-24 rounded-xl overflow-hidden border border-neutral-30">
+                                                <Image
+                                                    src={cred.image.url}
+                                                    alt={cred.image.alt || cred.title}
+                                                    width={128}
+                                                    height={96}
+                                                    className="object-cover w-full h-full"
+                                                    unoptimized
+                                                />
+                                            </div>
+                                        )}
+                                        <div>
+                                            <Text variant="card-title-md" className="mb-1">
+                                                {cred.title}
+                                            </Text>
+                                            <Text variant="body-sm" textColor="muted">
+                                                {cred.description}
+                                            </Text>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </Container>
+                )}
+                {/* ========= POSTS ========= */}
+                <Container>
+                    <div className="py-10">
+                        {/* Sort Bar */}
+                        <div className="flex items-center gap-4 border border-gray-200 rounded-full px-6 py-3 mb-8">
+                            <span className="text-sm text-gray-500">Sort By:</span>
+                            {SORT_OPTIONS.map((option) => (
+                                <Link
+                                    key={option.value}
+                                    href={buildSortUrl(option.value)}
+                                    className={`text-sm transition ${
+                                        currentSort === option.value
+                                            ? "text-primary-6 font-medium"
+                                            : "text-gray-500 hover:text-primary-6"
+                                    }`}
+                                >
+                                    {option.label}
+                                </Link>
+                            ))}
+                        </div>
+
+                        {/* Posts Grid */}
+                        {(blog?.posts ?? []).length > 0 ? (
+                            <>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    {blog!.posts.map((item) => (
+                                        <BlogCard  key={item.id} data={item} />
+                                    ))}
+                                </div>
+
+                                {blog?.pagination && blog.pagination.totalPages > 1 && (
+                                    <div className="mt-10">
+                                        <CustomPagination
+                                            hasNext={blog.pagination.hasNext}
+                                            hasPrev={blog.pagination.hasPrev}
+                                            totalPages={blog.pagination.totalPages}
+                                            currentPage={blog.pagination.currentPage}
+                                        />
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <p className="text-center py-20 text-gray-400">
+                                No articles found by this author.
+                            </p>
+                        )}
                     </div>
                 </Container>
             </div>
 
-            {/* ========= ABOUT + EXPERTISE ========= */}
-            {(author.description || (expertise && expertise.items && expertise.items.length > 0)) && (
-                <Container>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-12">
-                        {/* About */}
-                        {author.description && (
-                            <div className="bg-white rounded-2xl border border-neutral-30 p-8">
-                                <Text variant="heading-sm" as="h2" className="mb-4">
-                                    About The Author
-                                </Text>
-                                <Text variant="body-sm" textColor="mid" className="leading-relaxed">
-                                    {author.description}
-                                </Text>
-                            </div>
-                        )}
-
-                        {/* Areas of Expertise */}
-                        {expertise && expertise.items && expertise.items.length > 0 && (
-                            <div className="bg-white rounded-2xl border border-neutral-30 p-8">
-                                <Text variant="heading-sm" as="h2" className="mb-2">
-                                    Areas of Expertise
-                                </Text>
-                                {expertise.description && (
-                                    <Text variant="body-sm" textColor="muted" className="mb-6">
-                                        {expertise.description}
-                                    </Text>
-                                )}
-                                <div className="flex flex-wrap items-center justify-center gap-2">
-                                    {expertise.items.map((item, i) => (
-                                        <span
-                                            key={i}
-                                            className="px-4 py-3 rounded-2xl bg-neutral-20 text-neutral-100 text-nowrap flex justify-center flex-1 cursor-pointer transition-all hover:bg-primary-1 hover:text-primary-6 "
-                                        >
-                                            {item}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </Container>
-            )}
-
-            {/* ========= CREDENTIALS ========= */}
-            {credentials && credentials.length > 0 && (
-                <Container>
-                    <div className="pb-12">
-                        <Text variant="heading-sm" as="h2" className="mb-8">
-                            Credentials
-                        </Text>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            {credentials.map((cred, index) => (
-                                <div
-                                    key={index}
-                                    className="flex gap-5 items-start bg-white rounded-2xl border border-neutral-30 p-6"
-                                >
-                                    {cred.image?.url && (
-                                        <div className="flex-shrink-0 w-24 h-24 lg:w-32 lg:h-24 rounded-xl overflow-hidden border border-neutral-30">
-                                            <Image
-                                                src={cred.image.url}
-                                                alt={cred.image.alt || cred.title}
-                                                width={128}
-                                                height={96}
-                                                className="object-cover w-full h-full"
-                                                unoptimized
-                                            />
-                                        </div>
-                                    )}
-                                    <div>
-                                        <Text variant="card-title-md" className="mb-1">
-                                            {cred.title}
-                                        </Text>
-                                        <Text variant="body-sm" textColor="muted">
-                                            {cred.description}
-                                        </Text>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </Container>
-            )}
-            {/* ========= POSTS ========= */}
-            <Container>
-                <div className="py-10">
-                    {/* Sort Bar */}
-                    <div className="flex items-center gap-4 border border-gray-200 rounded-full px-6 py-3 mb-8">
-                        <span className="text-sm text-gray-500">Sort By:</span>
-                        {SORT_OPTIONS.map((option) => (
-                            <Link
-                                key={option.value}
-                                href={buildSortUrl(option.value)}
-                                className={`text-sm transition ${
-                                    currentSort === option.value
-                                        ? "text-primary-6 font-medium"
-                                        : "text-gray-500 hover:text-primary-6"
-                                }`}
-                            >
-                                {option.label}
-                            </Link>
-                        ))}
-                    </div>
-
-                    {/* Posts Grid */}
-                    {(blog?.posts ?? []).length > 0 ? (
-                        <>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                                {blog!.posts.map((item) => (
-                                    <BlogCard  key={item.id} data={item} />
-                                ))}
-                            </div>
-
-                            {blog?.pagination && blog.pagination.totalPages > 1 && (
-                                <div className="mt-10">
-                                    <CustomPagination
-                                        hasNext={blog.pagination.hasNext}
-                                        hasPrev={blog.pagination.hasPrev}
-                                        totalPages={blog.pagination.totalPages}
-                                        currentPage={blog.pagination.currentPage}
-                                    />
-                                </div>
-                            )}
-                        </>
-                    ) : (
-                        <p className="text-center py-20 text-gray-400">
-                            No articles found by this author.
-                        </p>
-                    )}
-                </div>
-            </Container>
-        </div>
+        </>
     );
 }

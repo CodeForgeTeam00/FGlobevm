@@ -10,10 +10,10 @@ import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
 import CommentSection from "@/components/page/Single/Block/CommentSection";
 import PreviewBar from "@/components/global/PreviewBar";
-import JsonLd from "@/components/global/JsonLd";
+import { JsonLd } from "@/components/JsonLd";
+import { blogPostSchema } from "@/lib/schema/builders";
 import ViewTracker from "@/components/global/ViewTracker";
-import { articleSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/seo/schemas";
-import { SITE } from "@/lib/seo/site-config";
+
 interface Props {
     params: Promise<{ slug: string }>;
     searchParams: Promise<{ preview?: string; id?: string }>;
@@ -71,40 +71,32 @@ export default async function BlogPage({ params, searchParams }: Props) {
         Array.isArray(block.data) ? block.data : []
     );
 
-    const schemas: object[] = [
-        webPageSchema({
+    const schema = blogPostSchema({
+        path: `/blog/${slug}/`,
+        meta: {
             title: headline,
-            url: `${SITE.url}/blog/${slug}/`,
             description,
-        }),
-        breadcrumbSchema([
-            { name: "Home", url: `${SITE.url}/` },
-            { name: "Blog", url: `${SITE.url}/blog/` },
-            { name: data.title || "Post", url: `${SITE.url}/blog/${slug}/` },
-        ]),
-        articleSchema({
-            headline,
-            description,
-            datePublished,
-            dateModified,
-            image,
-        }),
-    ];
+        },
+        headline,
+        image: data.image
+            ? { url: data.image.url, width: 1200, height: 630, alt: data.image.alt }
+            : null,
+        publishedGmt: raw.date_gmt || raw.date || "",
+        modifiedGmt: raw.modified_gmt || raw.modified || "",
+        author: "nazy-rafaeil",
+        categorySlug: raw.categories?.[0]?.slug || raw.category?.slug || "",
+        faqs: allFaqs.length > 0
+            ? allFaqs.map((f: { question: string; answer: string }) => ({
+                question: f.question,
+                answer: f.answer,
+            }))
+            : undefined,
+    });
 
-    if (allFaqs.length > 0) {
-        schemas.push(
-            faqSchema(
-                allFaqs.map((f: any) => ({
-                    question: f.question,
-                    answer: f.answer,
-                }))
-            )
-        );
-    }
 
     return (
         <>
-            <JsonLd data={schemas} />
+            <JsonLd data={schema} />
             {!isEnabled && <ViewTracker postId={raw.id} />}
             <div className="min-h-screen bg-white">
                 {isEnabled && <PreviewBar slug={slug} type="post" />}

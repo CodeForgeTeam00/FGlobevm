@@ -6,9 +6,9 @@ import type { YoastSEO } from "@/types/yoast";
 import SectionIntro from "@/components/global/SectionIntro";
 import React from "react";
 import Container from "@/components/global/Sections/Container";
-import JsonLd from "@/components/global/JsonLd";
-import { webPageSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schemas";
-import { SITE } from "@/lib/seo/site-config";
+import { JsonLd } from "@/components/JsonLd";
+import { faqPageSchema } from "@/lib/schema/builders";
+
 
 export async function generateMetadata(): Promise<Metadata> {
     const data = await getFAQCategories();
@@ -40,26 +40,17 @@ export default async function FAQPage() {
             answer: q.answer,
         }))
     );
-
-    const schemas: object[] = [
-        webPageSchema({
+    const schema = faqPageSchema(
+        {
             title: yoast?.title || "FAQ | GlobeVM",
-            url: `${SITE.url}/faq/`,
             description: yoast?.description || "Frequently asked questions about GlobeVM IT and cybersecurity services.",
-        }),
-        breadcrumbSchema([
-            { name: "Home", url: `${SITE.url}/` },
-            { name: "FAQ", url: `${SITE.url}/faq/` },
-        ]),
-    ];
-
-    if (allFaqs.length > 0) {
-        schemas.push(faqSchema(allFaqs));
-    }
+        },
+        allFaqs,
+    );
 
     return (
         <>
-            <JsonLd data={schemas} />
+            <JsonLd data={schema} />
             <div className={"min-h-screen mt-10"}>
                 <Container>
                     <div className={"flex flex-col lg:gap-10 gap-6 px-4 lg:px-2"}>
