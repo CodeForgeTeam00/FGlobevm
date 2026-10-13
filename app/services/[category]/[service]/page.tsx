@@ -20,9 +20,8 @@ import { FAQAccordion } from "@/components/global/FAQAccordion";
 import SectionIntro from "@/components/global/SectionIntro";
 import React from "react";
 import Image from "next/image";
-import JsonLd from "@/components/global/JsonLd";
-import { webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
-import { SITE } from "@/lib/seo/site-config";
+import { JsonLd } from "@/components/JsonLd";
+import { serviceDetailSchema } from "@/lib/schema/builders";
 import SeoBoxSection from "@/components/global/SeoBoxSection";
 import Text from "@/components/global/text";
 
@@ -94,22 +93,21 @@ export default async function ServicePage({ params, searchParams }: Props) {
     const yoast = data?.yoast_head_json as YoastSEO | undefined;
     const pageTitle = data?.title || hero.title || "Service";
 
-    const schemas: object[] = [
-        webPageSchema({
+    const schema = serviceDetailSchema(
+        `/services/${category}/${service}/`,
+        {
             title: yoast?.title || pageTitle,
-            url: `${SITE.url}/services/${category}/${service}/`,
             description: yoast?.description || hero.description || "",
-        }),
-        breadcrumbSchema([
-            { name: "Home", url: `${SITE.url}/` },
-            { name: "Services", url: `${SITE.url}/services/` },
-            { name: pageTitle, url: `${SITE.url}/services/${category}/${service}/` },
-        ]),
-    ];
+        },
+        faqBox?.faq?.map((f: { question: string; answer: string }) => ({
+            question: f.question,
+            answer: f.answer,
+        })),
+    );
 
     return (
         <>
-            <JsonLd data={schemas} />
+            <JsonLd data={schema} />
             <div className="relative">
                 {(isEnabled || isPreview) && (
                     <PreviewBar slug={service} type="services" />

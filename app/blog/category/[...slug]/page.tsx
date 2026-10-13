@@ -8,9 +8,8 @@ import SeoBoxSection from "@/components/global/SeoBoxSection";
 import type { Metadata } from "next";
 import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
-import JsonLd from "@/components/global/JsonLd";
-import { webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
-import { SITE } from "@/lib/seo/site-config";
+import { JsonLd } from "@/components/JsonLd";
+import { categorySchema } from "@/lib/schema/builders";
 
 interface Props {
     params: Promise<{ slug: string[] }>;
@@ -95,34 +94,13 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     const yoast = category?.yoast_head_json as YoastSEO | undefined;
     const categoryName = category?.name || categorySlug.replace(/-/g, " ");
 
-    const breadcrumbItems: Array<{ name: string; url: string }> = [
-        { name: "Home", url: `${SITE.url}/` },
-        { name: "Blog", url: `${SITE.url}/blog/` },
-    ];
-
-    if (isSubcategory) {
-        breadcrumbItems.push({
-            name: parentSlug.replace(/-/g, " "),
-            url: `${SITE.url}/blog/category/${parentSlug}/`,
-        });
-    }
-
-    breadcrumbItems.push({
-        name: categoryName,
-        url: `${SITE.url}/blog/category/${slug.join("/")}/`,
+    const schema = categorySchema(categorySlug, {
+        title: yoast?.title || `${categoryName} Articles`,
+        description: yoast?.description || `Browse all articles in ${categoryName} category on GlobeVM blog.`,
     });
-
-    const schemas: object[] = [
-        webPageSchema({
-            title: yoast?.title || `${categoryName} Articles`,
-            url: `${SITE.url}/blog/category/${slug.join("/")}/`,
-            description: yoast?.description || `Browse all articles in ${categoryName} category on GlobeVM blog.`,
-        }),
-        breadcrumbSchema(breadcrumbItems),
-    ];
     return (
         <>
-            <JsonLd data={schemas} />
+            <JsonLd data={schema} />
             <Container>
                 <div className="py-4 lg:py-10">
                     <div className="text-sm text-gray-400 mb-2">

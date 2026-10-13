@@ -10,9 +10,8 @@ import type {Metadata} from "next";
 import {yoastToMetadata} from "@/lib/yoast-to-metadata";
 import type {YoastSEO} from "@/types/yoast";
 import PrimarySection from "@/components/global/PrimarySection";
-import JsonLd from "@/components/global/JsonLd";
-import {organizationSchema, webPageSchema, breadcrumbSchema, faqSchema} from "@/lib/seo/schemas";
-import {SITE} from "@/lib/seo/site-config";
+import { JsonLd } from "@/components/JsonLd";
+import { aboutSchema } from "@/lib/schema/builders";
 import {StatsBar} from "@/components/page/AboutUs/StatsBar";
 import {TrustedBy} from "@/components/global/TrustedBy";
 import {getBusinessPartner, getGlobalOptions, getServicePagesCards} from "@/services/wp-options";
@@ -43,23 +42,18 @@ export default async function AboutUsPage() {
     ]);
     const yoast = data?.yoast_head_json as YoastSEO | undefined;
 
-    const schemas: object[] = [
-        organizationSchema(),
-        webPageSchema({
+    const schema = aboutSchema(
+        {
             title: yoast?.title || "About Us | GlobeVM",
-            url: `${SITE.url}/about-us/`,
-            description: yoast?.description ||
-                "Learn about GlobeVM Digital Services, our team, and our mission to provide managed IT and cybersecurity solutions.",
-        }),
-        breadcrumbSchema([
-            {name: "Home", url: `${SITE.url}/`},
-            {name: "About Us", url: `${SITE.url}/about-us/`},
-        ]),
-    ];
+            description: yoast?.description || "Learn about GlobeVM Digital Services, our team, and our mission to provide managed IT and cybersecurity solutions.",
+        },
+        data?.faq_section?.map((f) => ({ question: f.question, answer: f.answer })),
+    );
+
 
     return (
         <>
-            <JsonLd data={schemas}/>
+            <JsonLd data={schema}/>
             <div className="relative">
                 <HeroSection featuredImage={data?.image}/>
                 <StatsBar/>

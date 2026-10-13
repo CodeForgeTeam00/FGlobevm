@@ -17,9 +17,8 @@ import type { YoastSEO } from "@/types/yoast";
 import SeoBoxSection from "@/components/global/SeoBoxSection";
 import SocialBanner from "@/components/global/SocialBanner";
 import { getSocialMedia } from "@/services/wp-options";
-import JsonLd from "@/components/global/JsonLd";
-import { webPageSchema, breadcrumbSchema } from "@/lib/seo/schemas";
-import { SITE } from "@/lib/seo/site-config";
+import { JsonLd } from "@/components/JsonLd";
+import { blogIndexSchema } from "@/lib/schema/builders";
 
 export async function generateMetadata(): Promise<Metadata> {
     const data = await getBlog();
@@ -65,23 +64,14 @@ export default async function Blog() {
 
     const yoast = data?.yoast_head_json as YoastSEO | undefined;
 
-    const schemas: object[] = [
-        webPageSchema({
-            title: yoast?.title || "Blog | GlobeVM",
-            url: `${SITE.url}/blog/`,
-            description:
-                yoast?.description ||
-                "Latest insights on IT infrastructure, cybersecurity, and cloud solutions from GlobeVM.",
-        }),
-        breadcrumbSchema([
-            { name: "Home", url: `${SITE.url}/` },
-            { name: "Blog", url: `${SITE.url}/blog/` },
-        ]),
-    ];
+    const schema = blogIndexSchema({
+        title: yoast?.title || "Blog | GlobeVM",
+        description: yoast?.description || "Latest insights on IT infrastructure, cybersecurity, and cloud solutions from GlobeVM.",
+    });
 
     return (
         <>
-            <JsonLd data={schemas} />
+            <JsonLd data={schema} />
             <div className='w-full max-w-[1540px] mx-auto px-4 xl:px-0 '>
                 <div className="flex flex-col gap-6 lg:gap-14">
                     <div className="flex flex-col gap-6 lg:gap-14 lg:mt-10">

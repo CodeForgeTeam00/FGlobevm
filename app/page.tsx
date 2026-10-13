@@ -18,9 +18,8 @@ import { yoastToMetadata } from "@/lib/yoast-to-metadata";
 import type { YoastSEO } from "@/types/yoast";
 import PrimarySection from "@/components/global/PrimarySection";
 import Text from "@/components/global/text";
-import JsonLd from "@/components/global/JsonLd";
-import { organizationSchema, webPageSchema, faqSchema } from "@/lib/seo/schemas";
-import { SITE } from "@/lib/seo/site-config";
+import { JsonLd } from "@/components/JsonLd";
+import { homeSchema } from "@/lib/schema/builders";
 import {NewHeroSection} from "@/components/page/Home/HeroSection/NewHeroSection";
 import React from "react";
 import {getServiceCategoryCards} from "@/services/wp-services";
@@ -65,18 +64,17 @@ export default async function Home() {
         return <div className="p-10">Failed to load page data.</div>;
     }
     const yoast = options?.yoast_head_json as YoastSEO | undefined;
-    const schemas: object[] = [
-        organizationSchema(),
-        webPageSchema({
+    const schema = homeSchema(
+        {
             title: yoast?.title || "GlobeVM | Managed IT, Cybersecurity & Cloud Services in Los Angeles",
-            url: `${SITE.url}/`,
             description: yoast?.description || "Enterprise-grade managed IT, cybersecurity, and cloud solutions for businesses in Los Angeles, Encino, and Woodland Hills.",
-        }),
-    ];
+        },
+        data.faq.map((f) => ({ question: f.question, answer: f.answer })),
+    );
 
     return (
         <>
-            <JsonLd data={schemas} />
+            <JsonLd data={schema} />
             <div className="relative ">
                 <Image
                     className="absolute hidden lg:inline top-[160px]"
