@@ -57,7 +57,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
 
     const yoast = raw.yoast_head_json as YoastSEO | undefined;
 
-    const headline = yoast?.title || data.title || "";
+    const headline = data.title || yoast?.title || "";
     const description = yoast?.description || data.description || "";
     const datePublished = yoast?.article_published_time || raw.date || "";
     const dateModified = yoast?.article_modified_time || raw.modified || datePublished;
