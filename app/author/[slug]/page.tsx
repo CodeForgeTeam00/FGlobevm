@@ -86,7 +86,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
     if (!author) notFound();
 
     const blog = mapBlogsResponse(rawBlog);
-    const basePath = `/blog/author/${slug}`;
+    const basePath = `/author/${slug}`;
 
     const socials = Object.entries(author.socials || {}).filter(
         ([, url]) => url && url.trim() !== ""
@@ -101,16 +101,19 @@ export default async function AuthorPage({ params, searchParams }: Props) {
         params.set("sort", sortValue);
         return `${basePath}?${params.toString()}`;
     }
-    const schema = authorSchema(
-        slug as PersonKey,
-        {
-            title: `${author.name} - Author at GlobeVM`,
-            description: author.description || `Articles written by ${author.name} on GlobeVM blog.`,
-        },
-    );
+    const isKnownAuthor = ['george-mansoor', 'nazy-rafaeil'].includes(slug);
+    const schema = isKnownAuthor
+        ? authorSchema(
+            slug as PersonKey,
+            {
+                title: `${author.name} - Author at GlobeVM`,
+                description: author.description || `Articles written by ${author.name} on GlobeVM blog.`,
+            },
+        )
+        : null;
     return (
         <>
-            <JsonLd data={schema} />
+            {schema && <JsonLd data={schema} />}
             <div>
                 {/* ========= HERO ========= */}
                 <div className="relative bg-primary-7 overflow-hidden lg:h-[410px]">
