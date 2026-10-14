@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Container from "@/components/global/Sections/Container";
 import PrimarySection from "@/components/global/PrimarySection";
 import { JsonLd } from "@/components/JsonLd";
-import { serviceHubSchema } from "@/lib/schema/builders";
+import { serviceHubSchema, industriesIndexSchema } from "@/lib/schema/builders";
 import { FAQAccordion } from "@/components/global/FAQAccordion";
 import { ContactCTA } from "@/components/page/Home/ContactCTA";
 import { CategoryServiceHero } from "@/components/page/ServiceCategory/HeroSection";
@@ -56,17 +56,22 @@ export default async function ServiceCategoryPage({ params }: Props) {
     const seoBox = acf.seo_box
     const pageTitle = hero.title || data.name || "Services";
     const blogData = mapBlogsResponse(rawPosts);
-    const schema = serviceHubSchema(
-        `/services/${category}/`,
-        {
+    const schema = category === "industries"
+        ? industriesIndexSchema({
             title: pageTitle,
             description: hero.description || "",
-        },
-        faqs?.faq?.map((f: { question: string; answer: string }) => ({
-            question: f.question,
-            answer: f.answer,
-        })),
-    );
+        })
+        : serviceHubSchema(
+            `/services/${category}/`,
+            {
+                title: pageTitle,
+                description: hero.description || "",
+            },
+            faqs?.faq?.map((f: { question: string; answer: string }) => ({
+                question: f.question,
+                answer: f.answer,
+            })),
+        );
 
     return (
         <>
