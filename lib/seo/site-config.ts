@@ -5,7 +5,7 @@ export const SITE = {
     telephone: "+1-310-750-4939",
     email: "info@globevm.com",
     address: {
-        streetAddress: "20501 Ventura Blvd # 114",
+        streetAddress: "Address 20005 Gypsy lane woodland hills ca 91364",
         addressLocality: "Woodland Hills",
         addressRegion: "CA",
         postalCode: "91364",
