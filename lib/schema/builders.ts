@@ -122,28 +122,15 @@ function isEmpty(value: unknown): boolean {
 }
 
 /**
- * ISO 8601 with the Los Angeles offset, e.g. "2026-09-07T23:24:00-07:00".
- * Pass WordPress *_gmt values (REST: date_gmt / modified_gmt, WPGraphQL: dateGmt / modifiedGmt).
+ * ISO 8601 in UTC, e.g. "2026-06-13T00:30:00+00:00".
+ * Pass WordPress *_gmt values (REST: date_gmt / modified_gmt).
  * A value without a zone is treated as UTC.
  */
-export function toLaIso(value: string): string {
+export function toIso(value: string): string {
     const hasZone = /([zZ]|[+-]\d{2}:?\d{2})$/.test(value);
     const date = new Date(hasZone ? value : `${value.replace(' ', 'T')}Z`);
     if (Number.isNaN(date.getTime())) throw new Error(`Invalid date: ${value}`);
-    const parts = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'America/Los_Angeles',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hourCycle: 'h23',
-        timeZoneName: 'longOffset',
-    }).formatToParts(date);
-    const get = (type: Intl.DateTimeFormatPartTypes) => parts.find((p) => p.type === type)?.value ?? '';
-    const offset = get('timeZoneName').replace('GMT', '') || '+00:00';
-    return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}:${get('second')}${offset}`;
+    return date.toISOString().replace('.000Z', '+00:00');
 }
 
 /** dateModified can never be earlier than datePublished. */
@@ -648,8 +635,8 @@ export interface BlogPostInput {
 export function blogPostSchema(post: BlogPostInput): JsonLdGraph {
     const url = absoluteUrl(post.path);
     const category = findCategory(post.categorySlug);
-    const datePublished = toLaIso(post.publishedGmt);
-    const dateModified = toLaIso(laterOf(post.publishedGmt, post.modifiedGmt));
+    const datePublished = toIso(post.publishedGmt);
+    const dateModified = toIso(laterOf(post.publishedGmt, post.modifiedGmt));
     const author = PEOPLE[post.author];
     const imageId = post.image ? `${url}#primaryimage` : undefined;
 
@@ -694,8 +681,8 @@ export function authorSchema(
         websiteNode(),
         {
             ...webPageNode({ type: 'ProfilePage', url, meta, mainEntity: ref(personId(key)) }),
-            dateCreated: dates?.createdGmt ? toLaIso(dates.createdGmt) : null,
-            dateModified: dates?.modifiedGmt ? toLaIso(dates.modifiedGmt) : null,
+            dateCreated: dates?.createdGmt ? toIso(dates.createdGmt) : null,
+            dateModified: dates?.modifiedGmt ? toIso(dates.modifiedGmt) : null,
         },
         personNode(key),
         breadcrumbNode(url, [home, crumb(PAGES.blog), { name: PEOPLE[key].name, path: `/blog/author/${PEOPLE[key].slug}/` }]),
