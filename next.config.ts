@@ -131,6 +131,21 @@ const nextConfig: NextConfig = {
             // =========================
             { source: "/why-choose-us", destination: "/about-us/", permanent: true },
             { source: "/george-mansoor", destination: "/about-us/", permanent: true },
+
+            // =========================
+            // BLOG REDIRECTS
+            // =========================
+            { source: "/blog/remote-work-cybersecurity", destination: "/blog/remote-work-security/", permanent: true },
+            { source: "/blog/outside-counsel-security-requirements", destination: "/blog/outside-counsel-guidelines-cybersecurity-2/", permanent: true },
+            { source: "/blog/why-healthcare-practices-outsource-it", destination: "/blog/healthcare-it-support/", permanent: true },
+            { source: "/blog/upskill-or-outsource-practice-it", destination: "/blog/healthcare-it-support/", permanent: true },
+            { source: "/blog/cybersecurity-compliance", destination: "/blog/security-compliance/", permanent: true },
+            { source: "/blog/enterprise-mobility-security-licensing", destination: "/blog/enterprise-mobility-and-security-licensing/", permanent: true },
+
+            // =========================
+            // INDEX REDIRECT
+            // =========================
+            { source: "/index", destination: "/", permanent: true },
         ];
     },
 
