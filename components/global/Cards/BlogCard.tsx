@@ -39,7 +39,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
         : "blog-card__content py-3 lg:py-4 px-2 flex w-full flex-col gap-2";
 
     return (
-        <Link href={`/blog/${slug}`} className={wrapperClasses}>
+        <div  className={wrapperClasses}>
             <div className="blog-card__image-wrapper  rounded-lg">
                 <Image
                     src={image?.url || ""}
@@ -53,18 +53,23 @@ const BlogCard: React.FC<BlogCardProps> = ({
                 <Text variant={"card-caption"} textColor={'primary'}>
                     {categoryName}
                 </Text>
-                <Text as={'h3'} variant={'card-title-md'} className={'lg:line-clamp-2 line-clamp-2 lg:min-h-16 min-h-14 '}>
-                    {title}
-                </Text>
+                <Link href={`/blog/${slug}`}>
+                    <Text as={'h3'} variant={'card-title-md'} className={'lg:line-clamp-2 line-clamp-2 lg:min-h-16 min-h-14 '}>
+                        {title}
+                    </Text>
+                </Link>
+
                 <div className="flex gap-2 lg:gap-4">
                     {showAuthor && author?.name && (
                         <div className=" text-footnote hidden md:flex lg:text-small gap-1">
                             <Text variant={'card-tag'} textColor={'black'}>
                                 By
                             </Text>
-                            <Text variant={'card-tag'} textColor={'light'}>
-                                {author.name}
-                            </Text>
+                            <Link href={`/author/${author.name}`}>
+                                <Text variant={'card-tag'} textColor={'light'}>
+                                    {author.name}
+                                </Text>
+                            </Link>
                         </div>
                     )}
                     <div className="flex gap-1">
@@ -75,7 +80,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
                     </div>
                 </div>
             </div>
-        </Link>
+        </div>
     );
 };
 
