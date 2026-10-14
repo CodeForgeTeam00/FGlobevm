@@ -78,8 +78,13 @@ export default async function BlogPage({ params, searchParams }: Props) {
             description,
         },
         headline,
-        image: data.image
-            ? { url: data.image.url, width: 1200, height: 630, alt: data.image.alt }
+        image: data.image?.url
+            ? {
+                url: data.image.url,
+                width: yoast?.og_image?.[0]?.width || 1200,
+                height: yoast?.og_image?.[0]?.height || 630,
+                alt: data.image.alt,
+            }
             : null,
         publishedGmt: raw.date_gmt || raw.date || "",
         modifiedGmt: raw.modified_gmt || raw.modified || "",

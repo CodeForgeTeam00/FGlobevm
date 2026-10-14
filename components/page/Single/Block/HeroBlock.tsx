@@ -48,7 +48,9 @@ export function Hero({ data }: { data: any }) {
                         unoptimized
                     />
                     <div className="flex items-center gap-4 text-sm">
-                        <span className="font-semibold text-gray-900">By {data.author.name}</span>
+                        <Link href={`/author/${data.author.name}`}>
+                            <span className="font-semibold text-gray-900">By {data.author.name}</span>
+                        </Link>
                         <div className="flex items-center gap-1.5 text-gray-500">
                             <Calendar className="w-4 h-4" />
                             <span>{new Date(data.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</span>
