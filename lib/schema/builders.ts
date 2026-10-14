@@ -94,7 +94,7 @@ const pageId = (url: string) => `${url}#webpage`;
 const personId = (key: PersonKey) => `${SITE_URL}/#person-${PEOPLE[key].slug}`;
 
 export function personUrl(key: PersonKey): string {
-    return AUTHOR_PAGES_LIVE ? absoluteUrl(`/blog/author/${PEOPLE[key].slug}/`) : absoluteUrl(PAGES.about.path);
+    return AUTHOR_PAGES_LIVE ? absoluteUrl(`/author/${PEOPLE[key].slug}/`) : absoluteUrl(PAGES.about.path);
 }
 
 /** Drop undefined, null, empty strings and empty arrays, recursively. Keeps 0 and false. */
@@ -675,7 +675,7 @@ export function authorSchema(
     meta: PageMeta,
     dates?: { createdGmt?: string; modifiedGmt?: string },
 ): JsonLdGraph {
-    const url = absoluteUrl(`/blog/author/${PEOPLE[key].slug}/`);
+    const url = absoluteUrl(`/author/${PEOPLE[key].slug}/`);
     return graph(
         organizationNode(),
         websiteNode(),
@@ -685,7 +685,7 @@ export function authorSchema(
             dateModified: dates?.modifiedGmt ? toIso(dates.modifiedGmt) : null,
         },
         personNode(key),
-        breadcrumbNode(url, [home, crumb(PAGES.blog), { name: PEOPLE[key].name, path: `/blog/author/${PEOPLE[key].slug}/` }]),
+        breadcrumbNode(url, [home, crumb(PAGES.blog), { name: PEOPLE[key].name, path: `/author/${PEOPLE[key].slug}/` }]),
     );
 }
 

@@ -86,7 +86,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
     if (!author) notFound();
 
     const blog = mapBlogsResponse(rawBlog);
-    const basePath = `/author/${slug}`;
+    const basePath = `/blog/author/${slug}`;
 
     const socials = Object.entries(author.socials || {}).filter(
         ([, url]) => url && url.trim() !== ""
