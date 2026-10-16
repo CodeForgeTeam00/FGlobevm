@@ -4,17 +4,10 @@ import { useState } from "react";
 import { MapPin } from "lucide-react";
 
 const OFFICES = [
-    {
-        name: "Woodland Hills",
-        address: "20501 Ventura Blvd # 114 Woodland Hills, CA 91364",
-    },
-    {
-        name: "Encino",
-        address: "16661 Ventura Blvd, #224B, Encino, CA 91436",
-    },
+
     {
         name: "Los Angeles",
-        address: "10680 W Pico Blvd, Suite #300B Los Angeles, CA 90064",
+        address: "20005 Gypsy lane woodland hills ca 91364",
     },
 ];
 

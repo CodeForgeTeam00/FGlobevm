@@ -32,7 +32,7 @@ const OFFICES = [
 
     {
         name: "Los Angeles",
-        address: "Address 20005 Gypsy lane woodland hills ca 91364",
+        address: "20005 Gypsy lane woodland hills ca 91364",
     },
 ];
 
