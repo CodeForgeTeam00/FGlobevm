@@ -21,7 +21,7 @@ export const HeroContent: React.FC = () => {
             label: content.secondaryBtn,
             icon: PhoneIcon,
             variant: "outline" as const,
-            href: "tel:(310)750-4939",
+            href: "tel:818-405-9930",
             internal: false,
         },
     ];
