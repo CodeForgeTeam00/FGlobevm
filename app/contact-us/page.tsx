@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const INFO_CARDS = [
-    { icon: Phone, title: "Contact Number", value: "(310) 750-4939", highlight: false },
+    { icon: Phone, title: "Contact Number", value: "(818) 405 9930", highlight: false },
     { icon: Mail, title: "Email", value: "info@globevm.com", highlight: false },
     { icon: Briefcase, title: "Working hours", value: "24 hours", highlight: false },
 ];
