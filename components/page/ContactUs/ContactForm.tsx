@@ -195,7 +195,7 @@ export function ContactForm() {
                                 name="phone"
                                 value={form.phone}
                                 onChange={handleChange}
-                                placeholder="e.g: (310) 750-4939"
+                                placeholder="e.g:818-405-9930"
                                 className={inputBase}
                             />
                         </div>

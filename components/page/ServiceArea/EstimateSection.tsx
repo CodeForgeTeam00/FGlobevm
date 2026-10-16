@@ -29,7 +29,7 @@ export default function EstimateSection({ label, title, description }: Props) {
                             <div className={'flex gap-2 items-center'}>
                                 <PhoneIcon className="text-neutral-0 w-6 h-6" />
                                 <Text textColor={'white'}>
-                                    Call (310) 750-4939
+                                    Call 818-405-9930
                                 </Text>
                             </div>
                         </Button>
