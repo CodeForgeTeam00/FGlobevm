@@ -378,7 +378,7 @@ function findChild(path: string) {
         const child = hub.children.find((c) => c.path === path);
         if (child) return { hub, child };
     }
-    throw new Error(`Unknown service page: ${path}`);
+    return null;
 }
 
 function findIndustry(path: string) {
@@ -486,7 +486,9 @@ export function serviceHubSchema(path: string, meta: PageMeta, faqs?: FaqItem[])
 
 /** "/services/<hub>/<service>/" (22 pages) */
 export function serviceDetailSchema(path: string, meta: PageMeta, faqs?: FaqItem[]): JsonLdGraph {
-    const { hub, child } = findChild(path);
+    const result = findChild(path);
+    if (!result) return null;
+    const { hub, child } = result;
     const url = absoluteUrl(child.path);
     return graph(
         organizationNode(),
