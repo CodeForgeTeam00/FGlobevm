@@ -3,10 +3,15 @@
  * JSON-LD builders for www.globevm.com (Next.js App Router).
  *
  * 1. Every page outputs ONE <script type="application/ld+json"> holding ONE @graph.
+ *    Render it with serializeJsonLd() so CMS text can never break out of the script tag.
  * 2. Nodes link with stable @id values: #organization, #website, #person-*, <url>#webpage,
  *    <url>#breadcrumb, <url>#service, <url>#article, <url>#primaryimage, <url>#faq, <url>#itemlist.
- * 3. Only visible content is marked up. Empty values are removed by compact().
- * 4. Lookups throw on unknown paths so a wrong slug fails the build instead of shipping bad markup.
+ * 3. Only visible content is marked up. Empty values, and objects left with nothing but an
+ *    @type, are removed by compact().
+ * 4. Lookups for config-defined pages (hubs, services, industries, areas, blog categories)
+ *    throw on unknown paths, so a wrong slug fails the build instead of shipping bad markup.
+ *    CMS-driven values (a post's category) only log a warning, so one bad post in WordPress
+ *    never takes a live page down.
  */
 
 import {
@@ -89,15 +94,32 @@ export function mediaUrl(url: string): string {
     return MEDIA_ON_WWW ? url.replace(BACKEND_ORIGIN, SITE_URL) : url;
 }
 
+/**
+ * Serialize a graph for <script type="application/ld+json">.
+ * JSON.stringify does not escape "<", so WordPress text containing "</script>" could break
+ * out of the tag (XSS). Replacing "<" with \u003c keeps the JSON identical for parsers.
+ *
+ * Usage:
+ *   <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+ */
+export function serializeJsonLd(data: JsonLdGraph): string {
+    return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
 const ref = (id: string): JsonLdNode => ({ '@id': id });
 const pageId = (url: string) => `${url}#webpage`;
+const authorPath = (key: PersonKey) => `/author/${PEOPLE[key].slug}/`;
 const personId = (key: PersonKey) => `${SITE_URL}/#person-${PEOPLE[key].slug}`;
 
 export function personUrl(key: PersonKey): string {
-    return AUTHOR_PAGES_LIVE ? absoluteUrl(`/author/${PEOPLE[key].slug}/`) : absoluteUrl(PAGES.about.path);
+    return absoluteUrl(AUTHOR_PAGES_LIVE ? authorPath(key) : PAGES.about.path);
 }
 
-/** Drop undefined, null, empty strings and empty arrays, recursively. Keeps 0 and false. */
+function founderKeys(): PersonKey[] {
+    return (Object.keys(PEOPLE) as PersonKey[]).filter((key) => PEOPLE[key].isFounder);
+}
+
+/** Drop undefined, null, empty strings, empty arrays and @type-only objects, recursively. Keeps 0 and false. */
 function compact<T>(value: T): T {
     if (Array.isArray(value)) {
         return value.map((item) => compact(item)).filter((item) => !isEmpty(item)) as unknown as T;
@@ -117,32 +139,44 @@ function isEmpty(value: unknown): boolean {
     if (value === undefined || value === null) return true;
     if (typeof value === 'string') return value.trim() === '';
     if (Array.isArray(value)) return value.length === 0;
-    if (typeof value === 'object') return Object.keys(value as object).length === 0;
+    if (typeof value === 'object') {
+        // An object that only states its type carries no data, e.g. { "@type": "Organization" }.
+        const keys = Object.keys(value as object);
+        return keys.length === 0 || keys.every((key) => key === '@type');
+    }
     return false;
+}
+
+const HAS_ZONE = /([zZ]|[+-]\d{2}:?\d{2})$/;
+
+/** Parse a date string. A value without a zone (WordPress *_gmt) is treated as UTC. */
+function parseDate(value: string): Date {
+    const v = value.trim();
+    return new Date(HAS_ZONE.test(v) ? v : `${v.replace(' ', 'T')}Z`);
 }
 
 /**
  * ISO 8601 in UTC, e.g. "2026-06-13T00:30:00+00:00".
  * Pass WordPress *_gmt values (REST: date_gmt / modified_gmt).
- * A value without a zone is treated as UTC.
  */
 export function toIso(value: string): string {
-    const hasZone = /([zZ]|[+-]\d{2}:?\d{2})$/.test(value);
-    const date = new Date(hasZone ? value : `${value.replace(' ', 'T')}Z`);
+    const date = parseDate(value);
     if (Number.isNaN(date.getTime())) throw new Error(`Invalid date: ${value}`);
-    return date.toISOString().replace('.000Z', '+00:00');
+    return date.toISOString().replace(/\.\d{3}Z$/, '+00:00');
 }
 
 /** dateModified can never be earlier than datePublished. */
 function laterOf(publishedGmt: string, modifiedGmt: string): string {
-    const toUtc = (v: string) => new Date(/([zZ]|[+-]\d{2}:?\d{2})$/.test(v) ? v : `${v.replace(' ', 'T')}Z`).getTime();
-    return toUtc(modifiedGmt) > toUtc(publishedGmt) ? modifiedGmt : publishedGmt;
+    return parseDate(modifiedGmt).getTime() > parseDate(publishedGmt).getTime() ? modifiedGmt : publishedGmt;
 }
 
 export function graph(...nodes: Array<JsonLdNode | null | undefined | false>): JsonLdGraph {
     return {
         '@context': 'https://schema.org',
-        '@graph': nodes.filter((node): node is JsonLdNode => Boolean(node)).map((node) => compact(node)),
+        '@graph': nodes
+            .filter((node): node is JsonLdNode => Boolean(node))
+            .map((node) => compact(node))
+            .filter((node) => !isEmpty(node)),
     };
 }
 
@@ -158,7 +192,6 @@ function areaNode(key: AreaKey): JsonLdNode {
 /** The business. Same node on every page; founders are added on the About page only. */
 export function organizationNode(options: { withFounders?: boolean } = {}): JsonLdNode {
     const b = BUSINESS;
-    const founders = (Object.keys(PEOPLE) as PersonKey[]).filter((key) => PEOPLE[key].isFounder);
     return {
         '@type': 'LocalBusiness',
         '@id': IDS.organization,
@@ -196,7 +229,7 @@ export function organizationNode(options: { withFounders?: boolean } = {}): Json
         ],
         knowsAbout: b.knowsAbout,
         foundingDate: b.foundingDate,
-        founder: options.withFounders ? founders.map((key) => ref(personId(key))) : [],
+        founder: options.withFounders ? founderKeys().map((key) => ref(personId(key))) : [],
         sameAs: [...b.sameAs, b.googleBusinessProfileUrl],
     };
 }
@@ -234,7 +267,7 @@ export function personNode(key: PersonKey): JsonLdNode {
     };
 }
 
-export function breadcrumbNode(url: string, crumbs: Crumb[]): JsonLdNode {
+export function breadcrumbNode(url: string, crumbs: readonly Crumb[]): JsonLdNode {
     return {
         '@type': 'BreadcrumbList',
         '@id': `${url}#breadcrumb`,
@@ -282,10 +315,10 @@ interface ServiceInput {
     name: string;
     serviceType: string;
     description: string;
-    areas?: AreaKey[];
+    areas?: readonly AreaKey[];
     audience?: string;
     category?: string;
-    catalog?: ServiceEntry[];
+    catalog?: readonly ServiceEntry[];
 }
 
 export function serviceNode(input: ServiceInput): JsonLdNode {
@@ -319,7 +352,7 @@ export function serviceNode(input: ServiceInput): JsonLdNode {
     };
 }
 
-function questions(items: FaqItem[]): JsonLdNode[] {
+function questions(items: readonly FaqItem[]): JsonLdNode[] {
     return items.map((item) => ({
         '@type': 'Question',
         name: item.question,
@@ -327,13 +360,17 @@ function questions(items: FaqItem[]): JsonLdNode[] {
     }));
 }
 
-/** Optional FAQ block for pages whose main content is something else (posts, services). */
-export function faqNode(url: string, items?: FaqItem[]): JsonLdNode | null {
+/**
+ * Optional FAQ block for pages whose main content is something else (posts, services).
+ * Google stopped showing FAQ rich results on May 7, 2026, so this earns no Search feature.
+ * Pass items only when the FAQ is visible on the page; never for hidden or decorative Q&A.
+ */
+export function faqNode(url: string, items?: readonly FaqItem[]): JsonLdNode | null {
     if (!items?.length) return null;
     return { '@type': 'FAQPage', '@id': `${url}#faq`, mainEntity: questions(items) };
 }
 
-function itemListNode(url: string, entries: Array<{ name: string; path: string }>): JsonLdNode {
+function itemListNode(url: string, entries: ReadonlyArray<{ name: string; path: string }>): JsonLdNode {
     return {
         '@type': 'ItemList',
         '@id': `${url}#itemlist`,
@@ -364,7 +401,7 @@ const home: Crumb = { name: PAGES.home.label, path: PAGES.home.path };
 const crumb = (page: { label: string; path: string }): Crumb => ({ name: page.label, path: page.path });
 
 /* ------------------------------------------------------------------ */
-/* Lookups (throw on unknown paths)                                    */
+/* Lookups (config-defined pages throw on unknown paths)               */
 /* ------------------------------------------------------------------ */
 
 function findHub(path: string) {
@@ -393,6 +430,7 @@ function findArea(path: string) {
     return area;
 }
 
+/** Returns null on unknown slugs; each caller decides whether that is fatal. */
 function findCategory(slug: string) {
     return BLOG_CATEGORIES.find((c) => c.slug === slug) ?? null;
 }
@@ -412,15 +450,18 @@ export function homeSchema(meta: PageMeta, faqs?: FaqItem[]): JsonLdGraph {
     );
 }
 
+/** People shown on the About page. Founders are always added too, so every founder @id resolves. */
+const ABOUT_PEOPLE: readonly PersonKey[] = ['george-mansoor', 'nazy-rafaeil'];
+
 /** "/about-us/" */
 export function aboutSchema(meta: PageMeta, faqs?: FaqItem[]): JsonLdGraph {
     const url = absoluteUrl(PAGES.about.path);
+    const people = Array.from(new Set<PersonKey>([...founderKeys(), ...ABOUT_PEOPLE]));
     return graph(
         organizationNode({ withFounders: true }),
         websiteNode(),
         webPageNode({ type: 'AboutPage', url, meta, about: IDS.organization, mainEntity: ref(IDS.organization) }),
-        personNode('george-mansoor'),
-        personNode('nazy-rafaeil'),
+        ...people.map((key) => personNode(key)),
         breadcrumbNode(url, [home, crumb(PAGES.about)]),
         faqNode(url, faqs),
     );
@@ -484,7 +525,7 @@ export function serviceHubSchema(path: string, meta: PageMeta, faqs?: FaqItem[])
     );
 }
 
-/** "/services/<hub>/<service>/" (22 pages) */
+/** "/services/<hub>/<service>/" (22 pages). Throws on an unknown path, like every other lookup. */
 export function serviceDetailSchema(path: string, meta: PageMeta, faqs?: FaqItem[]): JsonLdGraph {
     const { hub, child } = findChild(path);
     const url = absoluteUrl(child.path);
@@ -606,7 +647,7 @@ export function blogIndexSchema(meta: PageMeta): JsonLdGraph {
     );
 }
 
-/** "/blog/category/<slug>/" (6 pages) */
+/** "/blog/category/<slug>/" (6 pages). Config-defined, so an unknown slug throws. */
 export function categorySchema(slug: string, meta: PageMeta): JsonLdGraph {
     const category = findCategory(slug);
     if (!category) throw new Error(`Unknown blog category: ${slug}`);
@@ -627,14 +668,19 @@ export interface BlogPostInput {
     publishedGmt: string; // WordPress date_gmt
     modifiedGmt: string; // WordPress modified_gmt
     author: PersonKey; // must match the visible byline
-    categorySlug: string; // primary category slug
+    categorySlug: string; // primary category slug ("" if the post has none)
     faqs?: FaqItem[]; // only if the post shows an FAQ section
 }
 
 /** "/blog/<slug>/" (251 posts) */
 export function blogPostSchema(post: BlogPostInput): JsonLdGraph {
     const url = absoluteUrl(post.path);
-    const category = findCategory(post.categorySlug);
+    const category = post.categorySlug ? findCategory(post.categorySlug) : null;
+    if (post.categorySlug && !category) {
+        // Posts come from WordPress, so do not throw here: a throw at request time would 500 the page.
+        // The warning shows in the build output and Vercel logs so the category can be fixed.
+        console.warn(`[schema] Unknown blog category "${post.categorySlug}" on ${post.path}; left out of the markup.`);
+    }
     const datePublished = toIso(post.publishedGmt);
     const dateModified = toIso(laterOf(post.publishedGmt, post.modifiedGmt));
     const author = PEOPLE[post.author];
@@ -660,6 +706,7 @@ export function blogPostSchema(post: BlogPostInput): JsonLdGraph {
             author: { '@type': 'Person', '@id': personId(post.author), name: author.name, url: personUrl(post.author) },
             publisher: ref(IDS.organization),
             mainEntityOfPage: ref(pageId(url)),
+            isPartOf: ref(IDS.blog),
             articleSection: category?.name,
             inLanguage: 'en-US',
         },
@@ -669,13 +716,14 @@ export function blogPostSchema(post: BlogPostInput): JsonLdGraph {
     );
 }
 
-/** "/blog/author/<slug>/" (create these pages first; then set AUTHOR_PAGES_LIVE = true) */
+/** "/author/<slug>/" (route: app/author/[slug]/page.tsx). Set AUTHOR_PAGES_LIVE = true once these pages exist. */
 export function authorSchema(
     key: PersonKey,
     meta: PageMeta,
     dates?: { createdGmt?: string; modifiedGmt?: string },
 ): JsonLdGraph {
-    const url = absoluteUrl(`/author/${PEOPLE[key].slug}/`);
+    const path = authorPath(key);
+    const url = absoluteUrl(path);
     return graph(
         organizationNode(),
         websiteNode(),
@@ -685,7 +733,7 @@ export function authorSchema(
             dateModified: dates?.modifiedGmt ? toIso(dates.modifiedGmt) : null,
         },
         personNode(key),
-        breadcrumbNode(url, [home, crumb(PAGES.blog), { name: PEOPLE[key].name, path: `/author/${PEOPLE[key].slug}/` }]),
+        breadcrumbNode(url, [home, crumb(PAGES.blog), { name: PEOPLE[key].name, path }]),
     );
 }
 
@@ -710,7 +758,7 @@ export interface VideoInput {
     name: string;
     description: string;
     thumbnailUrl: string;
-    uploadDate: string; // ISO 8601 WITH timezone
+    uploadDate: string; // ISO 8601; a value without a zone is treated as UTC
     duration?: string; // ISO 8601 duration, e.g. "PT2M30S"
     embedUrl?: string; // e.g. "https://www.youtube.com/embed/<id>"
     contentUrl?: string; // direct file URL, if self-hosted
@@ -723,10 +771,10 @@ export function videoNode(video: VideoInput): JsonLdNode {
         '@id': `${video.pageUrl}#video-${video.videoId}`,
         name: video.name,
         description: video.description,
-        thumbnailUrl: [video.thumbnailUrl],
-        uploadDate: video.uploadDate,
+        thumbnailUrl: [mediaUrl(video.thumbnailUrl)],
+        uploadDate: toIso(video.uploadDate),
         duration: video.duration,
         embedUrl: video.embedUrl,
-        contentUrl: video.contentUrl,
+        contentUrl: video.contentUrl ? mediaUrl(video.contentUrl) : undefined,
     };
 }
