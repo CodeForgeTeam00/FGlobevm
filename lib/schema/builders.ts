@@ -404,29 +404,48 @@ const crumb = (page: { label: string; path: string }): Crumb => ({ name: page.la
 /* Lookups (config-defined pages throw on unknown paths)               */
 /* ------------------------------------------------------------------ */
 
+/** "/Services/Foo" and "services/foo/" both become "/services/foo/", so config and route paths always compare equal. */
+function normalizePath(path: string): string {
+    const clean = path.trim().toLowerCase().split(/[?#]/)[0];
+    const withLead = clean.startsWith('/') ? clean : `/${clean}`;
+    return withLead.endsWith('/') ? withLead : `${withLead}/`;
+}
+
+const samePath = (a: string, b: string) => normalizePath(a) === normalizePath(b);
+
+/** Error that lists the paths config.ts does know, so a missing or misspelled entry is obvious. */
+function unknownPath(kind: string, path: string, known: ReadonlyArray<{ path: string }>): Error {
+    const list = known.map((k) => k.path).join(', ') || '(none)';
+    return new Error(`Unknown ${kind}: ${path}. Add it to config.ts or fix the slug. Known: ${list}`);
+}
+
 function findHub(path: string) {
-    const hub = SERVICE_HUBS.find((h) => h.path === path);
-    if (!hub) throw new Error(`Unknown service hub: ${path}`);
+    const hub = SERVICE_HUBS.find((h) => samePath(h.path, path));
+    if (!hub) throw unknownPath('service hub', path, SERVICE_HUBS);
     return hub;
 }
 
 function findChild(path: string) {
     for (const hub of SERVICE_HUBS) {
-        const child = hub.children.find((c) => c.path === path);
+        const child = hub.children.find((c) => samePath(c.path, path));
         if (child) return { hub, child };
     }
-    throw new Error(`Unknown service page: ${path}`);
+    throw unknownPath('service page', path, SERVICE_HUBS.flatMap((h) => h.children));
+}
+
+function isIndustryPath(path: string): boolean {
+    return normalizePath(path).startsWith(normalizePath(PAGES.industries.path));
 }
 
 function findIndustry(path: string) {
-    const industry = INDUSTRIES.find((i) => i.path === path);
-    if (!industry) throw new Error(`Unknown industry page: ${path}`);
+    const industry = INDUSTRIES.find((i) => samePath(i.path, path));
+    if (!industry) throw unknownPath('industry page', path, INDUSTRIES);
     return industry;
 }
 
 function findArea(path: string) {
-    const area = SERVICE_AREAS.find((a) => a.path === path);
-    if (!area) throw new Error(`Unknown service area page: ${path}`);
+    const area = SERVICE_AREAS.find((a) => samePath(a.path, path));
+    if (!area) throw unknownPath('service area page', path, SERVICE_AREAS);
     return area;
 }
 
@@ -525,8 +544,13 @@ export function serviceHubSchema(path: string, meta: PageMeta, faqs?: FaqItem[])
     );
 }
 
-/** "/services/<hub>/<service>/" (22 pages). Throws on an unknown path, like every other lookup. */
+/**
+ * "/services/<hub>/<service>/" (22 pages). Throws on an unknown path, like every other lookup.
+ * app/services/[category]/[service]/page.tsx also serves "/services/industries/<industry>/",
+ * so industry paths are handed to industrySchema here and the page needs no special case.
+ */
 export function serviceDetailSchema(path: string, meta: PageMeta, faqs?: FaqItem[]): JsonLdGraph {
+    if (isIndustryPath(path)) return industrySchema(path, meta, faqs);
     const { hub, child } = findChild(path);
     const url = absoluteUrl(child.path);
     return graph(
@@ -590,6 +614,9 @@ export function industrySchema(path: string, meta: PageMeta, faqs?: FaqItem[]): 
         faqNode(url, faqs),
     );
 }
+
+/** Alias kept for pages already switched to it; serviceDetailSchema handles both page kinds itself. */
+export const serviceRouteSchema = serviceDetailSchema;
 
 /** "/service-area/" */
 export function serviceAreasIndexSchema(meta: PageMeta, faqs?: FaqItem[]): JsonLdGraph {
